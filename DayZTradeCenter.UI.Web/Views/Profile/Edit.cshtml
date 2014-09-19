@@ -4,7 +4,11 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Profile</h2>
+<div class="page-header">
+    <h1>Profile</h1>
+    @Html.DisplayNameFor(model => model.Reputation)
+    <span class="badge">@Html.DisplayFor(model => model.Reputation)</span>
+</div>
 
 @using (Html.BeginForm())
 {
@@ -39,7 +43,3 @@
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

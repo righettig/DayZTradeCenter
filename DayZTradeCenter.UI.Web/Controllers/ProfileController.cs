@@ -77,12 +77,13 @@ namespace DayZTradeCenter.UI.Web.Controllers
         public async Task<ActionResult> Edit()
         {
             var user = await GetCurrentUser();
-
+            
             var vm = new ProfileViewModel
             {
                 Id = user.Id,
                 Username = user.UserName,
-                Email = user.Email
+                Email = user.Email,
+                Reputation = user.GetReputation()
             };
 
             return View(vm);

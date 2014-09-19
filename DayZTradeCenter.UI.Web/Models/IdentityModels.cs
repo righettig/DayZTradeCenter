@@ -16,6 +16,11 @@ namespace DayZTradeCenter.UI.Web.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public float GetReputation()
+        {
+            return 0;
+        }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
