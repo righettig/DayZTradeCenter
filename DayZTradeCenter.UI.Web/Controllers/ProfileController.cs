@@ -18,14 +18,16 @@ namespace DayZTradeCenter.UI.Web.Controllers
         public ProfileController()
         {
         }
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfileController"/> class.
         /// </summary>
         /// <param name="userManager">The user manager.</param>
-        public ProfileController(ApplicationUserManager userManager)
+        /// <param name="signInManager">The sign in manager.</param>
+        public ProfileController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
+            SignInManager = signInManager;
         }
 
         #endregion
