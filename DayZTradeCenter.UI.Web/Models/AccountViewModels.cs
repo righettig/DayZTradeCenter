@@ -6,6 +6,7 @@ namespace DayZTradeCenter.UI.Web.Models
     {
         [Required]
         [Display(Name = "Email")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [Required]
@@ -16,5 +17,10 @@ namespace DayZTradeCenter.UI.Web.Models
     public class ExternalLoginListViewModel
     {
         public string ReturnUrl { get; set; }
+    }
+
+    public class ProfileViewModel : ExternalLoginConfirmationViewModel
+    {
+        public string Id { get; set; }
     }
 }
