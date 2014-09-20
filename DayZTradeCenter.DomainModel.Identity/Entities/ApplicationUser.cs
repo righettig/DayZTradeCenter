@@ -5,7 +5,12 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace DayZTradeCenter.DomainModel.Identity.Entities
 {
-    public class ApplicationUser : IdentityUser
+    public interface IApplicationUser
+    {
+        float GetReputation();
+    }
+
+    public class ApplicationUser : IdentityUser, IApplicationUser
     {
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
