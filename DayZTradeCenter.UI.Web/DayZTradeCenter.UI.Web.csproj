@@ -178,6 +178,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\TradesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -234,6 +235,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
+    <Content Include="Views\Trades\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -245,6 +247,10 @@
     <ProjectReference Include="..\DayZTradeCenter.DomainModel.Identity\DayZTradeCenter.DomainModel.Identity.csproj">
       <Project>{1578cba5-0c71-4ded-a3e6-a8e2b386d1e8}</Project>
       <Name>DayZTradeCenter.DomainModel.Identity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DayZTradeCenter.DomainModel\DayZTradeCenter.DomainModel.csproj">
+      <Project>{45d4516e-5575-4b1e-a31e-d7228d7f191e}</Project>
+      <Name>DayZTradeCenter.DomainModel</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
