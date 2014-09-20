@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{45D4516E-5575-4B1E-A31E-D7228D7F191E}</ProjectGuid>
+    <ProjectGuid>{2B7652F8-5C36-4887-8855-70579C766638}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DayZTradeCenter.DomainModel</RootNamespace>
-    <AssemblyName>DayZTradeCenter.DomainModel</AssemblyName>
+    <RootNamespace>DayZTradeCenter.Modules.Test</RootNamespace>
+    <AssemblyName>DayZTradeCenter.Modules.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,6 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.2.1409.1722\lib\net40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="rg.GenericRepository.Core">
       <HintPath>..\packages\rg.GenericRepository.Core.1.0.5367.25906\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+MonoTouch10\rg.GenericRepository.Core.dll</HintPath>
     </Reference>
@@ -46,10 +52,16 @@
       <Link>Properties\Version.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Trade.cs" />
+    <Compile Include="TradesRepositoryTestModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DayZTradeCenter.DomainModel\DayZTradeCenter.DomainModel.csproj">
+      <Project>{45d4516e-5575-4b1e-a31e-d7228d7f191e}</Project>
+      <Name>DayZTradeCenter.DomainModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

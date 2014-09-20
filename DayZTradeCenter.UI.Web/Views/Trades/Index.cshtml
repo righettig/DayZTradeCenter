@@ -1,6 +1,45 @@
-﻿
+﻿@model IEnumerable<DayZTradeCenter.DomainModel.Trade>
+
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Trades</h2>
+<h2>Trades <small>@Model.Count() trades found</small></h2>
+
+<div class="container" style="margin-bottom: 25px">
+    <div class="row">
+        <div class="col-md-6">
+            <button type="button" class="btn btn-default">Add</button>
+        </div>
+        <div class="col-md-6">
+            <div class="input-group">
+                <input type="text" class="form-control">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        <span class="glyphicon glyphicon-search"></span>
+                    </button>
+                </span>
+            </div> <!-- /input-group -->
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var trade in Model)
+            {
+                <tr>
+                    <td>@trade.Id</td>
+                    <td><button type="button" class="btn btn-default">Remove</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -14,6 +14,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayZTradeCenter.DomainModel
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayZTradeCenter.DomainModel", "DayZTradeCenter.DomainModel\DayZTradeCenter.DomainModel.csproj", "{45D4516E-5575-4B1E-A31E-D7228D7F191E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{25CBB561-549E-4AAF-9C03-73708316E3EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayZTradeCenter.Modules.Test", "DayZTradeCenter.Modules.Test\DayZTradeCenter.Modules.Test.csproj", "{2B7652F8-5C36-4887-8855-70579C766638}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,8 +43,17 @@ Global
 		{45D4516E-5575-4B1E-A31E-D7228D7F191E}.DebugFakeLogin|Any CPU.Build.0 = Debug|Any CPU
 		{45D4516E-5575-4B1E-A31E-D7228D7F191E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45D4516E-5575-4B1E-A31E-D7228D7F191E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B7652F8-5C36-4887-8855-70579C766638}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B7652F8-5C36-4887-8855-70579C766638}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B7652F8-5C36-4887-8855-70579C766638}.DebugFakeLogin|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B7652F8-5C36-4887-8855-70579C766638}.DebugFakeLogin|Any CPU.Build.0 = Debug|Any CPU
+		{2B7652F8-5C36-4887-8855-70579C766638}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B7652F8-5C36-4887-8855-70579C766638}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2B7652F8-5C36-4887-8855-70579C766638} = {25CBB561-549E-4AAF-9C03-73708316E3EB}
 	EndGlobalSection
 EndGlobal
