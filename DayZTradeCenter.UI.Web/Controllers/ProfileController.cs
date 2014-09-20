@@ -9,7 +9,6 @@ using Microsoft.AspNet.Identity.Owin;
 
 namespace DayZTradeCenter.UI.Web.Controllers
 {
-    [Authorize]
     public class ProfileController : Controller
     {
         #region Ctors

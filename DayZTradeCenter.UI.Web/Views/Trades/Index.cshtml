@@ -25,6 +25,10 @@
                 <th>Have</th>
                 <th>Want</th>
                 <th>Owner reputation</th>
+                @if (!User.IsInRole("Administrator"))
+                {
+                    <th></th>
+                }
             </tr>
         </thead>
         <tbody>
@@ -49,6 +53,10 @@
                         </ul>
                     </td>
                     <td>@trade.Owner.GetReputation()</td>
+                    @if (!User.IsInRole("Administrator"))
+                    {
+                        <td><button type="button" class="btn btn-default">Offer</button></td>
+                    }
                 </tr>
             }
         </tbody>

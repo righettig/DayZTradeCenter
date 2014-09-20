@@ -2,9 +2,9 @@
 
 namespace DayZTradeCenter.UI.Web.Controllers
 {
-    [AllowAnonymous]
-    public class HomeController : Controller
+    public class ItemsController : Controller
     {
+        // GET: Items
         public ActionResult Index()
         {
             return View();

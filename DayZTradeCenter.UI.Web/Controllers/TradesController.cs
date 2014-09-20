@@ -5,7 +5,6 @@ using rg.GenericRepository.Core;
 
 namespace DayZTradeCenter.UI.Web.Controllers
 {
-    [Authorize]
     public class TradesController : Controller
     {
         /// <summary>

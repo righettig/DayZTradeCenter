@@ -12,9 +12,59 @@
             <small>Admin</small>
         }
     </h1>
-    @Html.DisplayNameFor(model => model.Reputation)
-    <span class="badge">@Html.DisplayFor(model => model.Reputation)</span>
+    
+    @if (!User.IsInRole("Administrator"))
+    {
+        @Html.DisplayNameFor(model => model.Reputation)
+        <span class="badge">@Html.DisplayFor(model => model.Reputation)</span>
+    }
 </div>
+
+@if (!User.IsInRole("Administrator"))
+{
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">My trades</h3>
+                </div>
+                <div class="panel-body">
+                    TODO: the list of all your trades. <strong>Coming soon!</strong>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">Cras justo odio</li>
+                    <li class="list-group-item">Dapibus ac facilisis in</li>
+                    <li class="list-group-item">Morbi leo risus</li>
+                    <li class="list-group-item">Porta ac consectetur ac</li>
+                    <li class="list-group-item">Vestibulum at eros</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">My offers</h3>
+                </div>
+                <div class="panel-body">
+                    TODO: the list of all the trades you've made an offer to. <strong>Coming soon!</strong>
+                </div>
+                <ul class="list-group">
+                    <li class="list-group-item">Cras justo odio</li>
+                    <li class="list-group-item">Dapibus ac facilisis in</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Past activities</h3>
+        </div>
+        <div class="panel-body">
+            TODO: the list of all your past activities. Coming soon!
+        </div>
+    </div>
+}
 
 @using (Html.BeginForm())
 {

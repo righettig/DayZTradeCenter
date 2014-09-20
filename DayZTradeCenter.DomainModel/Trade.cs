@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DayZTradeCenter.DomainModel.Identity.Entities;
 using rg.GenericRepository.Core;
 
@@ -18,6 +19,7 @@ namespace DayZTradeCenter.DomainModel
         #region Public properties
 
         public int Id { get; set; }
+        public DateTime CreationDate { get; set; }
         public ICollection<Item> Have { get; private set; }
         public ICollection<Item> Want { get; private set; }
         public IApplicationUser Owner { get; set; }

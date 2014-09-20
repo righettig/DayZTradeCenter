@@ -12,7 +12,6 @@ using DayZTradeCenter.UI.Web.Models;
 
 namespace DayZTradeCenter.UI.Web.Controllers
 {
-    [Authorize]
     public class AccountController : Controller
     {
         #region Ctors
