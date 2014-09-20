@@ -5,7 +5,13 @@
 }
 
 <div class="page-header">
-    <h1>Profile</h1>
+    <h1>
+        Profile
+        @if (Model.IsAdmin)
+        {
+            <small>Admin</small>
+        }
+    </h1>
     @Html.DisplayNameFor(model => model.Reputation)
     <span class="badge">@Html.DisplayFor(model => model.Reputation)</span>
 </div>

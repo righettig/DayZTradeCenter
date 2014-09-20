@@ -83,7 +83,8 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 Id = user.Id,
                 Username = user.UserName,
                 Email = user.Email,
-                Reputation = user.GetReputation()
+                Reputation = user.GetReputation(),
+                IsAdmin = UserManager.IsInRole(user.Id, "Administrator")
             };
 
             return View(vm);

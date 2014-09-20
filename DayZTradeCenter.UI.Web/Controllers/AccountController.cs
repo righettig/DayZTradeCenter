@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using DayZTradeCenter.UI.Web.Migrations;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -95,7 +97,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
         }
 
         #endregion
-        
+
         #region ExternalLogin
 
         //
@@ -105,9 +107,13 @@ namespace DayZTradeCenter.UI.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
+#if FAKE_LOGIN
+            return RedirectToAction("ExternalLoginCallback", new {returnUrl});
+#else
             // Request a redirect to the external login provider
             return new ChallengeResult(provider,
                 Url.Action("ExternalLoginCallback", "Account", new {ReturnUrl = returnUrl}));
+#endif
         }
 
         //
@@ -115,12 +121,22 @@ namespace DayZTradeCenter.UI.Web.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
+#if FAKE_LOGIN
+            var testUser = DefaultUsers.Admin;
+
+            var loginInfo = new ExternalLoginInfo
+            {
+                DefaultUserName = testUser.UserName,
+                Login = new UserLoginInfo("Steam", "http://steamcommunity.com/openid/id/" + testUser.SteamId),
+                ExternalIdentity = new ClaimsIdentity("ExternalCookie")
+            };
+#else
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
                 return RedirectToAction("Login");
             }
-
+#endif
             // Sign in the user with this external login provider if the user already has a login
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
             switch (result)
@@ -146,7 +162,8 @@ namespace DayZTradeCenter.UI.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
+        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model,
+            string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -188,7 +205,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
         }
 
         #endregion
-                
+
         #region Helpers
 
         // Used for XSRF protection when adding external logins
@@ -239,7 +256,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
 
             public override void ExecuteResult(ControllerContext context)
             {
-                var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
+                var properties = new AuthenticationProperties {RedirectUri = RedirectUri};
                 if (UserId != null)
                 {
                     properties.Dictionary[XsrfKey] = UserId;

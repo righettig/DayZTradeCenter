@@ -23,5 +23,6 @@ namespace DayZTradeCenter.UI.Web.Models
     {
         public string Id { get; set; }
         public float Reputation { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }
