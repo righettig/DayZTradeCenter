@@ -1,10 +1,12 @@
 ﻿using System;
+using DayZTradeCenter.DomainModel.Identity;
+using DayZTradeCenter.DomainModel.Identity.Entities;
+using DayZTradeCenter.DomainModel.Identity.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
-using DayZTradeCenter.UI.Web.Models;
 using Owin.Security.Providers.Steam;
 
 namespace DayZTradeCenter.UI.Web

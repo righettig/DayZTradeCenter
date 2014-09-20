@@ -1,4 +1,4 @@
-﻿namespace DayZTradeCenter.UI.Web.Migrations
+﻿namespace DayZTradeCenter.DomainModel.Identity.Migrations
 {
     public static class DefaultUsers
     {

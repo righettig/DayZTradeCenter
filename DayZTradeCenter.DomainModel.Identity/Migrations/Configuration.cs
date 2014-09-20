@@ -1,17 +1,16 @@
-using DayZTradeCenter.UI.Web.Models;
+using System.Data.Entity.Migrations;
+using DayZTradeCenter.DomainModel.Identity.Entities;
+using DayZTradeCenter.DomainModel.Identity.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace DayZTradeCenter.UI.Web.Migrations
+namespace DayZTradeCenter.DomainModel.Identity.Migrations
 {
-    using System.Data.Entity.Migrations;
-
     internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "DayZTradeCenter.UI.Web.Models.ApplicationDbContext";
         }
 
         protected override void Seed(ApplicationDbContext context)
