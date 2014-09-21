@@ -30,8 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="rg.GenericRepository.Core">
-      <HintPath>..\packages\rg.GenericRepository.Core.1.0.5367.25906\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+MonoTouch10\rg.GenericRepository.Core.dll</HintPath>
+    <Reference Include="rg.GenericRepository.Core, Version=1.0.5377.24759, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\rg.GenericRepository.Core.1.0.5377.24759\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+MonoTouch10\rg.GenericRepository.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -50,13 +51,16 @@
     <Compile Include="Trade.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\DayZTradeCenter.DomainModel.Identity\DayZTradeCenter.DomainModel.Identity.csproj">
       <Project>{1578cba5-0c71-4ded-a3e6-a8e2b386d1e8}</Project>
       <Name>DayZTradeCenter.DomainModel.Identity</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

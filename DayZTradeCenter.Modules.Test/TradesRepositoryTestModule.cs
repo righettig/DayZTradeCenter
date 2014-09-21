@@ -25,13 +25,11 @@ namespace DayZTradeCenter.Modules.Test
 
         private static Trade CreateFakeTrade1()
         {
-            var mosin = new Item {Name = "Mosin"};
-            var sks = new Item {Name = "SKS"};
-
             var result = new Trade {Id = 1};
-            result.Have.Add(mosin);
-            result.Have.Add(sks);
-            result.Want.Add(new Item {Name = "Tent"});
+
+            result.Have.Add(ItemsHelper.Mosin);
+            result.Have.Add(ItemsHelper.SKS);
+            result.Want.Add(ItemsHelper.Tent);
 
             SetOwner(result, 7);
 
@@ -40,11 +38,10 @@ namespace DayZTradeCenter.Modules.Test
 
         private static Trade CreateFakeTrade2()
         {
-            var crowbar = new Item { Name = "Crowbar" };
-
             var result = new Trade { Id = 2 };
-            result.Have.Add(crowbar);
-            result.Want.Add(new Item { Name = "Pitchfork" });
+            
+            result.Have.Add(ItemsHelper.Crowbar);
+            result.Want.Add(ItemsHelper.Pitchfork);
 
             SetOwner(result, 1);
 

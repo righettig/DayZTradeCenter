@@ -65,7 +65,7 @@ namespace DayZTradeCenter.UI.Web.App_Start
         {
             // TODO: the app still needs to know in advance where the modules are.
             kernel.Load<TradesRepositoryTestModule>();
-            kernel.Load<ItemsRepositoryTestModule>();
+            kernel.Load<ItemsRepositoryInMemoryModule>();
         }        
     }
 }

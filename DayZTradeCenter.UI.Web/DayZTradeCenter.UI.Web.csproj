@@ -86,8 +86,9 @@
     <Reference Include="Owin.Security.Providers">
       <HintPath>..\packages\Owin.Security.Providers.1.8.1\lib\net45\Owin.Security.Providers.dll</HintPath>
     </Reference>
-    <Reference Include="rg.GenericRepository.Core">
-      <HintPath>..\packages\rg.GenericRepository.Core.1.0.5367.25906\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+MonoTouch10\rg.GenericRepository.Core.dll</HintPath>
+    <Reference Include="rg.GenericRepository.Core, Version=1.0.5377.24759, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\rg.GenericRepository.Core.1.0.5377.24759\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+MonoTouch10\rg.GenericRepository.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -269,7 +270,9 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DayZTradeCenter.DomainModel.Identity\DayZTradeCenter.DomainModel.Identity.csproj">

@@ -79,7 +79,10 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 return View(item);
             }
 
-            _itemsRepository.Update(item);
+            var model = _itemsRepository.GetSingle(item.Id);
+            model.Name = item.Name;
+
+            _itemsRepository.Update(model);
             _itemsRepository.SaveChanges();
 
             return RedirectToAction("Index");
