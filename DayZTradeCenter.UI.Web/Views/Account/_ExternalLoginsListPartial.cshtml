@@ -18,7 +18,14 @@
                             name="provider"
                             value="@p.AuthenticationType"
                             title="Log in using your @p.Caption account">
-                        @p.AuthenticationType
+                        @if (p.Caption == "Steam")
+                        {
+                            <img src="../../Content/img/steam.png" alt="Steam" />
+                        }
+                        else
+                        {
+                            @p.AuthenticationType
+                        }
                     </button>
                 }
             </p>

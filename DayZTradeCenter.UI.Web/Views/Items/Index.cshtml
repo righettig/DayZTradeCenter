@@ -1,7 +1,39 @@
-﻿
+﻿@model IEnumerable<DayZTradeCenter.DomainModel.Item>
+
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Items</h2>
+<h2>Items <small>@Model.Count() items found</small></h2>
 
+<div class="container" style="margin-bottom: 25px">
+    <a class="btn btn-default" href="@Url.Action("Create")">Add</a>
+</div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>
+                    <a class="btn btn-default" href="@Url.Action("Details", new { id = item.Id})">Details</a>
+                </td>
+                <td>
+                    <a class="btn btn-default" href="@Url.Action("Edit", new { id = item.Id})">Edit</a>
+                </td>
+                <td>
+                    <a class="btn btn-default" href="@Url.Action("Delete", new { id = item.Id})">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
