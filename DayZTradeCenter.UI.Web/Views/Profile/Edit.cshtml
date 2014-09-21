@@ -29,14 +29,17 @@
                     <h3 class="panel-title">My trades</h3>
                 </div>
                 <div class="panel-body">
-                    TODO: the list of all your trades. <strong>Coming soon!</strong>
+                    The list of all your <strong>trades</strong>.
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item">Cras justo odio</li>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                    <li class="list-group-item">Morbi leo risus</li>
-                    <li class="list-group-item">Porta ac consectetur ac</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
+                    @foreach (var trade in Model.MyTrades)
+                    {
+                        <li class="list-group-item">
+                            <a href="@Url.Action("Details", "Trades")">@trade.Id</a>,
+                            <strong>H</strong> @trade.Have.First().Name
+                            <strong>W</strong> @trade.Want.First().Name
+                        </li>
+                    }
                 </ul>
             </div>
         </div>

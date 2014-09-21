@@ -193,6 +193,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Models\CreateTradeViewModel.cs" />
     <Compile Include="Controllers\FeaturesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
@@ -265,6 +266,7 @@
     <Content Include="Views\Items\Delete.cshtml" />
     <Content Include="Views\Items\Edit.cshtml" />
     <Content Include="Views\Features\Index.cshtml" />
+    <Content Include="Views\Trades\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

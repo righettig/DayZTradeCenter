@@ -123,7 +123,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
 #if FAKE_LOGIN
-            var testUser = DefaultUsers.Admin;
+            var testUser = DefaultUsers.TestUser;
 
             var loginInfo = new ExternalLoginInfo
             {

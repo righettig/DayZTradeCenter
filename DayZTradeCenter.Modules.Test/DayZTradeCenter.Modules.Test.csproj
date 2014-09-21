@@ -60,6 +60,7 @@
     <Compile Include="ItemsRepositoryInMemoryModule.cs" />
     <Compile Include="ItemsRepositoryTestModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TradesRepositoryInMemoryModule.cs" />
     <Compile Include="TradesRepositoryTestModule.cs" />
   </ItemGroup>
   <ItemGroup>

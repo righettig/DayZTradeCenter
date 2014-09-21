@@ -1,25 +1,37 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using DayZTradeCenter.DomainModel;
 using DayZTradeCenter.DomainModel.Identity.Entities;
 using DayZTradeCenter.DomainModel.Identity.Services;
 using DayZTradeCenter.UI.Web.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using rg.GenericRepository.Core;
 
 namespace DayZTradeCenter.UI.Web.Controllers
 {
     public class ProfileController : Controller
     {
         #region Ctors
-
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfileController"/> class.
         /// </summary>
-        public ProfileController()
+        /// <param name="tradesRepository">The trades repository.</param>
+        /// <exception cref="System.ArgumentNullException">tradesRepository</exception>
+        public ProfileController(IRepository<Trade> tradesRepository)
         {
+            if (tradesRepository == null)
+            {
+                throw new ArgumentNullException("tradesRepository");
+            }
+
+            _tradesRepository = tradesRepository;
         }
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfileController"/> class.
         /// </summary>
@@ -85,7 +97,9 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 Username = user.UserName,
                 Email = user.Email,
                 Reputation = user.GetReputation(),
-                IsAdmin = UserManager.IsInRole(user.Id, "Administrator")
+                IsAdmin = UserManager.IsInRole(user.Id, "Administrator"),
+
+                MyTrades = _tradesRepository.GetAll().Where(t => t.Owner.Id == user.Id)
             };
 
             return View(vm);
@@ -131,6 +145,8 @@ namespace DayZTradeCenter.UI.Web.Controllers
         private ApplicationUserManager _userManager;
 
         private ApplicationSignInManager _signInManager;
+
+        private readonly IRepository<Trade> _tradesRepository;
 
         #endregion
     }

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<DayZTradeCenter.DomainModel.Trade>
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<DayZTradeCenter.DomainModel.Trade>
 
 @{
     ViewBag.Title = "Index";
@@ -11,7 +12,7 @@
     <div class="container" style="margin-bottom: 25px">
         <div class="row">
             <div class="col-md-6">
-                <button type="button" class="btn btn-default">Add</button>
+                <a class="btn btn-default" href="@Url.Action("Create")">Add</a>
             </div>
         </div>
     </div>
@@ -53,7 +54,7 @@
                         </ul>
                     </td>
                     <td>@trade.Owner.GetReputation()</td>
-                    @if (!User.IsInRole("Administrator"))
+                    @if (!User.IsInRole("Administrator") && User.Identity.GetUserId() != trade.Owner.Id)
                     {
                         <td><button type="button" class="btn btn-default">Offer</button></td>
                     }

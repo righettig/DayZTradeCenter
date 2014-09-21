@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using DayZTradeCenter.DomainModel;
 
 namespace DayZTradeCenter.UI.Web.Models
 {
@@ -24,5 +26,6 @@ namespace DayZTradeCenter.UI.Web.Models
         public string Id { get; set; }
         public float Reputation { get; set; }
         public bool IsAdmin { get; set; }
+        public IEnumerable<Trade> MyTrades { get; set; }
     }
 }

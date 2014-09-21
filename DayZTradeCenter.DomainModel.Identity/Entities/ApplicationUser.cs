@@ -7,6 +7,7 @@ namespace DayZTradeCenter.DomainModel.Identity.Entities
 {
     public interface IApplicationUser
     {
+        string Id { get; }
         float GetReputation();
     }
 
