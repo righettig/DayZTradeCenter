@@ -14,6 +14,7 @@ namespace DayZTradeCenter.DomainModel
         {
             Have = new List<Item>();
             Want = new List<Item>();
+            Offers = new List<IApplicationUser>();
         }
 
         #region Public properties
@@ -22,6 +23,7 @@ namespace DayZTradeCenter.DomainModel
         public DateTime CreationDate { get; set; }
         public ICollection<Item> Have { get; private set; }
         public ICollection<Item> Want { get; private set; }
+        public ICollection<IApplicationUser> Offers { get; private set; }
         public IApplicationUser Owner { get; set; }
 
         #endregion

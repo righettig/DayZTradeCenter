@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -58,7 +59,12 @@ namespace DayZTradeCenter.UI.Web.Controllers
         {
             var model = _tradesRepository.GetAll();
 
-            return View(model);
+            var vm = new ListTradesViewModel(
+                !User.IsInRole("Administrator"),
+                User.Identity.GetUserId(),
+                model);
+
+            return View(vm);
         }
 
         // GET: Trades/Create
@@ -98,6 +104,38 @@ namespace DayZTradeCenter.UI.Web.Controllers
             trade.CreationDate = DateTime.Now;
 
             _tradesRepository.Insert(trade);
+            _tradesRepository.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        // GET: Trades/Offer
+        public async Task<ActionResult> Offer(int tradeId)
+        {
+            var trade = _tradesRepository.GetSingle(tradeId);
+            
+            var userId = User.Identity.GetUserId();
+            var user = await UserManager.FindByIdAsync(userId);
+
+            trade.Offers.Add(user);
+
+            _tradesRepository.Update(trade);
+            _tradesRepository.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        // GET: Trades/Withdraw
+        public ActionResult Withdraw(int tradeId)
+        {
+            var trade = _tradesRepository.GetSingle(tradeId);
+
+            var userId = User.Identity.GetUserId();
+            var user = trade.Offers.FirstOrDefault(o => o.Id == userId);
+
+            trade.Offers.Remove(user);
+            
+            _tradesRepository.Update(trade);
             _tradesRepository.SaveChanges();
 
             return RedirectToAction("Index");

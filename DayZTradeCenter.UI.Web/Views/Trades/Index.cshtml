@@ -1,13 +1,12 @@
-﻿@using Microsoft.AspNet.Identity
-@model IEnumerable<DayZTradeCenter.DomainModel.Trade>
+﻿@model DayZTradeCenter.UI.Web.Models.ListTradesViewModel
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Trades <small>@Model.Count() trades found</small></h2>
+<h2>Trades <small>@Model.Trades.Count() trades found</small></h2>
 
-@if (!User.IsInRole("Administrator"))
+@if (Model.CanCreate)
 {
     <div class="container" style="margin-bottom: 25px">
         <div class="row">
@@ -33,13 +32,13 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var trade in Model)
+            @foreach (var trade in Model.Trades)
             {
                 <tr>
-                    <td>@trade.Id</td>
+                    <td>@trade.TradeData.Id</td>
                     <td>
                         <ul>
-                            @foreach (var have in trade.Have)
+                            @foreach (var have in trade.TradeData.Have)
                             {
                                 <li>@have.Name</li>
                             }
@@ -47,16 +46,26 @@
                     </td>
                     <td>
                         <ul>
-                            @foreach (var want in trade.Want)
+                            @foreach (var want in trade.TradeData.Want)
                             {
                                 <li>@want.Name</li>
                             }
                         </ul>
                     </td>
-                    <td>@trade.Owner.GetReputation()</td>
-                    @if (!User.IsInRole("Administrator") && User.Identity.GetUserId() != trade.Owner.Id)
+                    <td>@trade.TradeData.Owner.GetReputation()</td>
+                    @if (trade.CanOffer)
                     {
-                        <td><button type="button" class="btn btn-default">Offer</button></td>
+                        <td>
+                            <a class="btn btn-default" 
+                               href="@Url.Action("Offer", new {tradeId = trade.TradeData.Id})">Offer</a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <a class="btn btn-default"
+                               href="@Url.Action("Withdraw", new { tradeId = trade.TradeData.Id })">Withdraw</a>
+                        </td>
                     }
                 </tr>
             }
