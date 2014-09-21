@@ -49,11 +49,17 @@
                     <h3 class="panel-title">My offers</h3>
                 </div>
                 <div class="panel-body">
-                    TODO: the list of all the trades you've made an offer to. <strong>Coming soon!</strong>
+                    The list of all the trades you've made an <strong>offer</strong> to.
                 </div>
                 <ul class="list-group">
-                    <li class="list-group-item">Cras justo odio</li>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
+                    @foreach (var trade in Model.MyOffers)
+                    {
+                        <li class="list-group-item">
+                            <a href="@Url.Action("Details", "Trades")">@trade.Id</a>,
+                            <strong>H</strong> @trade.Have.First().Name
+                            <strong>W</strong> @trade.Want.First().Name
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
@@ -64,7 +70,7 @@
             <h3 class="panel-title">Past activities</h3>
         </div>
         <div class="panel-body">
-            TODO: the list of all your past activities. Coming soon!
+            The list of all your past activities. <strong>Coming soon!</strong>
         </div>
     </div>
 }

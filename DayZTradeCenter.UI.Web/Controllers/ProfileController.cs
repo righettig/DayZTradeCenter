@@ -99,7 +99,8 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 Reputation = user.GetReputation(),
                 IsAdmin = UserManager.IsInRole(user.Id, "Administrator"),
 
-                MyTrades = _tradesRepository.GetAll().Where(t => t.Owner.Id == user.Id)
+                MyTrades = _tradesRepository.GetAll().Where(t => t.Owner.Id == user.Id),
+                MyOffers = _tradesRepository.GetAll().Where(t => t.Offers.Any(o => o.Id == user.Id))
             };
 
             return View(vm);

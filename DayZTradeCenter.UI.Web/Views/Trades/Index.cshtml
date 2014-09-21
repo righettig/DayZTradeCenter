@@ -1,4 +1,5 @@
-﻿@model DayZTradeCenter.UI.Web.Models.ListTradesViewModel
+﻿@using Microsoft.AspNet.Identity
+@model DayZTradeCenter.UI.Web.Models.ListTradesViewModel
 
 @{
     ViewBag.Title = "Index";
@@ -60,11 +61,11 @@
                                href="@Url.Action("Offer", new {tradeId = trade.TradeData.Id})">Offer</a>
                         </td>
                     }
-                    else
+                    else if (trade.TradeData.Owner.Id != User.Identity.GetUserId())
                     {
                         <td>
                             <a class="btn btn-default"
-                               href="@Url.Action("Withdraw", new { tradeId = trade.TradeData.Id })">Withdraw</a>
+                               href="@Url.Action("Withdraw", new {tradeId = trade.TradeData.Id})">Withdraw</a>
                         </td>
                     }
                 </tr>
