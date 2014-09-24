@@ -25,6 +25,14 @@ namespace DayZTradeCenter.DomainModel
         public ICollection<Item> Want { get; private set; }
         public ICollection<IApplicationUser> Offers { get; private set; }
         public IApplicationUser Owner { get; set; }
+        public string Winner { get; set; }
+        
+        public bool IsClosed
+        {
+            get { return Winner != null; }
+        }
+
+        public bool Completed { get; set; }
 
         #endregion
     }

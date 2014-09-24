@@ -84,6 +84,14 @@
       <Link>Properties\Version.cs</Link>
     </Compile>
     <Compile Include="Entities\ApplicationUser.cs" />
+    <Compile Include="Migrations\201409221333244_Added feedbacks.cs" />
+    <Compile Include="Migrations\201409221333244_Added feedbacks.Designer.cs">
+      <DependentUpon>201409221333244_Added feedbacks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409221357388_Added messages.cs" />
+    <Compile Include="Migrations\201409221357388_Added messages.Designer.cs">
+      <DependentUpon>201409221357388_Added messages.cs</DependentUpon>
+    </Compile>
     <Compile Include="Services\ApplicationUserManager.cs" />
     <Compile Include="Migrations\201409201400023_InitialCreate.cs" />
     <Compile Include="Migrations\201409201400023_InitialCreate.Designer.cs">
@@ -102,6 +110,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201409201400023_InitialCreate.resx">
       <DependentUpon>201409201400023_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409221333244_Added feedbacks.resx">
+      <DependentUpon>201409221333244_Added feedbacks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409221357388_Added messages.resx">
+      <DependentUpon>201409221357388_Added messages.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

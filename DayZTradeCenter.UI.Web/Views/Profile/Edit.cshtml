@@ -35,9 +35,29 @@
                     @foreach (var trade in Model.MyTrades)
                     {
                         <li class="list-group-item">
-                            <a href="@Url.Action("Details", "Trades")">@trade.Id</a>,
+                            @if (trade.Completed)
+                            {
+                                <a href="@Url.Action("TradeCompleted", "Trades", new { id = trade.Id })">@trade.Id</a>
+                            }
+                            else if (trade.IsClosed)
+                            {
+                                <a href="@Url.Action("ExchangeManagement", "Trades", new { id = trade.Id })">@trade.Id</a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("Details", "Trades", new { id = trade.Id })">@trade.Id</a>
+                            }
+                            ,
                             <strong>H</strong> @trade.Have.First().Name
                             <strong>W</strong> @trade.Want.First().Name
+                            @if (trade.Completed)
+                            {
+                                @:COMPLETED: leave feedback!
+                            }
+                            else if (trade.IsClosed)
+                            {
+                                @:CLOSED: winner = @trade.Winner
+                            }
                         </li>
                     }
                 </ul>
@@ -55,7 +75,7 @@
                     @foreach (var trade in Model.MyOffers)
                     {
                         <li class="list-group-item">
-                            <a href="@Url.Action("Details", "Trades")">@trade.Id</a>,
+                            <a href="@Url.Action("Details", "Trades", new { id = trade.Id })">@trade.Id</a>
                             <strong>H</strong> @trade.Have.First().Name
                             <strong>W</strong> @trade.Want.First().Name
                         </li>

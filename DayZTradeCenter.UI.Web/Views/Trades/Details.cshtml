@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNet.Identity
+@model DayZTradeCenter.DomainModel.Trade
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Trade</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+    </dl>
+    
+    @if (Model.Owner.Id == User.Identity.GetUserId())
+    {
+        <ul>
+            @foreach (var offer in Model.Offers)
+            {
+                <li>
+                    Id: @offer.Id, Reputation: @offer.GetReputation() |
+                    <a href="@Url.Action("ChooseWinner", new { tradeId = Model.Id, userId = offer.Id })">Selects as winner</a>
+                </li>
+            }
+        </ul>
+    }
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using DayZTradeCenter.DomainModel;
+using DayZTradeCenter.DomainModel.Identity.Entities;
 using DayZTradeCenter.DomainModel.Identity.Services;
 using DayZTradeCenter.UI.Web.Models;
 using Microsoft.AspNet.Identity;
@@ -139,6 +141,118 @@ namespace DayZTradeCenter.UI.Web.Controllers
             _tradesRepository.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+
+        // GET: Trades/Details/5
+        public ActionResult Details(int id)
+        {
+            var model = _tradesRepository.GetSingle(id);
+
+            return View(model);
+        }
+
+        // GET: Trades/ChooseWinner/tradeId=1&userId=2
+        public ActionResult ChooseWinner(int tradeId, string userId)
+        {
+            var model = _tradesRepository.GetSingle(tradeId);
+
+            model.Winner = userId;
+
+            _tradesRepository.Update(model);
+            _tradesRepository.SaveChanges();
+
+            return RedirectToAction("Edit", "Profile");
+        }
+
+        // GET: Trades/ExchangeManagement/5
+        public ActionResult ExchangeManagement(int id)
+        {
+            var model = new ExchangeManagementViewModel
+            {
+                Trade = _tradesRepository.GetSingle(id)
+            };
+            
+            return View(model);
+        }
+
+        // POST: Trades/ExchangeManagement/5
+        [HttpPost, ActionName("ExchangeManagement")]
+        [ValidateAntiForgeryToken]
+        public ActionResult ExchangeManagementConfirmed(ExchangeDetails details, Trade trade)
+        {
+            var message = new Message(
+                string.Format("My SteamId is {0}. Meet me at {1}, server {2}, time {3} GTM",
+                    details.SteamId,
+                    details.Location,
+                    details.Server,
+                    details.Time));
+
+            var model = new ExchangeManagementViewModel {Trade = trade};
+            model.Messages.Add(message);
+
+            return View("ExchangeManagement", model);
+        }
+
+        // POST: Trades/TradeCompleted/1
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> TradeCompleted(int id)
+        {
+            var model = _tradesRepository.GetSingle(id);
+            model.Completed = true;
+
+            //var user = await UserManager.FindByIdAsync(model.Winner);
+            var user = await UserManager.FindByIdAsync("bfc71c53-fc4b-4061-9459-0940f92e764d");
+
+            if (user.Messages == null)
+            {
+                user.Messages = new List<Message>();
+            }
+
+            var message = new FeedbackRequestMessage {TradeId = model.Id};
+            user.Messages.Add(message);
+
+            await UserManager.UpdateAsync(user);
+
+            _tradesRepository.Update(model);
+            _tradesRepository.SaveChanges();
+
+            return View(model);
+        }
+
+        [ActionName("TradeCompleted")]
+        public ActionResult TradeCompletedGet(int id)
+        {
+            var model = _tradesRepository.GetSingle(id);
+            
+            return View(model);
+        }
+
+        public async Task<ActionResult> LeaveFeedback(int id, int score)
+        {
+            var model = _tradesRepository.GetSingle(id);
+
+            //var user = await UserManager.FindByIdAsync(model.Winner);
+            var user = await UserManager.FindByIdAsync("bfc71c53-fc4b-4061-9459-0940f92e764d");
+            
+            if (user.Feedbacks == null)
+            {
+                user.Feedbacks = new List<Feedback>();
+            }
+
+            user.Feedbacks.Add(new Feedback
+            {
+                From = model.Owner.Id,
+                Timestamp = DateTime.Now,
+                Score = score,
+                TradeId = id
+            });
+
+            await UserManager.UpdateAsync(user);
+
+            return View();
         }
 
         #region Private fields

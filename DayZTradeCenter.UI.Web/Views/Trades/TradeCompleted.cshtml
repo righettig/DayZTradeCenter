@@ -1,0 +1,33 @@
+﻿@model DayZTradeCenter.DomainModel.Trade
+
+@{
+    ViewBag.Title = "TradeCompleted";
+}
+
+<h2>TradeCompleted</h2>
+
+Your trade is now completed. Thanks for having used DayZ Trade Center. Remember to leave a feedback!
+
+<br /><br />
+
+@using (Html.BeginForm("LeaveFeedback", "Trades"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Score (1-5)</label>
+            <div class="col-md-10">
+                @Html.TextBox("score", null, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
