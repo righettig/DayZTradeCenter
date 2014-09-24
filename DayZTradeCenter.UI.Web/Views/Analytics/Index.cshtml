@@ -1,0 +1,45 @@
+﻿@model DayZTradeCenter.UI.Web.Models.AnalyticsViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Analytics</h2>
+
+Most wanted items
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>#</th>
+    </tr>
+    <tbody>
+        @foreach (var item in Model.MostWantedItems)
+        {
+            <tr>
+                <td>@item.Item.Id</td>
+                <td>@item.Item.Name</td>
+                <td>@item.Count</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+Most offered items
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>#</th>
+    </tr>
+    <tbody>
+        @foreach (var item in Model.MostOfferedItems)
+        {
+            <tr>
+                <td>@item.Item.Id</td>
+                <td>@item.Item.Name</td>
+                <td>@item.Count</td>
+            </tr>
+        }
+    </tbody>
+</table>
