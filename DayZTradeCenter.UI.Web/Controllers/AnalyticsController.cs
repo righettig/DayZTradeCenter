@@ -1,9 +1,11 @@
 ﻿using System;
-using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Web.Mvc;
 using DayZTradeCenter.DomainModel;
 using DayZTradeCenter.UI.Web.Models;
+using DotNet.Highcharts;
+using DotNet.Highcharts.Helpers;
+using DotNet.Highcharts.Options;
 using rg.GenericRepository.Core;
 
 namespace DayZTradeCenter.UI.Web.Controllers
@@ -57,6 +59,20 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 MostWantedItems = mostWantedItem,
                 MostOfferedItems = mostOfferedItem
             };
+
+            var chart = new Highcharts("chart")
+                .SetXAxis(new XAxis
+                {
+                    Categories =
+                        new[] {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}
+                })
+                .SetSeries(new Series
+                {
+                    Data =
+                        new Data(new object[] {29.9, 71.5, 106.4, 129.2, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4})
+                });
+
+            vm.Chart = chart;
 
             return View(vm);
         }

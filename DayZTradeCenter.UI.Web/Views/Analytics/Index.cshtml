@@ -43,3 +43,15 @@ Most offered items
         }
     </tbody>
 </table>
+
+<div class="container" role="main">
+    <div class="jumbotron">
+        <p>
+            @Model.Chart
+        </p>
+    </div>
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/highcharts")
+}

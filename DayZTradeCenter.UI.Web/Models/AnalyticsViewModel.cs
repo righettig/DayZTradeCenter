@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using DayZTradeCenter.DomainModel;
+using DotNet.Highcharts;
 
 namespace DayZTradeCenter.UI.Web.Models
 {
@@ -22,5 +23,8 @@ namespace DayZTradeCenter.UI.Web.Models
 
         public IEnumerable<ItemDetails> MostWantedItems { get; set; }
         public IEnumerable<ItemDetails> MostOfferedItems { get; set; }
+
+        // http://offering.solutions/2014/05/09/how-to-include-dotnet-highcharts-in-asp-net-mvc-with-viewmodels/
+        public Highcharts Chart { get; set; }
     }
 }
