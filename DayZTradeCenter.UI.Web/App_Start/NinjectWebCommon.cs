@@ -1,3 +1,4 @@
+using DayZTradeCenter.DomainModel;
 using DayZTradeCenter.Modules.Test;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(DayZTradeCenter.UI.Web.App_Start.NinjectWebCommon), "Start")]
@@ -66,6 +67,8 @@ namespace DayZTradeCenter.UI.Web.App_Start
             // TODO: the app still needs to know in advance where the modules are.
             kernel.Load<TradesRepositoryInMemoryModule>();
             kernel.Load<ItemsRepositoryInMemoryModule>();
+
+            kernel.Bind<ITradeManager>().To<TradeManager>().InRequestScope();
         }        
     }
 }

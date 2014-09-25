@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Web.Mvc;
 using DayZTradeCenter.DomainModel;
-using rg.GenericRepository.Core;
 
 namespace DayZTradeCenter.UI.Web.Controllers
 {
@@ -12,29 +11,25 @@ namespace DayZTradeCenter.UI.Web.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="HomeController"/> class.
         /// </summary>
-        /// <param name="tradesRepository">The trades repository.</param>
-        /// <exception cref="System.ArgumentNullException">tradesRepository</exception>
-        public HomeController(IRepository<Trade> tradesRepository)
+        /// <param name="tradeManager">The trade manager.</param>
+        /// <exception cref="System.ArgumentNullException">tradeManager</exception>
+        public HomeController(ITradeManager tradeManager)
         {
-            if (tradesRepository == null)
+            if (tradeManager == null)
             {
-                throw new ArgumentNullException("tradesRepository");
+                throw new ArgumentNullException("tradeManager");
             }
 
-            _tradesRepository = tradesRepository;
+            _tradeManager = tradeManager;
         }
 
         public ActionResult Index()
         {
-            var latestTrade =
-                _tradesRepository
-                    .GetAll()
-                    .OrderByDescending(trade => trade.CreationDate)
-                    .FirstOrDefault();
+            var model = _tradeManager.GetLatestTrades(1).FirstOrDefault();
 
-            return View(latestTrade);
+            return View(model);
         }
 
-        private readonly IRepository<Trade> _tradesRepository;
+        private readonly ITradeManager _tradeManager;
     }
 }
