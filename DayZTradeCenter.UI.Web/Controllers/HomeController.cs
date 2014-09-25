@@ -87,6 +87,10 @@ namespace DayZTradeCenter.UI.Web.Controllers
         public async Task<ActionResult> Index()
         {
             var latestTrades = _tradeManager.GetLatestTrades();
+            var hottestTrades = _tradeManager.GetHottestTrades();
+
+            // DEBUG: no data
+            //latestTrades = Enumerable.Empty<Trade>()
 
             if (!User.Identity.IsAuthenticated)
             {
@@ -97,28 +101,18 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 //    .Concat(latestTrades)
                 //    .Concat(latestTrades);
 
-                return View("Landing", new LandingPageViewModel(latestTrades));
+                return View("Landing", new LandingPageViewModel(latestTrades, hottestTrades));
             }
             
             var user = await GetCurrentUser();
 
-            var vm = new DashboardViewModel
+            var vm = new DashboardViewModel(latestTrades, hottestTrades)
             {
                 Reputation = user.GetReputation(),
                 IsAdmin = UserManager.IsInRole(user.Id, "Administrator"),
 
                 MyTrades = _tradeManager.GetTradesByUser(user.Id),
-                MyOffers = _tradeManager.GetOffersByUser(user.Id),
-
-                // DEBUG: no data
-                //LatestTrades = Enumerable.Empty<Trade>()
-
-                LatestTrades = latestTrades
-                // DEBUG: fake data
-                //                .Concat(latestTrades)
-                //                .Concat(latestTrades)
-                //                .Concat(latestTrades)
-                //                .Concat(latestTrades)
+                MyOffers = _tradeManager.GetOffersByUser(user.Id)
             };
 
             return View(vm);

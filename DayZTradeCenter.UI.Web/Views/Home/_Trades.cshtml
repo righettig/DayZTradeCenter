@@ -9,9 +9,7 @@
     <div class="row">
         @if (Model.Any())
         {
-            <div class="jumbotron col-md-12" style="padding-bottom: 35px">
-                <h2 class="title">Latest trades</h2>
-
+            <div class="jumbotron col-md-12" style="padding-top: 35px; padding-bottom: 35px">
                 <!-- #region #Carousel -->
                 <div id="Carousel" class="carousel slide">
                     <ol class="carousel-indicators">
@@ -20,7 +18,7 @@
                             <li data-target="#Carousel"
                                 data-slide-to="@i"
                                 @if (i == 0) { 
-                                    @: class="active" 
+                                    @: class="active"
                                 }>
                             </li>
                         }
@@ -39,6 +37,7 @@
                                                 <img src="http://placehold.it/250x250" alt="Image" style="max-width: 100%;">
                                                 @trade.Id, H @trade.Have.First().Name, W @trade.Want.First().Name,
                                             </a>
+                                            <a href="#" class="btn btn-primary" role="button">Offer</a>
                                         </div>
                                     }
                                 </div><!--.row-->

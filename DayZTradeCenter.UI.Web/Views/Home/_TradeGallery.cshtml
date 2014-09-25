@@ -1,0 +1,17 @@
+﻿@model DayZTradeCenter.UI.Web.Models.LandingPageViewModel
+
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
+    <li class="active"><a href="#latest" role="tab" data-toggle="tab">Latest</a></li>
+    <li><a href="#hot" role="tab" data-toggle="tab">Hot</a></li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+    <div class="tab-pane fade in active" id="latest">
+        @Html.Partial("_Trades", Model.LatestTrades)
+    </div>
+    <div class="tab-pane fade" id="hot">
+        @Html.Partial("_Trades", Model.HotTrades)
+    </div>
+</div>

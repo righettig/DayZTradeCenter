@@ -34,6 +34,13 @@ namespace DayZTradeCenter.DomainModel
                 .Take(count);
         }
 
+        public IEnumerable<Trade> GetHottestTrades(int count = 12)
+        {
+            return All
+                .OrderByDescending(trade => trade.Offers.Count)
+                .Take(count);
+        }
+
         public IEnumerable<Trade> GetTradesByUser(string userId)
         {
             return All.Where(t => t.Owner.Id == userId);
