@@ -1,0 +1,50 @@
+﻿@model DayZTradeCenter.UI.Web.Models.LandingPageViewModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<!-- #region style -->
+<style>
+    body {
+        padding-top: 80px;
+    }
+</style>
+<!-- #endregion -->
+
+<div class="jumbotron" style="padding-top: 26px; padding-bottom: 25px">
+    <h1 style="margin-top: 5px">DayZ Trade Center</h1>
+    <p class="lead">The DayZ Trade Center is TODO.</p>
+
+    @Html.Partial("_LatestTrades", Model.LatestTrades)
+
+    <p><a href="@Url.Action("Index", "Features")" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<div class="row" style="padding-top: 10px">
+    <div class="col-md-4">
+        <h2>Feature 1</h2>
+        <p>
+            Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+        </p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "Features")">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Feature 2</h2>
+        <p>
+            Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+        </p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "Features")">Learn more &raquo;</a></p>
+    </div>
+    <div class="col-md-4">
+        <h2>Feature 3</h2>
+        <p>
+            Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+        </p>
+        <p><a class="btn btn-default" href="@Url.Action("Index", "Features")">Learn more &raquo;</a></p>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/app/latesttrades.js"></script>
+}
