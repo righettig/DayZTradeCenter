@@ -19,13 +19,13 @@
 }
 
 <div class="table-responsive">
-    <table class="table table-hover">
+    <table class="table table-bordered table-hover">
         <thead>
             <tr>
-                <th>Id</th>
+                <th style="width: 40px">Id</th>
                 <th>Have</th>
                 <th>Want</th>
-                <th>Owner reputation</th>
+                <th style="width: 190px">Owner reputation</th>
                 @if (!User.IsInRole("Administrator"))
                 {
                     <th></th>
@@ -57,7 +57,7 @@
                     @if (trade.CanOffer)
                     {
                         <td>
-                            <a class="btn btn-default" 
+                            <a class="btn btn-default"
                                href="@Url.Action("Offer", new {tradeId = trade.TradeData.Id})">Offer</a>
                         </td>
                     }

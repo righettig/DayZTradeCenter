@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 using DayZTradeCenter.DomainModel;
 using DotNet.Highcharts;
 
@@ -26,5 +28,9 @@ namespace DayZTradeCenter.UI.Web.Models
 
         // http://offering.solutions/2014/05/09/how-to-include-dotnet-highcharts-in-asp-net-mvc-with-viewmodels/
         public Highcharts Chart { get; set; }
+
+        [Display(Name = "Item")]
+        public int ItemId { get; set; }
+        public SelectList Items { get; set; }
     }
 }

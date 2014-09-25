@@ -16,15 +16,26 @@ namespace DayZTradeCenter.UI.Web.Controllers
         /// Initializes a new instance of the <see cref="AnalyticsController"/> class.
         /// </summary>
         /// <param name="tradesRepository">The trades repository.</param>
-        /// <exception cref="System.ArgumentNullException">tradesRepository</exception>
-        public AnalyticsController(IRepository<Trade> tradesRepository)
+        /// <param name="itemsRepository">The items repository.</param>
+        /// <exception cref="System.ArgumentNullException">
+        /// tradesRepository
+        /// or
+        /// itemsRepository
+        /// </exception>
+        public AnalyticsController(IRepository<Trade> tradesRepository, IRepository<Item> itemsRepository)
         {
             if (tradesRepository == null)
             {
                 throw new ArgumentNullException("tradesRepository");
             }
 
+            if (itemsRepository == null)
+            {
+                throw new ArgumentNullException("itemsRepository");
+            }
+
             _tradesRepository = tradesRepository;
+            _itemsRepository = itemsRepository;
         }
 
         // GET: Analytics
@@ -54,10 +65,13 @@ namespace DayZTradeCenter.UI.Web.Controllers
                             Count = grp.Count()
                         });
 
+            var items = _itemsRepository.GetAll();
+
             var vm = new AnalyticsViewModel
             {
                 MostWantedItems = mostWantedItem,
-                MostOfferedItems = mostOfferedItem
+                MostOfferedItems = mostOfferedItem,
+                Items = new SelectList(items, "Id", "Name")
             };
 
             var chart = new Highcharts("chart")
@@ -77,6 +91,11 @@ namespace DayZTradeCenter.UI.Web.Controllers
             return View(vm);
         }
 
+        #region Private fields
+
         private readonly IRepository<Trade> _tradesRepository;
+        private readonly IRepository<Item> _itemsRepository;
+
+        #endregion
     }
 }
