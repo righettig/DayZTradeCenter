@@ -62,87 +62,7 @@
 </style>
 <!-- #endregion -->
 
-<!-- #region .container -->
-<div class="container">
-    <div class="row">
-        @if (Model.LatestTrades.Any())
-        {
-            <div class="jumbotron col-md-12">
-                <h2 class="title">Latest trades</h2>
-               
-                <!-- #region #Carousel -->
-                <div id="Carousel" class="carousel slide">
-                    @if (Model.LatestTrades.Count() <= 4)
-                    {
-                        <ol class="carousel-indicators">
-                            <li data-target="#Carousel" data-slide-to="0" class="active"></li>
-                        </ol>
-
-                        <!-- #region .carousel-inner -->
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <div class="row">
-                                    @foreach (var trade in Model.LatestTrades)
-                                    {
-                                <div class="col-md-3">
-                                    <a href="#" class="thumbnail">
-                                        <img src="http://placehold.it/250x250" alt="Image" style="max-width: 100%;">
-                                        @trade.Id, H @trade.Have.First().Name, W @trade.Want.First().Name,
-                                    </a>
-                                </div>
-                                    }
-                                </div><!--.row-->
-                            </div><!--.item-->
-                        </div>
-                        <!-- #endregion -->
-                    }
-                    else // (Model.LatestTrades.Count() > 4 && Model.LatestTrades.Count() <= 12)
-                    {
-                        <ol class="carousel-indicators">
-                            <li data-target="#Carousel" data-slide-to="0" class="active"></li>
-                            <li data-target="#Carousel" data-slide-to="1"></li>
-                            @if (Model.LatestTrades.Count() > 8)
-                            {
-                            <li data-target="#Carousel" data-slide-to="2"></li>
-                            }
-                        </ol>
-
-                        <!-- #region .carousel-inner -->
-                        <div class="carousel-inner">
-                            @for (var i = 0; i <= Model.LatestTrades.Count() / 4; i++)
-                            {
-                                <div class="item @if(i==0){<text>active</text>}">
-                                    <div class="row">
-                                        @foreach (var trade in Model.LatestTrades.Skip(i * 4).Take(4))
-                                        {
-                                            <div class="col-md-3">
-                                                <a href="#" class="thumbnail">
-                                                    <img src="http://placehold.it/250x250" alt="Image" style="max-width: 100%;">
-                                                    @trade.Id, H @trade.Have.First().Name, W @trade.Want.First().Name,
-                                                </a>
-                                            </div>
-                                        }
-                                    </div><!--.row-->
-                                </div><!--.item-->
-                            }
-                        </div>
-                        <!-- #endregion -->
-                    }
-                    <a data-slide="prev" href="#Carousel" class="left carousel-control">‹</a>
-                    <a data-slide="next" href="#Carousel" class="right carousel-control">›</a>
-                </div>
-                <!-- #endregion -->
-            </div>
-        }
-        else
-        {
-            <div class="well">
-                <h4>No trades available!</h4>
-            </div>
-        }
-    </div>
-</div>
-<!-- #endregion -->
+@Html.Partial("_LatestTrades", Model.LatestTrades)
 
 <!-- #region .page-header -->
 <div class="page-header">
@@ -238,11 +158,5 @@
 }
 
 @section scripts {
-    <script>
-        $(document).ready(function () {
-            $('#Carousel').carousel({
-                interval: 5000
-            });
-        });
-    </script>
+    <script src="~/Scripts/app/latesttrades.js"></script>
 }
