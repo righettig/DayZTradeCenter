@@ -1,38 +1,248 @@
-﻿@model DayZTradeCenter.DomainModel.Trade
+﻿@model DayZTradeCenter.UI.Web.Models.DashboardViewModel
 
 @{
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>DayZ Trade Center</h1>
-    <p class="lead">The DayZ Trade Center is TODO.</p>
-    <div>
-        Latest trade: @Model.Id, H @Model.Have.First().Name, W @Model.Want.First().Name
-    </div>
-    <p><a href="@Url.Action("Index", "Features")" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<!-- #region style -->
+<style>
+    body {
+        padding-top: 80px;
+    }
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Feature 1</h2>
-        <p>
-            Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
-        </p>
-        <p><a class="btn btn-default" href="@Url.Action("Index", "Features")">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Feature 2</h2>
-        <p>
-            Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
-        </p>
-        <p><a class="btn btn-default" href="@Url.Action("Index", "Features")">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Feature 3</h2>
-        <p>
-            Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
-        </p>
-        <p><a class="btn btn-default" href="@Url.Action("Index", "Features")">Learn more &raquo;</a></p>
+    .title {
+        margin-top: -10px;
+        padding-bottom: 15px;
+    }
+
+    .jumbotron {
+        margin-bottom: 0;
+    }
+
+    .well {
+        margin-bottom: -5px;
+    }
+
+    .carousel {
+        margin-bottom: 0;
+        padding: 0 40px 30px 40px;
+    }
+
+    /* The controls */
+    .carousel-control {
+        left: -12px;
+        height: 40px;
+        width: 40px;
+        background: none repeat scroll 0 0 #222222;
+        border: 4px solid #FFFFFF;
+        border-radius: 23px 23px 23px 23px;
+        margin-top: 90px;
+    }
+
+    .carousel-control.right {
+        right: -12px;
+    }
+
+    /* The indicators */
+    .carousel-indicators {
+        right: 50%;
+        top: auto;
+        bottom: -10px;
+        margin-right: -19px;
+    }
+
+    /* The colour of the indicators */
+    .carousel-indicators li {
+        background: #cecece;
+    }
+
+    .carousel-indicators .active {
+        background: #428bca;
+    }
+</style>
+<!-- #endregion -->
+
+<!-- #region .container -->
+<div class="container">
+    <div class="row">
+        @if (Model.LatestTrades.Any())
+        {
+            <div class="jumbotron col-md-12">
+                <h2 class="title">Latest trades</h2>
+               
+                <!-- #region #Carousel -->
+                <div id="Carousel" class="carousel slide">
+                    @if (Model.LatestTrades.Count() <= 4)
+                    {
+                        <ol class="carousel-indicators">
+                            <li data-target="#Carousel" data-slide-to="0" class="active"></li>
+                        </ol>
+
+                        <!-- #region .carousel-inner -->
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <div class="row">
+                                    @foreach (var trade in Model.LatestTrades)
+                                    {
+                                <div class="col-md-3">
+                                    <a href="#" class="thumbnail">
+                                        <img src="http://placehold.it/250x250" alt="Image" style="max-width: 100%;">
+                                        @trade.Id, H @trade.Have.First().Name, W @trade.Want.First().Name,
+                                    </a>
+                                </div>
+                                    }
+                                </div><!--.row-->
+                            </div><!--.item-->
+                        </div>
+                        <!-- #endregion -->
+                    }
+                    else // (Model.LatestTrades.Count() > 4 && Model.LatestTrades.Count() <= 12)
+                    {
+                        <ol class="carousel-indicators">
+                            <li data-target="#Carousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#Carousel" data-slide-to="1"></li>
+                            @if (Model.LatestTrades.Count() > 8)
+                            {
+                            <li data-target="#Carousel" data-slide-to="2"></li>
+                            }
+                        </ol>
+
+                        <!-- #region .carousel-inner -->
+                        <div class="carousel-inner">
+                            @for (var i = 0; i <= Model.LatestTrades.Count() / 4; i++)
+                            {
+                                <div class="item @if(i==0){<text>active</text>}">
+                                    <div class="row">
+                                        @foreach (var trade in Model.LatestTrades.Skip(i * 4).Take(4))
+                                        {
+                                            <div class="col-md-3">
+                                                <a href="#" class="thumbnail">
+                                                    <img src="http://placehold.it/250x250" alt="Image" style="max-width: 100%;">
+                                                    @trade.Id, H @trade.Have.First().Name, W @trade.Want.First().Name,
+                                                </a>
+                                            </div>
+                                        }
+                                    </div><!--.row-->
+                                </div><!--.item-->
+                            }
+                        </div>
+                        <!-- #endregion -->
+                    }
+                    <a data-slide="prev" href="#Carousel" class="left carousel-control">‹</a>
+                    <a data-slide="next" href="#Carousel" class="right carousel-control">›</a>
+                </div>
+                <!-- #endregion -->
+            </div>
+        }
+        else
+        {
+            <div class="well">
+                <h4>No trades available!</h4>
+            </div>
+        }
     </div>
 </div>
+<!-- #endregion -->
+
+<!-- #region .page-header -->
+<div class="page-header">
+    <h1>
+        Profile
+        @if (Model.IsAdmin)
+        {
+            <small>Admin</small>
+        }
+    </h1>
+
+    @if (!User.IsInRole("Administrator"))
+    {
+        @Html.DisplayNameFor(model => model.Reputation)
+        <span class="badge">@Html.DisplayFor(model => model.Reputation)</span>
+    }
+</div>
+<!-- #endregion -->
+
+@if (!User.IsInRole("Administrator"))
+{
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">My trades</h3>
+                </div>
+                <div class="panel-body">
+                    The list of all your <strong>trades</strong>.
+                </div>
+                <ul class="list-group">
+                    @foreach (var trade in Model.MyTrades)
+                    {
+                        <li class="list-group-item">
+                            @if (trade.Completed)
+                            {
+                                <a href="@Url.Action("TradeCompleted", "Trades", new { id = trade.Id })">@trade.Id</a>
+                            }
+                            else if (trade.IsClosed)
+                            {
+                                <a href="@Url.Action("ExchangeManagement", "Trades", new { id = trade.Id })">@trade.Id</a>
+                            }
+                            else
+                            {
+                                <a href="@Url.Action("Details", "Trades", new { id = trade.Id })">@trade.Id</a>
+                            }
+                            ,
+                            <strong>H</strong> @trade.Have.First().Name
+                            <strong>W</strong> @trade.Want.First().Name
+                            @if (trade.Completed)
+                            {
+                                @:COMPLETED: leave feedback!
+                            }
+                            else if (trade.IsClosed)
+                            {
+                                @:CLOSED: winner = @trade.Winner
+                            }
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">My offers</h3>
+                </div>
+                <div class="panel-body">
+                    The list of all the trades you've made an <strong>offer</strong> to.
+                </div>
+                <ul class="list-group">
+                    @foreach (var trade in Model.MyOffers)
+                    {
+                        <li class="list-group-item">
+                            <a href="@Url.Action("Details", "Trades", new { id = trade.Id })">@trade.Id</a>
+                            <strong>H</strong> @trade.Have.First().Name
+                            <strong>W</strong> @trade.Want.First().Name
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Past activities</h3>
+        </div>
+        <div class="panel-body">
+            The list of all your past activities. <strong>Coming soon!</strong>
+        </div>
+    </div>
+}
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $('#Carousel').carousel({
+                interval: 5000
+            });
+        });
+    </script>
+}

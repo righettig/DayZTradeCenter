@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using DayZTradeCenter.DomainModel;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DayZTradeCenter.UI.Web.Models
 {
@@ -19,14 +17,5 @@ namespace DayZTradeCenter.UI.Web.Models
     public class ExternalLoginListViewModel
     {
         public string ReturnUrl { get; set; }
-    }
-
-    public class ProfileViewModel : ExternalLoginConfirmationViewModel
-    {
-        public string Id { get; set; }
-        public float Reputation { get; set; }
-        public bool IsAdmin { get; set; }
-        public IEnumerable<Trade> MyTrades { get; set; }
-        public IEnumerable<Trade> MyOffers { get; set; }
     }
 }
