@@ -89,6 +89,10 @@ namespace DayZTradeCenter.UI.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
+                var items = _itemsRepository.GetAll();
+                
+                vm.Items = new SelectList(items, "Id", "Name");
+
                 return View(vm);
             }
 
