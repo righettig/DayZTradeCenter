@@ -33,7 +33,7 @@
                                     @foreach (var trade in Model.Skip(i * pageSize).Take(pageSize))
                                     {
                                         <div class="col-md-3">
-                                            <a href="#" class="thumbnail">
+                                            <a href="@Url.Action("Details", "Trades", new { id = trade.Id })" class="thumbnail">
                                                 <img src="http://placehold.it/250x250" alt="Image" style="max-width: 100%;">
                                                 @trade.Id, H @trade.Have.First().Name, W @trade.Want.First().Name,
                                             </a>
