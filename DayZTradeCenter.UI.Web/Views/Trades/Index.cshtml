@@ -26,6 +26,7 @@
                 <th>Have</th>
                 <th>Want</th>
                 <th style="width: 190px">Owner reputation</th>
+                <th style="width: 190px"># Offers</th>
                 @if (!User.IsInRole("Administrator"))
                 {
                     <th></th>
@@ -54,6 +55,7 @@
                         </ul>
                     </td>
                     <td>@trade.TradeData.Owner.GetReputation()</td>
+                    <td>@trade.TradeData.Offers.Count</td>
                     @if (trade.CanOffer)
                     {
                         <td>
