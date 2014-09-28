@@ -37,7 +37,7 @@
                                                 <img src="http://placehold.it/250x250" alt="Image" style="max-width: 100%;">
                                                 @trade.Id, H @trade.Have.First().Name, W @trade.Want.First().Name,
                                             </a>
-                                            <a href="#" class="btn btn-primary" role="button">Offer</a>
+                                            <a href="@Url.Action("Offer", "Trades", new { tradeId = trade.Id })" class="btn btn-primary" role="button">Offer</a>
                                         </div>
                                     }
                                 </div><!--.row-->

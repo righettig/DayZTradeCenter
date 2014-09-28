@@ -119,12 +119,18 @@ namespace DayZTradeCenter.UI.Web.Controllers
             var userId = User.Identity.GetUserId();
             var user = await UserManager.FindByIdAsync(userId);
 
-            trade.Offers.Add(user);
+            // user has not yet offered for this trade
+            if (trade.Offers.All(o => o.Id != user.Id))
+            {
+                trade.Offers.Add(user);
 
-            _tradesRepository.Update(trade);
-            _tradesRepository.SaveChanges();
+                _tradesRepository.Update(trade);
+                _tradesRepository.SaveChanges();
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+
+            return View("AlreadyOffered");
         }
 
         // GET: Trades/Withdraw

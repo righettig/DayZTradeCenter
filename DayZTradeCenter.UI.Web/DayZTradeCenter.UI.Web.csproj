@@ -319,6 +319,7 @@
     <Content Include="Views\Analytics\Index.cshtml" />
     <Content Include="Views\Home\_Trades.cshtml" />
     <Content Include="Views\Home\_TradeGallery.cshtml" />
+    <Content Include="Views\Trades\AlreadyOffered.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
