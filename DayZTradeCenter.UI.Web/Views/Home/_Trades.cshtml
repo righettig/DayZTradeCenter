@@ -17,9 +17,8 @@
                         {
                             <li data-target="#Carousel"
                                 data-slide-to="@i"
-                                @if (i == 0) { 
-                                    @: class="active"
-                                }>
+                                @if (i == 0) {  @: class="active"
+                                                                                                                                                                }>
                             </li>
                         }
                     </ol>
@@ -36,6 +35,8 @@
                                             <a href="@Url.Action("Details", "Trades", new { id = trade.Id })" class="thumbnail">
                                                 <img src="http://placehold.it/250x250" alt="Image" style="max-width: 100%;">
                                                 @trade.Id, H @trade.Have.First().Name, W @trade.Want.First().Name,
+                                                <br />
+                                                T. Rep: @trade.Owner.GetReputation() | # Offers: @trade.Offers.Count
                                             </a>
                                             <a href="@Url.Action("Offer", "Trades", new { tradeId = trade.Id })" class="btn btn-primary" role="button">Offer</a>
                                         </div>
