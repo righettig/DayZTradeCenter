@@ -39,7 +39,7 @@
                 <tr>
                     <td>@trade.TradeData.Id</td>
                     <td>
-                        <ul>
+                        <ul style="list-style-type: none">
                             @foreach (var have in trade.TradeData.Have)
                             {
                                 <li>@have.Item.Name, @have.Quantity</li>
@@ -47,7 +47,7 @@
                         </ul>
                     </td>
                     <td>
-                        <ul>
+                        <ul style="list-style-type: none">
                             @foreach (var want in trade.TradeData.Want)
                             {
                                 <li>@want.Item.Name, @want.Quantity</li>
