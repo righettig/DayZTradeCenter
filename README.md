@@ -14,6 +14,11 @@ The official repository of the DayZTradeCenter project.
 7. Make sure DayZTradeCenter.Domain.Model.Identity is the default project in the Package Manager Console
 8. Run Update-Database from the Package Manager Console. This will create the dev database with a bunch of entities already configured for you
 
+### Known issues
+
+Sometimes it may happen that "Update-Database" is not recognized as the name of a cmdlet inside the Package Manager Console. Try closing and reopening VS. This should do the trick. More info here: http://stackoverflow.com/questions/9674983/the-term-update-database-is-not-recognized-as-the-name-of-a-cmdlet
+
+
 ## Release notes
 
 - v0.2.5380.19796:
