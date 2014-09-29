@@ -1,15 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using DayZTradeCenter.DomainModel;
 
 namespace DayZTradeCenter.UI.Web.Models
 {
-    public class ItemViewModel
-    {
-        public int Id { get; set; }
-        public int Quantity { get; set; }
-    }
-
     public class CreateTradeViewModel : IValidatableObject
     {
         public IEnumerable<ItemViewModel> Have { get; set; }

@@ -13,6 +13,8 @@ namespace DayZTradeCenter.DomainModel.Identity.Entities
         float GetReputation();
 
         ICollection<Feedback> Feedbacks { get; set; }
+
+        ICollection<Message> Messages { get; set; }
     }
 
     public class Feedback

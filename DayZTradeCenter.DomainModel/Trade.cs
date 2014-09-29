@@ -5,6 +5,12 @@ using rg.GenericRepository.Core;
 
 namespace DayZTradeCenter.DomainModel
 {
+    public class ItemViewModel
+    {
+        public int Id { get; set; }
+        public int Quantity { get; set; }
+    }
+
     public class TradeDetails
     {
         /// <summary>
