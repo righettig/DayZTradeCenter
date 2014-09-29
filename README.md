@@ -3,6 +3,19 @@ DayZTradeCenter
 
 The official repository of the DayZTradeCenter project.
 
+## Installation notes
+
+1. Open Visual Studio
+2. Clone the repository
+3. Open the solution DayZTradeCenter.sln
+4. Open the Package Manager Console
+5. Restore missing Nuget packages
+6. Make sure DayZTradeCenter.UI.Web is set as Startup Project
+7. Make sure DayZTradeCenter.Domain.Model.Identity is the default project in the Package Manager Console
+8. Run Update-Database from the Package Manager Console. This will create the dev database with a bunch of entities already configured for you
+
+## Release notes
+
 - v0.2.5380.19796:
   - The admin can create, list, edit, delete and see the details of a specific item.
   - Trade management:
