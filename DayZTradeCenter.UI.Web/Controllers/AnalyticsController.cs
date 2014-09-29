@@ -49,7 +49,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
                     .Select(
                         grp => new AnalyticsViewModel.ItemDetails
                         {
-                            Item = grp.Key,
+                            Item = grp.Key.Item,
                             Count = grp.Count()
                         });
 
@@ -61,7 +61,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
                     .Select(
                         grp => new AnalyticsViewModel.ItemDetails
                         {
-                            Item = grp.Key,
+                            Item = grp.Key.Item,
                             Count = grp.Count()
                         });
 

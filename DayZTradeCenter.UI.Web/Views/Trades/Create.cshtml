@@ -1,4 +1,4 @@
-﻿@model DayZTradeCenter.UI.Web.Models.CreateTradeViewModel
+﻿@using DayZTradeCenter.UI.Web.Models
 
 @{
     ViewBag.Title = "Create";
@@ -6,44 +6,91 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+<div class="container">
+    <form class="form-horizontal">
+        @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Trade</h4>
-        <hr />
-        @Html.ValidationSummary(
-            true, "It is not possible to create a trade for the same item.", new { @class = "text-danger" })
+        <!--
+            TODO: add validation message "It is not possible to create a trade for the same item." with class = text-danger
+        -->
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.HaveId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(
-                    model => model.HaveId,
-                    Model.Items, "Choose... ",
-                    new { htmlAttributes = new { @class = "form-control" } })
+        <fieldset class="col-xs-6">
+            <legend>Have</legend>
+            <div class="col-xs-12">
+                <div data-bind="foreach: have.items">
+                    <div class="form-group">
+                        <label for="name" class="col-xs-3 control-label">Item #1</label>
+                        <div class="col-xs-5">
+                            <!-- http://brianreavis.github.io/selectize.js/ -->
+                            <!-- http://motorscript.com/selectize-js-binding-knockout-js/ -->
+                            <select class="form-control" data-bind="selectize: $parent.gameItems, value: name"></select>
+                        </div>
+                        <div class="col-xs-2">
+                            <select data-bind="options: $parent.quantities, value: quantity" class="form-control"></select>
+                        </div>
+                        <div class="col-xs-1">
+                            <button data-bind="click: function(){$parent.have.remove($data)}"
+                                    class="btn btn-danger">
+                                x
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <button data-bind="click: have.add, enable: have.canAdd" class="btn btn-default">Add</button>
+                <span style="color: red" data-bind="visible: !have.canAdd()">Too many items (max. 5)</span>
             </div>
-        </div>
+        </fieldset>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.WantId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(
-                    model => model.WantId, Model.Items,
-                    "Choose... ",
-                    new { htmlAttributes = new { @class = "form-control" } })
+        <fieldset class="col-xs-6">
+            <legend>Want</legend>
+            <div class="col-xs-12">
+                <div data-bind="foreach: want.items">
+                    <div class="form-group">
+                        <label for="name" class="col-xs-3 control-label">Item #1</label>
+                        <div class="col-xs-5">
+                            <select class="form-control" data-bind="selectize: $parent.gameItems, value: name"></select>
+                        </div>
+                        <div class="col-xs-2">
+                            <select data-bind="options: $parent.quantities, value: quantity" class="form-control"></select>
+                        </div>
+                        <div class="col-xs-1">
+                            <button data-bind="click: function(){$parent.want.remove($data)}"
+                                    class="btn btn-danger">
+                                x
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <button data-bind="click: want.add, enable: want.canAdd" class="btn btn-default">Add</button>
+                <span style="color: red" data-bind="visible: !want.canAdd()">Too many items (max. 5)</span>
             </div>
-        </div>
+        </fieldset>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-primary" data-bind="click: save" />
             </div>
         </div>
-    </div>
-}
+    </form>
+</div>
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section scripts {
+    <script src="~/Scripts/knockout-3.2.0.debug.js"></script>
+    <script src="~/Scripts/app/CreateTradeViewModel.js"></script>
+
+    <script src="~/Content/Selectize/js/standalone/selectize.js"></script>
+
+    <script src="~/Scripts/ko_selectize.js"></script>
+
+    <script>
+        ko.applyBindings(
+            new CreateTradeViewModel(
+                @JavaScriptConvert.SerializeObject(ViewBag.Items)));
+    </script>
+}

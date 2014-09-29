@@ -1,25 +1,30 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
+using System.Linq;
 
 namespace DayZTradeCenter.UI.Web.Models
 {
+    public class ItemViewModel
+    {
+        public int Id { get; set; }
+        public int Quantity { get; set; }
+    }
+
     public class CreateTradeViewModel : IValidatableObject
     {
-        [Display(Name = "Have")]
-        public int HaveId { get; set; }
-
-        [Display(Name = "Want")]
-        public int WantId { get; set; }
-
-        public SelectList Items { get; set; }
+        public IEnumerable<ItemViewModel> Have { get; set; }
+        public IEnumerable<ItemViewModel> Want { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (HaveId == WantId)
+            if (Have.Count() != Want.Count()) 
+                yield break;
+            
+            if (Have.All(i => Want.Any(j => j.Id == i.Id)) &&
+                Want.All(i => Have.Any(j => j.Id == i.Id)))
             {
                 yield return new ValidationResult(
-                    "It is not possible to create a trade for the same item.", new[] { "HaveId", "WantId" });
+                    "It is not possible to create a trade for the same items.", new[] {"Have", "Want"});
             }
         }
     }

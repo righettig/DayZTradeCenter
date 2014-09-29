@@ -64,8 +64,8 @@
                                 <a href="@Url.Action("Details", "Trades", new { id = trade.Id })">@trade.Id</a>
                             }
                             ,
-                            <strong>H</strong> @trade.Have.First().Name
-                            <strong>W</strong> @trade.Want.First().Name
+                            <strong>H</strong> @trade.Have.First().Item.Name
+                            <strong>W</strong> @trade.Want.First().Item.Name
                             @if (trade.Completed)
                             {
                                 @:COMPLETED: leave feedback!
@@ -92,8 +92,8 @@
                     {
                         <li class="list-group-item">
                             <a href="@Url.Action("Details", "Trades", new { id = trade.Id })">@trade.Id</a>
-                            <strong>H</strong> @trade.Have.First().Name
-                            <strong>W</strong> @trade.Want.First().Name
+                            <strong>H</strong> @trade.Have.First().Item.Name
+                            <strong>W</strong> @trade.Want.First().Item.Name
                         </li>
                     }
                 </ul>

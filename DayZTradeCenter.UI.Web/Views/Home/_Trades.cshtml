@@ -34,7 +34,7 @@
                                         <div class="col-md-3">
                                             <a href="@Url.Action("Details", "Trades", new { id = trade.Id })" class="thumbnail">
                                                 <img src="http://placehold.it/250x250" alt="Image" style="max-width: 100%;">
-                                                @trade.Id, H @trade.Have.First().Name, W @trade.Want.First().Name,
+                                                @trade.Id, H @trade.Have.First().Item.Name, W @trade.Want.First().Item.Name,
                                                 <br />
                                                 T. Rep: @trade.Owner.GetReputation() | # Offers: @trade.Offers.Count
                                             </a>

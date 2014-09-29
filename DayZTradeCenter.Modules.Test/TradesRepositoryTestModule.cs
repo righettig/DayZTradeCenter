@@ -27,9 +27,9 @@ namespace DayZTradeCenter.Modules.Test
         {
             var result = new Trade {Id = 1};
 
-            result.Have.Add(ItemsHelper.Mosin);
-            result.Have.Add(ItemsHelper.SKS);
-            result.Want.Add(ItemsHelper.Tent);
+            result.Have.Add(new TradeDetails(ItemsHelper.Mosin, 3));
+            result.Have.Add(new TradeDetails(ItemsHelper.SKS, 1));
+            result.Want.Add(new TradeDetails(ItemsHelper.Tent, 1));
 
             SetOwner(result, 7);
 
@@ -38,10 +38,10 @@ namespace DayZTradeCenter.Modules.Test
 
         private static Trade CreateFakeTrade2()
         {
-            var result = new Trade { Id = 2 };
-            
-            result.Have.Add(ItemsHelper.Crowbar);
-            result.Want.Add(ItemsHelper.Pitchfork);
+            var result = new Trade {Id = 2};
+
+            result.Have.Add(new TradeDetails(ItemsHelper.Crowbar, 1));
+            result.Want.Add(new TradeDetails(ItemsHelper.Pitchfork, 1));
 
             SetOwner(result, 1);
 

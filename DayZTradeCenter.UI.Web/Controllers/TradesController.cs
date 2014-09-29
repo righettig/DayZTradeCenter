@@ -74,10 +74,10 @@ namespace DayZTradeCenter.UI.Web.Controllers
         {
             var items = _itemsRepository.GetAll();
 
-            return View(new CreateTradeViewModel
-            {
-                Items = new SelectList(items, "Id", "Name")
-            });
+            ViewBag.Items =
+                items.Select(item => new {item.Id, item.Name});
+
+            return View();
         }
 
         // POST: Trades/Create
@@ -85,23 +85,28 @@ namespace DayZTradeCenter.UI.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "HaveId, WantId")] CreateTradeViewModel vm)
+        public async Task<JsonResult> Create(CreateTradeViewModel vm)
         {
             if (!ModelState.IsValid)
             {
-                var items = _itemsRepository.GetAll();
-                
-                vm.Items = new SelectList(items, "Id", "Name");
-
-                return View(vm);
+                return Json(new
+                {
+                    success = false,
+                    error = "It is not possible to create a trade for the same items."
+                });
             }
 
             var trade = new Trade();
-            var have = _itemsRepository.GetSingle(vm.HaveId);
-            trade.Have.Add(have);
-
-            var want = _itemsRepository.GetSingle(vm.WantId);
-            trade.Want.Add(want);
+            foreach (var itemDetails in vm.Have)
+            {
+                trade.Have.Add(
+                    new TradeDetails(_itemsRepository.GetSingle(itemDetails.Id), itemDetails.Quantity));
+            }
+            foreach (var itemDetails in vm.Want)
+            {
+                trade.Want.Add(
+                    new TradeDetails(_itemsRepository.GetSingle(itemDetails.Id), itemDetails.Quantity));
+            }
 
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             trade.Owner = user;
@@ -112,7 +117,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
             _tradesRepository.Insert(trade);
             _tradesRepository.SaveChanges();
 
-            return RedirectToAction("Index");
+            return Json(new {success = true});
         }
 
         // GET: Trades/Offer

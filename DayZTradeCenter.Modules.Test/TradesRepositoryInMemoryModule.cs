@@ -20,26 +20,26 @@ namespace DayZTradeCenter.Modules.Test
 
             var trade = new Trade
             {
-                CreationDate = DateTime.Now, 
+                CreationDate = DateTime.Now,
                 Owner = owner.Object
             };
-            trade.Have.Add(ItemsHelper.Mosin);
-            trade.Want.Add(ItemsHelper.Tent);
+            trade.Have.Add(new TradeDetails(ItemsHelper.Mosin, 1));
+            trade.Want.Add(new TradeDetails(ItemsHelper.Tent, 2));
 
             repository.Insert(trade);
 
-            
+
             // test trade for the current user with a couple of offers
             owner = new Mock<IApplicationUser>();
             owner.SetupGet(m => m.Id).Returns("245f522a-d489-40e5-838b-b89773aeff68");
-            
+
             trade = new Trade
             {
                 CreationDate = DateTime.Now,
                 Owner = owner.Object
             };
-            trade.Have.Add(ItemsHelper.Pitchfork);
-            trade.Want.Add(ItemsHelper.SKS);
+            trade.Have.Add(new TradeDetails(ItemsHelper.Pitchfork, 3));
+            trade.Want.Add(new TradeDetails(ItemsHelper.SKS, 1));
 
             var rnd = new Random();
             trade.Offers.Add(CreateFakeUser(rnd));
