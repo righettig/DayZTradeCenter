@@ -19,7 +19,7 @@
             <div class="col-xs-12">
                 <div data-bind="foreach: have.items">
                     <div class="form-group">
-                        <label for="name" class="col-xs-3 control-label">Item #1</label>
+                        <label for="name" class="col-xs-3 control-label">Item #<span data-bind="text: $index() + 1"></span></label>
                         <div class="col-xs-5">
                             <!-- http://brianreavis.github.io/selectize.js/ -->
                             <!-- http://motorscript.com/selectize-js-binding-knockout-js/ -->
@@ -47,7 +47,7 @@
             <div class="col-xs-12">
                 <div data-bind="foreach: want.items">
                     <div class="form-group">
-                        <label for="name" class="col-xs-3 control-label">Item #1</label>
+                        <label for="name" class="col-xs-3 control-label">Item #<span data-bind="text: $index() + 1"></span></label>
                         <div class="col-xs-5">
                             <select class="form-control" data-bind="selectize: $parent.gameItems, value: id"></select>
                         </div>
