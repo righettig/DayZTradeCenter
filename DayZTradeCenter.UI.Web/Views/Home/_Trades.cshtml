@@ -18,7 +18,7 @@
                             <li data-target="#Carousel"
                                 data-slide-to="@i"
                                 @if (i == 0) {  @: class="active"
-                                                                                                                                                                }>
+                                                                                                                                                                                                                                                                                                                                                                                                }>
                             </li>
                         }
                     </ol>
@@ -33,9 +33,29 @@
                                     {
                                         <div class="col-md-3">
                                             <a href="@Url.Action("Details", "Trades", new { id = trade.Id })" class="thumbnail">
-                                                <img src="http://placehold.it/250x250" alt="Image" style="max-width: 100%;">
-                                                @trade.Id, H @trade.Have.First().Item.Name, W @trade.Want.First().Item.Name,
-                                                <br />
+                                                @*<img src="http://placehold.it/250x250" alt="Image" style="max-width: 100%;">*@
+                                                @*@trade.Id,*@
+
+                                                H
+                                                <ul>
+                                                    @foreach (var itemDetails in trade.Have)
+                                                    {
+                                                        <li>
+                                                            @itemDetails.Item.Name, Q: @itemDetails.Quantity
+                                                        </li>
+                                                    }
+                                                </ul>
+
+                                                W
+                                                <ul>
+                                                    @foreach (var itemDetails in trade.Want)
+                                                    {
+                                                        <li>
+                                                            @itemDetails.Item.Name, Q: @itemDetails.Quantity
+                                                        </li>
+                                                    }
+                                                </ul>
+
                                                 T. Rep: @trade.Owner.GetReputation() | # Offers: @trade.Offers.Count
                                             </a>
                                             <a href="@Url.Action("Offer", "Trades", new { tradeId = trade.Id })" class="btn btn-primary" role="button">Offer</a>

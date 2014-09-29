@@ -62,10 +62,22 @@
                             else
                             {
                                 <a href="@Url.Action("Details", "Trades", new { id = trade.Id })">@trade.Id</a>
+                            },
+
+                            <strong>H</strong> {
+                                @foreach (var itemDetails in @trade.Have)
+                                {
+                                    @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
+                                }
                             }
-                            ,
-                            <strong>H</strong> @trade.Have.First().Item.Name
-                            <strong>W</strong> @trade.Want.First().Item.Name
+
+                            <strong>W</strong> {
+                                @foreach (var itemDetails in @trade.Want)
+                                {
+                                    @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
+                                }
+                            }
+
                             @if (trade.Completed)
                             {
                                 @:COMPLETED: leave feedback!
@@ -91,9 +103,21 @@
                     @foreach (var trade in Model.MyOffers)
                     {
                         <li class="list-group-item">
-                            <a href="@Url.Action("Details", "Trades", new { id = trade.Id })">@trade.Id</a>
-                            <strong>H</strong> @trade.Have.First().Item.Name
-                            <strong>W</strong> @trade.Want.First().Item.Name
+                            <a href="@Url.Action("Details", "Trades", new { id = trade.Id })">@trade.Id</a>,
+
+                            <strong>H</strong> {
+                                @foreach (var itemDetails in @trade.Have)
+                                {
+                                    @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
+                                }
+                            }
+
+                            <strong>W</strong> {
+                                @foreach (var itemDetails in @trade.Want)
+                                {
+                                    @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
+                                }
+                            }
                         </li>
                     }
                 </ul>
