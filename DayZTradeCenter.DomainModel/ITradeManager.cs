@@ -9,5 +9,7 @@ namespace DayZTradeCenter.DomainModel
 
         IEnumerable<Trade> GetTradesByUser(string userId);
         IEnumerable<Trade> GetOffersByUser(string userId);
+
+        bool CanCreateTrade(string userId);
     }
 }

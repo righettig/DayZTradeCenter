@@ -12,7 +12,16 @@
     <div class="container" style="margin-bottom: 25px">
         <div class="row">
             <div class="col-md-6">
-                <a class="btn btn-default" href="@Url.Action("Create")">Add</a>
+                <a class="btn btn-default @if (!Model.CanCreateANewTrade)
+                                          {
+                                              <text>disabled</text>
+                                          }" 
+                   href="@Url.Action("Create")">Add</a>
+
+                @if (!Model.CanCreateANewTrade)
+                {
+                    @: You have reached your max quota of active trades
+                }
             </div>
         </div>
     </div>

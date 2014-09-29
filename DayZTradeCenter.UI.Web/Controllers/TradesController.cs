@@ -21,12 +21,16 @@ namespace DayZTradeCenter.UI.Web.Controllers
         /// </summary>
         /// <param name="tradesRepository">The trades repository.</param>
         /// <param name="itemsRepository">The items repository.</param>
+        /// <param name="tradeManager">The trade manager.</param>
         /// <exception cref="System.ArgumentNullException">
         /// tradesRepository
         /// or
         /// itemsRepository
+        /// or
+        /// tradeManager
         /// </exception>
-        public TradesController(IRepository<Trade> tradesRepository, IRepository<Item> itemsRepository)
+        public TradesController(
+            IRepository<Trade> tradesRepository, IRepository<Item> itemsRepository, ITradeManager tradeManager)
         {
             if (tradesRepository == null)
             {
@@ -38,8 +42,14 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 throw new ArgumentNullException("itemsRepository");
             }
 
+            if (tradeManager == null)
+            {
+                throw new ArgumentNullException("tradeManager");
+            }
+
             _tradesRepository = tradesRepository;
             _itemsRepository = itemsRepository;
+            _tradeManager = tradeManager;
         }
 
         /// <summary>
@@ -61,10 +71,13 @@ namespace DayZTradeCenter.UI.Web.Controllers
         {
             var model = _tradesRepository.GetAll();
 
+            var userId = User.Identity.GetUserId();
+
             var vm = new ListTradesViewModel(
                 !User.IsInRole("Administrator"),
-                User.Identity.GetUserId(),
-                model);
+                userId,
+                model,
+                _tradeManager.CanCreateTrade(userId));
 
             return View(vm);
         }
@@ -274,6 +287,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
 
         private readonly IRepository<Trade> _tradesRepository;
         private readonly IRepository<Item> _itemsRepository;
+        private readonly ITradeManager _tradeManager;
 
         #endregion
     }

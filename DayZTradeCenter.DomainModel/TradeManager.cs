@@ -51,6 +51,16 @@ namespace DayZTradeCenter.DomainModel
             return All.Where(t => t.Offers.Any(o => o.Id == userId));
         }
 
+        public bool CanCreateTrade(string userId)
+        {
+            // the active trades of the specified user. 
+            var trades =
+                All.Where(
+                    trade => trade.Owner.Id == userId && trade.IsClosed == false);
+
+            return trades.Count() < 3;
+        }
+
         private readonly IRepository<Trade> _tradesRepository;
     }
 }
