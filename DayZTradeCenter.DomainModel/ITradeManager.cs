@@ -5,9 +5,25 @@ namespace DayZTradeCenter.DomainModel
 {
     public interface ITradeManager
     {
+        /// <summary>
+        /// Gets the latest active trades ordered by creation date.
+        /// </summary>
+        /// <param name="count">How many results.</param>
+        /// <returns></returns>
         IEnumerable<Trade> GetLatestTrades(int count = 12);
+
+        /// <summary>
+        /// Gets the hottest active trades ordered by number of offers.
+        /// </summary>
+        /// <param name="count">How many results.</param>
+        /// <returns></returns>
         IEnumerable<Trade> GetHottestTrades(int count = 12);
-        IEnumerable<Trade> GetAllTrades();
+
+        /// <summary>
+        /// Gets the active trades.
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<Trade> GetActiveTrades();
 
         IEnumerable<Trade> GetTradesByUser(string userId);
         IEnumerable<Trade> GetOffersByUser(string userId);

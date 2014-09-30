@@ -51,7 +51,11 @@
                     @foreach (var trade in Model.MyTrades)
                     {
                         <li class="list-group-item">
-                            @if (trade.Completed)
+                            @if (trade.FeedbackReceived)
+                            {
+                                @trade.Id
+                            }
+                            else if (trade.Completed)
                             {
                                 <a href="@Url.Action("TradeCompleted", "Trades", new { id = trade.Id })">@trade.Id</a>
                             }
@@ -65,20 +69,24 @@
                             },
 
                             <strong>H</strong> {
-                                @foreach (var itemDetails in @trade.Have)
-                                {
-                                    @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
-                                }
+                            @foreach (var itemDetails in @trade.Have)
+                            {
+                                @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
+                            }
                             }
 
                             <strong>W</strong> {
-                                @foreach (var itemDetails in @trade.Want)
-                                {
-                                    @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
-                                }
+                            @foreach (var itemDetails in @trade.Want)
+                            {
+                                @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
                             }
-
-                            @if (trade.Completed)
+                            }
+                            
+                            @if (trade.FeedbackReceived)
+                            {
+                                @:DONE
+                            }
+                            else if (trade.Completed)
                             {
                                 @:COMPLETED: leave feedback!
                             }

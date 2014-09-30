@@ -42,21 +42,21 @@ namespace DayZTradeCenter.DomainModel
     
         public IEnumerable<Trade> GetLatestTrades(int count = 12)
         {
-            return All
+            return GetActiveTrades()
                 .OrderByDescending(trade => trade.CreationDate)
                 .Take(count);
         }
 
         public IEnumerable<Trade> GetHottestTrades(int count = 12)
         {
-            return All
+            return GetActiveTrades()
                 .OrderByDescending(trade => trade.Offers.Count)
                 .Take(count);
         }
 
-        public IEnumerable<Trade> GetAllTrades()
+        public IEnumerable<Trade> GetActiveTrades()
         {
-            return All;
+            return All.Where(t => t.IsClosed == false);
         }
 
         public IEnumerable<Trade> GetTradesByUser(string userId)
@@ -194,6 +194,11 @@ namespace DayZTradeCenter.DomainModel
                 Score = score,
                 TradeId = tradeId
             });
+
+            model.FeedbackReceived = true;
+            
+            _tradesRepository.Update(model);
+            _tradesRepository.SaveChanges();
 
             return true;
         }

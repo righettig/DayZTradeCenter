@@ -46,7 +46,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
         // GET: Trades
         public ActionResult Index()
         {
-            var model = _tradeManager.GetAllTrades();
+            var model = _tradeManager.GetActiveTrades();
 
             var userId = User.Identity.GetUserId();
 
@@ -130,7 +130,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
         {
             _tradeManager.ChooseWinner(tradeId, userId);
 
-            return RedirectToAction("Edit", "Profile");
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Trades/ExchangeManagement/5
