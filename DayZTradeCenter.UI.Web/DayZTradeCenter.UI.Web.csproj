@@ -198,6 +198,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AnalyticsController.cs" />
+    <Compile Include="LoadUserInboxActionFilter.cs" />
     <Compile Include="Models\AnalyticsViewModel.cs" />
     <Compile Include="Models\CreateTradeViewModel.cs" />
     <Compile Include="Controllers\FeaturesController.cs" />
@@ -346,6 +347,7 @@
     <Content Include="Views\Trades\AlreadyOffered.cshtml" />
     <Content Include="Views\Account\LoginWithFakeAccount.cshtml" />
     <Content Include="Views\Trades\Delete.cshtml" />
+    <Content Include="Views\Profile\Inbox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

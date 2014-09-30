@@ -1,16 +1,28 @@
-﻿@using Microsoft.AspNet.Identity
+﻿@using DayZTradeCenter.DomainModel.Identity.Entities
+@using Microsoft.AspNet.Identity
+
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new {id = "logoutForm", @class = "navbar-right"}))
     {
         @Html.AntiForgeryToken()
 
-        <ul class="nav navbar-nav navbar-right">
+    <ul class="nav navbar-nav navbar-right">
+        @if (Session["user_inbox"] != null && ((int) Session["user_inbox"]) > 0)
+        {
             <li>
-                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Edit", "Profile", routeValues: null, htmlAttributes: new {title = "Profile"})
+                <a href="@Url.Action("Inbox", "Profile")">
+                    Inbox <span class="badge">
+                              @((int) Session["user_inbox"])
+                          </span>
+                </a>
             </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-        </ul>
+        }
+        <li>
+            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Edit", "Profile", routeValues: null, htmlAttributes: new { title = "Profile" })
+        </li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+    </ul>
     }
 }
 else

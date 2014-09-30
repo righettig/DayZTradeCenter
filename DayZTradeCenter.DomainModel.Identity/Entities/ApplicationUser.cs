@@ -30,6 +30,11 @@ namespace DayZTradeCenter.DomainModel.Identity.Entities
     {
         public int Id { get; set; }
 
+        // NB: required by EF
+        public Message()
+        {
+        }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Message"/> class.
         /// </summary>
@@ -88,6 +93,6 @@ namespace DayZTradeCenter.DomainModel.Identity.Entities
         }
 
         public ICollection<Feedback> Feedbacks { get; set; }
-        public ICollection<Message> Messages { get; set; }
+        public virtual ICollection<Message> Messages { get; set; } // NB: "virtual" to enable EF lazy loading.
     }
 }

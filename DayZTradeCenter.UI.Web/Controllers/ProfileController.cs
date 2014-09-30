@@ -136,7 +136,16 @@ namespace DayZTradeCenter.UI.Web.Controllers
         }
 
         #endregion
-        
+
+        public async Task<ViewResult> Inbox()
+        {
+            var model =
+                await UserManager.FindByIdAsync(
+                    User.Identity.GetUserId());
+
+            return View(model.Messages);
+        }
+
         #region Private fields
 
         private ApplicationUserManager _userManager;
