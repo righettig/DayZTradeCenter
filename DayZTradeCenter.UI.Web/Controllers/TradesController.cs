@@ -174,7 +174,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
         {
             if (_tradeManager.ChooseWinner(tradeId, userId))
             {
-                _profileManager.AddHistoryEvent(userId, Events.WinnerChoosen);
+                _profileManager.AddHistoryEvent(User.Identity.GetUserId(), Events.WinnerChoosen);
             }
 
             return RedirectToAction("Index", "Home");
