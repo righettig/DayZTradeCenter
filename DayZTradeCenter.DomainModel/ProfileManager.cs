@@ -8,7 +8,15 @@ namespace DayZTradeCenter.DomainModel
 {
     public enum Events
     {
-        Registration
+        Registration,
+        ProfileUpdate,
+        TradeCreated,
+        TradeDeleted,
+        TradeOffered,
+        TradeWithdrawn,
+        WinnerChoosen,
+        TradeCompleted,
+        FeedbackLeft
     }
 
     public class EventInfo : IEntity

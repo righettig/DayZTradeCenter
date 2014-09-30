@@ -1,6 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using DayZTradeCenter.DomainModel;
 using DayZTradeCenter.DomainModel.Identity.Entities;
 using DayZTradeCenter.DomainModel.Identity.Services;
 using DayZTradeCenter.UI.Web.Models;
@@ -16,8 +18,16 @@ namespace DayZTradeCenter.UI.Web.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfileController"/> class.
         /// </summary>
-        public ProfileController()
+        /// <param name="profileManager">The profile manager.</param>
+        /// <exception cref="System.ArgumentNullException">profileManager</exception>
+        public ProfileController(IProfileManager profileManager)
         {
+            if (profileManager == null)
+            {
+                throw new ArgumentNullException("profileManager");
+            }
+
+            _profileManager = profileManager;
         }
 
         /// <summary>
@@ -108,6 +118,8 @@ namespace DayZTradeCenter.UI.Web.Controllers
                     SignInManager.AuthenticationManager.SignOut();
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
+                    _profileManager.AddHistoryEvent(user.Id, Events.ProfileUpdate);
+
                     return RedirectToAction("Edit");
                 }
             }
@@ -130,6 +142,8 @@ namespace DayZTradeCenter.UI.Web.Controllers
         private ApplicationUserManager _userManager;
 
         private ApplicationSignInManager _signInManager;
+
+        private readonly IProfileManager _profileManager;
 
         #endregion
     }

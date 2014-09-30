@@ -18,15 +18,26 @@ namespace DayZTradeCenter.UI.Web.Controllers
         /// Initializes a new instance of the <see cref="TradesController"/> class.
         /// </summary>
         /// <param name="tradeManager">The trade manager.</param>
-        /// <exception cref="System.ArgumentNullException">tradeManager</exception>
-        public TradesController(ITradeManager tradeManager)
+        /// <param name="profileManager">The profile manager.</param>
+        /// <exception cref="System.ArgumentNullException">
+        /// tradeManager
+        /// or
+        /// profileManager
+        /// </exception>
+        public TradesController(ITradeManager tradeManager, IProfileManager profileManager)
         {
             if (tradeManager == null)
             {
                 throw new ArgumentNullException("tradeManager");
             }
 
+            if (profileManager == null)
+            {
+                throw new ArgumentNullException("profileManager");
+            }
+
             _tradeManager = tradeManager;
+            _profileManager = profileManager;
         }
 
         /// <summary>
@@ -89,6 +100,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
 
             _tradeManager.CreateNewTrade(vm.Have, vm.Want, user);
+            _profileManager.AddHistoryEvent(user.Id, Events.TradeCreated);
 
             return Json(new {success = true});
         }
@@ -112,7 +124,10 @@ namespace DayZTradeCenter.UI.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int tradeId)
         {
-            _tradeManager.DeleteTrade(tradeId, User.Identity.GetUserId());
+            var userId = User.Identity.GetUserId();
+
+            _tradeManager.DeleteTrade(tradeId, userId);
+            _profileManager.AddHistoryEvent(userId, Events.TradeDeleted);
 
             return RedirectToAction("Index");
         }
@@ -125,6 +140,8 @@ namespace DayZTradeCenter.UI.Web.Controllers
 
             if (_tradeManager.Offer(tradeId, user))
             {
+                _profileManager.AddHistoryEvent(userId, Events.TradeOffered);
+
                 return RedirectToAction("Index");
             }
             
@@ -136,8 +153,11 @@ namespace DayZTradeCenter.UI.Web.Controllers
         {
             var userId = User.Identity.GetUserId();
             
-            _tradeManager.Withdraw(tradeId, userId);
-
+            if (_tradeManager.Withdraw(tradeId, userId))
+            {
+                _profileManager.AddHistoryEvent(userId, Events.TradeWithdrawn);
+            }
+        
             return RedirectToAction("Index");
         }
 
@@ -152,7 +172,10 @@ namespace DayZTradeCenter.UI.Web.Controllers
         // GET: Trades/ChooseWinner/tradeId=1&userId=2
         public ActionResult ChooseWinner(int tradeId, string userId)
         {
-            _tradeManager.ChooseWinner(tradeId, userId);
+            if (_tradeManager.ChooseWinner(tradeId, userId))
+            {
+                _profileManager.AddHistoryEvent(userId, Events.WinnerChoosen);
+            }
 
             return RedirectToAction("Index", "Home");
         }
@@ -198,6 +221,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
             var user = await UserManager.FindByIdAsync(trade.Winner);
             
             var model = _tradeManager.MarkAsCompleted(id, user);
+            _profileManager.AddHistoryEvent(User.Identity.GetUserId(), Events.TradeCompleted);
 
             await UserManager.UpdateAsync(user);
 
@@ -217,14 +241,22 @@ namespace DayZTradeCenter.UI.Web.Controllers
             var trade = _tradeManager.GetTradeById(id);
 
             var user = await UserManager.FindByIdAsync(trade.Winner);
-            
-            _tradeManager.LeaveFeedback(id, score, user);
+
+            if (_tradeManager.LeaveFeedback(id, score, user))
+            {
+                _profileManager.AddHistoryEvent(User.Identity.GetUserId(), Events.FeedbackLeft);
+            }
 
             await UserManager.UpdateAsync(user);
 
             return View();
         }
 
+        #region Private fields
+
         private readonly ITradeManager _tradeManager;
+        private readonly IProfileManager _profileManager;
+
+        #endregion
     }
 }
