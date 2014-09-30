@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DayZTradeCenter.DomainModel.Identity.Entities;
 using rg.GenericRepository.Core;
+using rg.Time;
 
 namespace DayZTradeCenter.DomainModel
 {
@@ -106,8 +107,7 @@ namespace DayZTradeCenter.DomainModel
 
             trade.Owner = user;
 
-            // TODO: use TimeProvider
-            trade.CreationDate = DateTime.Now;
+            trade.CreationDate = TimeProvider.Now;
 
             _tradesRepository.Insert(trade);
             _tradesRepository.SaveChanges();
@@ -205,7 +205,7 @@ namespace DayZTradeCenter.DomainModel
             user.Feedbacks.Add(new Feedback
             {
                 From = model.Owner.Id,
-                Timestamp = DateTime.Now,
+                Timestamp = TimeProvider.Now,
                 Score = score,
                 TradeId = tradeId
             });
