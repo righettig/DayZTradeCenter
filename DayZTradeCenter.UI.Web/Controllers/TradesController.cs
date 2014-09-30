@@ -9,6 +9,7 @@ using DayZTradeCenter.DomainModel.Identity.Services;
 using DayZTradeCenter.UI.Web.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using ItemViewModel = DayZTradeCenter.UI.Web.Models.ItemViewModel;
 
 namespace DayZTradeCenter.UI.Web.Controllers
 {
@@ -55,9 +56,11 @@ namespace DayZTradeCenter.UI.Web.Controllers
         }
 
         // GET: Trades
-        public ActionResult Index()
+        // TODO: search_param => enum
+        public ActionResult Index(int? itemId, string search_param)
         {
-            var model = _tradeManager.GetActiveTrades();
+            var model = _tradeManager.GetActiveTrades(
+                new SearchParams {ItemId = itemId, SearchType = search_param});
 
             var userId = User.Identity.GetUserId();
 
@@ -66,6 +69,11 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 userId,
                 model,
                 _tradeManager.CanCreateTrade(userId));
+
+            var items = _tradeManager.GetAllItems();
+
+            vm.Items =
+                items.Select(item => new ItemViewModel {Id = item.Id, Name = item.Name});
 
             return View(vm);
         }

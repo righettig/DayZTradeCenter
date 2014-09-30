@@ -60,6 +60,42 @@ namespace DayZTradeCenter.DomainModel
             return All.Where(t => t.IsClosed == false);
         }
 
+        public IEnumerable<Trade> GetActiveTrades(SearchParams @params)
+        {
+            IEnumerable<Trade> result;
+
+            if (@params.ItemId.HasValue)
+            {
+                var trades = GetActiveTrades();
+
+                switch (@params.SearchType)
+                {
+                    case "have":
+                        result = trades
+                            .Where(t => t.Have.Any(i => i.Item.Id == @params.ItemId));
+                        break;
+
+                    case "want":
+                        result = trades
+                            .Where(t => t.Want.Any(i => i.Item.Id == @params.ItemId));
+                        break;
+
+                    default:
+                        result = trades
+                            .Where(t =>
+                                t.Have.Any(i => i.Item.Id == @params.ItemId) ||
+                                t.Want.Any(i => i.Item.Id == @params.ItemId));
+                        break;
+                }
+            }
+            else
+            {
+                result = GetActiveTrades();
+            }
+
+            return result;
+        }
+
         public IEnumerable<Trade> GetTradesByUser(string userId)
         {
             return All.Where(t => t.Owner.Id == userId);

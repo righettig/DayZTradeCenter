@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using DayZTradeCenter.DomainModel;
 
 namespace DayZTradeCenter.UI.Web.Models
 {
     public class CreateTradeViewModel : IValidatableObject
     {
-        public IEnumerable<ItemViewModel> Have { get; set; }
-        public IEnumerable<ItemViewModel> Want { get; set; }
+        public IEnumerable<DomainModel.ItemViewModel> Have { get; set; }
+        public IEnumerable<DomainModel.ItemViewModel> Want { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

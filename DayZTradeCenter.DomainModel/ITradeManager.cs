@@ -3,6 +3,12 @@ using DayZTradeCenter.DomainModel.Identity.Entities;
 
 namespace DayZTradeCenter.DomainModel
 {
+    public class SearchParams
+    {
+        public int? ItemId { get; set; }
+        public string SearchType { get; set; }
+    }
+
     public interface ITradeManager
     {
         /// <summary>
@@ -24,6 +30,9 @@ namespace DayZTradeCenter.DomainModel
         /// </summary>
         /// <returns></returns>
         IEnumerable<Trade> GetActiveTrades();
+        
+        IEnumerable<Trade> GetActiveTrades(SearchParams @params);
+
 
         IEnumerable<Trade> GetTradesByUser(string userId);
         IEnumerable<Trade> GetOffersByUser(string userId);
