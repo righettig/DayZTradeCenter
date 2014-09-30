@@ -169,9 +169,10 @@ namespace DayZTradeCenter.UI.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> TradeCompleted(int id)
         {
-            //var user = await UserManager.FindByIdAsync(model.Winner);
-            var user = await UserManager.FindByIdAsync("bfc71c53-fc4b-4061-9459-0940f92e764d");
+            var trade = _tradeManager.GetTradeById(id);
 
+            var user = await UserManager.FindByIdAsync(trade.Winner);
+            
             var model = _tradeManager.MarkAsCompleted(id, user);
 
             await UserManager.UpdateAsync(user);
@@ -189,9 +190,10 @@ namespace DayZTradeCenter.UI.Web.Controllers
 
         public async Task<ActionResult> LeaveFeedback(int id, int score)
         {
-            //var user = await UserManager.FindByIdAsync(model.Winner);
-            var user = await UserManager.FindByIdAsync("bfc71c53-fc4b-4061-9459-0940f92e764d");
+            var trade = _tradeManager.GetTradeById(id);
 
+            var user = await UserManager.FindByIdAsync(trade.Winner);
+            
             _tradeManager.LeaveFeedback(id, score, user);
 
             await UserManager.UpdateAsync(user);

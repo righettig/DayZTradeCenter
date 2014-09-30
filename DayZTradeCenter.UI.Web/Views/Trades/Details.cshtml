@@ -26,11 +26,19 @@
             @foreach (var offer in Model.Offers)
             {
                 <li>
-                    Id: @offer.Id, Reputation: @offer.GetReputation() |
-                    <a href="@Url.Action("ChooseWinner", new { tradeId = Model.Id, userId = offer.Id })">Selects as winner</a>
+                    TODO: link to past history, Reputation: @offer.GetReputation() |
+                    <a href="@Url.Action("ChooseWinner", new {tradeId = Model.Id, userId = offer.Id})">Selects as winner</a>
                 </li>
             }
         </ul>
+    }
+    else if (Model.Winner == User.Identity.GetUserId())
+    {
+        @: You have won this trade. Congratulations!
+    }
+    else if (Model.IsClosed)
+    {
+        @: You have lost this trade. We're sorry for you!
     }
 </div>
 <p>

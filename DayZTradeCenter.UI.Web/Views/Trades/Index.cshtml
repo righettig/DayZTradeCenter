@@ -27,60 +27,71 @@
     </div>
 }
 
-<div class="table-responsive">
-    <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th style="width: 40px">Id</th>
-                <th>Have</th>
-                <th>Want</th>
-                <th style="width: 190px">Owner reputation</th>
-                <th style="width: 190px"># Offers</th>
-                @if (!User.IsInRole("Administrator"))
-                {
-                    <th></th>
-                }
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var trade in Model.Trades)
-            {
+@if (Model.Trades.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
                 <tr>
-                    <td>@trade.TradeData.Id</td>
-                    <td>
-                        <ul style="list-style-type: none">
-                            @foreach (var have in trade.TradeData.Have)
-                            {
-                                <li>@have.Item.Name, @have.Quantity</li>
-                            }
-                        </ul>
-                    </td>
-                    <td>
-                        <ul style="list-style-type: none">
-                            @foreach (var want in trade.TradeData.Want)
-                            {
-                                <li>@want.Item.Name, @want.Quantity</li>
-                            }
-                        </ul>
-                    </td>
-                    <td>@trade.TradeData.Owner.GetReputation()</td>
-                    <td>@trade.TradeData.Offers.Count</td>
-                    @if (trade.CanOffer)
+                    <th style="width: 40px">Id</th>
+                    <th>Have</th>
+                    <th>Want</th>
+                    <th style="width: 190px">Owner reputation</th>
+                    <th style="width: 190px"># Offers</th>
+                    @if (!User.IsInRole("Administrator"))
                     {
-                        <td>
-                            <a class="btn btn-default"
-                               href="@Url.Action("Offer", new {tradeId = trade.TradeData.Id})">Offer</a>
-                        </td>
-                    }
-                    else if (trade.TradeData.Owner.Id != User.Identity.GetUserId())
-                    {
-                        <td>
-                            <a class="btn btn-default"
-                               href="@Url.Action("Withdraw", new {tradeId = trade.TradeData.Id})">Withdraw</a>
-                        </td>
+                        <th></th>
                     }
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @foreach (var trade in Model.Trades)
+                {
+                    <tr>
+                        <td>@trade.TradeData.Id</td>
+                        <td>
+                            <ul style="list-style-type: none">
+                                @foreach (var have in trade.TradeData.Have)
+                                {
+                                    <li>@have.Item.Name, @have.Quantity</li>
+                                }
+                            </ul>
+                        </td>
+                        <td>
+                            <ul style="list-style-type: none">
+                                @foreach (var want in trade.TradeData.Want)
+                                {
+                                    <li>@want.Item.Name, @want.Quantity</li>
+                                }
+                            </ul>
+                        </td>
+                        <td>@trade.TradeData.Owner.GetReputation()</td>
+                        <td>@trade.TradeData.Offers.Count</td>
+                        @if (trade.CanOffer)
+                        {
+                            <td>
+                                <a class="btn btn-default"
+                                   href="@Url.Action("Offer", new {tradeId = trade.TradeData.Id})">Offer</a>
+                            </td>
+                        }
+                        else if (trade.TradeData.Owner.Id != User.Identity.GetUserId())
+                        {
+                            <td>
+                                <a class="btn btn-default"
+                                   href="@Url.Action("Withdraw", new {tradeId = trade.TradeData.Id})">Withdraw</a>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="panel panel-default">
+        <div class="panel-body">
+            There are no trade available!
+        </div>
+    </div>
+}

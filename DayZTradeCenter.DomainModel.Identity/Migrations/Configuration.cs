@@ -38,8 +38,10 @@ namespace DayZTradeCenter.DomainModel.Identity.Migrations
         {
             var mgr = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
 
-            DefineUser(mgr, DefaultUsers.Admin);
-            DefineUser(mgr, DefaultUsers.TestUser);
+            foreach (var user in DefaultUsers.All)
+            {
+                DefineUser(mgr, user);
+            }
         }
 
         private static void DefineRole(ApplicationDbContext context, string role)
@@ -53,6 +55,7 @@ namespace DayZTradeCenter.DomainModel.Identity.Migrations
 
             var applicationUser = new ApplicationUser
             {
+                Id = user.UserId,
                 UserName = user.UserName,
                 Email = email,
                 EmailConfirmed = true

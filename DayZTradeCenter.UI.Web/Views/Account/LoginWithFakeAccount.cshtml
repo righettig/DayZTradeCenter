@@ -1,0 +1,50 @@
+﻿@using DayZTradeCenter.DomainModel.Identity.Migrations
+
+@{
+    ViewBag.Title = "Log in";
+}
+
+<style>
+    li {
+        margin-bottom: 15px
+    }
+
+    .row {
+        margin-top: 20px
+    }
+</style>
+
+<h2>Log in using your test account</h2>
+
+@using (Html.BeginForm("ExternalLogin", "Account", new {ReturnUrl = ViewBag.ReturnUrl}))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="row">
+        <div class="col-md-12">
+            <section>
+                <ul style="list-style-type: none">
+                    @foreach (var user in DefaultUsers.All)
+                    {
+                        <li>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <button class="btn btn-default"
+                                                name="userId"
+                                                value="@user.UserId">
+                                            @user.UserName
+                                        </button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>@user.Description</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </section>
+        </div>
+    </div>
+}

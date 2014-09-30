@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -84,7 +85,11 @@ namespace DayZTradeCenter.UI.Web.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
+#if FAKE_LOGIN
+            return View("LoginWithFakeAccount");
+#else
             return View();
+#endif
         }
 
         //
@@ -106,10 +111,14 @@ namespace DayZTradeCenter.UI.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+#if FAKE_LOGIN
+        public ActionResult ExternalLogin(string userId, string returnUrl)
+#else
         public ActionResult ExternalLogin(string provider, string returnUrl)
+#endif
         {
 #if FAKE_LOGIN
-            return RedirectToAction("ExternalLoginCallback", new {returnUrl});
+            return RedirectToAction("ExternalLoginCallback", new { returnUrl, userId });
 #else
             // Request a redirect to the external login provider
             return new ChallengeResult(provider,
@@ -120,10 +129,14 @@ namespace DayZTradeCenter.UI.Web.Controllers
         //
         // GET: /Account/ExternalLoginCallback
         [AllowAnonymous]
+#if FAKE_LOGIN
+        public async Task<ActionResult> ExternalLoginCallback(string returnUrl, string userId)
+#else
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
+#endif
         {
 #if FAKE_LOGIN
-            var testUser = DefaultUsers.TestUser;
+            var testUser = DefaultUsers.All.First(user => user.UserId == userId);
 
             var loginInfo = new ExternalLoginInfo
             {
@@ -163,8 +176,8 @@ namespace DayZTradeCenter.UI.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model,
-            string returnUrl)
+        public async Task<ActionResult> ExternalLoginConfirmation(
+            ExternalLoginConfirmationViewModel model, string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
             {
