@@ -35,7 +35,6 @@
     }
 </div>
 <!-- #endregion -->
-
 @if (!User.IsInRole("Administrator"))
 {
     <div class="row">
@@ -81,7 +80,7 @@
                                 @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
                             }
                             }
-                            
+
                             @if (trade.FeedbackReceived)
                             {
                                 @:DONE
@@ -114,16 +113,16 @@
                             <a href="@Url.Action("Details", "Trades", new { id = trade.Id })">@trade.Id</a>,
 
                             <strong>H</strong> {
-                                @foreach (var itemDetails in @trade.Have)
+                            @foreach (var itemDetails in @trade.Have)
                                 {
-                                    @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
+                                @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
                                 }
                             }
 
                             <strong>W</strong> {
-                                @foreach (var itemDetails in @trade.Want)
+                            @foreach (var itemDetails in @trade.Want)
                                 {
-                                    @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
+                                @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
                                 }
                             }
                         </li>
@@ -138,7 +137,14 @@
             <h3 class="panel-title">Past activities</h3>
         </div>
         <div class="panel-body">
-            The list of all your past activities. <strong>Coming soon!</strong>
+            <ul>
+                @foreach (var e in Model.History)
+                {
+                    <li>
+                        @e.Event.ToString(), @e.TimeStamp
+                    </li>
+                }
+            </ul>
         </div>
     </div>
 }

@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using DayZTradeCenter.DomainModel;
 using DayZTradeCenter.DomainModel.Identity.Entities;
 using DayZTradeCenter.DomainModel.Identity.Migrations;
 using DayZTradeCenter.DomainModel.Identity.Services;
@@ -10,6 +12,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using DayZTradeCenter.UI.Web.Models;
+using Events = DayZTradeCenter.DomainModel.Events;
 
 namespace DayZTradeCenter.UI.Web.Controllers
 {
@@ -20,8 +23,16 @@ namespace DayZTradeCenter.UI.Web.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountController"/> class.
         /// </summary>
-        public AccountController()
+        /// <param name="profileManager">The profile manager.</param>
+        /// <exception cref="System.ArgumentNullException">profileManager</exception>
+        public AccountController(IProfileManager profileManager)
         {
+            if (profileManager == null)
+            {
+                throw new ArgumentNullException("profileManager");
+            }
+
+            _profileManager = profileManager;
         }
 
         /// <summary>
@@ -200,6 +211,9 @@ namespace DayZTradeCenter.UI.Web.Controllers
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                        _profileManager.AddHistoryEvent(user.Id, Events.Registration);
+
                         return RedirectToLocal(returnUrl);
                     }
                 }
@@ -286,7 +300,9 @@ namespace DayZTradeCenter.UI.Web.Controllers
         private ApplicationUserManager _userManager;
 
         private ApplicationSignInManager _signInManager;
-
+        
+        private readonly IProfileManager _profileManager;
+        
         #endregion
     }
 }

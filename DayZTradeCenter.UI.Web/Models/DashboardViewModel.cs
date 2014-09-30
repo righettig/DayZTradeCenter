@@ -22,5 +22,7 @@ namespace DayZTradeCenter.UI.Web.Models
         
         public IEnumerable<Trade> MyTrades { get; set; }
         public IEnumerable<Trade> MyOffers { get; set; }
+        
+        public IEnumerable<EventInfo> History { get; set; }
     }
 }

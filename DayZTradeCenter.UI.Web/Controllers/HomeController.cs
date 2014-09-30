@@ -19,15 +19,26 @@ namespace DayZTradeCenter.UI.Web.Controllers
         /// Initializes a new instance of the <see cref="HomeController"/> class.
         /// </summary>
         /// <param name="tradeManager">The trade manager.</param>
-        /// <exception cref="System.ArgumentNullException">tradeManager</exception>
-        public HomeController(ITradeManager tradeManager)
+        /// <param name="profileManager">The profile manager.</param>
+        /// <exception cref="System.ArgumentNullException">
+        /// tradeManager
+        /// or
+        /// profileManager
+        /// </exception>
+        public HomeController(ITradeManager tradeManager, IProfileManager profileManager)
         {
             if (tradeManager == null)
             {
                 throw new ArgumentNullException("tradeManager");
             }
 
+            if (profileManager == null)
+            {
+                throw new ArgumentNullException("profileManager");
+            }
+
             _tradeManager = tradeManager;
+            _profileManager = profileManager;
         }
 
         /// <summary>
@@ -112,7 +123,9 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 IsAdmin = UserManager.IsInRole(user.Id, "Administrator"),
 
                 MyTrades = _tradeManager.GetTradesByUser(user.Id),
-                MyOffers = _tradeManager.GetOffersByUser(user.Id)
+                MyOffers = _tradeManager.GetOffersByUser(user.Id),
+
+                History = _profileManager.GetHistoryByUserId(user.Id)
             };
 
             return View(vm);
@@ -134,6 +147,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
         private ApplicationSignInManager _signInManager;
 
         private readonly ITradeManager _tradeManager;
+        private readonly IProfileManager _profileManager;
 
         #endregion
     }
