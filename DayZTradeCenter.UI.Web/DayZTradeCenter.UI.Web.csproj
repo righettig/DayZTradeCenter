@@ -345,6 +345,7 @@
     <Content Include="Views\Home\_TradeGallery.cshtml" />
     <Content Include="Views\Trades\AlreadyOffered.cshtml" />
     <Content Include="Views\Account\LoginWithFakeAccount.cshtml" />
+    <Content Include="Views\Trades\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

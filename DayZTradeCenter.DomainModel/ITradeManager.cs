@@ -36,6 +36,8 @@ namespace DayZTradeCenter.DomainModel
 
         bool CreateNewTrade(IEnumerable<ItemViewModel> have, IEnumerable<ItemViewModel> want, IApplicationUser user);
 
+        bool DeleteTrade(int tradeId, string userId);
+
         bool Offer(int tradeId, IApplicationUser user);
         bool Withdraw(int tradeId, string userId);
 

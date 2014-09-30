@@ -93,6 +93,30 @@ namespace DayZTradeCenter.UI.Web.Controllers
             return Json(new {success = true});
         }
 
+        public ActionResult Delete(int tradeId)
+        {
+            var trade = _tradeManager.GetTradeById(tradeId);
+
+            if (trade == null)
+            {
+                return HttpNotFound();
+            }
+
+            return trade.Owner.Id != User.Identity.GetUserId()
+                ? View("Index")
+                : View(trade);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int tradeId)
+        {
+            _tradeManager.DeleteTrade(tradeId, User.Identity.GetUserId());
+
+            return RedirectToAction("Index");
+        }
+
         // GET: Trades/Offer
         public async Task<ActionResult> Offer(int tradeId)
         {

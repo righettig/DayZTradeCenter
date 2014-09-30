@@ -115,6 +115,21 @@ namespace DayZTradeCenter.DomainModel
             return true;
         }
 
+        public bool DeleteTrade(int tradeId, string userId)
+        {
+            var trade = _tradesRepository.GetSingle(tradeId);
+
+            if (trade.Owner.Id == userId)
+            {
+                _tradesRepository.Delete(trade);
+                _tradesRepository.SaveChanges();
+
+                return true;
+            }
+
+            return false;
+        }
+
         public bool Offer(int tradeId, IApplicationUser user)
         {
             var trade = _tradesRepository.GetSingle(tradeId);

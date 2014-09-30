@@ -81,6 +81,13 @@
                                    href="@Url.Action("Withdraw", new {tradeId = trade.TradeData.Id})">Withdraw</a>
                             </td>
                         }
+                        else
+                        {
+                            <td>
+                                <a class="btn btn-default"
+                                   href="@Url.Action("Delete", new {tradeId = trade.TradeData.Id})">Delete</a>
+                            </td>
+                        }
                     </tr>
                 }
             </tbody>
