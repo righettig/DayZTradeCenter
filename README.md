@@ -18,6 +18,15 @@ The official repository of the DayZTradeCenter project.
 
 Sometimes it may happen that "Update-Database" is not recognized as the name of a cmdlet inside the Package Manager Console. Try closing and reopening VS. This should do the trick. More info here: http://stackoverflow.com/questions/9674983/the-term-update-database-is-not-recognized-as-the-name-of-a-cmdlet
 
+### Testing
+
+It is possible to test the web application using preconfigured accounts without the need to log in with Steam. Selected the "DebugFakeLogin" configuration.
+
+- Administrator
+- Test1, a test user with a trade already created that has received 2 offers from test user #2, #3
+- Test2, a test user who has offered to the trade created by test user #1
+- Test3, a test user who has offered to the trade created by test user #1
+- Test4, a user who has not yet done anything
 
 ## Release notes
 
