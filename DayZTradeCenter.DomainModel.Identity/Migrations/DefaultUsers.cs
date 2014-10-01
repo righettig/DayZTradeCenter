@@ -23,7 +23,7 @@ namespace DayZTradeCenter.DomainModel.Identity.Migrations
                 },
                 new User("TestUser3", "00000000000000004", "b4d90414-04e3-4039-a72b-d7c80489fb8e")
                 {
-                    Description = "A test user who has offered to the trade created by test user #2"
+                    Description = "A test user who has offered to the trade created by test user #1"
                 },
                 new User("TestUser4", "00000000000000005", "32760e14-dc0d-4c29-b0b9-9dd7139e38ea")
                 {
