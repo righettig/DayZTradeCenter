@@ -104,6 +104,16 @@ namespace DayZTradeCenter.UI.Web.Controllers
         }
 
         //
+        // POST: /Account/AdminLogin
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult AdminLogin(string username, string password)
+        {
+            return View();
+        }
+
+        //
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -112,7 +122,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
             AuthenticationManager.SignOut();
             return RedirectToAction("Index", "Home");
         }
-
+        
         #endregion
 
         #region ExternalLogin
