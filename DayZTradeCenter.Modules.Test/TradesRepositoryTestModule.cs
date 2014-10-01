@@ -7,6 +7,13 @@ using rg.GenericRepository.Core;
 
 namespace DayZTradeCenter.Modules.Test
 {
+    /// <summary>
+    /// Configures <see cref="IRepository{Trade}"/> as a stub repository
+    /// with only the GetAll method defined.
+    /// </summary>
+    /// <remarks>
+    /// Fake trades are defined with the owners' reputation randomly assigned.
+    /// </remarks>
     public class TradesRepositoryTestModule : NinjectModule
     {
         public override void Load()
@@ -48,6 +55,11 @@ namespace DayZTradeCenter.Modules.Test
             return result;
         }
 
+        /// <summary>
+        /// Sets the owner for the specified trade with the given reputation.
+        /// </summary>
+        /// <param name="result">The result.</param>
+        /// <param name="reputation">The reputation.</param>
         private static void SetOwner(Trade result, int reputation)
         {
             var owner = new Mock<IApplicationUser>();

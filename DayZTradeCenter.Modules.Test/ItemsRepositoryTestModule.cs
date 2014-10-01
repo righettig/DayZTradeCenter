@@ -6,6 +6,10 @@ using rg.GenericRepository.Core;
 
 namespace DayZTradeCenter.Modules.Test
 {
+    /// <summary>
+    /// Configures <see cref="IRepository{Item}"/> as a stub repository 
+    /// with only the GetAll and GetSingle methods defined.
+    /// </summary>
     public class ItemsRepositoryTestModule : NinjectModule
     {
         public override void Load()

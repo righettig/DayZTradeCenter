@@ -4,8 +4,17 @@ using DayZTradeCenter.DomainModel;
 
 namespace DayZTradeCenter.Modules.Test
 {
+    /// <summary>
+    /// Defines a bunch of test items.
+    /// </summary>
     internal static class ItemsHelper
     {
+        /// <summary>
+        /// Gets the items.
+        /// </summary>
+        /// <value>
+        /// The items.
+        /// </value>
         public static IEnumerable<Item> Items
         {
             get
@@ -94,7 +103,12 @@ namespace DayZTradeCenter.Modules.Test
         }
 
         #endregion
-        
+
+        /// <summary>
+        /// Gets the item with the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>The <see cref="Item"/> with the given identifier.</returns>
         private static Item GetItemById(int id)
         {
             return Items.FirstOrDefault(i => i.Id == id);

@@ -9,6 +9,12 @@ using rg.GenericRepository.Impl.InMemory;
 
 namespace DayZTradeCenter.Modules.Test
 {
+    /// <summary>
+    /// Configures <see cref="IRepository{Trade}"/> as an in-memory repository.
+    /// </summary>
+    /// <remarks>
+    /// Fake trades are defined with the owners' reputation randomly assigned.
+    /// </remarks>
     public class TradesRepositoryInMemoryModule : NinjectModule
     {
         public override void Load()
