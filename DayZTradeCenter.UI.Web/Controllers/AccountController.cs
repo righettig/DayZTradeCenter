@@ -99,7 +99,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
 #if FAKE_LOGIN
             return View("LoginWithFakeAccount");
 #else
-            return View();
+            return ExternalLogin(returnUrl);
 #endif
         }
 
@@ -122,19 +122,11 @@ namespace DayZTradeCenter.UI.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-#if FAKE_LOGIN
-        public ActionResult ExternalLogin(string userId, string returnUrl)
-#else
-        public ActionResult ExternalLogin(string provider, string returnUrl)
-#endif
+        public ActionResult ExternalLogin(string returnUrl)
         {
-#if FAKE_LOGIN
-            return RedirectToAction("ExternalLoginCallback", new { returnUrl, userId });
-#else
             // Request a redirect to the external login provider
-            return new ChallengeResult(provider,
+            return new ChallengeResult("Steam",
                 Url.Action("ExternalLoginCallback", "Account", new {ReturnUrl = returnUrl}));
-#endif
         }
 
         //

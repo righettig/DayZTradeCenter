@@ -1,5 +1,4 @@
-﻿@using DayZTradeCenter.DomainModel.Identity.Entities
-@using Microsoft.AspNet.Identity
+﻿@using Microsoft.AspNet.Identity
 
 @if (Request.IsAuthenticated)
 {
@@ -7,27 +6,32 @@
     {
         @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        @if (Session["user_inbox"] != null && ((int) Session["user_inbox"]) > 0)
-        {
+        <ul class="nav navbar-nav navbar-right">
+            @if (Session["user_inbox"] != null && ((int) Session["user_inbox"]) > 0)
+            {
+                <li>
+                    <a href="@Url.Action("Inbox", "Profile")">
+                        Inbox <span class="badge">
+                                  @((int) Session["user_inbox"])
+                              </span>
+                    </a>
+                </li>
+            }
             <li>
-                <a href="@Url.Action("Inbox", "Profile")">
-                    Inbox <span class="badge">
-                              @((int) Session["user_inbox"])
-                          </span>
-                </a>
+                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Edit", "Profile", routeValues: null, htmlAttributes: new {title = "Profile"})
             </li>
-        }
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Edit", "Profile", routeValues: null, htmlAttributes: new { title = "Profile" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        </ul>
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new {id = "loginLink"})</li>
-    </ul>
+    using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "loginForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="javascript:document.getElementById('loginForm').submit()">Log in</a></li>
+        </ul>
+    }
 }

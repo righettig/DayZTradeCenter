@@ -5,10 +5,6 @@
 }
 
 <style>
-    li {
-        margin-bottom: 15px
-    }
-
     .row {
         margin-top: 20px
     }
@@ -16,7 +12,7 @@
 
 <h2>Log in using your test account</h2>
 
-@using (Html.BeginForm("ExternalLogin", "Account", new {ReturnUrl = ViewBag.ReturnUrl}))
+@using (Html.BeginForm("ExternalLoginCallback", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
 {
     @Html.AntiForgeryToken()
     
