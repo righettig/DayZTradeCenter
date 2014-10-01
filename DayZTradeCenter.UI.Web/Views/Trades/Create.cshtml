@@ -4,15 +4,23 @@
     ViewBag.Title = "Create";
 }
 
+<style>
+    .col-xs-5 {
+        margin-right: -20px
+    }
+    .col-xs-2 {
+        margin-right: -20px
+    }
+    .text-danger {
+        margin-left: 10px
+    }
+</style>
+
 <h2>Create</h2>
 
-<div class="container">
+<div class="container" data-bind="visible: true" style="display: none">
     <form class="form-horizontal">
         @Html.AntiForgeryToken()
-
-        <!--
-            TODO: add validation message "It is not possible to create a trade for the same item." with class = text-danger
-        -->
 
         <fieldset class="col-xs-6">
             <legend>Have</legend>
@@ -38,7 +46,7 @@
                 </div>
 
                 <button data-bind="click: have.add, enable: have.canAdd" class="btn btn-default">Add</button>
-                <span style="color: red" data-bind="visible: !have.canAdd()">Too many items (max. 5)</span>
+                <span class="text-danger" data-bind="visible: !have.canAdd()">Too many items (max. 5)</span>
             </div>
         </fieldset>
 
@@ -64,13 +72,14 @@
                 </div>
 
                 <button data-bind="click: want.add, enable: want.canAdd" class="btn btn-default">Add</button>
-                <span style="color: red" data-bind="visible: !want.canAdd()">Too many items (max. 5)</span>
+                <span class="text-danger" data-bind="visible: !want.canAdd()">Too many items (max. 5)</span>
             </div>
         </fieldset>
-
+        
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
+            <div class="col-md-offset-2 col-md-10" style="margin-top: 10px">
                 <input type="submit" value="Create" class="btn btn-primary" data-bind="click: save, enable: canSave" />
+                <span class="text-danger" data-bind="visible: sameItems">It is not possible to create a trade for the same items.</span>
             </div>
         </div>
     </form>

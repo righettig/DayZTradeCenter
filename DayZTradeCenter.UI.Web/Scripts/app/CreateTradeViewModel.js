@@ -1,4 +1,15 @@
-﻿function TradeItem(id, quantity) {
+﻿Array.prototype.compare = function(testArr) {
+    if (this.length != testArr.length) return false;
+    for (var i = 0; i < testArr.length; i++) {
+        if (this[i].compare) {
+            if (!this[i].compare(testArr[i])) return false;
+        }
+        if (this[i] !== testArr[i]) return false;
+    }
+    return true;
+};
+
+function TradeItem(id, quantity) {
     var self = this;
 
     self.id = ko.observable(id);
@@ -116,7 +127,36 @@ function CreateTradeViewModel(data) {
     };
 
     self.canSave = ko.computed(function() {
-        return self.have.isValid() && self.want.isValid();
+        return self.have.isValid() && self.want.isValid() && !self.sameItems();
+    });
+
+    self.sameItems = ko.computed(function () {
+        var have = self.have.getItemDetails();
+        var want = self.want.getItemDetails();
+
+        var mapFn = function(el) {
+            return el.id;
+        };
+
+        var filterFn = function(el, index, array) {
+            return index == array.indexOf(el);
+        };
+
+        var haveItems =
+            have.map(mapFn).filter(filterFn);
+
+        var wantItems =
+            want.map(mapFn).filter(filterFn);
+
+        if (!haveItems[0] && !wantItems[0]) {
+            return false;
+        }
+
+        if (haveItems.compare(wantItems)) {
+            return true;
+        } else {
+            return false;
+        }
     });
 
     return self;
