@@ -1,10 +1,10 @@
 ﻿@model DayZTradeCenter.DomainModel.Trade
 
 @{
-    ViewBag.Title = "TradeCompleted";
+    ViewBag.Title = "Trade Completed";
 }
 
-<h2>TradeCompleted</h2>
+<h2>Trade Completed</h2>
 
 Your trade is now completed. Thanks for having used DayZ Trade Center. Remember to leave a feedback!
 
@@ -16,18 +16,44 @@ Your trade is now completed. Thanks for having used DayZ Trade Center. Remember 
 
     <div class="form-horizontal">
         @Html.HiddenFor(model => model.Id)
-
+        
         <div class="form-group">
             <label class="control-label col-md-2">Score (1-5)</label>
             <div class="col-md-10">
-                @Html.TextBox("score", null, new { @class = "form-control" })
+                <input type="hidden" name="score" id="score">
+                <div class="btn-group">
+                    <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">Choose... <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" disabled/>
             </div>
         </div>
     </div>
+}
+
+@section scripts {
+    <script>
+        $(".dropdown-menu li a").click(function () {
+            // updates the caption on the combobox
+            var selText = $(this).text();
+            $(this).parents('.btn-group').find('.dropdown-toggle').html(selText + ' <span class="caret"></span>');
+
+            // assigns the score to the hidden input
+            $('#score').val(selText);
+
+            // enables the "save" btn
+            $("input[type=submit]").removeAttr("disabled");
+        });
+    </script>
 }
