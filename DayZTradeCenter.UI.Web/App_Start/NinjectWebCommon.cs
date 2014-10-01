@@ -1,6 +1,6 @@
 using DayZTradeCenter.DomainModel;
+using DayZTradeCenter.DomainModel.Interfaces;
 using DayZTradeCenter.Modules.Test;
-using rg.GenericRepository.Core;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(DayZTradeCenter.UI.Web.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(DayZTradeCenter.UI.Web.App_Start.NinjectWebCommon), "Stop")]

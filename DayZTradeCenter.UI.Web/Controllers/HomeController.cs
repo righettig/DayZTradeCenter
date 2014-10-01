@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using DayZTradeCenter.DomainModel;
 using DayZTradeCenter.DomainModel.Identity.Entities;
 using DayZTradeCenter.DomainModel.Identity.Services;
+using DayZTradeCenter.DomainModel.Interfaces;
 using DayZTradeCenter.UI.Web.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;

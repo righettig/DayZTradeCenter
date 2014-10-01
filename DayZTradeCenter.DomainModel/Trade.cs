@@ -5,12 +5,52 @@ using rg.GenericRepository.Core;
 
 namespace DayZTradeCenter.DomainModel
 {
-    public class ItemViewModel
+    /// <summary>
+    /// A trade for DayZ game items.
+    /// </summary>
+    public class Trade : IEntity
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Trade"/> class.
+        /// </summary>
+        public Trade()
+        {
+            Have = new List<TradeDetails>();
+            Want = new List<TradeDetails>();
+
+            Offers = new List<IApplicationUser>();
+        }
+
+        #region Public properties
+
         public int Id { get; set; }
-        public int Quantity { get; set; }
+
+        public DateTime CreationDate { get; set; }
+
+        public ICollection<TradeDetails> Have { get; private set; }
+        public ICollection<TradeDetails> Want { get; private set; }
+
+        public ICollection<IApplicationUser> Offers { get; private set; }
+
+        public IApplicationUser Owner { get; set; }
+
+        public string Winner { get; set; }
+
+        public bool IsClosed
+        {
+            get { return Winner != null; }
+        }
+
+        public bool Completed { get; set; }
+
+        public bool FeedbackReceived { get; set; }
+
+        #endregion
     }
 
+    /// <summary>
+    /// The item details for a trade.
+    /// </summary>
     public class TradeDetails
     {
         /// <summary>
@@ -48,42 +88,9 @@ namespace DayZTradeCenter.DomainModel
         #endregion
     }
 
-    public class Trade : IEntity
+    public class ItemViewModel
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Trade"/> class.
-        /// </summary>
-        public Trade()
-        {
-            Have = new List<TradeDetails>();
-            Want = new List<TradeDetails>();
-            
-            Offers = new List<IApplicationUser>();
-        }
-
-        #region Public properties
-
         public int Id { get; set; }
-        
-        public DateTime CreationDate { get; set; }
-        
-        public ICollection<TradeDetails> Have { get; private set; }
-        public ICollection<TradeDetails> Want { get; private set; }
-        
-        public ICollection<IApplicationUser> Offers { get; private set; }
-        
-        public IApplicationUser Owner { get; set; }
-        
-        public string Winner { get; set; }
-        
-        public bool IsClosed
-        {
-            get { return Winner != null; }
-        }
-
-        public bool Completed { get; set; }
-        public bool FeedbackReceived { get; set; }
-
-        #endregion
+        public int Quantity { get; set; }
     }
 }
