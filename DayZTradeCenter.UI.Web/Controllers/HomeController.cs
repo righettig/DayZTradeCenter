@@ -117,11 +117,15 @@ namespace DayZTradeCenter.UI.Web.Controllers
             
             var user = await GetCurrentUser();
 
+            if (UserManager.IsInRole(user.Id, "Administrator"))
+            {
+                return View("AdminIndex");
+            }
+
             var vm = new DashboardViewModel(latestTrades, hottestTrades)
             {
                 Reputation = user.GetReputation(),
-                IsAdmin = UserManager.IsInRole(user.Id, "Administrator"),
-
+                
                 MyTrades = _tradeManager.GetTradesByUser(user.Id),
                 MyOffers = _tradeManager.GetOffersByUser(user.Id),
 

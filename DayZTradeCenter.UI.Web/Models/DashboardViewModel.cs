@@ -18,7 +18,6 @@ namespace DayZTradeCenter.UI.Web.Models
         }
 
         public float Reputation { get; set; }
-        public bool IsAdmin { get; set; }
         
         public IEnumerable<Trade> MyTrades { get; set; }
         public IEnumerable<Trade> MyOffers { get; set; }

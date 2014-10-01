@@ -346,6 +346,7 @@
     <Content Include="Views\Account\LoginWithFakeAccount.cshtml" />
     <Content Include="Views\Trades\Delete.cshtml" />
     <Content Include="Views\Profile\Inbox.cshtml" />
+    <Content Include="Views\Home\AdminIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
