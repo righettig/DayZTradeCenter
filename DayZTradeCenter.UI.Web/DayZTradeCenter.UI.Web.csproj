@@ -347,6 +347,7 @@
     <Content Include="Views\Trades\Delete.cshtml" />
     <Content Include="Views\Profile\Inbox.cshtml" />
     <Content Include="Views\Home\AdminIndex.cshtml" />
+    <Content Include="Views\Shared\_AdminLoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
