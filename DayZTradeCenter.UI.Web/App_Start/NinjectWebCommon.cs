@@ -7,6 +7,7 @@ using DayZTradeCenter.Modules.Test;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(DayZTradeCenter.UI.Web.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(DayZTradeCenter.UI.Web.App_Start.NinjectWebCommon), "Stop")]
@@ -91,6 +92,10 @@ namespace DayZTradeCenter.UI.Web.App_Start
             kernel.Bind<ApplicationSignInManager>().ToMethod(
                 c =>
                     HttpContext.Current.GetOwinContext().Get<ApplicationSignInManager>()).InRequestScope();
+
+            kernel.Bind<IAuthenticationManager>().ToMethod(
+                c =>
+                    HttpContext.Current.GetOwinContext().Authentication).InRequestScope();
         }        
     }
 }

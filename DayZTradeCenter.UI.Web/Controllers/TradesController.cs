@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using DayZTradeCenter.DomainModel;
 using DayZTradeCenter.DomainModel.Identity.Entities;
@@ -9,7 +8,6 @@ using DayZTradeCenter.DomainModel.Identity.Services;
 using DayZTradeCenter.DomainModel.Interfaces;
 using DayZTradeCenter.UI.Web.Models;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using ItemViewModel = DayZTradeCenter.UI.Web.Models.ItemViewModel;
 
 namespace DayZTradeCenter.UI.Web.Controllers
@@ -21,12 +19,16 @@ namespace DayZTradeCenter.UI.Web.Controllers
         /// </summary>
         /// <param name="tradeManager">The trade manager.</param>
         /// <param name="profileManager">The profile manager.</param>
-        /// <exception cref="System.ArgumentNullException">
+        /// <param name="userManager">The user manager.</param>
+        /// <exception cref="ArgumentNullException">
         /// tradeManager
         /// or
         /// profileManager
+        /// or
+        /// userManager
         /// </exception>
-        public TradesController(ITradeManager tradeManager, IProfileManager profileManager)
+        public TradesController(
+            ITradeManager tradeManager, IProfileManager profileManager, ApplicationUserManager userManager)
         {
             if (tradeManager == null)
             {
@@ -38,22 +40,14 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 throw new ArgumentNullException("profileManager");
             }
 
+            if (userManager == null)
+            {
+                throw new ArgumentNullException("userManager");
+            }
+
             _tradeManager = tradeManager;
             _profileManager = profileManager;
-        }
-
-        /// <summary>
-        /// Gets the user manager.
-        /// </summary>
-        /// <value>
-        /// The user manager.
-        /// </value>
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
+            _userManager = userManager;
         }
 
         // GET: Trades
@@ -106,7 +100,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 });
             }
 
-            var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
+            var user = await _userManager.FindByIdAsync(User.Identity.GetUserId());
 
             _tradeManager.CreateNewTrade(vm.Have, vm.Want, user);
             _profileManager.AddHistoryEvent(user.Id, Events.TradeCreated);
@@ -145,7 +139,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
         public async Task<ActionResult> Offer(int tradeId)
         {
             var userId = User.Identity.GetUserId();
-            var user = await UserManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(userId);
 
             if (_tradeManager.Offer(tradeId, user))
             {
@@ -227,12 +221,12 @@ namespace DayZTradeCenter.UI.Web.Controllers
         {
             var trade = _tradeManager.GetTradeById(id);
 
-            var user = await UserManager.FindByIdAsync(trade.Winner);
+            var user = await _userManager.FindByIdAsync(trade.Winner);
             
             var model = _tradeManager.MarkAsCompleted(id, user);
             _profileManager.AddHistoryEvent(User.Identity.GetUserId(), Events.TradeCompleted);
 
-            await UserManager.UpdateAsync(user);
+            await _userManager.UpdateAsync(user);
 
             return View(model);
         }
@@ -249,14 +243,14 @@ namespace DayZTradeCenter.UI.Web.Controllers
         {
             var trade = _tradeManager.GetTradeById(id);
 
-            var user = await UserManager.FindByIdAsync(trade.Winner);
+            var user = await _userManager.FindByIdAsync(trade.Winner);
 
             if (_tradeManager.LeaveFeedback(id, score, user))
             {
                 _profileManager.AddHistoryEvent(User.Identity.GetUserId(), Events.FeedbackLeft);
             }
 
-            await UserManager.UpdateAsync(user);
+            await _userManager.UpdateAsync(user);
 
             return View();
         }
@@ -265,6 +259,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
 
         private readonly ITradeManager _tradeManager;
         private readonly IProfileManager _profileManager;
+        private readonly ApplicationUserManager _userManager;
 
         #endregion
     }

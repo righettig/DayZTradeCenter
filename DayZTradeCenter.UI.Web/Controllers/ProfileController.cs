@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using DayZTradeCenter.DomainModel;
 using DayZTradeCenter.DomainModel.Identity.Entities;
@@ -8,81 +7,46 @@ using DayZTradeCenter.DomainModel.Identity.Services;
 using DayZTradeCenter.DomainModel.Interfaces;
 using DayZTradeCenter.UI.Web.Models;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 
 namespace DayZTradeCenter.UI.Web.Controllers
 {
     public class ProfileController : Controller
     {
-        #region Ctors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfileController"/> class.
         /// </summary>
         /// <param name="profileManager">The profile manager.</param>
-        /// <exception cref="System.ArgumentNullException">profileManager</exception>
-        public ProfileController(IProfileManager profileManager)
+        /// <param name="userManager">The user manager.</param>
+        /// <param name="signInManager">The sign in manager.</param>
+        /// <exception cref="ArgumentNullException">
+        /// profileManager
+        /// or
+        /// userManager
+        /// or
+        /// signInManager
+        /// </exception>
+        public ProfileController(
+            IProfileManager profileManager, ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             if (profileManager == null)
             {
                 throw new ArgumentNullException("profileManager");
             }
 
+            if (userManager == null)
+            {
+                throw new ArgumentNullException("userManager");
+            }
+
+            if (signInManager == null)
+            {
+                throw new ArgumentNullException("signInManager");
+            }
+
             _profileManager = profileManager;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ProfileController"/> class.
-        /// </summary>
-        /// <param name="userManager">The user manager.</param>
-        /// <param name="signInManager">The sign in manager.</param>
-        public ProfileController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
-        #endregion
-
-        #region Public properties
-
-        /// <summary>
-        /// Gets the user manager.
-        /// </summary>
-        /// <value>
-        /// The user manager.
-        /// </value>
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets the sign in manager.
-        /// </summary>
-        /// <value>
-        /// The sign in manager.
-        /// </value>
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set
-            {
-                _signInManager = value;
-            }
-        }
-
-        #endregion
 
         #region Edit
 
@@ -95,7 +59,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 Id = user.Id,
                 Username = user.UserName,
                 Email = user.Email,
-                IsAdmin = UserManager.IsInRole(user.Id, "Administrator")
+                IsAdmin = _userManager.IsInRole(user.Id, "Administrator")
             };
 
             return View(vm);
@@ -107,17 +71,17 @@ namespace DayZTradeCenter.UI.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindByIdAsync(vm.Id);
+                var user = await _userManager.FindByIdAsync(vm.Id);
 
                 user.UserName = vm.Username;
                 user.Email = vm.Email;
 
-                var result = await UserManager.UpdateAsync(user);
+                var result = await _userManager.UpdateAsync(user);
 
                 if (result.Succeeded)
                 {
-                    SignInManager.AuthenticationManager.SignOut();
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    _signInManager.AuthenticationManager.SignOut();
+                    await _signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     _profileManager.AddHistoryEvent(user.Id, Events.ProfileUpdate);
 
@@ -131,7 +95,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
         {
             var userId = User.Identity.GetUserId();
 
-            var user = await UserManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(userId);
 
             return user;
         }
@@ -141,7 +105,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
         public async Task<ViewResult> Inbox()
         {
             var model =
-                await UserManager.FindByIdAsync(
+                await _userManager.FindByIdAsync(
                     User.Identity.GetUserId());
 
             return View(model.Messages);
@@ -149,11 +113,9 @@ namespace DayZTradeCenter.UI.Web.Controllers
 
         #region Private fields
 
-        private ApplicationUserManager _userManager;
-
-        private ApplicationSignInManager _signInManager;
-
         private readonly IProfileManager _profileManager;
+        private readonly ApplicationUserManager _userManager;
+        private readonly ApplicationSignInManager _signInManager;
 
         #endregion
     }

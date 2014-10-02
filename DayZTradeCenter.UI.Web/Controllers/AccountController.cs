@@ -18,75 +18,53 @@ namespace DayZTradeCenter.UI.Web.Controllers
 {
     public class AccountController : Controller
     {
-        #region Ctors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountController"/> class.
         /// </summary>
         /// <param name="profileManager">The profile manager.</param>
-        /// <exception cref="System.ArgumentNullException">profileManager</exception>
-        public AccountController(IProfileManager profileManager)
+        /// <param name="userManager">The user manager.</param>
+        /// <param name="signInManager">The sign in manager.</param>
+        /// <param name="authenticationManager">The authentication manager.</param>
+        /// <exception cref="ArgumentNullException">
+        /// profileManager
+        /// or
+        /// userManager
+        /// or
+        /// signInManager
+        /// or
+        /// authenticationManager
+        /// </exception>
+        public AccountController(
+            IProfileManager profileManager, 
+            ApplicationUserManager userManager, 
+            ApplicationSignInManager signInManager, 
+            IAuthenticationManager authenticationManager)
         {
             if (profileManager == null)
             {
                 throw new ArgumentNullException("profileManager");
             }
 
+            if (userManager == null)
+            {
+                throw new ArgumentNullException("userManager");
+            }
+
+            if (signInManager == null)
+            {
+                throw new ArgumentNullException("signInManager");
+            }
+
+            if (authenticationManager == null)
+            {
+                throw new ArgumentNullException("authenticationManager");
+            }
+
             _profileManager = profileManager;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _authenticationManager = authenticationManager;
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AccountController"/> class.
-        /// </summary>
-        /// <param name="userManager">The user manager.</param>
-        /// <param name="signInManager">The sign in manager.</param>
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
-        #endregion
-
-        #region Public properties
-
-        /// <summary>
-        /// Gets the user manager.
-        /// </summary>
-        /// <value>
-        /// The user manager.
-        /// </value>
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets the sign in manager.
-        /// </summary>
-        /// <value>
-        /// The sign in manager.
-        /// </value>
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set
-            {
-                _signInManager = value;
-            }
-        }
-
-        #endregion
 
         #region Login / Logoff
 
@@ -119,7 +97,8 @@ namespace DayZTradeCenter.UI.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut();
+            _authenticationManager.SignOut();
+
             return RedirectToAction("Index", "Home");
         }
         
@@ -165,7 +144,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
             }
 #endif
             // Sign in the user with this external login provider if the user already has a login
-            var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+            var result = await _signInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -200,19 +179,19 @@ namespace DayZTradeCenter.UI.Web.Controllers
             if (ModelState.IsValid)
             {
                 // Get the information about the user from the external login provider
-                var info = await AuthenticationManager.GetExternalLoginInfoAsync();
+                var info = await _authenticationManager.GetExternalLoginInfoAsync();
                 if (info == null)
                 {
                     return View("ExternalLoginFailure");
                 }
                 var user = new ApplicationUser {UserName = model.Username, Email = model.Email};
-                var result = await UserManager.CreateAsync(user);
+                var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
-                    result = await UserManager.AddLoginAsync(user.Id, info.Login);
+                    result = await _userManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        await _signInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                         _profileManager.AddHistoryEvent(user.Id, Events.Registration);
 
@@ -240,14 +219,6 @@ namespace DayZTradeCenter.UI.Web.Controllers
 
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
-
-        private IAuthenticationManager AuthenticationManager
-        {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
-        }
 
         private void AddErrors(IdentityResult result)
         {
@@ -298,13 +269,12 @@ namespace DayZTradeCenter.UI.Web.Controllers
         #endregion
 
         #region Private fields
-
-        private ApplicationUserManager _userManager;
-
-        private ApplicationSignInManager _signInManager;
         
         private readonly IProfileManager _profileManager;
-        
+        private readonly ApplicationUserManager _userManager;
+        private readonly ApplicationSignInManager _signInManager;
+        private readonly IAuthenticationManager _authenticationManager;
+
         #endregion
     }
 }
