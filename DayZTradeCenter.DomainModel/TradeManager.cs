@@ -322,11 +322,29 @@ namespace DayZTradeCenter.DomainModel
         /// </returns>
         public bool ChooseWinner(int tradeId, string userId)
         {
-            var model = _tradesRepository.GetSingle(tradeId);
+            var trade = _tradesRepository.GetSingle(tradeId);
 
-            model.Winner = userId;
+            trade.Winner = userId;
 
-            _tradesRepository.Update(model);
+            // sends a message to the winner.
+            var winner = _userStore.FindByIdAsync(userId).Result;
+            winner.Messages.Add(new Message("You've just won a trade. Congratulations!"));
+
+            _userStore.UpdateAsync(winner).Wait();
+
+            // sends a message to those who have not win.
+            foreach (
+                var loser in
+                    from id in trade.Offers.Select(o => o.Id)
+                    where id != winner.Id
+                    select _userStore.FindByIdAsync(id).Result)
+            {
+                loser.Messages.Add(new Message("You've just lost a trade. We're sorry for you :("));
+
+                _userStore.UpdateAsync(loser);
+            }
+
+            _tradesRepository.Update(trade);
             _tradesRepository.SaveChanges();
 
             return true;
