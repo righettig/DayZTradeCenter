@@ -26,7 +26,19 @@
             @foreach (var offer in Model.Offers)
             {
                 <li>
-                    TODO: link to past history, Reputation: @offer.GetReputation() |
+                    TODO: link to past history, Reputation:
+                    @{
+                var reputation = offer.GetReputation();
+                    }
+                    @if (reputation > 0)
+                    {
+                        @reputation
+                    }
+                    else
+                    {
+                        <img src="~/Content/img/new_user.png" />
+                    }
+                    |
                     <a href="@Url.Action("ChooseWinner", new {tradeId = Model.Id, userId = offer.Id})">Selects as winner</a>
                 </li>
             }
