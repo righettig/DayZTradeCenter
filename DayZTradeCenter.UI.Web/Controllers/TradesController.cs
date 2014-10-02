@@ -197,8 +197,10 @@ namespace DayZTradeCenter.UI.Web.Controllers
         // POST: Trades/ExchangeManagement/5
         [HttpPost, ActionName("ExchangeManagement")]
         [ValidateAntiForgeryToken]
-        public ActionResult ExchangeManagementConfirmed(ExchangeDetails details, Trade trade)
+        public async Task<ActionResult> ExchangeManagementConfirmed(ExchangeDetails details, int tradeId)
         {
+            var trade = _tradeManager.GetTradeById(tradeId);
+
             var message = new Message(
                 string.Format("My SteamId is {0}. Meet me at {1}, server {2}, time {3} GTM",
                     details.SteamId,
@@ -208,6 +210,11 @@ namespace DayZTradeCenter.UI.Web.Controllers
 
             var model = new ExchangeManagementViewModel {Trade = trade};
             model.Messages.Add(message);
+
+            var winner = await _userManager.FindByIdAsync(trade.Winner);
+            winner.Messages.Add(message);
+
+            await _userManager.UpdateAsync(winner);
 
             return View("ExchangeManagement", model);
         }

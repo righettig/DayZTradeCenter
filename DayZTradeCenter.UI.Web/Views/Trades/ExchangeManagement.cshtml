@@ -11,7 +11,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @Html.Hidden("tradeId", Model.Trade)
+    @Html.Hidden("tradeId", Model.Trade.Id)
     
     <div class="form-horizontal">
         <h4>Exchange details</h4>
