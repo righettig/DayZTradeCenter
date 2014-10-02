@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DayZTradeCenter.DomainModel.Identity.Entities;
 using DayZTradeCenter.DomainModel.Interfaces;
+using Microsoft.AspNet.Identity;
 using rg.GenericRepository.Core;
 using rg.Time;
 
@@ -11,15 +12,22 @@ namespace DayZTradeCenter.DomainModel
     public class TradeManager : ITradeManager
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="TradeManager" /> class.
+        /// Initializes a new instance of the <see cref="TradeManager"/> class.
         /// </summary>
         /// <param name="tradesRepository">The trades repository.</param>
         /// <param name="itemsRepository">The items repository.</param>
-        /// <exception cref="System.ArgumentNullException">tradesRepository
+        /// <param name="userStore">The user store.</param>
+        /// <exception cref="ArgumentNullException">
+        /// tradesRepository
         /// or
-        /// itemsRepository</exception>
+        /// itemsRepository
+        /// or
+        /// userStore
+        /// </exception>
         public TradeManager(
-            IRepository<Trade> tradesRepository, IRepository<Item> itemsRepository)
+            IRepository<Trade> tradesRepository, 
+            IRepository<Item> itemsRepository, 
+            IUserStore<ApplicationUser> userStore)
         {
             if (tradesRepository == null)
             {
@@ -31,8 +39,14 @@ namespace DayZTradeCenter.DomainModel
                 throw new ArgumentNullException("itemsRepository");
             }
 
+            if (userStore == null)
+            {
+                throw new ArgumentNullException("userStore");
+            }
+
             _tradesRepository = tradesRepository;
             _itemsRepository = itemsRepository;
+            _userStore = userStore;
         }
 
         private IQueryable<Trade> All
@@ -253,6 +267,11 @@ namespace DayZTradeCenter.DomainModel
             {
                 trade.Offers.Add(user);
 
+                var owner = _userStore.FindByIdAsync(trade.Owner.Id).Result;
+                owner.Messages.Add(new Message("You've received an offer for one of your trades."));
+
+                _userStore.UpdateAsync(owner);
+
                 _tradesRepository.Update(trade);
                 _tradesRepository.SaveChanges();
 
@@ -373,6 +392,8 @@ namespace DayZTradeCenter.DomainModel
         private readonly IRepository<Trade> _tradesRepository;
 
         private readonly IRepository<Item> _itemsRepository;
+
+        private readonly IUserStore<ApplicationUser> _userStore;
 
         #endregion
     }

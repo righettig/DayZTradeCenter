@@ -1,6 +1,11 @@
 using DayZTradeCenter.DomainModel;
+using DayZTradeCenter.DomainModel.Identity;
+using DayZTradeCenter.DomainModel.Identity.Entities;
 using DayZTradeCenter.DomainModel.Interfaces;
 using DayZTradeCenter.Modules.Test;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(DayZTradeCenter.UI.Web.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(DayZTradeCenter.UI.Web.App_Start.NinjectWebCommon), "Stop")]
@@ -72,6 +77,11 @@ namespace DayZTradeCenter.UI.Web.App_Start
 
             kernel.Bind<ITradeManager>().To<TradeManager>().InRequestScope();
             kernel.Bind<IProfileManager>().To<ProfileManager>().InRequestScope();
+
+            kernel.Bind<IUserStore<ApplicationUser>>().ToMethod(
+                c =>
+                    new UserStore<ApplicationUser>(
+                        HttpContext.Current.GetOwinContext().Get<ApplicationDbContext>()));
         }        
     }
 }
