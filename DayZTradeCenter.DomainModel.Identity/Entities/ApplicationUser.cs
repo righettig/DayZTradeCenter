@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -48,11 +49,17 @@ namespace DayZTradeCenter.DomainModel.Identity.Entities
         /// <returns></returns>
         public float GetReputation()
         {
-            return 0;
+            if (Feedbacks == null || Feedbacks.Count == 0)
+            {
+                return 0;
+            }
+
+            return (float) Feedbacks.Average(f => f.Score);
         }
 
-        public ICollection<Feedback> Feedbacks { get; set; }
-        public virtual ICollection<Message> Messages { get; set; } // NB: "virtual" to enable EF lazy loading.
+        // NB: "virtual" to enable EF lazy loading.
+        public virtual ICollection<Feedback> Feedbacks { get; set; }
+        public virtual ICollection<Message> Messages { get; set; }
     }
 
     public class Feedback
