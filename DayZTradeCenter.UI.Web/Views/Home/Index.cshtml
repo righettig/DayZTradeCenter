@@ -23,9 +23,15 @@
     <h1>
         Profile
     </h1>
-
     @Html.DisplayNameFor(model => model.Reputation)
-    <span class="badge">@Html.DisplayFor(model => model.Reputation)</span>
+    @if (Model.Reputation.HasValue)
+    {
+        <span class="badge">@Html.DisplayFor(model => model.Reputation)</span>
+    }
+    else
+    {
+        <img src="~/Content/img/new_user.png" />
+    }
 </div>
 <!-- #endregion -->
 

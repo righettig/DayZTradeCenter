@@ -122,9 +122,10 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 return View("AdminIndex");
             }
 
+            var reputation = user.GetReputation();
             var vm = new DashboardViewModel(latestTrades, hottestTrades)
             {
-                Reputation = user.GetReputation(),
+                Reputation = reputation > 0 ? reputation : (float?) null,
                 
                 MyTrades = _tradeManager.GetTradesByUser(user.Id),
                 MyOffers = _tradeManager.GetOffersByUser(user.Id),
