@@ -2,6 +2,9 @@
 
 namespace DayZTradeCenter.DomainModel.Identity.Migrations
 {
+    /// <summary>
+    /// Defines test users for the application.
+    /// </summary>
     public static class DefaultUsers
     {
         static DefaultUsers()
@@ -32,6 +35,12 @@ namespace DayZTradeCenter.DomainModel.Identity.Migrations
             };
         }
 
+        /// <summary>
+        /// Gets all the users.
+        /// </summary>
+        /// <value>
+        /// All the users.
+        /// </value>
         public static IEnumerable<User> All
         {
             get { return Users; }
