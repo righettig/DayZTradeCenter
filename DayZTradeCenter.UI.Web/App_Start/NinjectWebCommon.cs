@@ -1,6 +1,7 @@
 using DayZTradeCenter.DomainModel;
 using DayZTradeCenter.DomainModel.Identity;
 using DayZTradeCenter.DomainModel.Identity.Entities;
+using DayZTradeCenter.DomainModel.Identity.Services;
 using DayZTradeCenter.DomainModel.Interfaces;
 using DayZTradeCenter.Modules.Test;
 using Microsoft.AspNet.Identity;
@@ -81,7 +82,15 @@ namespace DayZTradeCenter.UI.Web.App_Start
             kernel.Bind<IUserStore<ApplicationUser>>().ToMethod(
                 c =>
                     new UserStore<ApplicationUser>(
-                        HttpContext.Current.GetOwinContext().Get<ApplicationDbContext>()));
+                        HttpContext.Current.GetOwinContext().Get<ApplicationDbContext>())).InRequestScope();
+
+            kernel.Bind<ApplicationUserManager>().ToMethod(
+                c =>
+                    HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()).InRequestScope();
+
+            kernel.Bind<ApplicationSignInManager>().ToMethod(
+                c =>
+                    HttpContext.Current.GetOwinContext().Get<ApplicationSignInManager>()).InRequestScope();
         }        
     }
 }

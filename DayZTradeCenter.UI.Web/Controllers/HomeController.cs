@@ -1,31 +1,31 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using DayZTradeCenter.DomainModel.Identity.Entities;
 using DayZTradeCenter.DomainModel.Identity.Services;
 using DayZTradeCenter.DomainModel.Interfaces;
 using DayZTradeCenter.UI.Web.Models;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 
 namespace DayZTradeCenter.UI.Web.Controllers
 {
     public class HomeController : Controller
     {
-        #region Ctors
-
         /// <summary>
         /// Initializes a new instance of the <see cref="HomeController"/> class.
         /// </summary>
         /// <param name="tradeManager">The trade manager.</param>
         /// <param name="profileManager">The profile manager.</param>
-        /// <exception cref="System.ArgumentNullException">
+        /// <param name="userManager">The user manager.</param>
+        /// <exception cref="ArgumentNullException">
         /// tradeManager
         /// or
         /// profileManager
+        /// or
+        /// userManager
         /// </exception>
-        public HomeController(ITradeManager tradeManager, IProfileManager profileManager)
+        public HomeController(
+            ITradeManager tradeManager, IProfileManager profileManager, ApplicationUserManager userManager)
         {
             if (tradeManager == null)
             {
@@ -37,62 +37,15 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 throw new ArgumentNullException("profileManager");
             }
 
+            if (userManager == null)
+            {
+                throw new ArgumentNullException("userManager");
+            }
+
             _tradeManager = tradeManager;
             _profileManager = profileManager;
+            _userManager = userManager;
         }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HomeController"/> class.
-        /// </summary>
-        /// <param name="userManager">The user manager.</param>
-        /// <param name="signInManager">The sign in manager.</param>
-        public HomeController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
-        #endregion
-
-        #region Public properties
-
-        /// <summary>
-        /// Gets the user manager.
-        /// </summary>
-        /// <value>
-        /// The user manager.
-        /// </value>
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-
-        /// <summary>
-        /// Gets the sign in manager.
-        /// </summary>
-        /// <value>
-        /// The sign in manager.
-        /// </value>
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set
-            {
-                _signInManager = value;
-            }
-        }
-
-        #endregion
 
         [AllowAnonymous]
         public async Task<ActionResult> Index()
@@ -117,7 +70,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
             
             var user = await GetCurrentUser();
 
-            if (UserManager.IsInRole(user.Id, "Administrator"))
+            if (_userManager.IsInRole(user.Id, "Administrator"))
             {
                 return View("AdminIndex");
             }
@@ -140,19 +93,16 @@ namespace DayZTradeCenter.UI.Web.Controllers
         {
             var userId = User.Identity.GetUserId();
 
-            var user = await UserManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(userId);
 
             return user;
         }
 
         #region Private fields
 
-        private ApplicationUserManager _userManager;
-
-        private ApplicationSignInManager _signInManager;
-
         private readonly ITradeManager _tradeManager;
         private readonly IProfileManager _profileManager;
+        private readonly ApplicationUserManager _userManager;
 
         #endregion
     }
