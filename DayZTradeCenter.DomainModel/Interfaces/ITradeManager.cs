@@ -97,9 +97,11 @@ namespace DayZTradeCenter.DomainModel.Interfaces
         /// <param name="tradeId">The trade identifier.</param>
         /// <param name="user">The user.</param>
         /// <returns>
-        ///   <c>True</c> if the offer was successfully added, <c>false</c> otherwise.
+        ///   <see cref="OfferResult.Success">If the operation is successful.</see>
+        ///   <see cref="OfferResult.AlreadOffered">If the user has already offered for the same trade.</see>
+        ///   <see cref="OfferResult.OwnerCannotOffer">If the user is the owner of the trade.</see>
         /// </returns>
-        bool Offer(int tradeId, IApplicationUser user);
+        OfferResult Offer(int tradeId, IApplicationUser user);
 
         /// <summary>
         /// Withdraws the given user from specified trade.

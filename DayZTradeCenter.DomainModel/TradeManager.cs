@@ -265,13 +265,21 @@ namespace DayZTradeCenter.DomainModel
         /// <param name="tradeId">The trade identifier.</param>
         /// <param name="user">The user.</param>
         /// <returns>
-        ///   <c>True</c> if the offer was successfully added, <c>false</c> otherwise.
+        ///   <see cref="OfferResult.Success">If the operation is successful.</see>
+        ///   <see cref="OfferResult.AlreadOffered">If the user has already offered for the same trade.</see>
+        ///   <see cref="OfferResult.OwnerCannotOffer">If the user is the owner of the trade.</see>
         /// </returns>
-        public bool Offer(int tradeId, IApplicationUser user)
+        public OfferResult Offer(int tradeId, IApplicationUser user)
         {
             var trade = _tradesRepository.GetSingle(tradeId);
 
-            // user has not yet offered for this trade
+            // the user is the owner
+            if (user.Id == trade.Owner.Id)
+            {
+                return OfferResult.OwnerCannotOffer;
+            }
+
+            // the user has not yet offered for this trade
             if (trade.Offers.All(o => o.Id != user.Id))
             {
                 trade.Offers.Add(user);
@@ -284,10 +292,10 @@ namespace DayZTradeCenter.DomainModel
                 _tradesRepository.Update(trade);
                 _tradesRepository.SaveChanges();
 
-                return true;
+                return OfferResult.Success;
             }
 
-            return false;
+            return OfferResult.AlreadOffered;
         }
 
         /// <summary>
@@ -423,5 +431,12 @@ namespace DayZTradeCenter.DomainModel
         private readonly IUserStore<ApplicationUser> _userStore;
 
         #endregion
+    }
+
+    public enum OfferResult
+    {
+        Success,
+        AlreadOffered,
+        OwnerCannotOffer
     }
 }

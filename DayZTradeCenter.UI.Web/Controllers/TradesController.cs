@@ -141,14 +141,21 @@ namespace DayZTradeCenter.UI.Web.Controllers
             var userId = User.Identity.GetUserId();
             var user = await _userManager.FindByIdAsync(userId);
 
-            if (_tradeManager.Offer(tradeId, user))
+            switch (_tradeManager.Offer(tradeId, user))
             {
-                _profileManager.AddHistoryEvent(userId, Events.TradeOffered);
+                case OfferResult.Success:
+                    _profileManager.AddHistoryEvent(userId, Events.TradeOffered);
+                    return RedirectToAction("Index");
 
-                return RedirectToAction("Index");
+                case OfferResult.AlreadOffered:
+                    return View("AlreadyOffered");
+
+                case OfferResult.OwnerCannotOffer:
+                    return RedirectToAction("Index", "Home");
+
+                default:
+                    throw new NotSupportedException();
             }
-            
-            return View("AlreadyOffered");
         }
 
         // GET: Trades/Withdraw

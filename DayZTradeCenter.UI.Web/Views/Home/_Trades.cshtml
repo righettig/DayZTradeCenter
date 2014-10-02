@@ -1,4 +1,6 @@
-﻿@model IEnumerable<DayZTradeCenter.DomainModel.Trade>
+﻿@using Microsoft.AspNet.Identity
+
+@model IEnumerable<DayZTradeCenter.DomainModel.Trade>
 
 @{
     const int pageSize = 4;
@@ -77,7 +79,12 @@
                                                 }
                                                 | # Offers: @trade.Offers.Count
                                             </a>
-                                            <a href="@Url.Action("Offer", "Trades", new { tradeId = trade.Id })" class="btn btn-primary" role="button">Offer</a>
+                                            <a href="@Url.Action("Offer", "Trades", new { tradeId = trade.Id })" 
+                                               class="btn btn-primary @if (trade.Owner.Id == User.Identity.GetUserId())
+                                                                      {
+                                                                          <text>disabled</text>
+                                                                      }"
+                                               role="button">Offer</a>
                                         </div>
                                     }
                                 </div><!--.row-->
