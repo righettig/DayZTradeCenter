@@ -241,6 +241,15 @@ namespace DayZTradeCenter.DomainModel
 
             if (trade.Owner.Id == userId)
             {
+                foreach (var user in trade.Offers
+                    .Select(u => u.Id)
+                    .Select(id => _userStore.FindByIdAsync(id).Result))
+                {
+                    user.Messages.Add(new Message("A trade you've offered to has been deleted."));
+
+                    _userStore.UpdateAsync(user);
+                }
+
                 _tradesRepository.Delete(trade);
                 _tradesRepository.SaveChanges();
 
