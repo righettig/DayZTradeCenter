@@ -112,7 +112,19 @@
                                 }
                             </ul>
                         </td>
-                        <td>@trade.TradeData.Owner.GetReputation()</td>
+                        <td>
+                            @{
+                                var reputation = trade.TradeData.Owner.GetReputation();
+                            }
+                            @if (reputation > 0)
+                            {
+                                @reputation
+                            }
+                            else
+                            {
+                                <img src="~/Content/img/new_user.png" />
+                            }
+                        </td>
                         <td>@trade.TradeData.Offers.Count</td>
                         @if (trade.CanOffer)
                         {
