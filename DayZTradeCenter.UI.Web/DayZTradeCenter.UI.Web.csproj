@@ -198,7 +198,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AnalyticsController.cs" />
-    <Compile Include="LoadUserInboxActionFilter.cs" />
+    <Compile Include="Filters\LoadUserInboxActionFilter.cs" />
     <Compile Include="Models\AnalyticsViewModel.cs" />
     <Compile Include="Models\CreateTradeViewModel.cs" />
     <Compile Include="Controllers\FeaturesController.cs" />
@@ -212,7 +212,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DashboardViewModel.cs" />
     <Compile Include="Models\ExchangeManagementViewModel.cs" />
-    <Compile Include="Models\JavaScriptConvert.cs" />
+    <Compile Include="Helpers\JavaScriptConvert.cs" />
     <Compile Include="Models\LandingPageViewModel.cs" />
     <Compile Include="Models\ListTradesViewModel.cs" />
     <Compile Include="Models\ProfileViewModel.cs" />

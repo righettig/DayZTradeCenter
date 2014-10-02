@@ -3,7 +3,7 @@ using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace DayZTradeCenter.UI.Web.Models
+namespace DayZTradeCenter.UI.Web.Helpers
 {
     // http://blog.mariusschulz.com/2014/02/05/passing-net-server-side-data-to-javascript
     public static class JavaScriptConvert

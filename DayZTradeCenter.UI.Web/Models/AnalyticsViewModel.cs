@@ -8,12 +8,6 @@ namespace DayZTradeCenter.UI.Web.Models
 {
     public class AnalyticsViewModel
     {
-        public class ItemDetails
-        {
-            public Item Item { get; set; }
-            public int Count { get; set; }
-        }
-
         /// <summary>
         /// Initializes a new instance of the <see cref="AnalyticsViewModel"/> class.
         /// </summary>
@@ -32,5 +26,11 @@ namespace DayZTradeCenter.UI.Web.Models
         [Display(Name = "Item")]
         public int ItemId { get; set; }
         public SelectList Items { get; set; }
+
+        public class ItemDetails
+        {
+            public Item Item { get; set; }
+            public int Count { get; set; }
+        }
     }
 }

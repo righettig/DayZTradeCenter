@@ -1,12 +1,11 @@
 ﻿using System.Diagnostics;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DayZTradeCenter.DomainModel.Identity.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
-namespace DayZTradeCenter.UI.Web
+namespace DayZTradeCenter.UI.Web.Filters
 {
     /// <summary>
     /// Set the current user's inbox messages count on the Session object "user_inbox".
@@ -24,7 +23,7 @@ namespace DayZTradeCenter.UI.Web
             var userId = 
                 httpContext.User.Identity.GetUserId();
 
-            if (userId == null)
+            if (userId == null) // when the current user is not logged in.
             {
                 return;
             }

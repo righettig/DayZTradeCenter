@@ -4,12 +4,6 @@ using DayZTradeCenter.DomainModel;
 
 namespace DayZTradeCenter.UI.Web.Models
 {
-    public class ItemViewModel
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }
-
     public class ListTradesViewModel
     {
         /// <summary>
@@ -86,6 +80,12 @@ namespace DayZTradeCenter.UI.Web.Models
         private readonly List<TradeViewModel> _trades;
         
         #endregion
+    }
+
+    public class ItemViewModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 
     /// <summary>

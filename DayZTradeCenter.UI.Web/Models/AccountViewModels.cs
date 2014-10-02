@@ -13,9 +13,4 @@ namespace DayZTradeCenter.UI.Web.Models
         [Display(Name = "Username")]
         public string Username { get; set; }
     }
-
-    public class ExternalLoginListViewModel
-    {
-        public string ReturnUrl { get; set; }
-    }
 }

@@ -8,6 +8,9 @@ namespace DayZTradeCenter.UI.Web.Models
 {
     public class ExchangeManagementViewModel
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ExchangeManagementViewModel"/> class.
+        /// </summary>
         public ExchangeManagementViewModel()
         {
             Messages = new List<Message>();
