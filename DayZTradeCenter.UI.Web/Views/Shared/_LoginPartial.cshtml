@@ -9,12 +9,43 @@
         <ul class="nav navbar-nav navbar-right">
             @if (Session["user_inbox"] != null && ((int) Session["user_inbox"]) > 0)
             {
-                <li>
-                    <a href="@Url.Action("Inbox", "Profile")">
-                        Inbox <span class="badge">
-                                  @((int) Session["user_inbox"])
-                              </span>
-                    </a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Inbox <span class="badge">
+                                                                                         @((int) Session["user_inbox"])
+                                                                                     </span></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <div class="message">
+                                <img src="http://placehold.it/25x25" alt="" />
+                                <a href="#">New offer!</a>
+                                <div>
+                                    <small>1 min ago</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="message">
+                                <img src="http://placehold.it/25x25" alt="" />
+                                <a href="#">Won a trade!</a>
+                                <div>
+                                    <small>5 min ago</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="message">
+                                <img src="http://placehold.it/25x25" alt="" />
+                                <a href="#">Feedback received!</a>
+                                <div>
+                                    <small>yesterday</small>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="divider"></li>
+                        <li style="text-align: center">
+                            <a href="@Url.Action("Inbox", "Profile")" style="color: blue">See All</a>
+                        </li>
+                    </ul>
                 </li>
             }
             <li>
