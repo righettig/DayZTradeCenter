@@ -10,7 +10,12 @@ namespace DayZTradeCenter.DomainModel.Identity.Entities.Messages
 
         #region Ctors
 
-        // NB: required by EF
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Message"/> class.
+        /// </summary>
+        /// <remarks>
+        /// Required by EF.
+        /// </remarks>
         protected Message()
         {
         }
@@ -40,7 +45,7 @@ namespace DayZTradeCenter.DomainModel.Identity.Entities.Messages
         /// <value>
         /// The text.
         /// </value>
-        public string Text
+        public virtual string Text
         {
             get { return _text; }
         }

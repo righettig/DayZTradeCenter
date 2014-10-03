@@ -103,6 +103,10 @@
     <Compile Include="Migrations\201410030908446_Added timestamp to messages.Designer.cs">
       <DependentUpon>201410030908446_Added timestamp to messages.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410031128234_Added exchange details.cs" />
+    <Compile Include="Migrations\201410031128234_Added exchange details.Designer.cs">
+      <DependentUpon>201410031128234_Added exchange details.cs</DependentUpon>
+    </Compile>
     <Compile Include="Services\ApplicationUserManager.cs" />
     <Compile Include="Migrations\201409201400023_InitialCreate.cs" />
     <Compile Include="Migrations\201409201400023_InitialCreate.Designer.cs">
@@ -130,6 +134,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410030908446_Added timestamp to messages.resx">
       <DependentUpon>201410030908446_Added timestamp to messages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410031128234_Added exchange details.resx">
+      <DependentUpon>201410031128234_Added exchange details.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

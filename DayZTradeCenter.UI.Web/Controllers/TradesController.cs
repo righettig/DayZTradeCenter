@@ -209,8 +209,8 @@ namespace DayZTradeCenter.UI.Web.Controllers
             var trade = _tradeManager.GetTradeById(tradeId);
 
             var message = new ExchangeDetailsMessage(details);
-
-            var model = new ExchangeManagementViewModel {Trade = trade};
+            
+            var model = new ExchangeManagementViewModel {Trade = trade, Details = details};
             model.Messages.Add(message);
 
             var winner = await _userManager.FindByIdAsync(trade.Winner);
