@@ -19,7 +19,7 @@
         {
             <tr>
                 <td><input type="checkbox"></td>
-                <td><strong>@message.Text</strong></td>
+                <td><strong>@Html.Raw(message.Text)</strong></td>
                 <td style="text-align: center"><strong>@message.Timestamp</strong></td>
             </tr>
         }

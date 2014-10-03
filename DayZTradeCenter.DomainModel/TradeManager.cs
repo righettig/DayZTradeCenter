@@ -413,9 +413,19 @@ namespace DayZTradeCenter.DomainModel
                 user.Feedbacks = new List<Feedback>();
             }
 
+            // by default the feedback is for the winner.
+            var from = model.Winner;
+            
+            // if it is supposed to be for the owner..
+            if (user.Id == model.Owner.Id)
+            {
+                from = model.Owner.Id;
+                model.FeedbackReceivedToOwner = true;
+            }
+
             user.Feedbacks.Add(new Feedback
             {
-                From = model.Owner.Id,
+                From = from,
                 Timestamp = TimeProvider.Now,
                 Score = score,
                 TradeId = tradeId

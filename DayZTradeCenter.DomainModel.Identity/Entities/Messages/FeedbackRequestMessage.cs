@@ -18,11 +18,17 @@
         /// </value>
         public int TradeId { get; set; }
 
-        // TradeCompleted(tradeId)
-
         public override string Subject
         {
             get { return "Feedback request"; }
+        }
+
+        public override string Text
+        {
+            get
+            {
+                return base.Text + " <a href='/Trades/LeaveFeedbackToOwner?tradeId=" + TradeId + "'>here</a>";
+            }
         }
     }
 }

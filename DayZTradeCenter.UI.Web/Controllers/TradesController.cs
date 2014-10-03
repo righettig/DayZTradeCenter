@@ -264,6 +264,36 @@ namespace DayZTradeCenter.UI.Web.Controllers
             return View();
         }
 
+        public ActionResult LeaveFeedbackToOwner(int tradeId)
+        {
+            var trade = _tradeManager.GetTradeById(tradeId);
+
+            if (trade.FeedbackReceivedToOwner)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(trade);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> LeaveFeedbackToOwner(int id, int score)
+        {
+            var trade = _tradeManager.GetTradeById(id);
+
+            var user = await _userManager.FindByIdAsync(trade.Owner.Id);
+
+            if (_tradeManager.LeaveFeedback(id, score, user))
+            {
+                _profileManager.AddHistoryEvent(User.Identity.GetUserId(), Events.FeedbackLeft);
+            }
+
+            await _userManager.UpdateAsync(user);
+
+            return View("LeaveFeedback");
+        }
+
         #region Private fields
 
         private readonly ITradeManager _tradeManager;

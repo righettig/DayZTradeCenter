@@ -44,7 +44,8 @@ namespace DayZTradeCenter.DomainModel
         public bool Completed { get; set; }
 
         public bool FeedbackReceived { get; set; }
-
+        public bool FeedbackReceivedToOwner { get; set; }
+        
         #endregion
     }
 
