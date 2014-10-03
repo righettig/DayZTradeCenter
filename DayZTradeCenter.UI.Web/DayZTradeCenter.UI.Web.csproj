@@ -350,7 +350,6 @@
     <Content Include="Views\Profile\Inbox.cshtml" />
     <Content Include="Views\Home\AdminIndex.cshtml" />
     <Content Include="Views\Shared\_AdminLoginPartial.cshtml" />
-    <Content Include="Views\Trades\LeaveFeedbackToOwner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -237,6 +237,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
 
             await _userManager.UpdateAsync(user);
 
+            ViewBag.Action = "LeaveFeedback";
             return View(model);
         }
 
@@ -273,7 +274,8 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            return View(trade);
+            ViewBag.Action = "LeaveFeedbackToOwner";
+            return View("TradeCompleted", trade);
         }
 
         [HttpPost]
