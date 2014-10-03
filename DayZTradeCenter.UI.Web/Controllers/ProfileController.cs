@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using DayZTradeCenter.DomainModel;
@@ -108,7 +109,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 await _userManager.FindByIdAsync(
                     User.Identity.GetUserId());
 
-            return View(model.Messages);
+            return View(model.Messages.OrderByDescending(m => m.Timestamp));
         }
 
         #region Private fields
