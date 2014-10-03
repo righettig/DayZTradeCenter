@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -103,6 +105,8 @@ namespace DayZTradeCenter.DomainModel.Identity.Entities
             }
 
             _text = text;
+
+            Timestamp = DateTime.Now;
         }
 
         #endregion
@@ -116,6 +120,36 @@ namespace DayZTradeCenter.DomainModel.Identity.Entities
         public string Text
         {
             get { return _text; }
+        }
+
+        public DateTime Timestamp { get; set; }
+
+        [NotMapped]
+        public virtual string Subject
+        {
+            get { return "Message"; }
+        }
+
+        public string GetReceived()
+        {
+            var span = DateTime.Now - Timestamp;
+
+            if (span < TimeSpan.FromMinutes(1))
+            {
+                return span.Seconds + " seconds ago";
+            }
+
+            if (span < TimeSpan.FromHours(1))
+            {
+                return span.Minutes + " minutes ago";
+            }
+
+            if (span >= TimeSpan.FromHours(1) && span < TimeSpan.FromDays(1))
+            {
+                return span.Hours + " hours ago";
+            }
+
+            return Timestamp.ToString(CultureInfo.InvariantCulture);
         }
 
         private readonly string _text;
@@ -140,5 +174,10 @@ namespace DayZTradeCenter.DomainModel.Identity.Entities
         public int TradeId { get; set; }
 
         // TradeCompleted(tradeId)
+
+        public override string Subject
+        {
+            get { return "Feedback request"; }
+        }
     }
 }
