@@ -31,9 +31,15 @@
                     }
                 </select>
             </div>
-            <div class="col-xs-2">
+            <div class="col-xs-1">
                 <button class="btn btn-default" type="submit" style="margin-left: -5px"><span class="glyphicon glyphicon-search"></span></button>
             </div>
+            @if (Model.IsSearchApplied)
+            {
+                <div class="col-xs-2">
+                    <button id="resetBtn" class="btn btn-default" type="submit" style="margin-left: -53px">Reset</button>
+                </div>
+            }
         </div>
     </div>
 }
@@ -173,19 +179,25 @@ else
     <script src="~/Content/Selectize/js/standalone/selectize.js"></script>
 
     <script>
-        $(document).ready(function (e) {
-            $('.search-panel .dropdown-menu').find('a').click(function (e) {
+        $(function() {
+            $('.search-panel .dropdown-menu').find('a').click(function(e) {
                 e.preventDefault();
                 var param = $(this).attr("href").replace("#", "");
                 var concept = $(this).text();
                 $('.search-panel span#search_concept').text(concept);
                 $('#searchType').val(param);
             });
-        });
 
-        $('#items').selectize({
-            create: true,
-            sortField: 'text'
+            $('#items').selectize({
+                create: true,
+                sortField: 'text'
+            });
+
+            // resets the search params before posting
+            $('#resetBtn').click(function () {
+                $('select[name=itemId]').val(null);
+                $('#searchType').val(null);
+            });
         });
     </script>
 }

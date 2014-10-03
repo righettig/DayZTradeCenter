@@ -13,10 +13,13 @@ namespace DayZTradeCenter.UI.Web.Models
         /// <param name="userId">The user identifier.</param>
         /// <param name="trades">The trades.</param>
         /// <param name="canCreateANewTrade">if set to <c>true</c> the user is able to create a new Trade.</param>
-        public ListTradesViewModel(bool canCreate, string userId, IEnumerable<Trade> trades, bool canCreateANewTrade)
+        /// <param name="search">if set to <c>true</c> the user has done a search.</param>
+        public ListTradesViewModel(
+            bool canCreate, string userId, IEnumerable<Trade> trades, bool canCreateANewTrade, bool search)
         {
             _canCreate = canCreate;
             _canCreateANewTrade = canCreateANewTrade;
+            _search = search;
 
             _trades = new List<TradeViewModel>();
 
@@ -70,13 +73,19 @@ namespace DayZTradeCenter.UI.Web.Models
 
         public IEnumerable<ItemViewModel> Items { get; set; }
 
+        public bool IsSearchApplied
+        {
+            get { return _search; }
+        }
+
         #endregion
         
         #region Private fields
 
         private readonly bool _canCreate;
         private readonly bool _canCreateANewTrade;
-        
+        private readonly bool _search;
+
         private readonly List<TradeViewModel> _trades;
         
         #endregion

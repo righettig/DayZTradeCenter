@@ -62,7 +62,8 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 !User.IsInRole("Administrator"),
                 userId,
                 model,
-                _tradeManager.CanCreateTrade(userId));
+                _tradeManager.CanCreateTrade(userId),
+                searchType.HasValue);
 
             var items = _tradeManager.GetAllItems();
 
