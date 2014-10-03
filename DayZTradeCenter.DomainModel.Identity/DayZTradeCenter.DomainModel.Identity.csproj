@@ -84,6 +84,13 @@
       <Link>Properties\Version.cs</Link>
     </Compile>
     <Compile Include="Entities\ApplicationUser.cs" />
+    <Compile Include="Entities\Messages\ExchangeDetailsMessage.cs" />
+    <Compile Include="Entities\Messages\FeedbackRequestMessage.cs" />
+    <Compile Include="Entities\Messages\Message.cs" />
+    <Compile Include="Entities\Messages\OfferReceivedMessage.cs" />
+    <Compile Include="Entities\Messages\TradeDeletedMessage.cs" />
+    <Compile Include="Entities\Messages\TradeLostMessage.cs" />
+    <Compile Include="Entities\Messages\TradeWonMessage.cs" />
     <Compile Include="Migrations\201409221333244_Added feedbacks.cs" />
     <Compile Include="Migrations\201409221333244_Added feedbacks.Designer.cs">
       <DependentUpon>201409221333244_Added feedbacks.cs</DependentUpon>

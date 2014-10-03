@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DayZTradeCenter.DomainModel.Identity.Entities;
+using DayZTradeCenter.DomainModel.Identity.Entities.Messages;
 using DayZTradeCenter.DomainModel.Interfaces;
 using Microsoft.AspNet.Identity;
 using rg.GenericRepository.Core;
@@ -251,9 +252,9 @@ namespace DayZTradeCenter.DomainModel
                     .Select(u => u.Id)
                     .Select(id => _userStore.FindByIdAsync(id).Result))
                 {
-                    user.Messages.Add(new Message("A trade you've offered to has been deleted."));
+                    user.Messages.Add(new TradeDeletedMessage());
 
-                    _userStore.UpdateAsync(user);
+                    _userStore.UpdateAsync(user).Wait();
                 }
 
                 _tradesRepository.Delete(trade);
@@ -291,7 +292,7 @@ namespace DayZTradeCenter.DomainModel
                 trade.Offers.Add(user);
 
                 var owner = _userStore.FindByIdAsync(trade.Owner.Id).Result;
-                owner.Messages.Add(new Message("You've received an offer for one of your trades."));
+                owner.Messages.Add(new OfferReceivedMessage());
 
                 _userStore.UpdateAsync(owner);
 
@@ -342,7 +343,7 @@ namespace DayZTradeCenter.DomainModel
 
             // sends a message to the winner.
             var winner = _userStore.FindByIdAsync(userId).Result;
-            winner.Messages.Add(new Message("You've just won a trade. Congratulations!"));
+            winner.Messages.Add(new TradeWonMessage());
 
             _userStore.UpdateAsync(winner).Wait();
 
@@ -353,7 +354,7 @@ namespace DayZTradeCenter.DomainModel
                     where id != winner.Id
                     select _userStore.FindByIdAsync(id).Result)
             {
-                loser.Messages.Add(new Message("You've just lost a trade. We're sorry for you :("));
+                loser.Messages.Add(new TradeLostMessage());
 
                 _userStore.UpdateAsync(loser);
             }

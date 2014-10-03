@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using DayZTradeCenter.DomainModel;
-using DayZTradeCenter.DomainModel.Identity.Entities;
+using DayZTradeCenter.DomainModel.Identity.Entities.Messages;
 using DayZTradeCenter.DomainModel.Identity.Services;
 using DayZTradeCenter.DomainModel.Interfaces;
 using DayZTradeCenter.UI.Web.Models;
@@ -208,12 +208,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
         {
             var trade = _tradeManager.GetTradeById(tradeId);
 
-            var message = new Message(
-                string.Format("My SteamId is {0}. Meet me at {1}, server {2}, time {3} GTM",
-                    details.SteamId,
-                    details.Location,
-                    details.Server,
-                    details.Time));
+            var message = new ExchangeDetailsMessage(details);
 
             var model = new ExchangeManagementViewModel {Trade = trade};
             model.Messages.Add(message);

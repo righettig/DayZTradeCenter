@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using DayZTradeCenter.DomainModel.Identity.Entities.Messages;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -79,105 +78,5 @@ namespace DayZTradeCenter.DomainModel.Identity.Entities
         public string From { get; set; }
 
         public int Score { get; set; }
-    }
-
-    public class Message
-    {
-        public int Id { get; set; }
-
-        #region Ctors
-
-        // NB: required by EF
-        public Message()
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Message"/> class.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <exception cref="System.ArgumentException">text</exception>
-        public Message(string text)
-        {
-            if (string.IsNullOrWhiteSpace(text))
-            {
-                throw new ArgumentException("text");
-            }
-
-            _text = text;
-
-            Timestamp = DateTime.Now;
-        }
-
-        #endregion
-
-        /// <summary>
-        /// Gets the text.
-        /// </summary>
-        /// <value>
-        /// The text.
-        /// </value>
-        public string Text
-        {
-            get { return _text; }
-        }
-
-        public DateTime Timestamp { get; set; }
-
-        [NotMapped]
-        public virtual string Subject
-        {
-            get { return "Message"; }
-        }
-
-        public string GetReceived()
-        {
-            var span = DateTime.Now - Timestamp;
-
-            if (span < TimeSpan.FromMinutes(1))
-            {
-                return span.Seconds + " seconds ago";
-            }
-
-            if (span < TimeSpan.FromHours(1))
-            {
-                return span.Minutes + " minutes ago";
-            }
-
-            if (span >= TimeSpan.FromHours(1) && span < TimeSpan.FromDays(1))
-            {
-                return span.Hours + " hours ago";
-            }
-
-            return Timestamp.ToString(CultureInfo.InvariantCulture);
-        }
-
-        private readonly string _text;
-    }
-
-    public class FeedbackRequestMessage : Message
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FeedbackRequestMessage"/> class.
-        /// </summary>
-        public FeedbackRequestMessage()
-            : base("Remember to leave a feedback")
-        {
-        }
-
-        /// <summary>
-        /// Gets or sets the trade identifier of the trade associated with the message.
-        /// </summary>
-        /// <value>
-        /// The trade identifier of the trade the message associated with the message.
-        /// </value>
-        public int TradeId { get; set; }
-
-        // TradeCompleted(tradeId)
-
-        public override string Subject
-        {
-            get { return "Feedback request"; }
-        }
     }
 }

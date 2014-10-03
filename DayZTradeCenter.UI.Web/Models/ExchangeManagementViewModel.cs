@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
 using DayZTradeCenter.DomainModel;
-using DayZTradeCenter.DomainModel.Identity.Entities;
+using DayZTradeCenter.DomainModel.Identity.Entities.Messages;
 
 namespace DayZTradeCenter.UI.Web.Models
 {
@@ -19,15 +17,5 @@ namespace DayZTradeCenter.UI.Web.Models
         public Trade Trade { get; set; }
         public ICollection<Message> Messages { get; set; }
         public ExchangeDetails Details { get; set; }
-    }
-
-    public class ExchangeDetails
-    {
-        public string SteamId { get; set; }
-        public string Location { get; set; }
-        public string Server { get; set; }
-
-        [DataType(DataType.DateTime)]
-        public DateTime Time { get; set; }
     }
 }
