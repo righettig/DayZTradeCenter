@@ -22,7 +22,7 @@
                     </ul>
                 </div>
             </div>
-            <input type="hidden" name="search_param" value="all" id="search_param">  
+            <input type="hidden" name="searchType" value="both" id="searchType">  
             <div class="col-xs-3" style="padding-right: 0">
                 <select id="items" name="itemId">
                     @foreach (var item in Model.Items)
@@ -179,7 +179,7 @@ else
                 var param = $(this).attr("href").replace("#", "");
                 var concept = $(this).text();
                 $('.search-panel span#search_concept').text(concept);
-                $('#search_param').val(param);
+                $('#searchType').val(param);
             });
         });
 

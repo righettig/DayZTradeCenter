@@ -51,11 +51,10 @@ namespace DayZTradeCenter.UI.Web.Controllers
         }
 
         // GET: Trades
-        // TODO: search_param => enum
-        public ActionResult Index(int? itemId, string search_param)
+        public ActionResult Index(int? itemId, SearchTypes? searchType)
         {
             var model = _tradeManager.GetActiveTrades(
-                new SearchParams {ItemId = itemId, SearchType = search_param});
+                new SearchParams {ItemId = itemId, Type = searchType});
 
             var userId = User.Identity.GetUserId();
 

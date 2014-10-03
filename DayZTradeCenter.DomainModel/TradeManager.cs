@@ -98,6 +98,9 @@ namespace DayZTradeCenter.DomainModel
         /// <returns>
         /// The active trades that satisfy the search parameters.
         /// </returns>
+        /// <exception cref="System.NotSupportedException">
+        /// The specified search type is not supported yet.
+        /// </exception>
         public IEnumerable<Trade> GetActiveTrades(SearchParams @params)
         {
             IEnumerable<Trade> result;
@@ -106,24 +109,27 @@ namespace DayZTradeCenter.DomainModel
             {
                 var trades = GetActiveTrades();
 
-                switch (@params.SearchType)
+                switch (@params.Type)
                 {
-                    case "have":
+                    case SearchTypes.Have:
                         result = trades
                             .Where(t => t.Have.Any(i => i.Item.Id == @params.ItemId));
                         break;
 
-                    case "want":
+                    case SearchTypes.Want:
                         result = trades
                             .Where(t => t.Want.Any(i => i.Item.Id == @params.ItemId));
                         break;
 
-                    default:
+                    case SearchTypes.Both:
                         result = trades
                             .Where(t =>
                                 t.Have.Any(i => i.Item.Id == @params.ItemId) ||
                                 t.Want.Any(i => i.Item.Id == @params.ItemId));
                         break;
+
+                    default:
+                        throw new NotSupportedException("The specified search type is not supported yet.");
                 }
             }
             else

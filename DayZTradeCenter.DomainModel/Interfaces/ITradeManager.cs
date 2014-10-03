@@ -35,6 +35,9 @@ namespace DayZTradeCenter.DomainModel.Interfaces
         /// <returns>
         /// The active trades that satisfy the search parameters.
         /// </returns>
+        /// <exception cref="System.NotSupportedException">
+        /// The specified search type is not supported yet.
+        /// </exception>
         IEnumerable<Trade> GetActiveTrades(SearchParams @params);
 
         /// <summary>
@@ -150,6 +153,13 @@ namespace DayZTradeCenter.DomainModel.Interfaces
     public class SearchParams
     {
         public int? ItemId { get; set; }
-        public string SearchType { get; set; }
+        public SearchTypes? Type { get; set; }
+    }
+
+    public enum SearchTypes
+    {
+        Have,
+        Want,
+        Both
     }
 }
