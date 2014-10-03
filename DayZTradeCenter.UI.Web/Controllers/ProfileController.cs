@@ -2,12 +2,15 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using DayZTradeCenter.DomainModel;
 using DayZTradeCenter.DomainModel.Identity.Entities;
 using DayZTradeCenter.DomainModel.Identity.Services;
 using DayZTradeCenter.DomainModel.Interfaces;
 using DayZTradeCenter.UI.Web.Models;
+using DotNet.Highcharts;
+using DotNet.Highcharts.Helpers;
+using DotNet.Highcharts.Options;
 using Microsoft.AspNet.Identity;
+using Events = DayZTradeCenter.DomainModel.Events;
 
 namespace DayZTradeCenter.UI.Web.Controllers
 {
@@ -110,6 +113,27 @@ namespace DayZTradeCenter.UI.Web.Controllers
                     User.Identity.GetUserId());
 
             return View(model.Messages.OrderByDescending(m => m.Timestamp));
+        }
+
+        public ViewResult CompleteHistory()
+        {
+            var vm = new CompleteHistoryViewModel();
+
+            var chart = new Highcharts("chart")
+                .SetXAxis(new XAxis
+                {
+                    Categories =
+                        new[] {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}
+                })
+                .SetSeries(new Series
+                {
+                    Data =
+                        new Data(new object[] {29.9, 71.5, 106.4, 129.2, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4})
+                });
+
+            vm.Chart = chart;
+
+            return View(vm);
         }
 
         #region Private fields

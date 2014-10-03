@@ -54,7 +54,7 @@
                                 <span>Last 3 transactions (@Html.ActionLink("Complete history", "CompleteHistory", "Profile")): </span>
                                 <br />
                                 <ul>
-                                    @foreach (var feedback in offer.Feedbacks.Take(3))
+                                    @foreach (var feedback in offer.Feedbacks.OrderByDescending(f => f.Timestamp).Take(3))
                                     {
                                         <li>
                                             Score: @feedback.Score, @feedback.Timestamp
