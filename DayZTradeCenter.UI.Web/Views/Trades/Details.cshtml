@@ -22,31 +22,50 @@
     
     @if (Model.Owner.Id == User.Identity.GetUserId())
     {
-        <ul>
+        <ul style="list-style-type: none">
             @foreach (var offer in Model.Offers)
             {
                 <li>
-                    TODO: link to past history, Reputation:
-                    @{
-                var reputation = offer.GetReputation();
-                    }
-                    @if (reputation > 0)
-                    {
-                        if (reputation > 4.5)
-                        {
-                            <img src="~/Content/img/top_user.png" />
-                        }
-                        else
-                        {
-                            @reputation
-                        }
-                    }
-                    else
-                    {
-                        <img src="~/Content/img/new_user.png" />
-                    }
-                    |
-                    <a href="@Url.Action("ChooseWinner", new {tradeId = Model.Id, userId = offer.Id})">Selects as winner</a>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <strong>Reputation:</strong>
+                            @{
+                                var reputation = offer.GetReputation();
+                            }
+                            @if (reputation > 0)
+                            {
+                                if (reputation > 4.5)
+                                {
+                                    <img src="~/Content/img/top_user.png" />
+                                }
+                                else
+                                {
+                                    @reputation
+                                }
+                            }
+                            else
+                            {
+                                <img src="~/Content/img/new_user.png" />
+                            }
+
+                            @if (offer.Feedbacks != null && offer.Feedbacks.Any())
+                            {
+                                <br /><br />
+                                <span>Last 3 transactions (@Html.ActionLink("Complete history", "CompleteHistory", "Profile")): </span>
+                                <br />
+                                <ul>
+                                    @foreach (var feedback in offer.Feedbacks.Take(3))
+                                    {
+                                        <li>
+                                            Score: @feedback.Score, @feedback.Timestamp
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                            <br />
+                            <a href="@Url.Action("ChooseWinner", new {tradeId = Model.Id, userId = offer.Id})">Selects as winner</a>
+                        </div>
+                    </div>
                 </li>
             }
         </ul>
