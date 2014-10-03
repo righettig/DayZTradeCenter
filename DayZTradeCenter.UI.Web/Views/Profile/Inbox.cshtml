@@ -9,20 +9,18 @@
 <table class="table table-condensed table-hover">
     <thead>
         <tr>
-            <th class="span1"><input type="checkbox"></th>
-            <th class="span2"></th>
-            <th class="span9"></th>
-            <th class="span2"></th>
+            <th style="width: 4%"><input type="checkbox"></th>
+            <th style="width: 76%"></th>
+            <th style="width: 20%"></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var message in Model)
         {
             <tr>
-                <td><input type="checkbox"> <a href="#"><i class="icon-star-empty"></i></a></td>
-                <td><span class="label pull-right">Notifications</span></td>
+                <td><input type="checkbox"></td>
                 <td><strong>@message.Text</strong></td>
-                <td><strong>@message.Timestamp</strong></td>
+                <td style="text-align: center"><strong>@message.Timestamp</strong></td>
             </tr>
         }
     </tbody>
