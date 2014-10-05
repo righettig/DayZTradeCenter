@@ -38,14 +38,29 @@ namespace DayZTradeCenter.UI.Web.Controllers
             };
 
             // by default shows the trends of the #1 most wanted item.
-            var item =
+            var itemId =
                 vm.MostWantedItems.First().Item.Id;
 
+            vm.ItemId = itemId;
+            vm.Chart = CreateChart(itemId);
+
+            return View(vm);
+        }
+
+        public PartialViewResult GetDailyTrendsFor(int itemId)
+        {
+            var chart = CreateChart(itemId);
+
+            return PartialView("_TrendsChart", chart);
+        }
+
+        private Highcharts CreateChart(int itemId)
+        {
             var wTrends =
-                GetDailyTrendsFor(item, TrendsType.W).ToArray();
+                GetDailyTrendsFor(itemId, TrendsType.W).ToArray();
 
             var hTrends =
-                GetDailyTrendsFor(item, TrendsType.H).ToArray();
+                GetDailyTrendsFor(itemId, TrendsType.H).ToArray();
 
             var chart = new Highcharts("chart")
                 .SetXAxis(new XAxis
@@ -74,12 +89,10 @@ namespace DayZTradeCenter.UI.Web.Controllers
                     }
                 });
 
-            vm.Chart = chart;
-
-            return View(vm);
+            return chart;
         }
 
-        public IEnumerable<TrendsResult> GetDailyTrendsFor(int itemId, TrendsType type)
+        private IEnumerable<TrendsResult> GetDailyTrendsFor(int itemId, TrendsType type)
         {
             return _provider.GetDailyTrendsFor(itemId, type);
         }

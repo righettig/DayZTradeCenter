@@ -352,6 +352,7 @@
     <Content Include="Views\Home\AdminIndex.cshtml" />
     <Content Include="Views\Shared\_AdminLoginPartial.cshtml" />
     <Content Include="Views\Profile\CompleteHistory.cshtml" />
+    <Content Include="Views\Analytics\_TrendsChart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
