@@ -57,10 +57,10 @@ namespace DayZTradeCenter.UI.Web.Controllers
         private Highcharts CreateChart(int itemId)
         {
             var wTrends =
-                GetDailyTrendsFor(itemId, TrendsType.W).ToArray();
+                _provider.GetDailyTrendsFor(itemId, TrendsType.W).ToArray();
 
             var hTrends =
-                GetDailyTrendsFor(itemId, TrendsType.H).ToArray();
+                _provider.GetDailyTrendsFor(itemId, TrendsType.H).ToArray();
 
             var chart = new Highcharts("chart")
                 .SetXAxis(new XAxis
@@ -90,11 +90,6 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 });
 
             return chart;
-        }
-
-        private IEnumerable<TrendsResult> GetDailyTrendsFor(int itemId, TrendsType type)
-        {
-            return _provider.GetDailyTrendsFor(itemId, type);
         }
 
         private readonly IAnalyticsProvider _provider;

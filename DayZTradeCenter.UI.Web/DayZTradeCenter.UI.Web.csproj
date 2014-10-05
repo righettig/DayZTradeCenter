@@ -86,6 +86,9 @@
     <Reference Include="Ninject.Web.Mvc">
       <HintPath>..\packages\Ninject.MVC5.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="Ninject.Web.WebApi">
+      <HintPath>..\packages\Ninject.Web.WebApi.3.2.2.0\lib\net45-full\Ninject.Web.WebApi.dll</HintPath>
+    </Reference>
     <Reference Include="Owin.Security.Providers, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Owin.Security.Providers.1.9.0\lib\net45\Owin.Security.Providers.dll</HintPath>
@@ -198,6 +201,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AnalyticsController.cs" />
+    <Compile Include="Controllers\Api\TrendsController.cs" />
     <Compile Include="Filters\LoadUserInboxActionFilter.cs" />
     <Compile Include="Models\AnalyticsViewModel.cs" />
     <Compile Include="Models\CompleteHistoryViewModel.cs" />
