@@ -36,34 +36,12 @@ namespace DayZTradeCenter.DomainModel
 
         public IEnumerable<ItemDetails> GetMostWantedItem()
         {
-            return
-                _tradesRepository
-                    .GetAll()
-                    .SelectMany(trade => trade.Want).Select(d => d.Item)
-                    .GroupBy(i => i)
-                    .OrderByDescending(grp => grp.Count())
-                    .Select(
-                        grp => new ItemDetails
-                        {
-                            Item = grp.Key,
-                            Count = grp.Count()
-                        });
+            return GetMostListedItem(trade => trade.Want);
         }
 
         public IEnumerable<ItemDetails> GetMostOfferedItem()
         {
-            return
-                _tradesRepository
-                    .GetAll()
-                    .SelectMany(trade => trade.Have).Select(d => d.Item)
-                    .GroupBy(i => i)
-                    .OrderByDescending(grp => grp.Count())
-                    .Select(
-                        grp => new ItemDetails
-                        {
-                            Item = grp.Key,
-                            Count = grp.Count()
-                        });
+            return GetMostListedItem(trade => trade.Have);
         }
 
         public IEnumerable<TrendsResult> GetDailyTrendsFor(int itemId, TrendsType type)
@@ -102,6 +80,22 @@ namespace DayZTradeCenter.DomainModel
             return _itemsRepository.GetAll();
         }
 
+        private IEnumerable<ItemDetails> GetMostListedItem(Func<Trade, IEnumerable<TradeDetails>> collectionSelector)
+        {
+            return
+                _tradesRepository
+                    .GetAll()
+                    .SelectMany(collectionSelector).Select(d => d.Item)
+                    .GroupBy(i => i)
+                    .OrderByDescending(grp => grp.Count())
+                    .Select(
+                        grp => new ItemDetails
+                        {
+                            Item = grp.Key,
+                            Count = grp.Count()
+                        });
+        }
+        
         private IEnumerable<TrendsResult> GroupByDateAndFilterByItem(
             int itemId, Func<IGrouping<DateTime, Trade>, IEnumerable<TradeDetails>> collectionSelector)
         {
