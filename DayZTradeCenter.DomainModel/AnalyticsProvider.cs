@@ -36,30 +36,34 @@ namespace DayZTradeCenter.DomainModel
 
         public IEnumerable<ItemDetails> GetMostWantedItem()
         {
-            return _tradesRepository
-                .GetAll()
-                .GroupBy(trade => trade.Want.First()) // NB: I'm assuming only a single item here.
-                .OrderByDescending(grp => grp.Count())
-                .Select(
-                    grp => new ItemDetails
-                    {
-                        Item = grp.Key.Item,
-                        Count = grp.Count()
-                    });
+            return
+                _tradesRepository
+                    .GetAll()
+                    .SelectMany(trade => trade.Want).Select(d => d.Item)
+                    .GroupBy(i => i)
+                    .OrderByDescending(grp => grp.Count())
+                    .Select(
+                        grp => new ItemDetails
+                        {
+                            Item = grp.Key,
+                            Count = grp.Count()
+                        });
         }
 
         public IEnumerable<ItemDetails> GetMostOfferedItem()
         {
-            return _tradesRepository
-                .GetAll()
-                .GroupBy(trade => trade.Have.First()) // NB: I'm assuming only a single item here.
-                .OrderByDescending(grp => grp.Count())
-                .Select(
-                    grp => new ItemDetails
-                    {
-                        Item = grp.Key.Item,
-                        Count = grp.Count()
-                    });
+            return
+                _tradesRepository
+                    .GetAll()
+                    .SelectMany(trade => trade.Have).Select(d => d.Item)
+                    .GroupBy(i => i)
+                    .OrderByDescending(grp => grp.Count())
+                    .Select(
+                        grp => new ItemDetails
+                        {
+                            Item = grp.Key,
+                            Count = grp.Count()
+                        });
         }
 
         public IEnumerable<TrendsResult> GetDailyTrendsFor(int itemId, TrendsType type)
@@ -116,8 +120,8 @@ namespace DayZTradeCenter.DomainModel
 
         #region Private fields
 
-        private IRepository<Trade> _tradesRepository;
-        private IRepository<Item> _itemsRepository;
+        private readonly IRepository<Trade> _tradesRepository;
+        private readonly IRepository<Item> _itemsRepository;
 
         #endregion
     }
