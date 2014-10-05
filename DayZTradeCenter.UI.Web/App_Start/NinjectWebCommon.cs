@@ -80,6 +80,8 @@ namespace DayZTradeCenter.UI.Web.App_Start
             kernel.Bind<ITradeManager>().To<TradeManager>().InRequestScope();
             kernel.Bind<IProfileManager>().To<ProfileManager>().InRequestScope();
 
+            kernel.Bind<IAnalyticsProvider>().To<AnalyticsProvider>().InRequestScope();
+
             kernel.Bind<IUserStore<ApplicationUser>>().ToMethod(
                 c =>
                     new UserStore<ApplicationUser>(

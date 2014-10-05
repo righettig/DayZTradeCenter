@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.Mvc;
-using DayZTradeCenter.DomainModel;
+using DayZTradeCenter.DomainModel.Interfaces;
 using DayZTradeCenter.UI.Web.Models;
 using DotNet.Highcharts;
 using DotNet.Highcharts.Helpers;
 using DotNet.Highcharts.Options;
-using rg.GenericRepository.Core;
 
 namespace DayZTradeCenter.UI.Web.Controllers
 {
@@ -16,63 +14,26 @@ namespace DayZTradeCenter.UI.Web.Controllers
         /// <summary>
         /// Initializes a new instance of the <see cref="AnalyticsController"/> class.
         /// </summary>
-        /// <param name="tradesRepository">The trades repository.</param>
-        /// <param name="itemsRepository">The items repository.</param>
-        /// <exception cref="System.ArgumentNullException">
-        /// tradesRepository
-        /// or
-        /// itemsRepository
-        /// </exception>
-        public AnalyticsController(IRepository<Trade> tradesRepository, IRepository<Item> itemsRepository)
+        /// <param name="provider">The provider.</param>
+        /// <exception cref="System.ArgumentNullException">provider</exception>
+        public AnalyticsController(IAnalyticsProvider provider)
         {
-            if (tradesRepository == null)
+            if (provider == null)
             {
-                throw new ArgumentNullException("tradesRepository");
+                throw new ArgumentNullException("provider");
             }
 
-            if (itemsRepository == null)
-            {
-                throw new ArgumentNullException("itemsRepository");
-            }
-
-            _tradesRepository = tradesRepository;
-            _itemsRepository = itemsRepository;
+            _provider = provider;
         }
 
         // GET: Analytics
         public ActionResult Index()
         {
-            var mostWantedItem =
-                _tradesRepository
-                    .GetAll()
-                    .GroupBy(trade => trade.Want.First()) // NB: I'm assuming only a single item here.
-                    .OrderByDescending(grp => grp.Count())
-                    .Select(
-                        grp => new AnalyticsViewModel.ItemDetails
-                        {
-                            Item = grp.Key.Item,
-                            Count = grp.Count()
-                        });
-
-            var mostOfferedItem =
-                _tradesRepository
-                    .GetAll()
-                    .GroupBy(trade => trade.Have.First()) // NB: I'm assuming only a single item here.
-                    .OrderByDescending(grp => grp.Count())
-                    .Select(
-                        grp => new AnalyticsViewModel.ItemDetails
-                        {
-                            Item = grp.Key.Item,
-                            Count = grp.Count()
-                        });
-
-            var items = _itemsRepository.GetAll();
-
             var vm = new AnalyticsViewModel
             {
-                MostWantedItems = mostWantedItem,
-                MostOfferedItems = mostOfferedItem,
-                Items = new SelectList(items, "Id", "Name")
+                MostWantedItems = _provider.GetMostWantedItem(),
+                MostOfferedItems = _provider.GetMostOfferedItem(),
+                Items = new SelectList(_provider.GetAllItems(), "Id", "Name")
             };
 
             var chart = new Highcharts("chart")
@@ -94,70 +55,9 @@ namespace DayZTradeCenter.UI.Web.Controllers
 
         public IEnumerable<TrendsResult> GetDailyTrendsFor(int itemId, TrendsType type)
         {
-            IEnumerable<TrendsResult> result;
-
-            switch (type)
-            {
-                case TrendsType.H:
-                    result =
-                        GroupByDateAndFilterByItem(itemId, g => g.SelectMany(j => j.Have));
-                    break;
-
-                case TrendsType.W:
-                    result =
-                        GroupByDateAndFilterByItem(itemId, g => g.SelectMany(j => j.Want));
-                    break;
-
-                case TrendsType.Both:
-                    result =
-                        GroupByDateAndFilterByItem(itemId,
-                            g =>
-                                g.SelectMany(k => k.Have)
-                                 .Union(g.SelectMany(j => j.Want)));
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException("type");
-            }
-
-            return result;
+            return _provider.GetDailyTrendsFor(itemId, type);
         }
 
-        private IEnumerable<TrendsResult> GroupByDateAndFilterByItem(
-            int itemId, Func<IGrouping<DateTime, Trade>, IEnumerable<TradeDetails>> collectionSelector)
-        {
-            return
-                from trade in _tradesRepository.GetAll()
-                group trade by trade.CreationDate.Date
-                into grp
-                select new TrendsResult
-                {
-                    Date = grp.Key,
-                    ItemId = itemId,
-                    Count =
-                        collectionSelector(grp).Count(t => t.Item.Id == itemId)
-                };
-        }
-
-        #region Private fields
-
-        private readonly IRepository<Trade> _tradesRepository;
-        private readonly IRepository<Item> _itemsRepository;
-
-        #endregion
-    }
-
-    public enum TrendsType
-    {
-        H,
-        W,
-        Both
-    }
-
-    public class TrendsResult
-    {
-        public DateTime Date { get; set; }
-        public int ItemId { get; set; }
-        public int Count { get; set; }
+        private readonly IAnalyticsProvider _provider;
     }
 }

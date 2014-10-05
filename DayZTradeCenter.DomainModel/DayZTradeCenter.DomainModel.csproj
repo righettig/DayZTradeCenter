@@ -66,6 +66,10 @@
     <Compile Include="..\Version.cs">
       <Link>Properties\Version.cs</Link>
     </Compile>
+    <Compile Include="AnalyticsProvider.cs" />
+    <Compile Include="Interfaces\IAnalyticsProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Interfaces\IProfileManager.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Interfaces\ITradeManager.cs" />

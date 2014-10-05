@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
-using DayZTradeCenter.DomainModel;
+using DayZTradeCenter.DomainModel.Interfaces;
 using DotNet.Highcharts;
 
 namespace DayZTradeCenter.UI.Web.Models
@@ -26,11 +26,5 @@ namespace DayZTradeCenter.UI.Web.Models
         [Display(Name = "Item")]
         public int ItemId { get; set; }
         public SelectList Items { get; set; }
-
-        public class ItemDetails
-        {
-            public Item Item { get; set; }
-            public int Count { get; set; }
-        }
     }
 }
