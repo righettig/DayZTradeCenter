@@ -6,7 +6,11 @@ namespace DayZTradeCenter.DomainModel.Interfaces
     public interface IAnalyticsProvider
     {
         IEnumerable<ItemDetails> GetMostWantedItem();
+        IEnumerable<ItemDetails> GetMostWantedItem(DateTime start, DateTime end);
+
         IEnumerable<ItemDetails> GetMostOfferedItem();
+        IEnumerable<ItemDetails> GetMostOfferedItem(DateTime start, DateTime end);
+
         IEnumerable<TrendsResult> GetDailyTrendsFor(int itemId, TrendsType type);
         IEnumerable<Item> GetAllItems();
     }

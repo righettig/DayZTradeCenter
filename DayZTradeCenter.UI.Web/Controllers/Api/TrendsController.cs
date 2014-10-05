@@ -35,10 +35,24 @@ namespace DayZTradeCenter.UI.Web.Controllers.Api
             return _provider.GetMostWantedItem();
         }
 
+        // /api/items/most_wanted/2012-01-01/2013-01-01
+        [Route("api/items/most_wanted/{start:datetime}/{end:datetime}")]
+        public IEnumerable<ItemDetails> GetMostWantedItemByDateRange(DateTime start, DateTime end)
+        {
+            return _provider.GetMostWantedItem(start, end);
+        }
+
         [Route("api/items/most_offered")]
         public IEnumerable<ItemDetails> GetMostOfferedItem()
         {
             return _provider.GetMostOfferedItem();
+        }
+
+        // /api/items/most_offered/2012-01-01/2013-01-01
+        [Route("api/items/most_offered/{start:datetime}/{end:datetime}")]
+        public IEnumerable<ItemDetails> GetMostOfferedItemByDateRange(DateTime start, DateTime end)
+        {
+            return _provider.GetMostOfferedItem(start, end);
         }
 
         private readonly IAnalyticsProvider _provider;

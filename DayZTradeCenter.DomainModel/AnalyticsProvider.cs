@@ -39,9 +39,23 @@ namespace DayZTradeCenter.DomainModel
             return GetMostListedItem(trade => trade.Want);
         }
 
+        public IEnumerable<ItemDetails> GetMostWantedItem(DateTime start, DateTime end)
+        {
+            return GetMostListedItem(
+                trade => trade.Want, 
+                trade => trade.CreationDate >= start && trade.CreationDate <= end);
+        }
+
         public IEnumerable<ItemDetails> GetMostOfferedItem()
         {
             return GetMostListedItem(trade => trade.Have);
+        }
+
+        public IEnumerable<ItemDetails> GetMostOfferedItem(DateTime start, DateTime end)
+        {
+            return GetMostListedItem(
+                trade => trade.Have,
+                trade => trade.CreationDate >= start && trade.CreationDate <= end);
         }
 
         public IEnumerable<TrendsResult> GetDailyTrendsFor(int itemId, TrendsType type)
@@ -80,11 +94,20 @@ namespace DayZTradeCenter.DomainModel
             return _itemsRepository.GetAll();
         }
 
-        private IEnumerable<ItemDetails> GetMostListedItem(Func<Trade, IEnumerable<TradeDetails>> collectionSelector)
+        private IEnumerable<ItemDetails> GetMostListedItem(
+            Func<Trade, IEnumerable<TradeDetails>> collectionSelector)
+        {
+            return GetMostListedItem(collectionSelector, trade => true);
+        }
+
+        private IEnumerable<ItemDetails> GetMostListedItem(
+            Func<Trade, IEnumerable<TradeDetails>> collectionSelector, 
+            Func<Trade, bool> rangeFn)
         {
             return
                 _tradesRepository
                     .GetAll()
+                    .Where(rangeFn)
                     .SelectMany(collectionSelector).Select(d => d.Item)
                     .GroupBy(i => i)
                     .OrderByDescending(grp => grp.Count())
