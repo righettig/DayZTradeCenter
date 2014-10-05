@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using DayZTradeCenter.DomainModel.Interfaces;
 using DayZTradeCenter.UI.Web.Models;
@@ -36,16 +37,41 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 Items = new SelectList(_provider.GetAllItems(), "Id", "Name")
             };
 
+            // by default shows the trends of the #1 most wanted item.
+            var item =
+                vm.MostWantedItems.First().Item.Id;
+
+            var wTrends =
+                GetDailyTrendsFor(item, TrendsType.W).ToArray();
+
+            var hTrends =
+                GetDailyTrendsFor(item, TrendsType.H).ToArray();
+
             var chart = new Highcharts("chart")
                 .SetXAxis(new XAxis
                 {
                     Categories =
-                        new[] {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}
+                        wTrends
+                            .Select(t => t.Date.ToShortDateString())
+                            .Union(
+                                hTrends.Select(t => t.Date.ToShortDateString()))
+                            .Distinct()
+                            .ToArray()
                 })
-                .SetSeries(new Series
+                .SetSeries(new[]
                 {
-                    Data =
-                        new Data(new object[] {29.9, 71.5, 106.4, 129.2, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4})
+                    new Series
+                    {
+                        Name = "W",
+                        Data =
+                            new Data(wTrends.Select(t => t.Count).Cast<object>().ToArray())
+                    },
+                    new Series
+                    {
+                        Name = "H",
+                        Data =
+                            new Data(hTrends.Select(t => t.Count).Cast<object>().ToArray())
+                    }
                 });
 
             vm.Chart = chart;
