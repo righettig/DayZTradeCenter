@@ -30,6 +30,30 @@ It is possible to test the web application using preconfigured accounts without 
 
 ## Release notes
 
+- v0.3.5389.32644:
+  - Trade management:
+    1. Users can create trades (H+W) with multiple items and quantity
+    2. Users can delete unclosed trades
+    3. Quick offer
+  - Account management:
+    - (basic) reputation score based on the actual received feedback
+  - Search:
+    - H & W item queries
+    - Reset
+  - Trends & statistics:
+    - Most wanted/offered items
+  - Profile management:
+    - History
+  - Landing page revamp (latest & hot trades)
+  - Notifications
+  - UI/UX improvements
+    1. Updated Trades.Details page
+    2. (stubbed) "Complete History" page
+    3. Tweaked design (landing/dashboard)
+    4. Quicker login process
+  - Testing
+    - 5 pre-configured users available
+
 - v0.2.5380.19796:
   - The admin can create, list, edit, delete and see the details of a specific item.
   - Trade management:
