@@ -1,4 +1,6 @@
-﻿@model DayZTradeCenter.UI.Web.Models.DashboardViewModel
+﻿@using DayZTradeCenter.DomainModel
+
+@model DayZTradeCenter.UI.Web.Models.DashboardViewModel
 
 @{
     ViewBag.Title = "Home Page";
@@ -55,15 +57,15 @@
                 @foreach (var trade in Model.MyTrades)
                 {
                     <li class="list-group-item">
-                        @if (trade.FeedbackReceived)
+                        @if (trade.HasReceivedFeedbackFromOwner)
                         {
                             @trade.Id
                         }
-                        else if (trade.Completed)
+                        else if (trade.State == TradeStates.Completed)
                         {
                             <a href="@Url.Action("TradeCompleted", "Trades", new { id = trade.Id })">@trade.Id</a>
                         }
-                        else if (trade.IsClosed)
+                        else if (trade.State == TradeStates.Closed)
                         {
                             <a href="@Url.Action("ExchangeManagement", "Trades", new { id = trade.Id })">@trade.Id</a>
                         }
@@ -73,30 +75,30 @@
                         },
 
                         <strong>H</strong> {
-                        @foreach (var itemDetails in @trade.Have)
-                        {
-                            @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
-                        }
+                            @foreach (var itemDetails in @trade.Have)
+                            {
+                                @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
+                            }
                         }
 
                         <strong>W</strong> {
-                        @foreach (var itemDetails in @trade.Want)
-                        {
-                            @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
-                        }
+                            @foreach (var itemDetails in @trade.Want)
+                            {
+                                @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
+                            }
                         }
 
-                        @if (trade.FeedbackReceived)
+                        @if (trade.HasReceivedFeedbackFromOwner)
                         {
                             @:DONE
                         }
-                        else if (trade.Completed)
+                        else if (trade.State == TradeStates.Completed)
                         {
                             @:COMPLETED: leave feedback!
                         }
-                        else if (trade.IsClosed)
+                        else if (trade.State == TradeStates.Closed)
                         {
-                            @:CLOSED: winner = @trade.Winner
+                            @:CLOSED: winner = @trade.Winner.Id
                         }
                     </li>
                 }
@@ -118,17 +120,17 @@
                         <a href="@Url.Action("Details", "Trades", new { id = trade.Id })">@trade.Id</a>,
 
                         <strong>H</strong> {
-                        @foreach (var itemDetails in @trade.Have)
-                        {
-                            @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
-                        }
+                            @foreach (var itemDetails in @trade.Have)
+                            {
+                                @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
+                            }
                         }
 
                         <strong>W</strong> {
-                        @foreach (var itemDetails in @trade.Want)
-                        {
-                            @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
-                        }
+                            @foreach (var itemDetails in @trade.Want)
+                            {
+                                @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
+                            }
                         }
                     </li>
                 }

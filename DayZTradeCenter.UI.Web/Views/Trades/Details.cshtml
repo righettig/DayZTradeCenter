@@ -1,5 +1,7 @@
-﻿@using Microsoft.AspNet.Identity
-@model DayZTradeCenter.DomainModel.Trade
+﻿@using DayZTradeCenter.DomainModel
+@using Microsoft.AspNet.Identity
+
+@model Trade
 
 @{
     ViewBag.Title = "Details";
@@ -70,11 +72,11 @@
             }
         </ul>
     }
-    else if (Model.Winner == User.Identity.GetUserId())
+    else if (Model.Winner != null && Model.Winner.Id == User.Identity.GetUserId())
     {
         @: You have won this trade. Congratulations!
     }
-    else if (Model.IsClosed)
+    else if (Model.State == TradeStates.Closed)
     {
         @: You have lost this trade. We're sorry for you!
     }

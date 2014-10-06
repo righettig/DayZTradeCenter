@@ -19,6 +19,8 @@ namespace DayZTradeCenter.DomainModel
             Want = new List<TradeDetails>();
 
             Offers = new List<IApplicationUser>();
+
+            State = TradeStates.Active;
         }
 
         #region Public properties
@@ -26,6 +28,7 @@ namespace DayZTradeCenter.DomainModel
         public int Id { get; set; }
 
         public DateTime CreationDate { get; set; }
+        public TradeStates State { get; set; }
 
         public ICollection<TradeDetails> Have { get; private set; }
         public ICollection<TradeDetails> Want { get; private set; }
@@ -33,18 +36,19 @@ namespace DayZTradeCenter.DomainModel
         public ICollection<IApplicationUser> Offers { get; private set; }
 
         public IApplicationUser Owner { get; set; }
+        public IApplicationUser Winner { get; set; }
 
-        public string Winner { get; set; }
+        public TradeFeedback Feedback { get; set; }
 
-        public bool IsClosed
+        public bool HasReceivedFeedbackFromOwner
         {
-            get { return Winner != null; }
+            get { return Feedback != null && Feedback.Owner; }
         }
 
-        public bool Completed { get; set; }
-
-        public bool FeedbackReceived { get; set; }
-        public bool FeedbackReceivedToOwner { get; set; }
+        public bool HasReceivedFeedbackFromWinner
+        {
+            get { return Feedback != null && Feedback.Winner; }
+        }
         
         #endregion
     }
@@ -93,5 +97,34 @@ namespace DayZTradeCenter.DomainModel
     {
         public int Id { get; set; }
         public int Quantity { get; set; }
+    }
+
+    public enum TradeStates
+    {
+        /// <summary>
+        /// The trade has been published.
+        /// </summary>
+        Active,
+
+        /// <summary>
+        /// The owner has chosen the winner.
+        /// </summary>
+        Closed,
+
+        /// <summary>
+        /// The trade has been completed.
+        /// </summary>
+        Completed
+    }
+
+    // to keep track of pending feedback
+    // when the trade gets "completed" it can be deleted
+    public class TradeFeedback
+    {
+        // for timed-feedback
+        //public DateTime CreationDate { get; set; }
+
+        public bool Owner { get; set; }
+        public bool Winner { get; set; }
     }
 }

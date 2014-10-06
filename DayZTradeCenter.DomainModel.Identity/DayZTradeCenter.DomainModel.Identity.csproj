@@ -85,6 +85,7 @@
     </Compile>
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\Messages\ExchangeDetailsMessage.cs" />
+    <Compile Include="Entities\Messages\FeedbackReceivedMessage.cs" />
     <Compile Include="Entities\Messages\FeedbackRequestMessage.cs" />
     <Compile Include="Entities\Messages\Message.cs" />
     <Compile Include="Entities\Messages\OfferReceivedMessage.cs" />

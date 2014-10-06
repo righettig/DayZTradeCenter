@@ -142,9 +142,11 @@ namespace DayZTradeCenter.DomainModel.Interfaces
         /// <param name="score">The score.</param>
         /// <param name="user">The user.</param>
         /// <returns>
-        ///   <c>True</c> if the operation was successful, <c>false</c> otherwise.
+        ///   <see cref="LeaveFeedbackResult.Ok">If the operation is successful.</see>
+        ///   <see cref="LeaveFeedbackResult.AlreadyLeft">If the user has already left a feedback for the trade.</see>
+        ///   <see cref="LeaveFeedbackResult.Unauthorized">If the user is not authorized to leave a feedback for the trade.</see>
         /// </returns>
-        bool LeaveFeedback(int tradeId, int score, IApplicationUser user);
+        LeaveFeedbackResult LeaveFeedback(int tradeId, int score, IApplicationUser user);
     }
 
     /// <summary>

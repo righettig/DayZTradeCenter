@@ -89,7 +89,7 @@ namespace DayZTradeCenter.DomainModel
         /// <returns></returns>
         public IEnumerable<Trade> GetActiveTrades()
         {
-            return All.Where(t => t.IsClosed == false);
+            return All.Where(t => t.State == TradeStates.Active);
         }
 
         /// <summary>
@@ -194,7 +194,7 @@ namespace DayZTradeCenter.DomainModel
             // the active trades of the specified user. 
             var activeTrades =
                 GetTradesByUser(userId)
-                    .Where(trade => trade.IsClosed == false);
+                    .Where(trade => trade.State == TradeStates.Active);
 
             return activeTrades.Count() < 3;
         }
@@ -339,12 +339,13 @@ namespace DayZTradeCenter.DomainModel
         {
             var trade = _tradesRepository.GetSingle(tradeId);
 
-            trade.Winner = userId;
-
             // sends a message to the winner.
             var winner = _userStore.FindByIdAsync(userId).Result;
             winner.Messages.Add(new TradeWonMessage());
 
+            trade.Winner = winner;
+            trade.State = TradeStates.Closed;
+            
             _userStore.UpdateAsync(winner).Wait();
 
             // sends a message to those who have not win.
@@ -379,7 +380,9 @@ namespace DayZTradeCenter.DomainModel
         public Trade MarkAsCompleted(int tradeId, IApplicationUser user)
         {
             var model = _tradesRepository.GetSingle(tradeId);
-            model.Completed = true;
+            
+            model.State = TradeStates.Completed;
+            model.Feedback = new TradeFeedback();
 
             if (user.Messages == null)
             {
@@ -402,26 +405,42 @@ namespace DayZTradeCenter.DomainModel
         /// <param name="score">The score.</param>
         /// <param name="user">The user.</param>
         /// <returns>
-        ///   <c>True</c> if the operation was successful, <c>false</c> otherwise.
+        /// <see cref="LeaveFeedbackResult.Ok">If the operation is successful.</see>
+        /// <see cref="LeaveFeedbackResult.AlreadyLeft">If the user has already left a feedback for the trade.</see>
+        /// <see cref="LeaveFeedbackResult.Unauthorized">If the user is not authorized to leave a feedback for the trade.</see>
         /// </returns>
-        public bool LeaveFeedback(int tradeId, int score, IApplicationUser user)
+        public LeaveFeedbackResult LeaveFeedback(int tradeId, int score, IApplicationUser user)
         {
-            var model = _tradesRepository.GetSingle(tradeId);
+            var trade = _tradesRepository.GetSingle(tradeId);
 
-            if (user.Feedbacks == null)
+            var result = CanLeaveFeedback(trade, user.Id);
+            if (result != LeaveFeedbackResult.Ok)
             {
-                user.Feedbacks = new List<Feedback>();
+                return result;
             }
 
-            // by default the feedback is for the winner.
-            var from = model.Winner;
-            
-            // if it is supposed to be for the owner..
-            if (user.Id == model.Owner.Id)
+            if (user.Id == trade.Owner.Id)
             {
-                from = model.Owner.Id;
-                model.FeedbackReceivedToOwner = true;
+                trade.Feedback.Owner = true;
+
+                AddFeedback(trade.Winner, user.Id, score, tradeId);
             }
+            else
+            {
+                trade.Feedback.Winner = true;
+
+                AddFeedback(trade.Owner, user.Id, score, tradeId);
+            }
+
+            _tradesRepository.Update(trade);
+            _tradesRepository.SaveChanges();
+
+            return LeaveFeedbackResult.Ok;
+        }
+
+        private void AddFeedback(IApplicationUser receiver, string from, int score, int tradeId)
+        {
+            var user = _userStore.FindByIdAsync(receiver.Id).Result;
 
             user.Feedbacks.Add(new Feedback
             {
@@ -431,12 +450,25 @@ namespace DayZTradeCenter.DomainModel
                 TradeId = tradeId
             });
 
-            model.FeedbackReceived = true;
+            user.Messages.Add(new FeedbackReceivedMessage(score));
             
-            _tradesRepository.Update(model);
-            _tradesRepository.SaveChanges();
+            _userStore.UpdateAsync(user).Wait();
+        }
 
-            return true;
+        private static LeaveFeedbackResult CanLeaveFeedback(Trade trade, string userId)
+        {
+            if (userId != trade.Owner.Id && userId != trade.Winner.Id)
+            {
+                return LeaveFeedbackResult.Unauthorized;
+            }
+
+            if (userId == trade.Owner.Id && trade.Feedback.Owner ||
+                userId == trade.Winner.Id && trade.Feedback.Winner)
+            {
+                return LeaveFeedbackResult.AlreadyLeft;
+            }
+            
+            return LeaveFeedbackResult.Ok;
         }
 
         #region Private fields
@@ -455,5 +487,12 @@ namespace DayZTradeCenter.DomainModel
         Success,
         AlreadOffered,
         OwnerCannotOffer
+    }
+
+    public enum LeaveFeedbackResult
+    {
+        Ok,
+        Unauthorized,
+        AlreadyLeft
     }
 }

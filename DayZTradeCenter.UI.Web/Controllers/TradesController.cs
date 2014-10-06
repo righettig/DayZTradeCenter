@@ -213,7 +213,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
             var model = new ExchangeManagementViewModel {Trade = trade, Details = details};
             model.Messages.Add(message);
 
-            var winner = await _userManager.FindByIdAsync(trade.Winner);
+            var winner = await _userManager.FindByIdAsync(trade.Winner.Id);
             winner.Messages.Add(message);
 
             await _userManager.UpdateAsync(winner);
@@ -230,14 +230,13 @@ namespace DayZTradeCenter.UI.Web.Controllers
         {
             var trade = _tradeManager.GetTradeById(id);
 
-            var user = await _userManager.FindByIdAsync(trade.Winner);
+            var user = await _userManager.FindByIdAsync(trade.Winner.Id);
             
             var model = _tradeManager.MarkAsCompleted(id, user);
             _profileManager.AddHistoryEvent(User.Identity.GetUserId(), Events.TradeCompleted);
 
             await _userManager.UpdateAsync(user);
 
-            ViewBag.Action = "LeaveFeedback";
             return View(model);
         }
 
@@ -245,55 +244,45 @@ namespace DayZTradeCenter.UI.Web.Controllers
         public ActionResult TradeCompletedGet(int id)
         {
             var model = _tradeManager.GetTradeById(id);
+
+            var userId = User.Identity.GetUserId();
             
+            if (userId != model.Winner.Id && userId != model.Owner.Id)
+            {
+                return View("Unauthorized");
+            }
+
+            if ((userId == model.Winner.Id && model.Feedback.Winner) ||
+                (userId == model.Owner.Id && model.Feedback.Owner))
+            {
+                return View("AlreadyLeftFeedback");
+            }
+
             return View(model);
-        }
-
-        public async Task<ActionResult> LeaveFeedback(int id, int score)
-        {
-            var trade = _tradeManager.GetTradeById(id);
-
-            var user = await _userManager.FindByIdAsync(trade.Winner);
-
-            if (_tradeManager.LeaveFeedback(id, score, user))
-            {
-                _profileManager.AddHistoryEvent(User.Identity.GetUserId(), Events.FeedbackLeft);
-            }
-
-            await _userManager.UpdateAsync(user);
-
-            return View();
-        }
-
-        public ActionResult LeaveFeedbackToOwner(int tradeId)
-        {
-            var trade = _tradeManager.GetTradeById(tradeId);
-
-            if (trade.FeedbackReceivedToOwner)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            ViewBag.Action = "LeaveFeedbackToOwner";
-            return View("TradeCompleted", trade);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> LeaveFeedbackToOwner(int id, int score)
+        public async Task<ActionResult> LeaveFeedback(int id, int score)
         {
-            var trade = _tradeManager.GetTradeById(id);
+            var user = await _userManager.FindByIdAsync(User.Identity.GetUserId());
 
-            var user = await _userManager.FindByIdAsync(trade.Owner.Id);
-
-            if (_tradeManager.LeaveFeedback(id, score, user))
+            var result = _tradeManager.LeaveFeedback(id, score, user);
+            switch (result)
             {
-                _profileManager.AddHistoryEvent(User.Identity.GetUserId(), Events.FeedbackLeft);
+                case LeaveFeedbackResult.Ok:
+                    _profileManager.AddHistoryEvent(user.Id, Events.FeedbackLeft);
+                    await _userManager.UpdateAsync(user);
+                    break;
+
+                case LeaveFeedbackResult.AlreadyLeft:
+                    return View("AlreadyLeftFeedback");
+
+                case LeaveFeedbackResult.Unauthorized:
+                    return View("Unauthorized");
             }
 
-            await _userManager.UpdateAsync(user);
-
-            return View("LeaveFeedback");
+            return View();
         }
 
         #region Private fields

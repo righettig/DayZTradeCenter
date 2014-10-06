@@ -357,6 +357,8 @@
     <Content Include="Views\Shared\_AdminLoginPartial.cshtml" />
     <Content Include="Views\Profile\CompleteHistory.cshtml" />
     <Content Include="Views\Analytics\_TrendsChart.cshtml" />
+    <Content Include="Views\Trades\AlreadyLeftFeedback.cshtml" />
+    <Content Include="Views\Shared\Unauthorized.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

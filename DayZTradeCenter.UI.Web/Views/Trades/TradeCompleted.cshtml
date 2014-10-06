@@ -10,7 +10,7 @@ Your trade is now completed. Thanks for having used DayZ Trade Center. Remember 
 
 <br /><br />
 
-@using (Html.BeginForm((string)ViewBag.Action, "Trades"))
+@using (Html.BeginForm("LeaveFeedback", "Trades"))
 {
     @Html.AntiForgeryToken()
 

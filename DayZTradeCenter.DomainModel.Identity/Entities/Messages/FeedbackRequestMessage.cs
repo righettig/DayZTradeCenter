@@ -27,7 +27,7 @@
         {
             get
             {
-                return base.Text + " <a href='/Trades/LeaveFeedbackToOwner?tradeId=" + TradeId + "'>here</a>";
+                return base.Text + " <a href='/Trades/TradeCompleted?id=" + TradeId + "'>here</a>";
             }
         }
     }
