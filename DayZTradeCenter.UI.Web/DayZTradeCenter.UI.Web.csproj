@@ -381,6 +381,10 @@
       <Project>{2b7652f8-5c36-4887-8855-70579c766638}</Project>
       <Name>DayZTradeCenter.Modules.Test</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DayZTradeCenter.Modules\DayZTradeCenter.Modules.csproj">
+      <Project>{a2a91437-8648-4909-9ed6-6fd45eb5390b}</Project>
+      <Name>DayZTradeCenter.Modules</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

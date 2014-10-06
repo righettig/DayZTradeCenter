@@ -3,6 +3,7 @@ using DayZTradeCenter.DomainModel.Identity;
 using DayZTradeCenter.DomainModel.Identity.Entities;
 using DayZTradeCenter.DomainModel.Identity.Services;
 using DayZTradeCenter.DomainModel.Interfaces;
+using DayZTradeCenter.Modules;
 using DayZTradeCenter.Modules.Test;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -76,6 +77,7 @@ namespace DayZTradeCenter.UI.Web.App_Start
             kernel.Load<TradesRepositoryInMemoryModule>();
             kernel.Load<ItemsRepositoryInMemoryModule>();
             kernel.Load<EventInfoRepositoryInMemoryModule>();
+            //kernel.Load<ItemsRepositoryModule>();
 
             kernel.Bind<ITradeManager>().To<TradeManager>().InRequestScope();
             kernel.Bind<IProfileManager>().To<ProfileManager>().InRequestScope();
