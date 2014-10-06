@@ -67,12 +67,18 @@
       <Link>Properties\Version.cs</Link>
     </Compile>
     <Compile Include="AnalyticsProvider.cs" />
+    <Compile Include="DayZTradeCenterDbContext.cs" />
     <Compile Include="Interfaces\IAnalyticsProvider.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Interfaces\IProfileManager.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Interfaces\ITradeManager.cs" />
+    <Compile Include="Migrations\201410061314175_Added items.cs" />
+    <Compile Include="Migrations\201410061314175_Added items.Designer.cs">
+      <DependentUpon>201410061314175_Added items.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ProfileManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Trade.cs" />
@@ -91,6 +97,11 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201410061314175_Added items.resx">
+      <DependentUpon>201410061314175_Added items.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
