@@ -137,7 +137,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 ExternalIdentity = new ClaimsIdentity("ExternalCookie")
             };
 #else
-            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
+            var loginInfo = await _authenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
                 return RedirectToAction("Login");
