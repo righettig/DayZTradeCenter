@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Web.Mvc;
 using DayZTradeCenter.DomainModel.Interfaces;
@@ -29,19 +30,30 @@ namespace DayZTradeCenter.UI.Web.Controllers
         // GET: Analytics
         public ActionResult Index()
         {
+            var items = _provider.GetAllItems().ToArray();
+
             var vm = new AnalyticsViewModel
             {
                 MostWantedItems = _provider.GetMostWantedItem(),
                 MostOfferedItems = _provider.GetMostOfferedItem(),
-                Items = new SelectList(_provider.GetAllItems(), "Id", "Name")
+                Items = new SelectList(items, "Id", "Name")
             };
 
-            // by default shows the trends of the #1 most wanted item.
-            var itemId =
-                vm.MostWantedItems.First().Item.Id;
+            // by default shows the trends of the #1 most wanted item (if present).
+            var mostWantedItem = vm.MostWantedItems.FirstOrDefault();
 
-            vm.ItemId = itemId;
-            vm.Chart = CreateChart(itemId);
+            if (mostWantedItem != null)
+            {
+                vm.ItemId = mostWantedItem.Item.Id;
+            }
+            else // ... or the trends of the first item.
+            {
+                Debug.Assert(items.FirstOrDefault() != null, "There are no items in the db!");
+
+                vm.ItemId = items.First().Id;
+            }
+
+            vm.Chart = CreateChart(vm.ItemId);
 
             return View(vm);
         }
