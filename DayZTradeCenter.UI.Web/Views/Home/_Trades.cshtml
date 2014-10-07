@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNet.Identity
 
-@model IEnumerable<DayZTradeCenter.DomainModel.Trade>
+@model IEnumerable<DayZTradeCenter.DomainModel.Entities.Trade>
 
 @{
     const int pageSize = 4;
@@ -35,9 +35,6 @@
                                     {
                                         <div class="col-md-3">
                                             <a href="@Url.Action("Details", "Trades", new { id = trade.Id })" class="thumbnail">
-                                                @*<img src="http://placehold.it/250x250" alt="Image" style="max-width: 100%;">*@
-                                                @*@trade.Id,*@
-
                                                 H
                                                 <ul>
                                                     @foreach (var itemDetails in trade.Have)

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using DayZTradeCenter.DomainModel.Identity.Entities;
-using DayZTradeCenter.DomainModel.Identity.Services;
+using DayZTradeCenter.DomainModel.Entities;
 using DayZTradeCenter.DomainModel.Interfaces;
+using DayZTradeCenter.DomainModel.Services;
 using DayZTradeCenter.UI.Web.Models;
 using Microsoft.AspNet.Identity;
 
@@ -53,18 +53,8 @@ namespace DayZTradeCenter.UI.Web.Controllers
             var latestTrades = _tradeManager.GetLatestTrades();
             var hottestTrades = _tradeManager.GetHottestTrades();
 
-            // DEBUG: no data
-            //latestTrades = Enumerable.Empty<Trade>()
-
             if (!User.Identity.IsAuthenticated)
             {
-                // DEBUG: fake data
-                //var tmp = latestTrades
-                //    .Concat(latestTrades)
-                //    .Concat(latestTrades)
-                //    .Concat(latestTrades)
-                //    .Concat(latestTrades);
-
                 return View("Landing", new LandingPageViewModel(latestTrades, hottestTrades));
             }
             

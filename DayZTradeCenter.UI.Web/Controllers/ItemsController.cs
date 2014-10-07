@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Web.Mvc;
-using DayZTradeCenter.DomainModel;
+using DayZTradeCenter.DomainModel.Entities;
 using rg.GenericRepository.Core;
 
 namespace DayZTradeCenter.UI.Web.Controllers

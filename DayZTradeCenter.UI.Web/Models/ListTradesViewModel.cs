@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DayZTradeCenter.DomainModel;
+using DayZTradeCenter.DomainModel.Entities;
 
 namespace DayZTradeCenter.UI.Web.Models
 {
@@ -23,7 +23,7 @@ namespace DayZTradeCenter.UI.Web.Models
 
             _trades = new List<TradeViewModel>();
 
-            foreach (var trade in trades)
+            foreach (var trade in trades.ToArray())
             {
                 _trades.Add(new TradeViewModel
                 {

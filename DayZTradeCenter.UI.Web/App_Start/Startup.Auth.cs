@@ -1,7 +1,6 @@
 ﻿using System;
-using DayZTradeCenter.DomainModel.Identity;
-using DayZTradeCenter.DomainModel.Identity.Entities;
-using DayZTradeCenter.DomainModel.Identity.Services;
+using DayZTradeCenter.DomainModel.Entities;
+using DayZTradeCenter.DomainModel.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -16,11 +15,6 @@ namespace DayZTradeCenter.UI.Web
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
         {
-            // Configure the db context, user manager and signin manager to use a single instance per request
-            app.CreatePerOwinContext(ApplicationDbContext.Create);
-            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
-
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
             // Configure the sign in cookie

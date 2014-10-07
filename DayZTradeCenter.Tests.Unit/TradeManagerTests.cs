@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using DayZTradeCenter.DomainModel;
-using DayZTradeCenter.DomainModel.Identity.Entities;
+using DayZTradeCenter.DomainModel.Entities;
+using DayZTradeCenter.DomainModel.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -41,10 +41,9 @@ namespace DayZTradeCenter.Tests.Unit
             var tradesRepository =
                 new Mock<IRepository<Trade>>();
 
-            var userStub = new Mock<IApplicationUser>();
-            userStub.SetupGet(m => m.Id).Returns("foo");
+            var user = new ApplicationUser {Id = "foo"};
 
-            var trade = new Trade {Owner = userStub.Object};
+            var trade = new Trade { Owner = user };
 
             tradesRepository.Setup(m => m.GetAll()).Returns(new[]
             {

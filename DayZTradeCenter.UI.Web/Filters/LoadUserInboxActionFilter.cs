@@ -1,10 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using DayZTradeCenter.DomainModel.Identity.Services;
+using DayZTradeCenter.DomainModel.Services;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 
 namespace DayZTradeCenter.UI.Web.Filters
 {
@@ -13,14 +12,26 @@ namespace DayZTradeCenter.UI.Web.Filters
     /// </summary>
     public class LoadUserInboxActionFilter : FilterAttribute, IActionFilter
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoadUserInboxActionFilter"/> class.
+        /// </summary>
+        /// <param name="mgr">The MGR.</param>
+        /// <exception cref="System.ArgumentNullException">mgr</exception>
+        public LoadUserInboxActionFilter(ApplicationUserManager mgr)
+        {
+            if (mgr == null)
+            {
+                throw new ArgumentNullException("mgr");
+            }
+
+            _mgr = mgr;
+        }
+
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var httpContext = 
+            var httpContext =
                 filterContext.HttpContext;
             
-            var mgr = 
-                httpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-
             var userId = 
                 httpContext.User.Identity.GetUserId();
 
@@ -28,9 +39,9 @@ namespace DayZTradeCenter.UI.Web.Filters
             {
                 return;
             }
-            
+
             var user =
-                mgr.FindById(userId);
+                _mgr.FindById(userId);
             
             Debug.Assert(
                 httpContext.Session != null, "httpContext.Session != null");
@@ -49,5 +60,7 @@ namespace DayZTradeCenter.UI.Web.Filters
         {
             // do nothing
         }
+
+        private readonly ApplicationUserManager _mgr;
     }
 }

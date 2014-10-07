@@ -1,14 +1,9 @@
-using DayZTradeCenter.DomainModel;
-using DayZTradeCenter.DomainModel.Identity;
-using DayZTradeCenter.DomainModel.Identity.Entities;
-using DayZTradeCenter.DomainModel.Identity.Services;
-using DayZTradeCenter.DomainModel.Interfaces;
-using DayZTradeCenter.Modules;
-using DayZTradeCenter.Modules.Test;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
+using System.Web.Mvc;
+using DayZTradeCenter.Modules.Services;
+using DayZTradeCenter.Modules.Sql;
+using DayZTradeCenter.UI.Web.Filters;
 using Microsoft.Owin.Security;
+using Ninject.Web.Mvc.FilterBindingSyntax;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(DayZTradeCenter.UI.Web.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(DayZTradeCenter.UI.Web.App_Start.NinjectWebCommon), "Stop")]
@@ -73,33 +68,14 @@ namespace DayZTradeCenter.UI.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            // TODO: the app still needs to know in advance where the modules are.
-            kernel.Load<TradesRepositoryInMemoryModule>();
-            kernel.Load<ItemsRepositoryInMemoryModule>();
-            kernel.Load<EventInfoRepositoryInMemoryModule>();
-            //kernel.Load<ItemsRepositoryModule>();
-
-            kernel.Bind<ITradeManager>().To<TradeManager>().InRequestScope();
-            kernel.Bind<IProfileManager>().To<ProfileManager>().InRequestScope();
-
-            kernel.Bind<IAnalyticsProvider>().To<AnalyticsProvider>().InRequestScope();
-
-            kernel.Bind<IUserStore<ApplicationUser>>().ToMethod(
-                c =>
-                    new UserStore<ApplicationUser>(
-                        HttpContext.Current.GetOwinContext().Get<ApplicationDbContext>())).InRequestScope();
-
-            kernel.Bind<ApplicationUserManager>().ToMethod(
-                c =>
-                    HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>()).InRequestScope();
-
-            kernel.Bind<ApplicationSignInManager>().ToMethod(
-                c =>
-                    HttpContext.Current.GetOwinContext().Get<ApplicationSignInManager>()).InRequestScope();
+            kernel.Load<SqlRepositoriesModule>();
+            kernel.Load<ServicesModule>();
 
             kernel.Bind<IAuthenticationManager>().ToMethod(
                 c =>
                     HttpContext.Current.GetOwinContext().Authentication).InRequestScope();
+
+            kernel.BindFilter<LoadUserInboxActionFilter>(FilterScope.Global, 0).InRequestScope();
         }        
     }
 }

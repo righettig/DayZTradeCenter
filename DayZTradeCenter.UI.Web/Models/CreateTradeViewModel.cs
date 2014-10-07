@@ -6,8 +6,8 @@ namespace DayZTradeCenter.UI.Web.Models
 {
     public class CreateTradeViewModel : IValidatableObject
     {
-        public IEnumerable<DomainModel.ItemViewModel> Have { get; set; }
-        public IEnumerable<DomainModel.ItemViewModel> Want { get; set; }
+        public IEnumerable<DomainModel.Entities.ItemViewModel> Have { get; set; }
+        public IEnumerable<DomainModel.Entities.ItemViewModel> Want { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

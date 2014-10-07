@@ -2,15 +2,15 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using DayZTradeCenter.DomainModel.Identity.Entities;
-using DayZTradeCenter.DomainModel.Identity.Services;
+using DayZTradeCenter.DomainModel.Entities;
 using DayZTradeCenter.DomainModel.Interfaces;
+using DayZTradeCenter.DomainModel.Services;
 using DayZTradeCenter.UI.Web.Models;
 using DotNet.Highcharts;
 using DotNet.Highcharts.Helpers;
 using DotNet.Highcharts.Options;
 using Microsoft.AspNet.Identity;
-using Events = DayZTradeCenter.DomainModel.Events;
+using Events = DayZTradeCenter.DomainModel.Services.Events;
 
 namespace DayZTradeCenter.UI.Web.Controllers
 {

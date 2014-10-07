@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DayZTradeCenter.DomainModel.Services;
 
 namespace DayZTradeCenter.DomainModel.Interfaces
 {

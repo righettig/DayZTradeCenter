@@ -4,15 +4,15 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using DayZTradeCenter.DomainModel.Identity.Entities;
-using DayZTradeCenter.DomainModel.Identity.Migrations;
-using DayZTradeCenter.DomainModel.Identity.Services;
+using DayZTradeCenter.DomainModel.Entities;
 using DayZTradeCenter.DomainModel.Interfaces;
+using DayZTradeCenter.DomainModel.Migrations;
+using DayZTradeCenter.DomainModel.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using DayZTradeCenter.UI.Web.Models;
-using Events = DayZTradeCenter.DomainModel.Events;
+using Events = DayZTradeCenter.DomainModel.Services.Events;
 
 namespace DayZTradeCenter.UI.Web.Controllers
 {

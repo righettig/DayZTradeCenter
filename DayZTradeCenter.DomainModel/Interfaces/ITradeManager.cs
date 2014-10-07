@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using DayZTradeCenter.DomainModel.Identity.Entities;
+using DayZTradeCenter.DomainModel.Entities;
+using DayZTradeCenter.DomainModel.Services;
 
 namespace DayZTradeCenter.DomainModel.Interfaces
 {
@@ -82,7 +83,7 @@ namespace DayZTradeCenter.DomainModel.Interfaces
         /// <returns>
         ///   <c>True</c> if the trade was successfully created, <c>false</c> otherwise.
         /// </returns>
-        bool CreateNewTrade(IEnumerable<ItemViewModel> have, IEnumerable<ItemViewModel> want, IApplicationUser user);
+        bool CreateNewTrade(IEnumerable<ItemViewModel> have, IEnumerable<ItemViewModel> want, ApplicationUser user);
 
         /// <summary>
         /// Deletes a trade.
@@ -104,7 +105,7 @@ namespace DayZTradeCenter.DomainModel.Interfaces
         ///   <see cref="OfferResult.AlreadOffered">If the user has already offered for the same trade.</see>
         ///   <see cref="OfferResult.OwnerCannotOffer">If the user is the owner of the trade.</see>
         /// </returns>
-        OfferResult Offer(int tradeId, IApplicationUser user);
+        OfferResult Offer(int tradeId, ApplicationUser user);
 
         /// <summary>
         /// Withdraws the given user from specified trade.
@@ -133,7 +134,7 @@ namespace DayZTradeCenter.DomainModel.Interfaces
         /// <param name="user">The user.</param>
         /// <returns>The updated trade object.</returns>
         /// <remarks>A request for feedback is added to the inbox of the specified user.</remarks>
-        Trade MarkAsCompleted(int tradeId, IApplicationUser user);
+        Trade MarkAsCompleted(int tradeId, ApplicationUser user);
 
         /// <summary>
         /// The specified user leaves a feedback score for the given trade.
@@ -146,7 +147,7 @@ namespace DayZTradeCenter.DomainModel.Interfaces
         ///   <see cref="LeaveFeedbackResult.AlreadyLeft">If the user has already left a feedback for the trade.</see>
         ///   <see cref="LeaveFeedbackResult.Unauthorized">If the user is not authorized to leave a feedback for the trade.</see>
         /// </returns>
-        LeaveFeedbackResult LeaveFeedback(int tradeId, int score, IApplicationUser user);
+        LeaveFeedbackResult LeaveFeedback(int tradeId, int score, ApplicationUser user);
     }
 
     /// <summary>

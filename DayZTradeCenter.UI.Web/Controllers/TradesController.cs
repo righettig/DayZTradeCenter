@@ -2,10 +2,9 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using DayZTradeCenter.DomainModel;
-using DayZTradeCenter.DomainModel.Identity.Entities.Messages;
-using DayZTradeCenter.DomainModel.Identity.Services;
+using DayZTradeCenter.DomainModel.Entities.Messages;
 using DayZTradeCenter.DomainModel.Interfaces;
+using DayZTradeCenter.DomainModel.Services;
 using DayZTradeCenter.UI.Web.Models;
 using Microsoft.AspNet.Identity;
 using ItemViewModel = DayZTradeCenter.UI.Web.Models.ItemViewModel;

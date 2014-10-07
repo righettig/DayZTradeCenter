@@ -46,6 +46,34 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.1.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.1.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.3.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
     <Reference Include="rg.GenericRepository.Core, Version=1.0.5377.24759, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\rg.GenericRepository.Core.1.0.5377.24759\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+MonoTouch10\rg.GenericRepository.Core.dll</HintPath>
@@ -66,41 +94,62 @@
     <Compile Include="..\Version.cs">
       <Link>Properties\Version.cs</Link>
     </Compile>
-    <Compile Include="AnalyticsProvider.cs" />
-    <Compile Include="DayZTradeCenterDbContext.cs" />
+    <Compile Include="ApplicationDbContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Feedback.cs" />
+    <Compile Include="Entities\Item.cs" />
+    <Compile Include="Migrations\201410070922169_InitialCreate.cs" />
+    <Compile Include="Migrations\201410070922169_InitialCreate.Designer.cs">
+      <DependentUpon>201410070922169_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entities\ApplicationUser.cs" />
+    <Compile Include="Entities\Messages\ExchangeDetailsMessage.cs" />
+    <Compile Include="Entities\Messages\FeedbackReceivedMessage.cs" />
+    <Compile Include="Entities\Messages\FeedbackRequestMessage.cs" />
+    <Compile Include="Entities\Messages\Message.cs" />
+    <Compile Include="Entities\Messages\OfferReceivedMessage.cs" />
+    <Compile Include="Entities\Messages\TradeDeletedMessage.cs" />
+    <Compile Include="Entities\Messages\TradeLostMessage.cs" />
+    <Compile Include="Entities\Messages\TradeWonMessage.cs" />
     <Compile Include="Interfaces\IAnalyticsProvider.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Interfaces\IProfileManager.cs" />
-    <Compile Include="Item.cs" />
     <Compile Include="Interfaces\ITradeManager.cs" />
-    <Compile Include="Migrations\201410061314175_Added items.cs" />
-    <Compile Include="Migrations\201410061314175_Added items.Designer.cs">
-      <DependentUpon>201410061314175_Added items.cs</DependentUpon>
+    <Compile Include="Migrations\201410071256373_Added events.cs" />
+    <Compile Include="Migrations\201410071256373_Added events.Designer.cs">
+      <DependentUpon>201410071256373_Added events.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="ProfileManager.cs" />
+    <Compile Include="Migrations\DefaultUsers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Trade.cs" />
-    <Compile Include="TradeManager.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DayZTradeCenter.DomainModel.Identity\DayZTradeCenter.DomainModel.Identity.csproj">
-      <Project>{1578cba5-0c71-4ded-a3e6-a8e2b386d1e8}</Project>
-      <Name>DayZTradeCenter.DomainModel.Identity</Name>
-    </ProjectReference>
+    <Compile Include="Services\AnalyticsProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\ApplicationSignInManager.cs" />
+    <Compile Include="Services\ApplicationUserManager.cs" />
+    <Compile Include="Services\ProfileManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\Trade.cs" />
+    <Compile Include="Services\TradeManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
-      <SubType>Designer</SubType>
+      <SubType>
+      </SubType>
     </None>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201410061314175_Added items.resx">
-      <DependentUpon>201410061314175_Added items.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201410070922169_InitialCreate.resx">
+      <DependentUpon>201410070922169_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410071256373_Added events.resx">
+      <DependentUpon>201410071256373_Added events.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

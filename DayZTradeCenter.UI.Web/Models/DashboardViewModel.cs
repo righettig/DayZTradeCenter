@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
-using DayZTradeCenter.DomainModel;
+using DayZTradeCenter.DomainModel.Entities;
+using DayZTradeCenter.DomainModel.Services;
 
 namespace DayZTradeCenter.UI.Web.Models
 {

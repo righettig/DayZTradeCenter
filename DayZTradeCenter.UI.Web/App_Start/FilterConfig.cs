@@ -1,5 +1,4 @@
 ﻿using System.Web.Mvc;
-using DayZTradeCenter.UI.Web.Filters;
 
 namespace DayZTradeCenter.UI.Web
 {
@@ -9,7 +8,6 @@ namespace DayZTradeCenter.UI.Web
         {
             filters.Add(new HandleErrorAttribute());
             filters.Add(new AuthorizeAttribute());
-            filters.Add(new LoadUserInboxActionFilter());
         }
     }
 }

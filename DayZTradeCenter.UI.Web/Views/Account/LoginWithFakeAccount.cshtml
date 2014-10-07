@@ -1,4 +1,4 @@
-﻿@using DayZTradeCenter.DomainModel.Identity.Migrations
+﻿@using DayZTradeCenter.DomainModel.Migrations
 
 @{
     ViewBag.Title = "Log in";
@@ -12,7 +12,7 @@
 
 <h2>Log in using your test account</h2>
 
-@using (Html.BeginForm("ExternalLoginCallback", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
+@using (Html.BeginForm("ExternalLoginCallback", "Account", new { ViewBag.ReturnUrl }))
 {
     @Html.AntiForgeryToken()
     

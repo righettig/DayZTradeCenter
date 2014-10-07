@@ -1,4 +1,4 @@
-﻿@using DayZTradeCenter.DomainModel
+﻿@using DayZTradeCenter.DomainModel.Entities
 
 @model DayZTradeCenter.UI.Web.Models.DashboardViewModel
 
@@ -54,7 +54,7 @@
                 The list of all your <strong>trades</strong>.
             </div>
             <ul class="list-group">
-                @foreach (var trade in Model.MyTrades)
+                @foreach (var trade in Model.MyTrades.ToArray())
                 {
                     <li class="list-group-item">
                         @if (trade.HasReceivedFeedbackFromOwner)
@@ -114,7 +114,7 @@
                 The list of all the trades you've made an <strong>offer</strong> to.
             </div>
             <ul class="list-group">
-                @foreach (var trade in Model.MyOffers)
+                @foreach (var trade in Model.MyOffers.ToArray())
                 {
                     <li class="list-group-item">
                         <a href="@Url.Action("Details", "Trades", new { id = trade.Id })">@trade.Id</a>,
