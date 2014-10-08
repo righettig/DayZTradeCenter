@@ -31,6 +31,14 @@ namespace DayZTradeCenter.DomainModel.Interfaces
         /// <param name="itemIds">The item ids.</param>
         /// <returns>The "R" score of the given set of items.</returns>
         float GetRScore(int[] itemIds);
+
+        /// <summary>
+        /// Gets the "T" score,
+        /// i.e., the trade "value" based on the current trends.
+        /// </summary>
+        /// <param name="tradeId">The trade identifier.</param>
+        /// <returns>The "T" score of the given trade.</returns>
+        float GetTScore(int tradeId);
     }
 
     public class ItemDetails

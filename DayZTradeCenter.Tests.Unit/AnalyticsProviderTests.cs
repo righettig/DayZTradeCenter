@@ -50,30 +50,56 @@ namespace DayZTradeCenter.Tests.Unit
             Assert.AreEqual(1, r4);
         }
 
+        [TestMethod]
+        public void GetTScore()
+        {
+            // Arrange
+            var mgr = CreateAnalyticsProvider();
+
+
+            // Act
+            var t1 = mgr.GetTScore(1);
+            var t2 = mgr.GetTScore(2);
+            var t3 = mgr.GetTScore(3);
+
+
+            // Assert
+            Assert.AreEqual(0, t1);
+            Assert.AreEqual(2f / 3f, t2);
+            Assert.AreEqual(0, t3);
+        }
+
         private static AnalyticsProvider CreateAnalyticsProvider()
         {
             var i1 = new Item {Id = 1, Name = "i1"};
             var i2 = new Item {Id = 2, Name = "i2"};
             var i3 = new Item {Id = 3, Name = "i3"};
 
-            var t1 = new Trade();
+            var t1 = new Trade {Id = 1};
             t1.Want.Add(new TradeDetails(i1, 1));
             t1.Want.Add(new TradeDetails(i3, 1));
+            t1.Have.Add(new TradeDetails(i2, 1));
 
-            var t2 = new Trade();
+            var t2 = new Trade {Id = 2};
             t2.Want.Add(new TradeDetails(i3, 1));
+            t2.Have.Add(new TradeDetails(i1, 1));
+            t2.Have.Add(new TradeDetails(i2, 1));
 
-            var t3 = new Trade();
+            var t3 = new Trade {Id = 3};
             t3.Want.Add(new TradeDetails(i1, 1));
             t3.Want.Add(new TradeDetails(i3, 1));
+            t3.Have.Add(new TradeDetails(i2, 1));
 
             var trades = new Mock<IRepository<Trade>>();
             trades.Setup(m => m.GetAll()).Returns(new[] {t1, t2, t3}.AsQueryable());
 
+            trades.Setup(m => m.GetSingle(1)).Returns(t1);
+            trades.Setup(m => m.GetSingle(2)).Returns(t2);
+            trades.Setup(m => m.GetSingle(3)).Returns(t3);
+
             var items = new Mock<IRepository<Item>>().Object;
 
-            var mgr = new AnalyticsProvider(trades.Object, items);
-            return mgr;
+            return new AnalyticsProvider(trades.Object, items);
         }
     }
 }

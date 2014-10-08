@@ -133,6 +133,35 @@ namespace DayZTradeCenter.DomainModel.Services
             return itemIds.Sum(i => GetWScore(i));
         }
 
+        /// <summary>
+        /// Gets the "T" score,
+        /// i.e., the trade "value" based on the current trends.
+        /// </summary>
+        /// <param name="tradeId">The trade identifier.</param>
+        /// <returns>
+        /// The "T" score of the given trade.
+        /// </returns>
+        public float GetTScore(int tradeId)
+        {
+            var trade = 
+                _tradesRepository.GetSingle(tradeId);
+
+            float result;
+            try
+            {
+                var haveWScore = trade.Have.Select(d => d.Item.Id).Sum(i => GetWScore(i));
+                var wantWScore = trade.Want.Select(d => d.Item.Id).Sum(i => GetWScore(i));
+
+                result = haveWScore/wantWScore;
+            }
+            catch (DivideByZeroException)
+            {
+                result = float.PositiveInfinity;
+            }
+
+            return result;
+        }
+
         private IEnumerable<ItemDetails> GetMostListedItem(
             Func<Trade, IEnumerable<TradeDetails>> collectionSelector)
         {
