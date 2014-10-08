@@ -125,6 +125,10 @@
     <Compile Include="Migrations\201410080926344_Updated ExchangeDetails.Designer.cs">
       <DependentUpon>201410080926344_Updated ExchangeDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410081256537_Added CategoryInfo to Item.cs" />
+    <Compile Include="Migrations\201410081256537_Added CategoryInfo to Item.Designer.cs">
+      <DependentUpon>201410081256537_Added CategoryInfo to Item.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DefaultUsers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -157,6 +161,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410080926344_Updated ExchangeDetails.resx">
       <DependentUpon>201410080926344_Updated ExchangeDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410081256537_Added CategoryInfo to Item.resx">
+      <DependentUpon>201410081256537_Added CategoryInfo to Item.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
