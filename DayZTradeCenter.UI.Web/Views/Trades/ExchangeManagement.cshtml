@@ -126,7 +126,7 @@ When the transaction is completed press
     <script type="text/javascript">
         $(function () {
             $('#datetimepicker1').datetimepicker();
-            $('#datetimepicker1').data("DateTimePicker").setDate("@Model.Details.Time");
+            $('#datetimepicker1').data("DateTimePicker").setDate("@Model.Details.Time.ToString("MM/dd/yyyy HH:mm")");
         });
 
         $('#location').tooltip();
