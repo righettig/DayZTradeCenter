@@ -35,6 +35,7 @@ namespace DayZTradeCenter.DomainModel.Entities
     public enum ItemCategories
     {
         Weapons,
+        Medical
     }
 
     public enum ItemSubcategories
@@ -48,6 +49,16 @@ namespace DayZTradeCenter.DomainModel.Entities
         Rifles,
         SubmachineGuns,
         Shotguns,
-        Grenades
+        Grenades,
+
+        // Medical
+        Bandages,
+        Splints,
+        BloodTransfusion,
+        BloodTesting,
+        Disinfection,
+        Medicines,
+        Reanimation,
+        Temperature
     }
 }

@@ -140,6 +140,99 @@ namespace DayZTradeCenter.DomainModel.Migrations
                 });
             
             #endregion
+
+            #region Medical Supplies
+
+            // http://dayz.gamepedia.com/Medical_Supplies
+
+            const ItemCategories medicalSupplies = ItemCategories.Medical;
+
+            // Bandages
+            //-------------------
+            CreateItem(context, medicalSupplies, ItemSubcategories.Bandages,
+                new[]
+                {
+                    "Bandage",
+                    "Rags"
+                });
+
+
+            // Splints
+            //-------------------
+            CreateItem(context, medicalSupplies, ItemSubcategories.Splints,
+                new[]
+                {
+                    "Wooden Splint"
+                });
+
+
+            // Blood Transfusion
+            //-------------------
+            CreateItem(context, medicalSupplies, ItemSubcategories.BloodTransfusion,
+                new[]
+                {
+                    "Blood Bag",
+                    "Blood Bag Kit",
+                    "Saline Bag",
+                    "Saline Bag IV",
+                    "IV Start Kit"
+                });
+
+
+            // Blood Testing
+            //-------------------
+            CreateItem(context, medicalSupplies, ItemSubcategories.BloodTesting,
+                new[]
+                {
+                    "Blood Testing Kit",
+                    "Syringe"
+                });
+
+
+            // Disinfection
+            //-------------------
+            CreateItem(context, medicalSupplies, ItemSubcategories.Disinfection,
+                new[]
+                {
+                    "Alcohol Tincture",
+                    "Disinfectant Spray",
+                    "Water Purification Tablets"
+                });
+
+
+            // Medicines
+            //-------------------
+            CreateItem(context, medicalSupplies, ItemSubcategories.Medicines,
+                new[]
+                {
+                    "Charcoal Tabs",
+                    "Injection Vial",
+                    "Morphine Auto-Injector",
+                    "Painkillers",
+                    "Tetracycline Antibiotics",
+                    "Vitamin Bottles"
+                });
+
+
+            // Reanimation
+            //-------------------
+            CreateItem(context, medicalSupplies, ItemSubcategories.Reanimation,
+                new[]
+                {
+                    "Defibrillator",
+                    "Epinephrine"
+                });
+
+
+            // Temperature
+            //-------------------
+            CreateItem(context, medicalSupplies, ItemSubcategories.Temperature,
+                new[]
+                {
+                    "Medical Thermometer"
+                });
+
+            #endregion
         }
 
         #region Helpers
