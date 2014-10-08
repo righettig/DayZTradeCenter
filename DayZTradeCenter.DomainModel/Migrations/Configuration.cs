@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DayZTradeCenter.DomainModel.Entities;
@@ -27,6 +28,10 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateRoles(context);
             CreateUsers(context);
 
+            #region Items
+
+            // Last update: 08/10/2014
+
             #region Weapons
 
             // http://dayz.gamepedia.com/Weapons
@@ -39,29 +44,29 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, weapons, ItemSubcategories.BluntMelee,
                 new[]
                 {
-                    "Baseball bat",
-                    "Crowbar",
-                    "Fire Extinguisher",
-                    "Pipe Wrench",
-                    "Telescopic Baton"
+                    new ItemInfo("Baseball bat", Rarities.Uncommon),
+                    new ItemInfo("Crowbar", Rarities.Uncommon),
+                    new ItemInfo("Fire Extinguisher", Rarities.Uncommon),
+                    new ItemInfo("Pipe Wrench", Rarities.Rare),
+                    new ItemInfo("Telescopic Baton", Rarities.Uncommon)
                 });
 
             //  Bladed weapons
             CreateItem(context, weapons, ItemSubcategories.BladedMelee,
                 new[]
                 {
-                    "Combat Knife",
-                    "Machete",
-                    "Sickle",
-                    "Pitchfork"
+                    new ItemInfo("Combat Knife", Rarities.VeryRare),
+                    new ItemInfo("Machete", Rarities.Uncommon),
+                    new ItemInfo("Sickle", Rarities.Uncommon),
+                    new ItemInfo("Pitchfork", Rarities.Uncommon)
                 });
 
             //  Electroshock Weapons
             CreateItem(context, weapons, ItemSubcategories.ElectricWeapons,
                 new[]
                 {
-                    "Electric Cattle Prod",
-                    "Stun Baton"
+                    new ItemInfo("Electric Cattle Prod", Rarities.Common),
+                    new ItemInfo("Stun Baton", Rarities.Uncommon)
                 });
 
 
@@ -70,8 +75,8 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, weapons, ItemSubcategories.Bows,
                 new[]
                 {
-                    "Crossbow",
-                    "Improvised Ashwood Short Bow"
+                    new ItemInfo("Crossbow", Rarities.Common),
+                    new ItemInfo("Improvised Ashwood Short Bow", Rarities.NA)
                 });
 
             
@@ -80,15 +85,15 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, weapons, ItemSubcategories.Handguns,
                 new[]
                 {
-                    "Amphibia S",
-                    "Makarov IJ70",
-                    "P1",
-                    "CR75",
-                    "FNX45",
-                    "1911",
-                    "1911 Engraved",
-                    "Magnum",
-                    "LongHorn"
+                    new ItemInfo("Amphibia S", Rarities.Uncommon),
+                    new ItemInfo("Makarov IJ70", Rarities.Rare),
+                    new ItemInfo("P1", Rarities.Rare),
+                    new ItemInfo("CR75", Rarities.Rare),
+                    new ItemInfo("FNX45", Rarities.Uncommon),
+                    new ItemInfo("1911", Rarities.Uncommon),
+                    new ItemInfo("1911 Engraved", Rarities.VeryRare),
+                    new ItemInfo("Magnum", Rarities.Uncommon),
+                    new ItemInfo("LongHorn", Rarities.VeryRare)
                 });
 
 
@@ -97,15 +102,15 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, weapons, ItemSubcategories.Rifles,
                 new[]
                 {
-                    "Sporter 22",
-                    "AK101",
-                    "M4A1",
-                    "CR527 Carbine",
-                    "SKS",
-                    "AKM",
-                    "Blaze 95 Double Rifle",
-                    "Mosin 9130",
-                    "Sawed-off Mosin 9130"
+                    new ItemInfo("Sporter 22", Rarities.Common),
+                    new ItemInfo("AK101", Rarities.Uncommon),
+                    new ItemInfo("M4A1", Rarities.VeryRare),
+                    new ItemInfo("CR527 Carbine", Rarities.Uncommon),
+                    new ItemInfo("SKS", Rarities.Common),
+                    new ItemInfo("AKM", Rarities.Uncommon),
+                    new ItemInfo("Blaze 95 Double Rifle", Rarities.Rare),
+                    new ItemInfo("Mosin 9130", Rarities.Uncommon),
+                    new ItemInfo("Sawed-off Mosin 9130", Rarities.NA)
                 });
 
 
@@ -114,8 +119,8 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, weapons, ItemSubcategories.SubmachineGuns,
                 new[]
                 {
-                    "PM73 RAK",
-                    "MP5-K"
+                    new ItemInfo("PM73 RAK", Rarities.VeryRare),
+                    new ItemInfo("MP5-K", Rarities.Rare)
                 });
 
 
@@ -124,8 +129,8 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, weapons, ItemSubcategories.SubmachineGuns,
                 new[]
                 {
-                    "IZH-43",
-                    "Sawed-off IZH-43"
+                    new ItemInfo("IZH-43", Rarities.Uncommon),
+                    new ItemInfo("Sawed-off IZH-43", Rarities.NA)
                 });
 
 
@@ -134,9 +139,9 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, weapons, ItemSubcategories.Grenades,
                 new[]
                 {
-                    "Explosive Grenade",
-                    "Flashbang",
-                    "RDG-5 Explosive Grenade"
+                    new ItemInfo("Explosive Grenade", Rarities.VeryRare),
+                    new ItemInfo("Flashbang", Rarities.Uncommon),
+                    new ItemInfo("RDG-5 Explosive Grenade", Rarities.VeryRare)                   
                 });
             
             #endregion
@@ -152,8 +157,8 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, medicalSupplies, ItemSubcategories.Bandages,
                 new[]
                 {
-                    "Bandage",
-                    "Rags"
+                    new ItemInfo("Bandage", Rarities.Uncommon),
+                    new ItemInfo("Rags", Rarities.Uncommon)
                 });
 
 
@@ -162,7 +167,7 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, medicalSupplies, ItemSubcategories.Splints,
                 new[]
                 {
-                    "Wooden Splint"
+                    new ItemInfo("Wooden Splint", Rarities.NA)
                 });
 
 
@@ -171,11 +176,11 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, medicalSupplies, ItemSubcategories.BloodTransfusion,
                 new[]
                 {
-                    "Blood Bag",
-                    "Blood Bag Kit",
-                    "Saline Bag",
-                    "Saline Bag IV",
-                    "IV Start Kit"
+                    new ItemInfo("Blood Bag", Rarities.Uncommon),
+                    new ItemInfo("Blood Bag Kit", Rarities.Uncommon),
+                    new ItemInfo("Saline Bag", Rarities.Common),
+                    new ItemInfo("Saline Bag IV", Rarities.Rare),
+                    new ItemInfo("IV Start Kit", Rarities.Uncommon)
                 });
 
 
@@ -184,8 +189,8 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, medicalSupplies, ItemSubcategories.BloodTesting,
                 new[]
                 {
-                    "Blood Testing Kit",
-                    "Syringe"
+                    new ItemInfo("Blood Testing Kit", Rarities.Rare),
+                    new ItemInfo("Syringe", Rarities.Uncommon)
                 });
 
 
@@ -194,9 +199,9 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, medicalSupplies, ItemSubcategories.Disinfection,
                 new[]
                 {
-                    "Alcohol Tincture",
-                    "Disinfectant Spray",
-                    "Water Purification Tablets"
+                    new ItemInfo("Alcohol Tincture", Rarities.Uncommon),
+                    new ItemInfo("Disinfectant Spray", Rarities.Uncommon),
+                    new ItemInfo("Water Purification Tablets", Rarities.Uncommon)
                 });
 
 
@@ -205,12 +210,12 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, medicalSupplies, ItemSubcategories.Medicines,
                 new[]
                 {
-                    "Charcoal Tabs",
-                    "Injection Vial",
-                    "Morphine Auto-Injector",
-                    "Painkillers",
-                    "Tetracycline Antibiotics",
-                    "Vitamin Bottles"
+                    new ItemInfo("Charcoal Tabs", Rarities.Rare),
+                    new ItemInfo("Injection Vial", Rarities.Uncommon),
+                    new ItemInfo("Morphine Auto-Injector", Rarities.Rare),
+                    new ItemInfo("Painkillers", Rarities.Uncommon),
+                    new ItemInfo("Tetracycline Antibiotics", Rarities.Common),
+                    new ItemInfo("Vitamin Bottles", Rarities.Common)
                 });
 
 
@@ -219,8 +224,8 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, medicalSupplies, ItemSubcategories.Reanimation,
                 new[]
                 {
-                    "Defibrillator",
-                    "Epinephrine"
+                    new ItemInfo("Defibrillator", Rarities.Uncommon),
+                    new ItemInfo("Epinephrine", Rarities.Rare)
                 });
 
 
@@ -229,7 +234,7 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, medicalSupplies, ItemSubcategories.Temperature,
                 new[]
                 {
-                    "Medical Thermometer"
+                    new ItemInfo("Medical Thermometer", Rarities.Unknown) // unknown 08/10/14
                 });
 
             #endregion
@@ -245,13 +250,13 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, attachments, ItemSubcategories.Buttstocks,
                 new[]
                 {
-                    "AK Folding Buttstock",
-                    "AK Plastic Buttstock",
-                    "AK Wooden Buttstock",
-                    "M4 Buttstock CQB",
-                    "M4 Buttstock OE",
-                    "M4 Buttstock MP",
-                    "MP5 OEM Buttstock"
+                    new ItemInfo("AK Folding Buttstock", Rarities.Rare),
+                    new ItemInfo("AK Plastic Buttstock", Rarities.Unknown),
+                    new ItemInfo("AK Wooden Buttstock", Rarities.Rare),
+                    new ItemInfo("M4 Buttstock CQB", Rarities.Uncommon),
+                    new ItemInfo("M4 Buttstock OE", Rarities.Uncommon),
+                    new ItemInfo("M4 Buttstock MP", Rarities.Rare),
+                    new ItemInfo("MP5 OEM Buttstock", Rarities.Rare)
                 });
 
 
@@ -260,13 +265,13 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, attachments, ItemSubcategories.Handguards,
                 new[]
                 {
-                    "AK Handguard Rail",
-                    "AK Handguard Plastic",
-                    "AK Wooden Handguard",
-                    "M4 Handguard MP",
-                    "M4 Handguard Plastic",
-                    "M4 Handguard RIS",
-                    "MP5 Plastic Handguard"
+                    new ItemInfo("AK Handguard Rail", Rarities.Rare),
+                    new ItemInfo("AK Handguard Plastic", Rarities.Rare),
+                    new ItemInfo("AK Wooden Handguard", Rarities.Rare),
+                    new ItemInfo("M4 Handguard MP", Rarities.Rare),
+                    new ItemInfo("M4 Handguard Plastic", Rarities.Uncommon),
+                    new ItemInfo("M4 Handguard RIS", Rarities.Rare),
+                    new ItemInfo("MP5 Plastic Handguard", Rarities.Rare)                   
                 });
 
 
@@ -275,17 +280,17 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, attachments, ItemSubcategories.SightsAndOptics,
                 new[]
                 {
-                    "ACOG Optics",
-                    "BUIS",
-                    "Crossbow Holosight",
-                    "FNP45 MRD",
-                    "Long Range Scope",
-                    "M4 Carryhandle Optics",
-                    "M68 CompM2 Optics",
-                    "PSO1 Scope",
-                    "PU Scope",
-                    "RV1 RDS Optics",
-                    "Crossbow Scope"
+                     new ItemInfo("ACOG Optics", Rarities.Rare),
+                     new ItemInfo("BUIS", Rarities.Rare),
+                     new ItemInfo("Crossbow Holosight", Rarities.Rare),
+                     new ItemInfo("FNP45 MRD", Rarities.Rare),
+                     new ItemInfo("Long Range Scope", Rarities.Uncommon),
+                     new ItemInfo("M4 Carryhandle Optics", Rarities.Rare),
+                     new ItemInfo("M68 CompM2 Optics", Rarities.Rare),
+                     new ItemInfo("PSO1 Scope", Rarities.Rare),
+                     new ItemInfo("PU Scope", Rarities.Uncommon),
+                     new ItemInfo("RV1 RDS Optics", Rarities.Rare),
+                     new ItemInfo("Crossbow Scope", Rarities.VeryRare)
                 });
 
 
@@ -294,8 +299,8 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, attachments, ItemSubcategories.Illumination,
                 new[]
                 {
-                    "Pistol Flashlight",
-                    "Weapon Flashlight"
+                    new ItemInfo("Pistol Flashlight", Rarities.Rare),
+                    new ItemInfo("Weapon Flashlight", Rarities.Rare)
                 });
 
 
@@ -304,10 +309,10 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, attachments, ItemSubcategories.MuzzleAttachments,
                 new[]
                 {
-                    "Mosin M44 Compensator",
-                    "Pistol Suppressor",
-                    "Suppressor 556",
-                    "Suppressor 5.45x39mm"
+                    new ItemInfo("Mosin M44 Compensator", Rarities.Rare),
+                    new ItemInfo("Pistol Suppressor", Rarities.Rare),
+                    new ItemInfo("Suppressor 556", Rarities.Rare),
+                    new ItemInfo("Suppressor 5.45x39mm", Rarities.Rare)
                 });
 
 
@@ -316,9 +321,9 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, attachments, ItemSubcategories.Bayonets,
                 new[]
                 {
-                    "M9A1 Bayonet",
-                    "M91 Bayonet",
-                    "SKS Bayonet"
+                    new ItemInfo("M9A1 Bayonet", Rarities.Rare),
+                    new ItemInfo("M91 Bayonet", Rarities.Uncommon),
+                    new ItemInfo("SKS Bayonet", Rarities.Uncommon)
                 });
 
 
@@ -327,7 +332,7 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, attachments, ItemSubcategories.Bipods,
                 new[]
                 {
-                    "ATLAS Bipod"
+                    new ItemInfo("ATLAS Bipod", Rarities.Uncommon)
                 });
 
 
@@ -336,8 +341,8 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, attachments, ItemSubcategories.Wraps,
                 new[]
                 {
-                    "Burlap Wrap",
-                    "Grass Wrap"
+                    new ItemInfo("Burlap Wrap", Rarities.NA),
+                    new ItemInfo("Grass Wrap", Rarities.NA)
                 });
 
             #endregion
@@ -353,11 +358,11 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, ammunition, ItemSubcategories.HandgunAmmunition,
                 new[]
                 {
-                    ".22 Round(s)",
-                    ".380 Auto Round(s)",
-                    "9mm Round(s)",
-                    ".45ACP Round(s)",
-                    ".357 Round(s)"
+                    new ItemInfo(".22 Round(s)", Rarities.Uncommon),
+                    new ItemInfo(".380 Auto Round(s)", Rarities.Uncommon),
+                    new ItemInfo("9mm Round(s)", Rarities.Common),
+                    new ItemInfo(".45ACP Round(s)", Rarities.Uncommon),
+                    new ItemInfo(".357 Round(s)", Rarities.Rare)
                 });
 
 
@@ -366,7 +371,7 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, ammunition, ItemSubcategories.ShotgunAmmunition,
                 new[]
                 {
-                    "12 Gauge Buckshot"
+                    new ItemInfo("12 Gauge Buckshot", Rarities.Common)
                 });
 
 
@@ -375,9 +380,9 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, ammunition, ItemSubcategories.RifleAmmunition,
                 new[]
                 {
-                    "7.62x39mm Round(s)",
-                    "5.56mm Round(s)",
-                    "7.62mm Round(s)"
+                    new ItemInfo("7.62x39mm Round(s)", Rarities.Uncommon),
+                    new ItemInfo("5.56mm Round(s)", Rarities.Uncommon),
+                    new ItemInfo("7.62mm Round(s)", Rarities.Uncommon)
                 });
 
 
@@ -386,9 +391,9 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, ammunition, ItemSubcategories.MiscellaneousAmmunition,
                 new[]
                 {
-                    "Crossbow bolt(s)",
-                    "Composite Arrow",
-                    "Improvised Arrow"
+                    new ItemInfo("Crossbow bolt(s)", Rarities.Uncommon),
+                    new ItemInfo("Composite Arrow", Rarities.Rare),
+                    new ItemInfo("Improvised Arrow", Rarities.NA)
                 });
 
             #endregion
@@ -404,12 +409,12 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, magazines, ItemSubcategories.HandgunMagazines,
                 new[]
                 {
-                    "7Rnd 1911 Magazine",
-                    "Makarov magazine",
-                    "78Rnd P1 Magazine",
-                    "10Rnd .22 Mag pistol",
-                    "15Rnd CR75 Magazine",
-                    "15Rnd FNX45 Magazine"
+                    new ItemInfo("7Rnd 1911 Magazine", Rarities.Uncommon),
+                    new ItemInfo("Makarov magazine", Rarities.Rare),
+                    new ItemInfo("8Rnd P1 Magazine", Rarities.Uncommon),
+                    new ItemInfo("10Rnd .22 Mag pistol", Rarities.Rare),
+                    new ItemInfo("15Rnd CR75 Magazine", Rarities.Rare),
+                    new ItemInfo("15Rnd FNX45 Magazine", Rarities.Rare)
                 });
 
 
@@ -418,18 +423,18 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, magazines, ItemSubcategories.RifleMagazines,
                 new[]
                 {
-                    "10Rnd .22 Mag",
-                    "30Rnd .22 Mag",
-                    "10Rnd 5.56mm CMAG",
-                    "20Rnd 5.56mm CMAG",
-                    "30Rnd 5.56mm CMAG",
-                    "40Rnd 5.56mm CMAG",
-                    "30Rnd STANAG",
-                    "30Rnd STANAG (coupled)",
-                    "30Rnd AK101 mag",
-                    "30rnd Mag",
-                    "75rnd Mag",
-                    "CZ527 Magazine"
+                    new ItemInfo("10Rnd .22 Mag", Rarities.Uncommon),
+                    new ItemInfo("30Rnd .22 Mag", Rarities.Uncommon),
+                    new ItemInfo("10Rnd 5.56mm CMAG", Rarities.Rare),
+                    new ItemInfo("20Rnd 5.56mm CMAG", Rarities.Unknown),
+                    new ItemInfo("30Rnd 5.56mm CMAG", Rarities.Unknown),
+                    new ItemInfo("40Rnd 5.56mm CMAG", Rarities.Unknown),
+                    new ItemInfo("30Rnd STANAG", Rarities.Unknown),
+                    new ItemInfo("30Rnd STANAG (coupled)", Rarities.Unknown),
+                    new ItemInfo("30Rnd AK101 mag", Rarities.Rare),
+                    new ItemInfo("30rnd Mag", Rarities.Common),
+                    new ItemInfo("75rnd Mag", Rarities.VeryRare),
+                    new ItemInfo("CZ527 Magazine", Rarities.Uncommon)
                 });
 
             // Sub-Machine Gun Magazines
@@ -437,10 +442,10 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, magazines, ItemSubcategories.SubMachineGunMagazines,
                 new[]
                 {
-                    "15rnd PM73 mag",
-                    "25rnd PM73 mag",
-                    "15Rnd MP5 Magazine",
-                    "30Rnd MP5 Magazine"
+                    new ItemInfo("15rnd PM73 mag", Rarities.VeryRare),
+                    new ItemInfo("25rnd PM73 mag", Rarities.VeryRare),
+                    new ItemInfo("15Rnd MP5 Magazine", Rarities.Rare),
+                    new ItemInfo("30Rnd MP5 Magazine", Rarities.Rare)
                 });
 
 
@@ -449,11 +454,11 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, magazines, ItemSubcategories.Speedloaders,
                 new[]
                 {
-                    "5Rnd Clip",
-                    "10 Round Clip",
-                    "12 Ga Pellet Snaploader",
-                    ".357 Speedloader",
-                    "Snaploader"
+                    new ItemInfo("5Rnd Clip", Rarities.Unknown),
+                    new ItemInfo("10 Round Clip", Rarities.Rare),
+                    new ItemInfo("12 Ga Pellet Snaploader", Rarities.Rare),
+                    new ItemInfo(".357 Speedloader", Rarities.Uncommon),
+                    new ItemInfo("Snaploader", Rarities.Uncommon)
                 });
 
 
@@ -462,7 +467,7 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, magazines, ItemSubcategories.MiscellaneousMagazines,
                 new[]
                 {
-                    "Bolts Quiver"
+                    new ItemInfo("Bolts Quiver", Rarities.Rare)
                 });
 
             #endregion
@@ -478,12 +483,12 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, foodAndDrink, ItemSubcategories.CannedGoods,
                 new[]
                 {
-                    "Canned Baked Beans",
-                    "Canned Sardines",
-                    "Canned Spaghetti",
-                    "Canned Tuna",
-                    "Can of Tactical Bacon",
-                    "Canned Peaches"
+                    new ItemInfo("Canned Baked Beans", Rarities.Common),
+                    new ItemInfo("Canned Sardines", Rarities.Common),
+                    new ItemInfo("Canned Spaghetti", Rarities.Common),
+                    new ItemInfo("Canned Tuna", Rarities.Common),
+                    new ItemInfo("Can of Tactical Bacon", Rarities.Common),
+                    new ItemInfo("Canned Peaches", Rarities.Common)
                 });
 
 
@@ -492,9 +497,9 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, foodAndDrink, ItemSubcategories.DryFood,
                 new[]
                 {
-                    "Powdered Milk",
-                    "Rice",
-                    "Box of Cereal"
+                    new ItemInfo("Powdered Milk", Rarities.Uncommon),
+                    new ItemInfo("Rice", Rarities.Uncommon),
+                    new ItemInfo("Box of Cereal", Rarities.Rare)
                 });
 
 
@@ -503,16 +508,16 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, foodAndDrink, ItemSubcategories.Fruits,
                 new[]
                 {
-                    "Apple",
-                    "Banana",
-                    "Kiwi",
-                    "Orange",
-                    "Tomato",
-                    "Rotten Apple",
-                    "Rotten Banana",
-                    "Rotten Kiwi",
-                    "Rotten Orange",
-                    "Rotten Tomato"
+                    new ItemInfo("Apple", Rarities.Rare),
+                    new ItemInfo("Banana", Rarities.Uncommon),
+                    new ItemInfo("Kiwi", Rarities.Rare),
+                    new ItemInfo("Orange", Rarities.Uncommon),
+                    new ItemInfo("Tomato", Rarities.Rare),
+                    new ItemInfo("Rotten Apple", Rarities.Common),
+                    new ItemInfo("Rotten Banana", Rarities.Common),
+                    new ItemInfo("Rotten Kiwi", Rarities.Common),
+                    new ItemInfo("Rotten Orange", Rarities.Common),
+                    new ItemInfo("Rotten Tomato", Rarities.Uncommon)
                 });
 
 
@@ -521,12 +526,12 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, foodAndDrink, ItemSubcategories.Vegetables,
                 new[]
                 {
-                    "Green Pepper",
-                    "Potato",
-                    "Zucchini",
-                    "Rotten Green Pepper",
-                    "Rotten Potato",
-                    "Rotten Zucchini"
+                    new ItemInfo("Green Pepper", Rarities.Rare),
+                    new ItemInfo("Potato", Rarities.Uncommon),
+                    new ItemInfo("Zucchini", Rarities.Rare),
+                    new ItemInfo("Rotten Green Pepper", Rarities.Uncommon),
+                    new ItemInfo("Rotten Potato", Rarities.Common),
+                    new ItemInfo("Rotten Zucchini", Rarities.Common)
                 });
 
 
@@ -535,8 +540,8 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, foodAndDrink, ItemSubcategories.Berries,
                 new[]
                 {
-                    "Red Berries",
-                    "Blue Berries"
+                    new ItemInfo("Red Berries", Rarities.NA),
+                    new ItemInfo("Blue Berries", Rarities.NA)
                 });
 
 
@@ -545,9 +550,9 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, foodAndDrink, ItemSubcategories.Drinks,
                 new[]
                 {
-                    "Canteen",
-                    "Waterbottle",
-                    "Soda Can"
+                    new ItemInfo("Canteen", Rarities.Rare),
+                    new ItemInfo("Waterbottle", Rarities.Rare),
+                    new ItemInfo("Soda Can", Rarities.Common)
                 });
 
             #endregion
@@ -563,16 +568,16 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, equipment, ItemSubcategories.Backpacks,
                 new[]
                 {
-                    "Smersh Backpack",
-                    "Child Briefcase",
-                    "Improvised Courier Bag",
-                    "Improvised Backpack",
-                    "Leather Sack",
-                    "Leather Courier Bag",
-                    "Improvised Leather Backpack",
-                    "Taloon Backpack",
-                    "Hunting Backpack",
-                    "Mountain Backpack"
+                    new ItemInfo("Smersh Backpack", Rarities.Rare),
+                    new ItemInfo("Child Briefcase", Rarities.Rare),
+                    new ItemInfo("Improvised Courier Bag", Rarities.NA),
+                    new ItemInfo("Improvised Backpack", Rarities.NA),
+                    new ItemInfo("Leather Sack", Rarities.NA),
+                    new ItemInfo("Leather Courier Bag", Rarities.NA),
+                    new ItemInfo("Improvised Leather Backpack", Rarities.NA),
+                    new ItemInfo("Taloon Backpack", Rarities.Uncommon),
+                    new ItemInfo("Hunting Backpack", Rarities.Rare),
+                    new ItemInfo("Mountain Backpack", Rarities.Rare)
                 });
 
 
@@ -581,9 +586,9 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, equipment, ItemSubcategories.Containers,
                 new[]
                 {
-                    "Ammo Box",
-                    "Small Protector Case",
-                    "First Aid Kit"
+                    new ItemInfo("Ammo Box", Rarities.Rare),
+                    new ItemInfo("Small Protector Case", Rarities.Rare),
+                    new ItemInfo("First Aid Kit", Rarities.Uncommon)
                 });
 
 
@@ -592,11 +597,11 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, equipment, ItemSubcategories.Cooking,
                 new[]
                 {
-                    "Cooking Pot",
-                    "Fireplace Kit",
-                    "Frying Pan",
-                    "Kitchen Knife",
-                    "Portable Gas Stove"
+                    new ItemInfo("Cooking Pot", Rarities.Rare),
+                    new ItemInfo("Fireplace Kit", Rarities.NA),
+                    new ItemInfo("Frying Pan", Rarities.Rare),
+                    new ItemInfo("Kitchen Knife", Rarities.Rare),
+                    new ItemInfo("Portable Gas Stove", Rarities.Rare)
                 });
 
 
@@ -605,11 +610,11 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, equipment, ItemSubcategories.Decorational,
                 new[]
                 {
-                    "Cow Pelt",
-                    "Deer Pelt",
-                    "Pig Pelt",
-                    "Wild Boar Pelt",
-                    "Rabbit Pelt"
+                    new ItemInfo("Cow Pelt", Rarities.NA),
+                    new ItemInfo("Deer Pelt", Rarities.NA),
+                    new ItemInfo("Pig Pelt", Rarities.Unknown),
+                    new ItemInfo("Wild Boar Pelt", Rarities.NA),
+                    new ItemInfo("Rabbit Pelt", Rarities.NA)
                 });
 
 
@@ -618,10 +623,10 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, equipment, ItemSubcategories.Devices,
                 new[]
                 {
-                    "Alkaline Battery 9V",
-                    "Binoculars",
-                    "Compass",
-                    "WalkieTalkie"
+                    new ItemInfo("Alkaline Battery 9V", Rarities.Rare),
+                    new ItemInfo("Binoculars", Rarities.Rare),
+                    new ItemInfo("Compass", Rarities.Uncommon),
+                    new ItemInfo("WalkieTalkie", Rarities.Uncommon)
                 });
 
 
@@ -630,11 +635,11 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, equipment, ItemSubcategories.LightSources,
                 new[]
                 {
-                    "Chemlight",
-                    "Flashlight",
-                    "Headtorch",
-                    "Portable Gas Lamp",
-                    "Road Flare"
+                    new ItemInfo("Chemlight", Rarities.Common),
+                    new ItemInfo("Flashlight", Rarities.Rare),
+                    new ItemInfo("Headtorch", Rarities.Uncommon),
+                    new ItemInfo("Portable Gas Lamp", Rarities.Rare),
+                    new ItemInfo("Road Flare", Rarities.Common)
                 });
 
 
@@ -643,8 +648,8 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, equipment, ItemSubcategories.RepairKits,
                 new[]
                 {
-                    "Sewing Kit",
-                    "Weapon Cleaning Kit"
+                    new ItemInfo("Sewing Kit", Rarities.Rare),
+                    new ItemInfo("Weapon Cleaning Kit", Rarities.Rare)
                 });
 
 
@@ -653,11 +658,11 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, equipment, ItemSubcategories.Resources,
                 new[]
                 {
-                    "Ashwood Stick",
-                    "Chicken Feather",
-                    "Firewood",
-                    "Stone",
-                    "Wooden Stick"
+                    new ItemInfo("Ashwood Stick", Rarities.VeryRare),
+                    new ItemInfo("Chicken Feather", Rarities.NA),
+                    new ItemInfo("Firewood", Rarities.Uncommon),
+                    new ItemInfo("Stone", Rarities.Rare),
+                    new ItemInfo("Wooden Stick", Rarities.Rare)
                 });
 
             
@@ -666,7 +671,7 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, equipment, ItemSubcategories.Tents,
                 new[]
                 {
-                    "Tent"
+                    new ItemInfo("Tent", Rarities.Rare)
                 });
 
 
@@ -675,17 +680,17 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, equipment, ItemSubcategories.Tools,
                 new[]
                 {
-                    "Farming Hoe",
-                    "Firefighter Axe",
-                    "Pickaxe",
-                    "Shovel",
-                    "Splitting Axe",
-                    "Can Opener",
-                    "Hammer",
-                    "Matchbox",
-                    "Pliers",
-                    "Screwdriver",
-                    "Wrench"
+                    new ItemInfo("Farming Hoe", Rarities.Uncommon),
+                    new ItemInfo("Firefighter Axe", Rarities.Rare),
+                    new ItemInfo("Pickaxe", Rarities.Rare),
+                    new ItemInfo("Shovel", Rarities.Common),
+                    new ItemInfo("Splitting Axe", Rarities.Rare),
+                    new ItemInfo("Can Opener", Rarities.Rare),
+                    new ItemInfo("Hammer", Rarities.Rare),
+                    new ItemInfo("Matchbox", Rarities.Rare),
+                    new ItemInfo("Pliers", Rarities.Rare),
+                    new ItemInfo("Screwdriver", Rarities.Rare),
+                    new ItemInfo("Wrench", Rarities.Rare)
                 });
 
 
@@ -694,19 +699,19 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, equipment, ItemSubcategories.Other,
                 new[]
                 {
-                    "Burlap Sack",
-                    "Duct Tape",
-                    "Fishing Bait",
-                    "Fishing Hook",
-                    "Gas Canister",
-                    "Handcuffs",
-                    "Handcuff Keys",
-                    "Map",
-                    "Paper",
-                    "Pen",
-                    "Rope",
-                    "Sharpened Stick",
-                    "Spraypaint"
+                    new ItemInfo("Burlap Sack", Rarities.Uncommon),
+                    new ItemInfo("Duct Tape", Rarities.Rare),
+                    new ItemInfo("Fishing Bait", Rarities.NA),
+                    new ItemInfo("Fishing Hook", Rarities.Rare),
+                    new ItemInfo("Gas Canister", Rarities.Rare),
+                    new ItemInfo("Handcuffs", Rarities.Rare),
+                    new ItemInfo("Handcuff Keys", Rarities.Rare),
+                    new ItemInfo("Map", Rarities.Common),
+                    new ItemInfo("Paper", Rarities.Uncommon),
+                    new ItemInfo("Pen", Rarities.Uncommon),
+                    new ItemInfo("Rope", Rarities.Uncommon),
+                    new ItemInfo("Sharpened Stick", Rarities.NA),
+                    new ItemInfo("Spraypaint", Rarities.Common)
                 });
 
             #endregion
@@ -722,10 +727,10 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, clothing, ItemSubcategories.Eyewear,
                 new[]
                 {
-                    "Designer Sunglasses",
-                    "Glasses with thin frames",
-                    "Glasses with thick frames",
-                    "Rocket Aviators"
+                    new ItemInfo("Designer Sunglasses", Rarities.Uncommon),
+                    new ItemInfo("Glasses with thin frames", Rarities.Uncommon),
+                    new ItemInfo("Glasses with thick frames", Rarities.Uncommon),
+                    new ItemInfo("Rocket Aviators", Rarities.Uncommon)
                 });
 
 
@@ -734,19 +739,19 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, clothing, ItemSubcategories.Hats,
                 new[]
                 {
-                    "Bandana",
-                    "Baseball Cap",
-                    "Beanie Hat",
-                    "Beret",
-                    "Boonie Hat",
-                    "Cowboy Hat",
-                    "Flat Cap",
-                    "Pilotka",
-                    "Police Cap",
-                    "Radar Cap",
-                    "Soviet Army Officer's Hat",
-                    "Ushanka",
-                    "Zmijovka Cap"
+                    new ItemInfo("Bandana", Rarities.Uncommon),
+                    new ItemInfo("Baseball Cap", Rarities.Common),
+                    new ItemInfo("Beanie Hat", Rarities.Common),
+                    new ItemInfo("Beret", Rarities.Uncommon),
+                    new ItemInfo("Boonie Hat", Rarities.Common),
+                    new ItemInfo("Cowboy Hat", Rarities.Uncommon),
+                    new ItemInfo("Flat Cap", Rarities.Common),
+                    new ItemInfo("Pilotka", Rarities.Rare),
+                    new ItemInfo("Police Cap", Rarities.Uncommon),
+                    new ItemInfo("Radar Cap", Rarities.Common),
+                    new ItemInfo("Soviet Army Officer's Hat", Rarities.Rare),
+                    new ItemInfo("Ushanka", Rarities.Uncommon),
+                    new ItemInfo("Zmijovka Cap", Rarities.Common)
                 });
 
 
@@ -755,12 +760,12 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, clothing, ItemSubcategories.Helmets,
                 new[]
                 {
-                    "Ballistic Helmet",
-                    "Gorka E Military Helmet",
-                    "Hard Hat",
-                    "Motorbike Helmet",
-                    "Tanker Helmet",
-                    "ZSh3 Pilot Helmet"
+                    new ItemInfo("Ballistic Helmet", Rarities.Rare),
+                    new ItemInfo("Gorka E Military Helmet", Rarities.Rare),
+                    new ItemInfo("Hard Hat", Rarities.Uncommon),
+                    new ItemInfo("Motorbike Helmet", Rarities.Common),
+                    new ItemInfo("Tanker Helmet", Rarities.Rare),
+                    new ItemInfo("ZSh3 Pilot Helmet", Rarities.Rare)
                 });
 
 
@@ -769,12 +774,12 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, clothing, ItemSubcategories.Masks,
                 new[]
                 {
-                    "Dallas mask",
-                    "Hotxon mask",
-                    "Wolf mask",
-                    "Balaclava",
-                    "Gas mask",
-                    "Respirator"
+                    new ItemInfo("Dallas mask", Rarities.Uncommon),
+                    new ItemInfo("Hotxon mask", Rarities.Uncommon),
+                    new ItemInfo("Wolf mask", Rarities.Uncommon),
+                    new ItemInfo("Balaclava", Rarities.Rare),
+                    new ItemInfo("Gas mask", Rarities.Rare),
+                    new ItemInfo("Respirator", Rarities.Rare)
                 });
 
 
@@ -783,7 +788,7 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, clothing, ItemSubcategories.HandsAndArms,
                 new[]
                 {
-                    "Working Gloves"
+                    new ItemInfo("Working Gloves", Rarities.Uncommon)
                 });
 
 
@@ -792,21 +797,21 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, clothing, ItemSubcategories.ShirtsAndJackets,
                 new[]
                 {
-                    "Down Jacket",
-                    "Firefighter Jacket",
-                    "Gorka Military Uniform Jacket",
-                    "Hoodie",
-                    "OREL Unit Uniform Jacket",
-                    "Paramedic Jacket",
-                    "Police Uniform Jacket",
-                    "Raincoat",
-                    "Riders Jacket",
-                    "Shirt",
-                    "T-Shirt",
-                    "Tactical Shirt",
-                    "Tracksuit Jacket",
-                    "TTsKO Jacket",
-                    "Wool Coat"
+                    new ItemInfo("Down Jacket", Rarities.Uncommon),
+                    new ItemInfo("Firefighter Jacket", Rarities.Rare),
+                    new ItemInfo("Gorka Military Uniform Jacket", Rarities.Rare),
+                    new ItemInfo("Hoodie", Rarities.Uncommon),
+                    new ItemInfo("OREL Unit Uniform Jacket", Rarities.Rare),
+                    new ItemInfo("Paramedic Jacket", Rarities.Rare),
+                    new ItemInfo("Police Uniform Jacket", Rarities.Uncommon),
+                    new ItemInfo("Raincoat", Rarities.Uncommon),
+                    new ItemInfo("Riders Jacket", Rarities.Rare),
+                    new ItemInfo("Shirt", Rarities.Common),
+                    new ItemInfo("T-Shirt", Rarities.Common),
+                    new ItemInfo("Tactical Shirt", Rarities.Rare),
+                    new ItemInfo("Tracksuit Jacket", Rarities.Uncommon),
+                    new ItemInfo("TTsKO Jacket", Rarities.Rare),
+                    new ItemInfo("Wool Coat", Rarities.Common)
                 });
 
 
@@ -815,7 +820,7 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, clothing, ItemSubcategories.Holsters,
                 new[]
                 {
-                    "Chest Holster"
+                    new ItemInfo("Chest Holster", Rarities.Uncommon)
                 });
 
 
@@ -824,12 +829,12 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, clothing, ItemSubcategories.Vests,
                 new[]
                 {
-                    "Anti-stab Vest",
-                    "Blue Press Vest",
-                    "AHigh Capacity Vest",
-                    "Smersh Vest",
-                    "Smersh Vest with Backpack attached",
-                    "UK Assault Vest"
+                    new ItemInfo("Anti-stab Vest", Rarities.VeryRare),
+                    new ItemInfo("Blue Press Vest", Rarities.VeryRare),
+                    new ItemInfo("AHigh Capacity Vest", Rarities.Rare),
+                    new ItemInfo("Smersh Vest", Rarities.VeryRare),
+                    new ItemInfo("Smersh Vest with Backpack attached", Rarities.NA),
+                    new ItemInfo("UK Assault Vest", Rarities.Rare)
                 });
 
 
@@ -838,17 +843,17 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, clothing, ItemSubcategories.Pants,
                 new[]
                 {
-                    "Chernarus Police Uniform Pants",
-                    "Canvas Pants",
-                    "Canvas Pants Short",
-                    "Cargo Pants",
-                    "Gorka Military Pants",
-                    "Hunter Pants",
-                    "Jeans",
-                    "Paramedic Pants",
-                    "OREL Unit Uniform Pants",
-                    "Tracksuit Pants",
-                    "TTsKO Pants"
+                    new ItemInfo("Chernarus Police Uniform Pants", Rarities.Uncommon),
+                    new ItemInfo("Canvas Pants", Rarities.Common),
+                    new ItemInfo("Canvas Pants Short", Rarities.Common),
+                    new ItemInfo("Cargo Pants", Rarities.Uncommon),
+                    new ItemInfo("Gorka Military Pants", Rarities.Rare),
+                    new ItemInfo("Hunter Pants", Rarities.Uncommon),
+                    new ItemInfo("Jeans", Rarities.Common),
+                    new ItemInfo("Paramedic Pants", Rarities.Uncommon),
+                    new ItemInfo("OREL Unit Uniform Pants", Rarities.Rare),
+                    new ItemInfo("Tracksuit Pants", Rarities.Common),
+                    new ItemInfo("TTsKO Pants", Rarities.Uncommon)
                 });
 
 
@@ -857,17 +862,19 @@ namespace DayZTradeCenter.DomainModel.Migrations
             CreateItem(context, clothing, ItemSubcategories.Boots,
                 new[]
                 {
-                    "Athletic Shoes",
-                    "Combat Boots",
-                    "Hiking Boots",
-                    "Jogging Shoes",
-                    "Jungle Boots",
-                    "Leather Shoes",
-                    "Low Hiking Boots",
-                    "Military Boots",
-                    "Wellies",
-                    "Working Boots"
+                    new ItemInfo("Athletic Shoes", Rarities.Common),
+                    new ItemInfo("Combat Boots", Rarities.Rare),
+                    new ItemInfo("Hiking Boots", Rarities.Uncommon),
+                    new ItemInfo("Jogging Shoes", Rarities.Uncommon),
+                    new ItemInfo("Jungle Boots", Rarities.Rare),
+                    new ItemInfo("Leather Shoes", Rarities.Uncommon),
+                    new ItemInfo("Low Hiking Boots", Rarities.Uncommon),
+                    new ItemInfo("Military Boots", Rarities.Rare),
+                    new ItemInfo("Wellies", Rarities.Uncommon),
+                    new ItemInfo("Working Boots", Rarities.Uncommon)
                 });
+
+            #endregion
 
             #endregion
         }
@@ -926,7 +933,7 @@ namespace DayZTradeCenter.DomainModel.Migrations
             ApplicationDbContext context,
             ItemCategories category,
             ItemSubcategories subcategory,
-            IEnumerable<string> itemNames)
+            IEnumerable<ItemInfo> itemInfos)
         {
             var details = new CategoryInfo
             {
@@ -936,12 +943,24 @@ namespace DayZTradeCenter.DomainModel.Migrations
 
             context.Items.AddOrUpdate(
                 item => item.Name,
-                itemNames.Select(
-                    name => new Item(name, details)).ToArray());
+                itemInfos.Select(
+                    info => new Item(info.Name, details, info.Rariry)).ToArray());
         }
 
         #endregion
 
         private const string AdministratorRole = "Administrator";
+    }
+
+    internal class ItemInfo
+    {
+        public ItemInfo(string name, Rarities rarity)
+        {
+            Rariry = rarity;
+            Name = name;
+        }
+
+        public Rarities Rariry { get; private set; }
+        public string Name { get; set; }
     }
 }

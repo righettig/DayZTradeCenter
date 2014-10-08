@@ -15,6 +15,13 @@ namespace DayZTradeCenter.DomainModel.Entities
             Details = details;
         }
 
+        public Item(string name, CategoryInfo details, Rarities rarity)
+        {
+            Name = name;
+            Details = details;
+            Rarity = rarity;
+        }
+
         public Item()
         {
         }
@@ -24,6 +31,7 @@ namespace DayZTradeCenter.DomainModel.Entities
         public int Id { get; set; }
         public string Name { get; set; }
         public CategoryInfo Details { get; set; }
+        public Rarities Rarity { get; set; }
     }
 
     public class CategoryInfo
@@ -122,5 +130,15 @@ namespace DayZTradeCenter.DomainModel.Entities
         Vests,
         Pants,
         Boots
+    }
+
+    public enum Rarities
+    {
+        Unknown,
+        NA,
+        Common,
+        Uncommon, 
+        Rare,
+        VeryRare
     }
 }
