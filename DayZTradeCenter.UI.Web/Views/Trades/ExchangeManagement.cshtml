@@ -15,10 +15,10 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     @Html.Hidden("tradeId", Model.TradeId)
     @Html.Hidden("Details.SteamId", Model.Details.SteamId)
-    
+
     <div class="form-horizontal">
         <h4>Exchange details</h4>
         <hr />
@@ -32,17 +32,29 @@
                     new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
             </div>
         </div>
-        
+
         <div class="form-group">
             @Html.LabelFor(model => model.Details.Location, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(
                     model => model.Details.Location,
-                    new { htmlAttributes = new { @class = "form-control" } })
+                    new
+                    {
+                        htmlAttributes = new
+                        {
+                            @class = "form-control",
+                            id = "location",
+                            data_toggle = "tooltip",
+                            data_placement = "right",
+                            title = "Follow the link, center the screen on the desired location then copy the values (e.g.: 25;90;7) here."
+                        }
+                    })
+                Pick up a location <a href="http://www.izurvive.com/#c=25;90;7" target="_blank">here</a>
+
                 @Html.ValidationMessageFor(model => model.Details.Location, "", new { @class = "text-danger" })
             </div>
         </div>
-        
+
         <div class="form-group">
             @Html.LabelFor(model => model.Details.Server, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -52,15 +64,15 @@
                 @Html.ValidationMessageFor(model => model.Details.Server, "", new { @class = "text-danger" })
             </div>
         </div>
-        
+
         <div class="form-group">
             @Html.LabelFor(model => model.Details.Time, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">                
+            <div class="col-md-10">
                 <input name="Details.Time" type='text' class="form-control" id='datetimepicker1' />
                 @Html.ValidationMessageFor(model => model.Details.Time, "", new { @class = "text-danger" })
             </div>
         </div>
-        
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <button class="btn btn-default">
@@ -92,13 +104,13 @@
         {
             foreach (var message in Model.Messages)
             {
-                <li class="list-group-item">@message.Text</li>
+                <li class="list-group-item">@Html.Raw(message.Text)</li>
             }
         }
     </ul>
 </div>
 
-When the transaction is completed press 
+When the transaction is completed press
 
 @using (Html.BeginForm("TradeCompleted", "Trades", new { id = Model.TradeId }))
 {
@@ -110,11 +122,13 @@ When the transaction is completed press
 @section scripts {
     <script src="~/Scripts/moment.min.js"></script>
     <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
-   
+
     <script type="text/javascript">
         $(function () {
             $('#datetimepicker1').datetimepicker();
             $('#datetimepicker1').data("DateTimePicker").setDate("@Model.Details.Time");
         });
+
+        $('#location').tooltip();
     </script>
 }

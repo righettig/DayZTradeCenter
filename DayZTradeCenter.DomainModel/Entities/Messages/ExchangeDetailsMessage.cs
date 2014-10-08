@@ -46,7 +46,10 @@ namespace DayZTradeCenter.DomainModel.Entities.Messages
         {
             get
             {
-                return string.Format("My SteamId is {0}. Meet me at {1}, server {2}, time {3} GTM",
+                const string text = "My SteamId is {0}. Meet me at <a href=\"http://www.izurvive.com/#c=" +
+                                    "{1}\" target='_blank'>{1}</a>, server {2}, time {3} GTM";
+
+                return string.Format(text,
                     Details.SteamId,
                     Details.Location,
                     Details.Server,
@@ -67,6 +70,7 @@ namespace DayZTradeCenter.DomainModel.Entities.Messages
         public string SteamId { get; set; }
         
         [Required, MaxLength(64)]
+        [RegularExpression("^(([0-9])+;([0-9])+;([0-9])+)+$", ErrorMessage = "Location is required and must be properly formatted 'x;y;z'.")]
         public string Location { get; set; }
         
         [Required, MaxLength(32)]
