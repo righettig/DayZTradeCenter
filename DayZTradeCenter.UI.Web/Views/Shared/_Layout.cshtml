@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - DayZTradeCenter</title>
     @Styles.Render("~/Content/css")
-    
+
     <link href="~/Content/Selectize/css/selectize.bootstrap3.css" rel="stylesheet" />
+
+    @RenderSection("styles", false);
 
     <!-- NB: moved jquery here otherwise highcharts does not work -->
     @Scripts.Render("~/bundles/jquery")

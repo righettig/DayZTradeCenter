@@ -97,6 +97,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\rg.GenericRepository.Core.1.0.5377.24759\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+MonoTouch10\rg.GenericRepository.Core.dll</HintPath>
     </Reference>
+    <Reference Include="rg.TimeProvider, Version=1.0.5377.34337, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\rg.TimeProvider.1.0.5377.34337\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+MonoTouch10\rg.TimeProvider.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -225,6 +229,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-datetimepicker.css" />
+    <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -247,6 +253,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\app\CreateTradeViewModel.js" />
     <Content Include="Scripts\app\latesttrades.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -309,6 +317,10 @@
     <Content Include="Scripts\knockout-3.2.0.js" />
     <Content Include="Scripts\ko_selectize.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />

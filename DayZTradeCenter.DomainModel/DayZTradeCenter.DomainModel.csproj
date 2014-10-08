@@ -121,6 +121,10 @@
     <Compile Include="Migrations\201410071256373_Added events.Designer.cs">
       <DependentUpon>201410071256373_Added events.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410080926344_Updated ExchangeDetails.cs" />
+    <Compile Include="Migrations\201410080926344_Updated ExchangeDetails.Designer.cs">
+      <DependentUpon>201410080926344_Updated ExchangeDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DefaultUsers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -150,6 +154,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410071256373_Added events.resx">
       <DependentUpon>201410071256373_Added events.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410080926344_Updated ExchangeDetails.resx">
+      <DependentUpon>201410080926344_Updated ExchangeDetails.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -7,6 +7,7 @@ using DayZTradeCenter.DomainModel.Interfaces;
 using DayZTradeCenter.DomainModel.Services;
 using DayZTradeCenter.UI.Web.Models;
 using Microsoft.AspNet.Identity;
+using rg.Time;
 using ItemViewModel = DayZTradeCenter.UI.Web.Models.ItemViewModel;
 
 namespace DayZTradeCenter.UI.Web.Controllers
@@ -190,11 +191,15 @@ namespace DayZTradeCenter.UI.Web.Controllers
         }
 
         // GET: Trades/ExchangeManagement/5
-        public ActionResult ExchangeManagement(int id)
+        public async Task<ActionResult> ExchangeManagement(int id)
         {
+            // get the steam id of the current user.
+            var steamId = await GetSteamId();
+
             var model = new ExchangeManagementViewModel
             {
-                Trade = _tradeManager.GetTradeById(id)
+                TradeId = id, // TODO: add security checks: only the owner/winner can access this data.
+                Details = new ExchangeDetails {SteamId = steamId, Time = TimeProvider.Now}
             };
             
             return View(model);
@@ -203,13 +208,18 @@ namespace DayZTradeCenter.UI.Web.Controllers
         // POST: Trades/ExchangeManagement/5
         [HttpPost, ActionName("ExchangeManagement")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExchangeManagementConfirmed(ExchangeDetails details, int tradeId)
+        public async Task<ActionResult> ExchangeManagementConfirmed(ExchangeManagementViewModel vm)
         {
-            var trade = _tradeManager.GetTradeById(tradeId);
+            if (!ModelState.IsValid)
+            {
+                return View(vm);
+            }
 
-            var message = new ExchangeDetailsMessage(details);
-            
-            var model = new ExchangeManagementViewModel {Trade = trade, Details = details};
+            var trade = _tradeManager.GetTradeById(vm.TradeId);
+
+            var message = new ExchangeDetailsMessage(vm.Details);
+
+            var model = new ExchangeManagementViewModel { TradeId = trade.Id, Details = vm.Details };
             model.Messages.Add(message);
 
             var winner = await _userManager.FindByIdAsync(trade.Winner.Id);
@@ -282,6 +292,20 @@ namespace DayZTradeCenter.UI.Web.Controllers
             }
 
             return View();
+        }
+
+        private async Task<string> GetSteamId()
+        {
+            var user =
+                await _userManager.FindByIdAsync(User.Identity.GetUserId());
+
+            var providerKey =
+                user.Logins.First().ProviderKey;
+
+            var steamId =
+                providerKey.Substring(providerKey.LastIndexOf('/') + 1);
+
+            return steamId;
         }
 
         #region Private fields

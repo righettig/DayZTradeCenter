@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using DayZTradeCenter.DomainModel.Entities;
 using DayZTradeCenter.DomainModel.Entities.Messages;
 
 namespace DayZTradeCenter.UI.Web.Models
@@ -14,7 +13,7 @@ namespace DayZTradeCenter.UI.Web.Models
             Messages = new List<Message>();
         }
 
-        public Trade Trade { get; set; }
+        public int TradeId { get; set; }
         public ICollection<Message> Messages { get; set; }
         public ExchangeDetails Details { get; set; }
     }

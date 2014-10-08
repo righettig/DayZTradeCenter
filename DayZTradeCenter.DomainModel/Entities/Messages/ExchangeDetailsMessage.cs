@@ -63,10 +63,16 @@ namespace DayZTradeCenter.DomainModel.Entities.Messages
     {
         public int Id { get; set; }
 
+        [Required]
         public string SteamId { get; set; }
+        
+        [Required, MaxLength(64)]
         public string Location { get; set; }
+        
+        [Required, MaxLength(32)]
         public string Server { get; set; }
 
+        [Required]
         [DataType(DataType.DateTime)]
         public DateTime Time { get; set; }
     }

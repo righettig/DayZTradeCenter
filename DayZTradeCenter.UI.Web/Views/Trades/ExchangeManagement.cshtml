@@ -4,6 +4,10 @@
     ViewBag.Title = "ExchangeManagement";
 }
 
+@section styles {
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+}
+
 <h2>Exchange Management</h2>
 
 <br />
@@ -11,7 +15,9 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    @Html.Hidden("tradeId", Model.Trade.Id)
+    
+    @Html.Hidden("tradeId", Model.TradeId)
+    @Html.Hidden("Details.SteamId", Model.Details.SteamId)
     
     <div class="form-horizontal">
         <h4>Exchange details</h4>
@@ -23,8 +29,7 @@
             <div class="col-md-10">
                 @Html.EditorFor(
                     model => model.Details.SteamId,
-                    new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Details.SteamId, "", new { @class = "text-danger" })
+                    new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
             </div>
         </div>
         
@@ -50,10 +55,8 @@
         
         <div class="form-group">
             @Html.LabelFor(model => model.Details.Time, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(
-                    model => model.Details.Time,
-                    new { htmlAttributes = new { @class = "form-control" } })
+            <div class="col-md-10">                
+                <input name="Details.Time" type='text' class="form-control" id='datetimepicker1' />
                 @Html.ValidationMessageFor(model => model.Details.Time, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -75,7 +78,7 @@
     <div class="panel-heading">Messages</div>
     <div class="panel-body">
         <p>
-            Here you can see all the messages related to the exchange for the trade with id = @Model.Trade.Id
+            Here you can see all the messages related to the exchange for the trade with id = @Model.TradeId
         </p>
     </div>
 
@@ -97,9 +100,21 @@
 
 When the transaction is completed press 
 
-@using (Html.BeginForm("TradeCompleted", "Trades", new { id = Model.Trade.Id }))
+@using (Html.BeginForm("TradeCompleted", "Trades", new { id = Model.TradeId }))
 {
     @Html.AntiForgeryToken()
 
     <button class="btn btn-default">Completed</button>
+}
+
+@section scripts {
+    <script src="~/Scripts/moment.min.js"></script>
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+   
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker();
+            $('#datetimepicker1').data("DateTimePicker").setDate("@Model.Details.Time");
+        });
+    </script>
 }
