@@ -38,7 +38,8 @@ namespace DayZTradeCenter.DomainModel.Entities
         Medical,
         Attachments,
         Ammunition,
-        Magazines
+        Magazines,
+        FoodAndDrink
     }
 
     public enum ItemSubcategories
@@ -85,6 +86,14 @@ namespace DayZTradeCenter.DomainModel.Entities
         RifleMagazines,
         SubMachineGunMagazines,
         Speedloaders,
-        MiscellaneousMagazines
+        MiscellaneousMagazines,
+
+        // Food and Drink
+        CannedGoods,
+        DryFood,
+        Fruits,
+        Vegetables,
+        Berries,
+        Drinks
     }
 }

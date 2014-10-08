@@ -467,11 +467,88 @@ namespace DayZTradeCenter.DomainModel.Migrations
 
             #endregion
 
-            #region Food
+            #region Food and Drink
 
-            #endregion
+            // http://dayz.gamepedia.com/Food_and_Drink
 
-            #region Drink
+            const ItemCategories foodAndDrink = ItemCategories.FoodAndDrink;
+
+            // Canned Goods
+            //-------------------
+            CreateItem(context, foodAndDrink, ItemSubcategories.CannedGoods,
+                new[]
+                {
+                    "Canned Baked Beans",
+                    "Canned Sardines",
+                    "Canned Spaghetti",
+                    "Canned Tuna",
+                    "Can of Tactical Bacon",
+                    "Canned Peaches"
+                });
+
+
+            // Dry Food
+            //-------------------
+            CreateItem(context, foodAndDrink, ItemSubcategories.DryFood,
+                new[]
+                {
+                    "Powdered Milk",
+                    "Rice",
+                    "Box of Cereal"
+                });
+
+
+            // Fruits
+            //-------------------
+            CreateItem(context, foodAndDrink, ItemSubcategories.Fruits,
+                new[]
+                {
+                    "Apple",
+                    "Banana",
+                    "Kiwi",
+                    "Orange",
+                    "Tomato",
+                    "Rotten Apple",
+                    "Rotten Banana",
+                    "Rotten Kiwi",
+                    "Rotten Orange",
+                    "Rotten Tomato"
+                });
+
+
+            // Vegetables
+            //-------------------
+            CreateItem(context, foodAndDrink, ItemSubcategories.Vegetables,
+                new[]
+                {
+                    "Green Pepper",
+                    "Potato",
+                    "Zucchini",
+                    "Rotten Green Pepper",
+                    "Rotten Potato",
+                    "Rotten Zucchini"
+                });
+
+
+            // Berries
+            //-------------------
+            CreateItem(context, foodAndDrink, ItemSubcategories.Berries,
+                new[]
+                {
+                    "Red Berries",
+                    "Blue Berries"
+                });
+
+
+            // Drinks
+            //-------------------
+            CreateItem(context, foodAndDrink, ItemSubcategories.Drinks,
+                new[]
+                {
+                    "Canteen",
+                    "Waterbottle",
+                    "Soda Can"
+                });
 
             #endregion
         }
