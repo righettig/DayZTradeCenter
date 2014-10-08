@@ -11,7 +11,7 @@ The official repository of the DayZTradeCenter project.
 4. Open the Package Manager Console
 5. Restore missing Nuget packages
 6. Make sure DayZTradeCenter.UI.Web is set as Startup Project
-7. Make sure DayZTradeCenter.Domain.Model.Identity is the default project in the Package Manager Console
+7. Make sure DayZTradeCenter.DomainModel is the default project in the Package Manager Console
 8. Run Update-Database from the Package Manager Console. This will create the dev database with a bunch of entities already configured for you
 
 ### Known issues
