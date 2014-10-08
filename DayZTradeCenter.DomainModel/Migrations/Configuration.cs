@@ -395,6 +395,76 @@ namespace DayZTradeCenter.DomainModel.Migrations
 
             #region Magazines
 
+            // http://dayz.gamepedia.com/Magazines
+
+            const ItemCategories magazines = ItemCategories.Magazines;
+
+            // Handgun Magazines
+            //-------------------
+            CreateItem(context, magazines, ItemSubcategories.HandgunMagazines,
+                new[]
+                {
+                    "7Rnd 1911 Magazine",
+                    "Makarov magazine",
+                    "78Rnd P1 Magazine",
+                    "10Rnd .22 Mag pistol",
+                    "15Rnd CR75 Magazine",
+                    "15Rnd FNX45 Magazine"
+                });
+
+
+            // Rifle Magazines
+            //-------------------
+            CreateItem(context, magazines, ItemSubcategories.RifleMagazines,
+                new[]
+                {
+                    "10Rnd .22 Mag",
+                    "30Rnd .22 Mag",
+                    "10Rnd 5.56mm CMAG",
+                    "20Rnd 5.56mm CMAG",
+                    "30Rnd 5.56mm CMAG",
+                    "40Rnd 5.56mm CMAG",
+                    "30Rnd STANAG",
+                    "30Rnd STANAG (coupled)",
+                    "30Rnd AK101 mag",
+                    "30rnd Mag",
+                    "75rnd Mag",
+                    "CZ527 Magazine"
+                });
+
+            // Sub-Machine Gun Magazines
+            //-------------------
+            CreateItem(context, magazines, ItemSubcategories.SubMachineGunMagazines,
+                new[]
+                {
+                    "15rnd PM73 mag",
+                    "25rnd PM73 mag",
+                    "15Rnd MP5 Magazine",
+                    "30Rnd MP5 Magazine"
+                });
+
+
+            // Speedloaders
+            //-------------------
+            CreateItem(context, magazines, ItemSubcategories.Speedloaders,
+                new[]
+                {
+                    "5Rnd Clip",
+                    "10 Round Clip",
+                    "12 Ga Pellet Snaploader",
+                    ".357 Speedloader",
+                    "Snaploader"
+                });
+
+
+            // Miscellaneous Magazines
+            //-------------------
+            CreateItem(context, magazines, ItemSubcategories.MiscellaneousMagazines,
+                new[]
+                {
+                    "Bolts Quiver"
+                });
+
             #endregion
 
             #region Food

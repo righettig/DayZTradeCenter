@@ -37,7 +37,8 @@ namespace DayZTradeCenter.DomainModel.Entities
         Weapons,
         Medical,
         Attachments,
-        Ammunition
+        Ammunition,
+        Magazines
     }
 
     public enum ItemSubcategories
@@ -77,6 +78,13 @@ namespace DayZTradeCenter.DomainModel.Entities
         HandgunAmmunition,
         ShotgunAmmunition,
         RifleAmmunition,
-        MiscellaneousAmmunition
+        MiscellaneousAmmunition,
+
+        // Magazines
+        HandgunMagazines,
+        RifleMagazines,
+        SubMachineGunMagazines,
+        Speedloaders,
+        MiscellaneousMagazines
     }
 }
