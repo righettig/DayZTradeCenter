@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="TradeManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AnalyticsProviderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DayZTradeCenter.DomainModel\DayZTradeCenter.DomainModel.csproj">

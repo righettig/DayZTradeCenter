@@ -14,6 +14,23 @@ namespace DayZTradeCenter.DomainModel.Interfaces
 
         IEnumerable<TrendsResult> GetDailyTrendsFor(int itemId, TrendsType type);
         IEnumerable<Item> GetAllItems();
+
+        /// <summary>
+        /// Gets the "W" score,
+        /// i.e., how many active trades have the item with the given itemId in the "W" section
+        /// with respect to the total amount of trades.
+        /// </summary>
+        /// <param name="itemId">The item identifier.</param>
+        /// <returns>The "W" score of the item, in the range [0,1].</returns>
+        float GetWScore(int itemId);
+
+        /// <summary>
+        /// Gets the "R" score,
+        /// i.e., the "richness" score.
+        /// </summary>
+        /// <param name="itemIds">The item ids.</param>
+        /// <returns>The "R" score of the given set of items.</returns>
+        float GetRScore(int[] itemIds);
     }
 
     public class ItemDetails

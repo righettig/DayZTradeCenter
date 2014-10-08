@@ -96,6 +96,43 @@ namespace DayZTradeCenter.DomainModel.Services
             return _itemsRepository.GetAll();
         }
 
+        /// <summary>
+        /// Gets the "W" score,
+        /// i.e., how many active trades have the item with the given itemId in the "W" section
+        /// with respect to the total amount of trades.
+        /// </summary>
+        /// <param name="itemId">The item identifier.</param>
+        /// <returns>The "W" score of the item, in the range [0,1].</returns>
+        public float GetWScore(int itemId)
+        {
+            var activeTrades = 
+                _tradesRepository.GetAll().Where(t => t.State == TradeStates.Active);
+
+            var wantedItems =
+                from t in activeTrades
+                from i in t.Want
+                select i.Item.Id;
+
+            float total = 
+                wantedItems.Count(i => itemId == i);
+
+            var result =
+                total/activeTrades.Count();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Gets the "R" score,
+        /// i.e., the "richness" score.
+        /// </summary>
+        /// <param name="itemIds">The item ids.</param>
+        /// <returns>The "R" score of the given set of items.</returns>
+        public float GetRScore(int[] itemIds)
+        {
+            return itemIds.Sum(i => GetWScore(i));
+        }
+
         private IEnumerable<ItemDetails> GetMostListedItem(
             Func<Trade, IEnumerable<TradeDetails>> collectionSelector)
         {
