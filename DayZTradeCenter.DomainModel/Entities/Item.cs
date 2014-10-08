@@ -36,7 +36,8 @@ namespace DayZTradeCenter.DomainModel.Entities
     {
         Weapons,
         Medical,
-        Attachments
+        Attachments,
+        Ammunition
     }
 
     public enum ItemSubcategories
@@ -70,6 +71,12 @@ namespace DayZTradeCenter.DomainModel.Entities
         MuzzleAttachments,
         Bayonets,
         Bipods,
-        Wraps
+        Wraps,
+
+        // Ammunition
+        HandgunAmmunition,
+        ShotgunAmmunition,
+        RifleAmmunition,
+        MiscellaneousAmmunition
     }
 }

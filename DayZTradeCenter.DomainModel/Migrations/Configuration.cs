@@ -341,6 +341,69 @@ namespace DayZTradeCenter.DomainModel.Migrations
                 });
 
             #endregion
+
+            #region Ammunition
+
+            // http://dayz.gamepedia.com/Ammunition
+
+            const ItemCategories ammunition = ItemCategories.Ammunition;
+
+            // Handgun Ammunition
+            //-------------------
+            CreateItem(context, ammunition, ItemSubcategories.HandgunAmmunition,
+                new[]
+                {
+                    ".22 Round(s)",
+                    ".380 Auto Round(s)",
+                    "9mm Round(s)",
+                    ".45ACP Round(s)",
+                    ".357 Round(s)"
+                });
+
+
+            // Shotgun Ammunition
+            //-------------------
+            CreateItem(context, ammunition, ItemSubcategories.ShotgunAmmunition,
+                new[]
+                {
+                    "12 Gauge Buckshot"
+                });
+
+
+            // Rifle Ammunition
+            //-------------------
+            CreateItem(context, ammunition, ItemSubcategories.RifleAmmunition,
+                new[]
+                {
+                    "7.62x39mm Round(s)",
+                    "5.56mm Round(s)",
+                    "7.62mm Round(s)"
+                });
+
+
+            // Miscellaneous Ammunition
+            //-------------------
+            CreateItem(context, ammunition, ItemSubcategories.MiscellaneousAmmunition,
+                new[]
+                {
+                    "Crossbow bolt(s)",
+                    "Composite Arrow",
+                    "Improvised Arrow"
+                });
+
+            #endregion
+
+            #region Magazines
+
+            #endregion
+
+            #region Food
+
+            #endregion
+
+            #region Drink
+
+            #endregion
         }
 
         #region Helpers
