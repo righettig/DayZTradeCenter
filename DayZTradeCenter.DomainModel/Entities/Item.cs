@@ -35,7 +35,8 @@ namespace DayZTradeCenter.DomainModel.Entities
     public enum ItemCategories
     {
         Weapons,
-        Medical
+        Medical,
+        Attachments
     }
 
     public enum ItemSubcategories
@@ -59,6 +60,16 @@ namespace DayZTradeCenter.DomainModel.Entities
         Disinfection,
         Medicines,
         Reanimation,
-        Temperature
+        Temperature,
+
+        // Attachments
+        Buttstocks,
+        Handguards,
+        SightsAndOptics,
+        Illumination,
+        MuzzleAttachments,
+        Bayonets,
+        Bipods,
+        Wraps
     }
 }

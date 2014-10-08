@@ -233,6 +233,114 @@ namespace DayZTradeCenter.DomainModel.Migrations
                 });
 
             #endregion
+
+            #region Attachments
+
+            // http://dayz.gamepedia.com/Attachments
+
+            const ItemCategories attachments = ItemCategories.Attachments;
+
+            // Buttstocks
+            //-------------------
+            CreateItem(context, attachments, ItemSubcategories.Buttstocks,
+                new[]
+                {
+                    "AK Folding Buttstock",
+                    "AK Plastic Buttstock",
+                    "AK Wooden Buttstock",
+                    "M4 Buttstock CQB",
+                    "M4 Buttstock OE",
+                    "M4 Buttstock MP",
+                    "MP5 OEM Buttstock"
+                });
+
+
+            // Handguards
+            //-------------------
+            CreateItem(context, attachments, ItemSubcategories.Handguards,
+                new[]
+                {
+                    "AK Handguard Rail",
+                    "AK Handguard Plastic",
+                    "AK Wooden Handguard",
+                    "M4 Handguard MP",
+                    "M4 Handguard Plastic",
+                    "M4 Handguard RIS",
+                    "MP5 Plastic Handguard"
+                });
+
+
+            // Sights and Optics
+            //-------------------
+            CreateItem(context, attachments, ItemSubcategories.SightsAndOptics,
+                new[]
+                {
+                    "ACOG Optics",
+                    "BUIS",
+                    "Crossbow Holosight",
+                    "FNP45 MRD",
+                    "Long Range Scope",
+                    "M4 Carryhandle Optics",
+                    "M68 CompM2 Optics",
+                    "PSO1 Scope",
+                    "PU Scope",
+                    "RV1 RDS Optics",
+                    "Crossbow Scope"
+                });
+
+
+            // Illumination
+            //-------------------
+            CreateItem(context, attachments, ItemSubcategories.Illumination,
+                new[]
+                {
+                    "Pistol Flashlight",
+                    "Weapon Flashlight"
+                });
+
+
+            // Muzzle Attachments
+            //-------------------
+            CreateItem(context, attachments, ItemSubcategories.MuzzleAttachments,
+                new[]
+                {
+                    "Mosin M44 Compensator",
+                    "Pistol Suppressor",
+                    "Suppressor 556",
+                    "Suppressor 5.45x39mm"
+                });
+
+
+            // Bayonets
+            //-------------------
+            CreateItem(context, attachments, ItemSubcategories.Bayonets,
+                new[]
+                {
+                    "M9A1 Bayonet",
+                    "M91 Bayonet",
+                    "SKS Bayonet"
+                });
+
+
+            // Bipods
+            //-------------------
+            CreateItem(context, attachments, ItemSubcategories.Bipods,
+                new[]
+                {
+                    "ATLAS Bipod"
+                });
+
+
+            // Wraps
+            //-------------------
+            CreateItem(context, attachments, ItemSubcategories.Wraps,
+                new[]
+                {
+                    "Burlap Wrap",
+                    "Grass Wrap"
+                });
+
+            #endregion
         }
 
         #region Helpers
