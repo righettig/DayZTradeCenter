@@ -39,7 +39,8 @@ namespace DayZTradeCenter.DomainModel.Entities
         Attachments,
         Ammunition,
         Magazines,
-        FoodAndDrink
+        FoodAndDrink,
+        Equipment
     }
 
     public enum ItemSubcategories
@@ -94,6 +95,19 @@ namespace DayZTradeCenter.DomainModel.Entities
         Fruits,
         Vegetables,
         Berries,
-        Drinks
+        Drinks,
+
+        // Equipment
+        Backpacks,
+        Containers,
+        Cooking,
+        Decorational,
+        Devices,
+        LightSources,
+        RepairKits,
+        Resources,
+        Tents,
+        Tools,
+        Other
     }
 }

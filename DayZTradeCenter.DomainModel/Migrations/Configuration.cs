@@ -551,6 +551,165 @@ namespace DayZTradeCenter.DomainModel.Migrations
                 });
 
             #endregion
+
+            #region Equipment
+
+            // http://dayz.gamepedia.com/Equipment
+
+            const ItemCategories equipment = ItemCategories.Equipment;
+
+            // Backpacks
+            //-------------------
+            CreateItem(context, equipment, ItemSubcategories.Backpacks,
+                new[]
+                {
+                    "Smersh Backpack",
+                    "Child Briefcase",
+                    "Improvised Courier Bag",
+                    "Improvised Backpack",
+                    "Leather Sack",
+                    "Leather Courier Bag",
+                    "Improvised Leather Backpack",
+                    "Taloon Backpack",
+                    "Hunting Backpack",
+                    "Mountain Backpack"
+                });
+
+
+            // Containers
+            //-------------------
+            CreateItem(context, equipment, ItemSubcategories.Containers,
+                new[]
+                {
+                    "Ammo Box",
+                    "Small Protector Case",
+                    "First Aid Kit"
+                });
+
+
+            // Cooking
+            //-------------------
+            CreateItem(context, equipment, ItemSubcategories.Cooking,
+                new[]
+                {
+                    "Cooking Pot",
+                    "Fireplace Kit",
+                    "Frying Pan",
+                    "Kitchen Knife",
+                    "Portable Gas Stove"
+                });
+
+
+            // Decorational
+            //-------------------
+            CreateItem(context, equipment, ItemSubcategories.Decorational,
+                new[]
+                {
+                    "Cow Pelt",
+                    "Deer Pelt",
+                    "Pig Pelt",
+                    "Wild Boar Pelt",
+                    "Rabbit Pelt"
+                });
+
+
+            // Devices
+            //-------------------
+            CreateItem(context, equipment, ItemSubcategories.Devices,
+                new[]
+                {
+                    "Alkaline Battery 9V",
+                    "Binoculars",
+                    "Compass",
+                    "WalkieTalkie"
+                });
+
+
+            // LightSources
+            //-------------------
+            CreateItem(context, equipment, ItemSubcategories.LightSources,
+                new[]
+                {
+                    "Chemlight",
+                    "Flashlight",
+                    "Headtorch",
+                    "Portable Gas Lamp",
+                    "Road Flare"
+                });
+
+
+            // Repair Kits
+            //-------------------
+            CreateItem(context, equipment, ItemSubcategories.RepairKits,
+                new[]
+                {
+                    "Sewing Kit",
+                    "Weapon Cleaning Kit"
+                });
+
+
+            // Resources
+            //-------------------
+            CreateItem(context, equipment, ItemSubcategories.Resources,
+                new[]
+                {
+                    "Ashwood Stick",
+                    "Chicken Feather",
+                    "Firewood",
+                    "Stone",
+                    "Wooden Stick"
+                });
+
+            
+            // Tents
+            //-------------------
+            CreateItem(context, equipment, ItemSubcategories.Tents,
+                new[]
+                {
+                    "Tent"
+                });
+
+
+            // Tools
+            //-------------------
+            CreateItem(context, equipment, ItemSubcategories.Tools,
+                new[]
+                {
+                    "Farming Hoe",
+                    "Firefighter Axe",
+                    "Pickaxe",
+                    "Shovel",
+                    "Splitting Axe",
+                    "Can Opener",
+                    "Hammer",
+                    "Matchbox",
+                    "Pliers",
+                    "Screwdriver",
+                    "Wrench"
+                });
+
+
+            // Other
+            //-------------------
+            CreateItem(context, equipment, ItemSubcategories.Other,
+                new[]
+                {
+                    "Burlap Sack",
+                    "Duct Tape",
+                    "Fishing Bait",
+                    "Fishing Hook",
+                    "Gas Canister",
+                    "Handcuffs",
+                    "Handcuff Keys",
+                    "Map",
+                    "Paper",
+                    "Pen",
+                    "Rope",
+                    "Sharpened Stick",
+                    "Spraypaint"
+                });
+
+            #endregion
         }
 
         #region Helpers
