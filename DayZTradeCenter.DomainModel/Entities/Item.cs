@@ -40,7 +40,8 @@ namespace DayZTradeCenter.DomainModel.Entities
         Ammunition,
         Magazines,
         FoodAndDrink,
-        Equipment
+        Equipment,
+        Clothing
     }
 
     public enum ItemSubcategories
@@ -108,6 +109,18 @@ namespace DayZTradeCenter.DomainModel.Entities
         Resources,
         Tents,
         Tools,
-        Other
+        Other,
+
+        // Clothing
+        Eyewear,
+        Hats,
+        Helmets,
+        Masks,
+        HandsAndArms,
+        ShirtsAndJackets,
+        Holsters,
+        Vests,
+        Pants,
+        Boots
     }
 }

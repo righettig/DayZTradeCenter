@@ -710,6 +710,166 @@ namespace DayZTradeCenter.DomainModel.Migrations
                 });
 
             #endregion
+
+            #region Clothing
+
+            // http://dayz.gamepedia.com/Clothing
+
+            const ItemCategories clothing = ItemCategories.Clothing;
+
+            // Eyewear
+            //-------------------
+            CreateItem(context, clothing, ItemSubcategories.Eyewear,
+                new[]
+                {
+                    "Designer Sunglasses",
+                    "Glasses with thin frames",
+                    "Glasses with thick frames",
+                    "Rocket Aviators"
+                });
+
+
+            // Hats
+            //-------------------
+            CreateItem(context, clothing, ItemSubcategories.Hats,
+                new[]
+                {
+                    "Bandana",
+                    "Baseball Cap",
+                    "Beanie Hat",
+                    "Beret",
+                    "Boonie Hat",
+                    "Cowboy Hat",
+                    "Flat Cap",
+                    "Pilotka",
+                    "Police Cap",
+                    "Radar Cap",
+                    "Soviet Army Officer's Hat",
+                    "Ushanka",
+                    "Zmijovka Cap"
+                });
+
+
+            // Helmets
+            //-------------------
+            CreateItem(context, clothing, ItemSubcategories.Helmets,
+                new[]
+                {
+                    "Ballistic Helmet",
+                    "Gorka E Military Helmet",
+                    "Hard Hat",
+                    "Motorbike Helmet",
+                    "Tanker Helmet",
+                    "ZSh3 Pilot Helmet"
+                });
+
+
+            // Masks
+            //-------------------
+            CreateItem(context, clothing, ItemSubcategories.Masks,
+                new[]
+                {
+                    "Dallas mask",
+                    "Hotxon mask",
+                    "Wolf mask",
+                    "Balaclava",
+                    "Gas mask",
+                    "Respirator"
+                });
+
+
+            // Hands and Arms
+            //-------------------
+            CreateItem(context, clothing, ItemSubcategories.HandsAndArms,
+                new[]
+                {
+                    "Working Gloves"
+                });
+
+
+            // Shirts and Jackets
+            //-------------------
+            CreateItem(context, clothing, ItemSubcategories.ShirtsAndJackets,
+                new[]
+                {
+                    "Down Jacket",
+                    "Firefighter Jacket",
+                    "Gorka Military Uniform Jacket",
+                    "Hoodie",
+                    "OREL Unit Uniform Jacket",
+                    "Paramedic Jacket",
+                    "Police Uniform Jacket",
+                    "Raincoat",
+                    "Riders Jacket",
+                    "Shirt",
+                    "T-Shirt",
+                    "Tactical Shirt",
+                    "Tracksuit Jacket",
+                    "TTsKO Jacket",
+                    "Wool Coat"
+                });
+
+
+            // Holsters
+            //-------------------
+            CreateItem(context, clothing, ItemSubcategories.Holsters,
+                new[]
+                {
+                    "Chest Holster"
+                });
+
+
+            // Vests
+            //-------------------
+            CreateItem(context, clothing, ItemSubcategories.Vests,
+                new[]
+                {
+                    "Anti-stab Vest",
+                    "Blue Press Vest",
+                    "AHigh Capacity Vest",
+                    "Smersh Vest",
+                    "Smersh Vest with Backpack attached",
+                    "UK Assault Vest"
+                });
+
+
+            // Pants
+            //-------------------
+            CreateItem(context, clothing, ItemSubcategories.Pants,
+                new[]
+                {
+                    "Chernarus Police Uniform Pants",
+                    "Canvas Pants",
+                    "Canvas Pants Short",
+                    "Cargo Pants",
+                    "Gorka Military Pants",
+                    "Hunter Pants",
+                    "Jeans",
+                    "Paramedic Pants",
+                    "OREL Unit Uniform Pants",
+                    "Tracksuit Pants",
+                    "TTsKO Pants"
+                });
+
+
+            // Boots
+            //-------------------
+            CreateItem(context, clothing, ItemSubcategories.Boots,
+                new[]
+                {
+                    "Athletic Shoes",
+                    "Combat Boots",
+                    "Hiking Boots",
+                    "Jogging Shoes",
+                    "Jungle Boots",
+                    "Leather Shoes",
+                    "Low Hiking Boots",
+                    "Military Boots",
+                    "Wellies",
+                    "Working Boots"
+                });
+
+            #endregion
         }
 
         #region Helpers
