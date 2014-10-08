@@ -108,7 +108,12 @@ namespace DayZTradeCenter.DomainModel.Services
 
             if (@params.ItemId.HasValue)
             {
-                var trades = GetActiveTrades();
+                var trades = 
+                    GetActiveTrades()
+                    // this solves: "There is already an open DataReader associated with this Command which must be closed first."
+                    // NB: another viable solution is to turn on MultipleActiveResultSets or to disable lazy-loading and use "Include"
+                    // http://stackoverflow.com/questions/4867602/entity-framework-there-is-already-an-open-datareader-associated-with-this-comma
+                    .ToArray(); // <-- the problem here is that *ALL* the trades are loaded into memory!
 
                 switch (@params.Type)
                 {
