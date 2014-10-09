@@ -327,6 +327,11 @@ namespace DayZTradeCenter.DomainModel.Services
         {
             var trade = _tradesRepository.GetSingle(tradeId);
 
+            if (userId == trade.Owner.Id)
+            {
+                return false;
+            }
+
             var user = trade.Offers.FirstOrDefault(o => o.Id == userId);
 
             trade.Offers.Remove(user);
