@@ -164,75 +164,38 @@ namespace DayZTradeCenter.DomainModel.Services
 
         public ItemCategories? GetMostWantedCategory()
         {
-            var result =
-                GetMostListedItem(trade => trade.Want)
-                    .GroupBy(x => x.Item.Details.Category)
-                    .Select(x => new
-                    {
-                        Category = x.Key,
-                        Count = x.Count()
-                    })
-                    .OrderByDescending(x => x.Count)
-                    .FirstOrDefault();
-
-            if (result != null)
-            {
-                return result.Category;
-            }
-            
-            return null;
+            return Most(
+                trade => trade.Want, x => x.Item.Details.Category);
         }
 
         public ItemCategories? GetMostOfferedCategory()
         {
-            var result =
-                GetMostListedItem(trade => trade.Have)
-                    .GroupBy(x => x.Item.Details.Category)
-                    .Select(x => new
-                    {
-                        Category = x.Key,
-                        Count = x.Count()
-                    })
-                    .OrderByDescending(x => x.Count)
-                    .FirstOrDefault();
-
-            if (result != null)
-            {
-                return result.Category;
-            }
-
-            return null;
+            return Most(
+                trade => trade.Have, x => x.Item.Details.Category);
         }
 
         public ItemSubcategories? GetMostWantedSubcategory()
         {
-            var result =
-                GetMostListedItem(trade => trade.Want)
-                    .GroupBy(x => x.Item.Details.Subcategory)
-                    .Select(x => new
-                    {
-                        Subcategory = x.Key,
-                        Count = x.Count()
-                    })
-                    .OrderByDescending(x => x.Count)
-                    .FirstOrDefault();
-
-            if (result != null)
-            {
-                return result.Subcategory;
-            }
-
-            return null;
+            return Most(
+                trade => trade.Want, x => x.Item.Details.Subcategory);
         }
 
         public ItemSubcategories? GetMostOfferedSubcategory()
         {
+            return Most(
+                trade => trade.Have, x => x.Item.Details.Subcategory);
+        }
+
+        private T? Most<T>(
+            Func<Trade, IEnumerable<TradeDetails>> collectionSelector,
+            Func<ItemDetails, T> keySelector) where T : struct
+        {
             var result =
-                GetMostListedItem(trade => trade.Have)
-                    .GroupBy(x => x.Item.Details.Subcategory)
+                GetMostListedItem(collectionSelector)
+                    .GroupBy(keySelector)
                     .Select(x => new
                     {
-                        Subcategory = x.Key,
+                        x.Key,
                         Count = x.Count()
                     })
                     .OrderByDescending(x => x.Count)
@@ -240,7 +203,7 @@ namespace DayZTradeCenter.DomainModel.Services
 
             if (result != null)
             {
-                return result.Subcategory;
+                return result.Key;
             }
 
             return null;
