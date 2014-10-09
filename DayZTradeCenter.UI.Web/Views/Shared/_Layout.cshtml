@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using DayZTradeCenter.UI.Web.Helpers
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -45,7 +47,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - DayZ Trade Center</p>
+            <p>&copy; @DateTime.Now.Year - DayZ Trade Center - @Html.AssemblyVersion()</p>
         </footer>
     </div>
 
