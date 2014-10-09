@@ -258,10 +258,16 @@ namespace DayZTradeCenter.UI.Web.Controllers
         {
             var trade = _tradeManager.GetTradeById(id);
 
+            var currentUserId = User.Identity.GetUserId();
+            if (currentUserId != trade.Owner.Id)
+            {
+                return View("Unauthorized");
+            }
+
             var user = await _userManager.FindByIdAsync(trade.Winner.Id);
             
             var model = _tradeManager.MarkAsCompleted(id, user);
-            _profileManager.AddHistoryEvent(User.Identity.GetUserId(), Events.TradeCompleted);
+            _profileManager.AddHistoryEvent(currentUserId, Events.TradeCompleted);
 
             await _userManager.UpdateAsync(user);
 
