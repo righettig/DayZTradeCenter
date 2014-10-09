@@ -230,6 +230,11 @@ namespace DayZTradeCenter.UI.Web.Controllers
             }
 
             var trade = _tradeManager.GetTradeById(vm.TradeId);
+            var currentUserId = User.Identity.GetUserId();
+            if (currentUserId != trade.Owner.Id)
+            {
+                return View("Unauthorized");
+            }
 
             var message = new ExchangeDetailsMessage(vm.Details);
 
