@@ -8,7 +8,7 @@
     <div class="col-md-1"><h2>Analytics</h2></div>
     <div class="col-md-6" style="margin-top: 18px; padding-left: 55px;">
         Try our new <a href="@Url.Action("WebApi", "Home")"><strong>web api!</strong></a>
-        <img src="../../Content/img/new_feature.png" alt="" style="padding-left: 3px; margin-top: -3px"/>
+        <img src="../../Content/img/new_feature.png" alt="" style="padding-left: 3px; margin-top: -3px" />
     </div>
 </div>
 
@@ -62,14 +62,56 @@
         </div>
     </div>
 
+    <!-- #region Categories and subcategories -->
     <div class="row" style="margin-top: 5px">
-        <div class="col-md-5 col-md-offset-1">Most wanted <strong>category</strong>: @Model.MostWantedCategory</div>
-        <div class="col-md-5">Most offered <strong>category</strong>: @Model.MostOfferedCategory</div>
+        <div class="col-md-5 col-md-offset-1">
+            Most wanted <strong>category</strong>:
+            @if (Model.MostWantedCategory.HasValue)
+            {
+                @Model.MostWantedCategory
+            }
+            else
+            {
+                <em>no data available!</em>
+            }
+        </div>
+        <div class="col-md-5">
+            Most offered <strong>category</strong>:
+            @if (Model.MostOfferedCategory.HasValue)
+            {
+                @Model.MostOfferedCategory
+            }
+            else
+            {
+                <em>no data available!</em>
+            }
+        </div>
     </div>
     <div class="row" style="margin-top: 5px">
-        <div class="col-md-5 col-md-offset-1">Most wanted <strong>subcategory</strong>: @Model.MostWantedSubcategory</div>
-        <div class="col-md-5">Most offered <strong>subcategory</strong>: @Model.MostOfferedSubcategory</div>
+        <div class="col-md-5 col-md-offset-1">
+            Most wanted <strong>subcategory</strong>:
+            @if (Model.MostWantedSubcategory.HasValue)
+            {
+                @Model.MostWantedSubcategory
+            }
+            else
+            {
+                <em>no data available!</em>
+            }
+        </div>
+        <div class="col-md-5">
+            Most offered <strong>subcategory</strong>:
+            @if (Model.MostOfferedSubcategory.HasValue)
+            {
+                @Model.MostOfferedSubcategory
+            }
+            else
+            {
+                <em>no data available!</em>
+            }
+        </div>
     </div>
+    <!-- #endregion -->
 
     <div class="row" style="margin-top: 25px">
         <div class="jumbotron">
