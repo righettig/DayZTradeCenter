@@ -131,8 +131,10 @@ namespace DayZTradeCenter.UI.Web.Controllers
         {
             var userId = User.Identity.GetUserId();
 
-            _tradeManager.DeleteTrade(tradeId, userId);
-            _profileManager.AddHistoryEvent(userId, Events.TradeDeleted);
+            if (_tradeManager.DeleteTrade(tradeId, userId))
+            {
+                _profileManager.AddHistoryEvent(userId, Events.TradeDeleted);    
+            }
 
             return RedirectToAction("Index");
         }
