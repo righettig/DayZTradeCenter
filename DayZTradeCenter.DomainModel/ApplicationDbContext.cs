@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using DayZTradeCenter.DomainModel.Entities;
+using DayZTradeCenter.DomainModel.Migrations;
 using DayZTradeCenter.DomainModel.Services;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -24,6 +25,11 @@ namespace DayZTradeCenter.DomainModel
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+#if !DEBUG
+            Database.SetInitializer(
+                new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
+#endif
 
             modelBuilder.Entity<TradeDetails>()
                 .HasRequired(td => td.Item);

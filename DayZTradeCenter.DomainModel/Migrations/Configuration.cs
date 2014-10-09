@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using DayZTradeCenter.DomainModel.Entities;
@@ -14,7 +13,13 @@ namespace DayZTradeCenter.DomainModel.Migrations
     {
         public Configuration()
         {
+#if DEBUG
             AutomaticMigrationsEnabled = false;
+#else
+            // http://blog.appharbor.com/2012/04/24/automatic-migrations-with-entity-framework-4-3
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = true;
+#endif
         }
 
         protected override void Seed(ApplicationDbContext context)
