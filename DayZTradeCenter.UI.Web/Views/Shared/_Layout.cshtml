@@ -47,7 +47,11 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - DayZ Trade Center - @Html.AssemblyVersion()</p>
+            <p style="padding-left: 10px">
+                &copy; @DateTime.Now.Year - DayZ Trade Center - @Html.AssemblyVersion()
+                <a href="@Url.Action("Index", "Features")" style="padding-left: 20px">About DayZ Trade Center</a>
+                <a href="@Url.Action("Contact", "Home")" style="padding-left: 10px">Contact</a>
+            </p>
         </footer>
     </div>
 

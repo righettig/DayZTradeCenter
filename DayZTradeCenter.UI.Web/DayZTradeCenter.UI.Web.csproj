@@ -372,6 +372,7 @@
     <Content Include="Views\Analytics\_TrendsChart.cshtml" />
     <Content Include="Views\Trades\AlreadyLeftFeedback.cshtml" />
     <Content Include="Views\Shared\Unauthorized.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
