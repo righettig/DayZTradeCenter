@@ -85,7 +85,7 @@
             $("#ItemId").change(function () {
                 var itemId = $("#ItemId").val();
                 $("#chart").load(
-                    '@(Url.Action("GetDailyTrendsFor", "Analytics", null, Request.Url.Scheme))?itemId=' + itemId);
+                    '@(Url.Action("GetDailyTrendsFor", "Analytics"))?itemId=' + itemId);
             });
         });
     </script>
