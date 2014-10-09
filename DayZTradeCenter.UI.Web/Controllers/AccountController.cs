@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -137,6 +138,11 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 ExternalIdentity = new ClaimsIdentity("ExternalCookie")
             };
 #else
+            Trace.TraceInformation("Hello world");
+
+            var traceSource = new TraceSource("AppHarborTraceSource", defaultLevel: SourceLevels.All);
+            traceSource.TraceEvent(TraceEventType.Critical, 0, "Foo");
+
             var loginInfo = await _authenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
