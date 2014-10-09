@@ -216,6 +216,11 @@ namespace DayZTradeCenter.DomainModel.Services
         public bool CreateNewTrade(
             IEnumerable<ItemViewModel> have, IEnumerable<ItemViewModel> want, ApplicationUser user)
         {
+            if (!CanCreateTrade(user.Id))
+            {
+                return false;
+            }
+
             var trade = new Trade();
 
             foreach (var itemDetails in have)
