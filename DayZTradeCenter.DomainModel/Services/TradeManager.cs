@@ -4,6 +4,7 @@ using System.Linq;
 using DayZTradeCenter.DomainModel.Entities;
 using DayZTradeCenter.DomainModel.Entities.Messages;
 using DayZTradeCenter.DomainModel.Interfaces;
+using DayZTradeCenter.DomainModel.Migrations;
 using Microsoft.AspNet.Identity;
 using rg.GenericRepository.Core;
 using rg.Time;
@@ -347,12 +348,18 @@ namespace DayZTradeCenter.DomainModel.Services
         /// </summary>
         /// <param name="tradeId">The trade identifier.</param>
         /// <param name="userId">The user identifier.</param>
+        /// <param name="currentUserId">The user identifier of the user who is invoking the operation.</param>
         /// <returns>
         ///   <c>True</c> if the operation was successful, <c>false</c> otherwise.
         /// </returns>
-        public bool ChooseWinner(int tradeId, string userId)
+        public bool ChooseWinner(int tradeId, string userId, string currentUserId)
         {
             var trade = _tradesRepository.GetSingle(tradeId);
+
+            if (currentUserId != trade.Owner.Id) // the user is *not* entitled to choose the winner!
+            {
+                return false;
+            }
 
             // sends a message to the winner.
             var winner = _userStore.FindByIdAsync(userId).Result;

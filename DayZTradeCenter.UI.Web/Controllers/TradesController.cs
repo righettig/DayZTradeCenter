@@ -186,7 +186,9 @@ namespace DayZTradeCenter.UI.Web.Controllers
         // GET: Trades/ChooseWinner/tradeId=1&userId=2
         public ActionResult ChooseWinner(int tradeId, string userId)
         {
-            if (_tradeManager.ChooseWinner(tradeId, userId))
+            var currentUserId = User.Identity.GetUserId();
+
+            if (_tradeManager.ChooseWinner(tradeId, userId, currentUserId))
             {
                 _profileManager.AddHistoryEvent(User.Identity.GetUserId(), Events.WinnerChoosen);
             }

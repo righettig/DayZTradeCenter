@@ -121,11 +121,12 @@ namespace DayZTradeCenter.DomainModel.Interfaces
         /// Marks the user with the specified user id as the winner for given trade.
         /// </summary>
         /// <param name="tradeId">The trade identifier.</param>
-        /// <param name="userId">The user identifier.</param>
+        /// <param name="userId">The user identifier of the winner.</param>
+        /// <param name="currentUserId">The user identifier of the user who is invoking the operation.</param>
         /// <returns>
         ///   <c>True</c> if the operation was successful, <c>false</c> otherwise.
         /// </returns>
-        bool ChooseWinner(int tradeId, string userId);
+        bool ChooseWinner(int tradeId, string userId, string currentUserId);
 
         /// <summary>
         /// Marks the trade with the specified id as completed.
