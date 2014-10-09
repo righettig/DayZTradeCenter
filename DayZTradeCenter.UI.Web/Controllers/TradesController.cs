@@ -199,6 +199,14 @@ namespace DayZTradeCenter.UI.Web.Controllers
         // GET: Trades/ExchangeManagement/5
         public async Task<ActionResult> ExchangeManagement(int id)
         {
+            var currentUserId = User.Identity.GetUserId();
+            var trade = _tradeManager.GetTradeById(id);
+
+            if (currentUserId != trade.Owner.Id)
+            {
+                return View("Unauthorized");
+            }
+
             // get the steam id of the current user.
             var steamId = await GetSteamId();
 
