@@ -85,6 +85,12 @@ namespace DayZTradeCenter.UI.Web.Controllers
             return View();
         }
 
+        [AllowAnonymous]
+        public ViewResult WebApi()
+        {
+            return View();
+        }
+
         private async Task<ApplicationUser> GetCurrentUser()
         {
             var userId = User.Identity.GetUserId();

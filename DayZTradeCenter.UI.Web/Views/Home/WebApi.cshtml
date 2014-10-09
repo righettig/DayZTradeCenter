@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "WebApi";
+}
+
+@section styles {
+    <style>
+        h4 {
+            margin-top: 30px;
+        }
+        li {
+            margin-top: 8px;
+        }
+    </style>
+}
+
+<h2>WebApi</h2>
+
+<h4>Trends</h4>
+<p>
+    <ul>
+        <li>api/trends?itemId=1 <a href="/api/trends?itemId=1">TRY!</a></li>
+    </ul>
+</p>
+
+<h4>Items</h4>
+<p>
+    <ul>
+        <li>api/items/most_wanted <a href="/api/items/most_wanted">TRY!</a></li>
+        <li>api/items/most_wanted/{start:datetime}/{end:datetime} <a href="/api/items/most_wanted/2012-01-01/2015-01-01">TRY!</a></li>
+        <li>api/items/most_offered <a href="/api/items/most_offered">TRY!</a></li>
+        <li>api/items/most_offered/{start:datetime}/{end:datetime} <a href="/api/items/most_offered/2012-01-01/2015-01-01">TRY!</a></li>
+    </ul>
+</p>

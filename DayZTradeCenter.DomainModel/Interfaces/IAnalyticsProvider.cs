@@ -39,6 +39,12 @@ namespace DayZTradeCenter.DomainModel.Interfaces
         /// <param name="tradeId">The trade identifier.</param>
         /// <returns>The "T" score of the given trade.</returns>
         float GetTScore(int tradeId);
+
+        ItemCategories? GetMostWantedCategory();
+        ItemCategories? GetMostOfferedCategory();
+
+        ItemSubcategories? GetMostWantedSubcategory();
+        ItemSubcategories? GetMostOfferedSubcategory();
     }
 
     public class ItemDetails

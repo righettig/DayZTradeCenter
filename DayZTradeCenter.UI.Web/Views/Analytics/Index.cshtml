@@ -4,7 +4,13 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Analytics</h2>
+<div class="row" style="margin-bottom: -10px">
+    <div class="col-md-1"><h2>Analytics</h2></div>
+    <div class="col-md-6" style="margin-top: 18px; padding-left: 55px;">
+        Try our new <a href="@Url.Action("WebApi", "Home")"><strong>web api!</strong></a>
+        <img src="../../Content/img/new_feature.png" alt="" style="padding-left: 3px; margin-top: -3px"/>
+    </div>
+</div>
 
 <hr />
 
@@ -55,7 +61,17 @@
             </div>
         </div>
     </div>
-    <div class="row" style="margin-top: 20px">
+
+    <div class="row" style="margin-top: 5px">
+        <div class="col-md-5 col-md-offset-1">Most wanted <strong>category</strong>: @Model.MostWantedCategory</div>
+        <div class="col-md-5">Most offered <strong>category</strong>: @Model.MostOfferedCategory</div>
+    </div>
+    <div class="row" style="margin-top: 5px">
+        <div class="col-md-5 col-md-offset-1">Most wanted <strong>subcategory</strong>: @Model.MostWantedSubcategory</div>
+        <div class="col-md-5">Most offered <strong>subcategory</strong>: @Model.MostOfferedSubcategory</div>
+    </div>
+
+    <div class="row" style="margin-top: 25px">
         <div class="jumbotron">
             <div class="row" style="margin-top: -20px">
                 <div class="col-md-2">

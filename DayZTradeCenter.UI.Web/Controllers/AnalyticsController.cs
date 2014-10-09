@@ -36,6 +36,10 @@ namespace DayZTradeCenter.UI.Web.Controllers
             {
                 MostWantedItems = _provider.GetMostWantedItem(),
                 MostOfferedItems = _provider.GetMostOfferedItem(),
+                MostWantedCategory = _provider.GetMostWantedCategory(),
+                MostOfferedCategory = _provider.GetMostOfferedCategory(),
+                MostWantedSubcategory = _provider.GetMostWantedSubcategory(),
+                MostOfferedSubcategory = _provider.GetMostOfferedSubcategory(),
                 Items = new SelectList(items, "Id", "Name")
             };
 

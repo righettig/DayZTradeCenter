@@ -162,6 +162,90 @@ namespace DayZTradeCenter.DomainModel.Services
             return result;
         }
 
+        public ItemCategories? GetMostWantedCategory()
+        {
+            var result =
+                GetMostListedItem(trade => trade.Want)
+                    .GroupBy(x => x.Item.Details.Category)
+                    .Select(x => new
+                    {
+                        Category = x.Key,
+                        Count = x.Count()
+                    })
+                    .OrderByDescending(x => x.Count)
+                    .FirstOrDefault();
+
+            if (result != null)
+            {
+                return result.Category;
+            }
+            
+            return null;
+        }
+
+        public ItemCategories? GetMostOfferedCategory()
+        {
+            var result =
+                GetMostListedItem(trade => trade.Have)
+                    .GroupBy(x => x.Item.Details.Category)
+                    .Select(x => new
+                    {
+                        Category = x.Key,
+                        Count = x.Count()
+                    })
+                    .OrderByDescending(x => x.Count)
+                    .FirstOrDefault();
+
+            if (result != null)
+            {
+                return result.Category;
+            }
+
+            return null;
+        }
+
+        public ItemSubcategories? GetMostWantedSubcategory()
+        {
+            var result =
+                GetMostListedItem(trade => trade.Want)
+                    .GroupBy(x => x.Item.Details.Subcategory)
+                    .Select(x => new
+                    {
+                        Subcategory = x.Key,
+                        Count = x.Count()
+                    })
+                    .OrderByDescending(x => x.Count)
+                    .FirstOrDefault();
+
+            if (result != null)
+            {
+                return result.Subcategory;
+            }
+
+            return null;
+        }
+
+        public ItemSubcategories? GetMostOfferedSubcategory()
+        {
+            var result =
+                GetMostListedItem(trade => trade.Have)
+                    .GroupBy(x => x.Item.Details.Subcategory)
+                    .Select(x => new
+                    {
+                        Subcategory = x.Key,
+                        Count = x.Count()
+                    })
+                    .OrderByDescending(x => x.Count)
+                    .FirstOrDefault();
+
+            if (result != null)
+            {
+                return result.Subcategory;
+            }
+
+            return null;
+        }
+
         private IEnumerable<ItemDetails> GetMostListedItem(
             Func<Trade, IEnumerable<TradeDetails>> collectionSelector)
         {

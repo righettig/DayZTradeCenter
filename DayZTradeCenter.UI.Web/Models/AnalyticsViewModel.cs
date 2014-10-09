@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using DayZTradeCenter.DomainModel.Entities;
 using DayZTradeCenter.DomainModel.Interfaces;
 using DotNet.Highcharts;
 
@@ -19,7 +20,13 @@ namespace DayZTradeCenter.UI.Web.Models
 
         public IEnumerable<ItemDetails> MostWantedItems { get; set; }
         public IEnumerable<ItemDetails> MostOfferedItems { get; set; }
+        
+        public ItemCategories? MostWantedCategory { get; set; }
+        public ItemCategories? MostOfferedCategory { get; set; }
 
+        public ItemSubcategories? MostWantedSubcategory { get; set; }
+        public ItemSubcategories? MostOfferedSubcategory { get; set; }
+        
         // http://offering.solutions/2014/05/09/how-to-include-dotnet-highcharts-in-asp-net-mvc-with-viewmodels/
         public Highcharts Chart { get; set; }
 
