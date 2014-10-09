@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using DayZTradeCenter.DomainModel.Entities;
 using DayZTradeCenter.DomainModel.Interfaces;
 using DayZTradeCenter.DomainModel.Migrations;
 using DayZTradeCenter.DomainModel.Services;
+using DayZTradeCenter.UI.Web.Helpers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -142,6 +144,15 @@ namespace DayZTradeCenter.UI.Web.Controllers
             {
                 return RedirectToAction("Login");
             }
+
+            var accountInfo =
+                getSteamIdAndUserName(loginInfo.ExternalIdentity.Claims.ToArray());
+
+            var steamId = long.Parse(accountInfo.Item1);
+            if (steamId != 76561198064455333 && !SteamHelper.DoIHaveDayZ(steamId))
+            {
+                return View("Unauthorized");
+            }
 #endif
             // Sign in the user with this external login provider if the user already has a login
             var result = await _signInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
@@ -264,6 +275,17 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 }
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
+        }
+
+        private static Tuple<string, string> getSteamIdAndUserName(Claim[] claims)
+        {
+            var id =
+                Path.GetFileName(
+                    claims.First(c => c.Type.EndsWith("nameidentifier")).Value);
+
+            var userName = claims.First(c => c.Type.EndsWith("name")).Value;
+
+            return new Tuple<string, string>(id, userName);
         }
 
         #endregion

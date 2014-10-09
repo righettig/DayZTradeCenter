@@ -93,6 +93,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Owin.Security.Providers.1.9.0\lib\net45\Owin.Security.Providers.dll</HintPath>
     </Reference>
+    <Reference Include="PortableSteam">
+      <HintPath>..\packages\SteamWebAPI.1.0.13\lib\portable-net45+wp8+win8\PortableSteam.dll</HintPath>
+    </Reference>
     <Reference Include="rg.GenericRepository.Core, Version=1.0.5377.24759, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\rg.GenericRepository.Core.1.0.5377.24759\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+MonoTouch10\rg.GenericRepository.Core.dll</HintPath>
@@ -104,9 +107,15 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.18\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http.Formatting, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.2\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.18\lib\net45\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -208,6 +217,7 @@
     <Compile Include="Controllers\Api\TrendsController.cs" />
     <Compile Include="Filters\LoadUserInboxActionFilter.cs" />
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
+    <Compile Include="Helpers\SteamHelper.cs" />
     <Compile Include="Models\AnalyticsViewModel.cs" />
     <Compile Include="Models\CompleteHistoryViewModel.cs" />
     <Compile Include="Models\CreateTradeViewModel.cs" />
