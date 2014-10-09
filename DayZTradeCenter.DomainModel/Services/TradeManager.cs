@@ -268,6 +268,10 @@ namespace DayZTradeCenter.DomainModel.Services
                     _userStore.UpdateAsync(user).Wait();
                 }
 
+                // TODO: fix delete with proper "on delete cascade". This is just a patch!
+                trade.Want.ToList().ForEach(d => trade.Want.Remove(d));
+                trade.Have.ToList().ForEach(d => trade.Have.Remove(d));
+
                 _tradesRepository.Delete(trade);
                 _tradesRepository.SaveChanges();
 
