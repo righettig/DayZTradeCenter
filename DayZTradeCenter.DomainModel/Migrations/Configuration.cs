@@ -31,8 +31,9 @@ namespace DayZTradeCenter.DomainModel.Migrations
             //    System.Diagnostics.Debugger.Launch();
 
             CreateRoles(context);
+#if DEBUG
             CreateUsers(context);
-
+#endif
             #region Items
 
             // Last update: 08/10/2014
