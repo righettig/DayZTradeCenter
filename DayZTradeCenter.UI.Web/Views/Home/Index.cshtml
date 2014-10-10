@@ -24,16 +24,16 @@
     <h1>
         Profile
     </h1>
-    @Html.DisplayNameFor(model => model.Reputation)
-    @if (Model.Reputation.HasValue)
+    @Html.DisplayNameFor(model => model.Stats.Reputation)
+    @if (Model.Stats.Reputation.HasValue)
     {
-        if (Model.Reputation > 4.5)
+        if (Model.Stats.Reputation > 4.5)
         {
             <img src="~/Content/img/top_user.png" />
         }
         else
         {
-            <span class="badge">@Html.DisplayFor(model => model.Reputation)</span>
+            <span class="badge">@Html.DisplayFor(model => model.Stats.Reputation)</span>
         }
     }
     else
@@ -42,11 +42,11 @@
     }
     @{
         var color = "black";
-        if (Model.Ranking == 1)
+        if (Model.Stats.Ranking == 1)
         {
             color = "red";
         }
-        else if (Model.Ranking == 2 || Model.Ranking == 3)
+        else if (Model.Stats.Ranking == 2 || Model.Stats.Ranking == 3)
         {
             color = "green";
         }
@@ -56,16 +56,16 @@
           data-toggle="tooltip"
           data-placement="bottom"
           title="Your current ranking">
-        # <strong>@Model.Ranking</strong>
+        # <strong>@Model.Stats.Ranking</strong>
     </span>
-    @if (Model.Ranking != 1)
+    @if (Model.Stats.Ranking != 1)
     {
         <span id="target"
               style="margin-left: 5px"
               data-toggle="tooltip"
               data-placement="right"
               title="Based on the current reputation ranking, this is the reputation of the player who is preceding you!">
-            Let's see if you can reach reputation: <strong>@Model.TargetReputation</strong>
+            Let's see if you can reach reputation: <strong>@Model.Stats.TargetReputation</strong>
         </span>
     }
 </div>

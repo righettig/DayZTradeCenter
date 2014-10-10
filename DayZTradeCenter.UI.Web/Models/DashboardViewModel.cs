@@ -17,13 +17,32 @@ namespace DayZTradeCenter.UI.Web.Models
             : base(latestTrades, hotTrades)
         {
         }
-
-        public float? Reputation { get; set; }
-        
+       
         public IEnumerable<Trade> MyTrades { get; set; }
         public IEnumerable<Trade> MyOffers { get; set; }
         
         public IEnumerable<EventInfo> History { get; set; }
+
+        public UserStats Stats { get; set; }
+    }
+
+    public class UserStats
+    {
+        /// <summary>
+        /// Gets or sets the ranking.
+        /// </summary>
+        /// <value>
+        /// The reputation ranking.
+        /// </value>
+        public int Ranking { get; set; }
+
+        /// <summary>
+        /// Gets or sets the reputation.
+        /// </summary>
+        /// <value>
+        /// The reputation.
+        /// </value>
+        public float? Reputation { get; set; }
 
         /// <summary>
         /// Gets or sets the target reputation.
@@ -32,13 +51,5 @@ namespace DayZTradeCenter.UI.Web.Models
         /// The target reputation, i.e., the reputation of the next user in the reputation-based ranking.
         /// </value>
         public float? TargetReputation { get; set; }
-
-        /// <summary>
-        /// Gets or sets the ranking.
-        /// </summary>
-        /// <value>
-        /// The reputation ranking.
-        /// </value>
-        public int Ranking { get; set; }
     }
 }

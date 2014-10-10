@@ -67,32 +67,14 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 return View("AdminIndex");
             }
 
-            // get the next reputation "target".
-            var reputation = user.GetReputation();
-
-            var allReputations = _userManager.Users.ToArray()
-                .Select(x => new {UserId = x.Id, Reputation = x.GetReputation()})
-                .OrderByDescending(x => x.Reputation)
-                .Select((x, i) => new {Index = i, x.UserId, x.Reputation}).ToArray();
-
-            float? targetReputation = null;
-            
-            allReputations
-                .TakeWhile(x => x.UserId != user.Id && Math.Abs(x.Reputation - reputation) > 0.001f)
-                .LastOrDefault()
-                .IfNotNull(x => targetReputation = x.Reputation);
-
             var vm = new DashboardViewModel(latestTrades, hottestTrades)
             {
-                Reputation = reputation > 0 ? reputation : (float?) null,
-
                 MyTrades = _tradeManager.GetTradesByUser(user.Id),
                 MyOffers = _tradeManager.GetOffersByUser(user.Id),
 
                 History = _profileManager.GetHistoryByUserId(user.Id),
 
-                TargetReputation = targetReputation,
-                Ranking = allReputations.First(x => x.UserId == user.Id).Index + 1
+                Stats = GetRankingDetails(user)
             };
 
             return View(vm);
@@ -117,6 +99,31 @@ namespace DayZTradeCenter.UI.Web.Controllers
             var user = await _userManager.FindByIdAsync(userId);
 
             return user;
+        }
+
+        private UserStats GetRankingDetails(ApplicationUser user)
+        {
+            var userId = user.Id;
+            var reputation = user.GetReputation();
+
+            var allReputations = _userManager.Users.ToArray()
+                .Select(x => new {UserId = x.Id, Reputation = x.GetReputation()})
+                .OrderByDescending(x => x.Reputation)
+                .Select((x, i) => new {Index = i, x.UserId, x.Reputation}).ToArray();
+
+            float? targetReputation = null;
+
+            allReputations
+                .TakeWhile(x => x.UserId != userId && Math.Abs(x.Reputation - reputation) > 0.001f)
+                .LastOrDefault()
+                .IfNotNull(x => targetReputation = x.Reputation);
+
+            return new UserStats
+            {
+                Ranking = allReputations.First(x => x.UserId == userId).Index + 1,
+                Reputation = reputation > 0 ? reputation : (float?) null,
+                TargetReputation = targetReputation
+            };
         }
 
         #region Private fields
