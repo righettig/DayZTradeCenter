@@ -115,20 +115,23 @@ namespace DayZTradeCenter.UI.Web.Controllers
             return View(model.Messages.OrderByDescending(m => m.Timestamp));
         }
 
-        public ViewResult CompleteHistory()
+        public async Task<ViewResult> CompleteHistory(string userId)
         {
+            var user = await _userManager.FindByIdAsync(userId);
+            var data = _profileManager.GetReputationHistory(user).ToArray();
+
             var vm = new CompleteHistoryViewModel();
 
             var chart = new Highcharts("chart")
                 .SetXAxis(new XAxis
                 {
                     Categories =
-                        new[] {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}
+                        data.Select(x => x.Date.ToShortDateString()).ToArray()
                 })
                 .SetSeries(new Series
                 {
                     Data =
-                        new Data(new object[] {29.9, 71.5, 106.4, 129.2, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4})
+                        new Data(data.Select(x => x.Value).Cast<object>().ToArray())
                 });
 
             vm.Chart = chart;

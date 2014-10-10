@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using DayZTradeCenter.DomainModel.Entities;
 using DayZTradeCenter.DomainModel.Interfaces;
 using rg.GenericRepository.Core;
 using rg.Time;
@@ -53,6 +54,26 @@ namespace DayZTradeCenter.DomainModel.Services
                 .GetAll()
                 .Where(e => e.UserId == userId)
                 .OrderByDescending(e => e.TimeStamp);
+        }
+
+        public IEnumerable<ReputationHistoryResult> GetReputationHistory(ApplicationUser user)
+        {
+            var howMany = user.Feedbacks.Count;
+
+            var result = new List<ReputationHistoryResult>();
+            for (var i = 1; i <= howMany; i++)
+            {
+                var feedback = user.Feedbacks.Take(i).ToArray();
+
+                result.Add(
+                    new ReputationHistoryResult
+                    {
+                        Date = feedback.Last().Timestamp,
+                        Value = feedback.Average(x => x.Score)
+                    });
+            }
+
+            return result;
         }
 
         private readonly IRepository<EventInfo> _eventsRepository;
@@ -108,5 +129,11 @@ namespace DayZTradeCenter.DomainModel.Services
         WinnerChoosen,
         TradeCompleted,
         FeedbackLeft
+    }
+
+    public class ReputationHistoryResult
+    {
+        public DateTime Date { get; set; }
+        public double Value { get; set; }
     }
 }

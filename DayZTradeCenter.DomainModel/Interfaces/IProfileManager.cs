@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DayZTradeCenter.DomainModel.Entities;
 using DayZTradeCenter.DomainModel.Services;
 
 namespace DayZTradeCenter.DomainModel.Interfaces
@@ -18,5 +19,7 @@ namespace DayZTradeCenter.DomainModel.Interfaces
         /// <param name="userId">The user identifier.</param>
         /// <returns>The history events listed in reverse chronological order.</returns>
         IEnumerable<EventInfo> GetHistoryByUserId(string userId);
+
+        IEnumerable<ReputationHistoryResult> GetReputationHistory(ApplicationUser user);
     }
 }

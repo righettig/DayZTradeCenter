@@ -53,7 +53,7 @@
                             @if (offer.Feedbacks != null && offer.Feedbacks.Any())
                             {
                                 <br /><br />
-                                <span>Last 3 transactions (@Html.ActionLink("Complete history", "CompleteHistory", "Profile")): </span>
+                                <span>Last 3 transactions (@Html.ActionLink("Complete history", "CompleteHistory", "Profile", new { userId = offer.Id }, null)): </span>
                                 <br />
                                 <ul>
                                     @foreach (var feedback in offer.Feedbacks.OrderByDescending(f => f.Timestamp).Take(3))
