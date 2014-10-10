@@ -106,10 +106,13 @@ namespace DayZTradeCenter.UI.Web.Controllers
             var userId = user.Id;
             var reputation = user.GetReputation();
 
-            var allReputations = _userManager.Users.ToArray()
+            var allReputations = _userManager.Users
+                .ToArray()
+                .Where(u => !_userManager.GetRoles(u.Id).Contains("Administrator"))
                 .Select(x => new {UserId = x.Id, Reputation = x.GetReputation()})
                 .OrderByDescending(x => x.Reputation)
-                .Select((x, i) => new {Index = i, x.UserId, x.Reputation}).ToArray();
+                .Select((x, i) => new {Index = i, x.UserId, x.Reputation})
+                .ToArray();
 
             float? targetReputation = null;
 

@@ -17,6 +17,7 @@
     }
 </style>
 <!-- #endregion -->
+
 @Html.Partial("_TradeGallery", Model)
 
 <!-- #region .page-header -->
@@ -58,7 +59,7 @@
           title="Your current ranking">
         # <strong>@Model.Stats.Ranking</strong>
     </span>
-    @if (Model.Stats.Ranking != 1)
+    @if (Model.Stats.Ranking != 1 && @Model.Stats.TargetReputation.HasValue)
     {
         <span id="target"
               style="margin-left: 5px"
