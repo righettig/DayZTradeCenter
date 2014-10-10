@@ -2,30 +2,64 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Features</h2>
+@section styles {
+    <style>
+        img {
+            display: block;
+            margin-right: auto;
+        }
+    </style>
+}
+
+<h2 style="margin-left: 370px; margin-bottom: 50px">The DayZ Trade Center</h2>
 
 <div class="row" style="padding-top: 10px">
     <div class="col-md-4">
-        <h2>Feature 1</h2>
+        <img src="../../Content/img/feature_reputation.png" alt="" style="margin-left: 105px;" />
+        <h2>Trade</h2>
         <p>
-            Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+            Trade your items with a <strong>secure</strong> and <strong>reliable</strong> reputation system.
         </p>
     </div>
     <div class="col-md-4">
-        <h2>Feature 2</h2>
+        <img src="../../Content/img/feature_messages.png" alt="" style="margin-left: 75px;" />
+        <h2>Exchange</h2>
         <p>
-            Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+            Meet other people with our exchange system.
         </p>
     </div>
     <div class="col-md-4">
-        <h2>Feature 3</h2>
+        <img src="../../Content/img/feature_analytics.png" alt="" style="margin-left: 85px;" />
+        <h2>Analytics</h2>
         <p>
-            Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+            Receive insights on the central loot economy and <br />help developers gathering useful data.
         </p>
     </div>
 </div>
 
-<div class="row" style="margin-top: 30px">
+<p style="margin-top: 40px">
+    All images sources:
+    <ul>
+        <li>
+            <strong>Nick Frost</strong>, <a href="https://www.iconfinder.com/iconsets/ballicons-free">here</a> licensed under the <a href="http://creativecommons.org/licenses/by/3.0/">Creative commons 3.0</a>
+        </li>
+        <li>
+            <strong>Webdesigner Depot</strong>, <a href="http://www.webdesignerdepot.com/">here</a>
+        </li>
+        <li>
+            <strong>OmmoZoubayr</strong>, <a href="http://www.ommozoubayr.esy.es">here</a>
+        </li>
+    </ul>  
+</p>
+
+<p style="margin-top: 50px">
+    <h4>
+        The project is auto-funded and <a href="https://github.com/righettig/DayZTradeCenter">open-source</a>.
+        If you like it and you want to support it you can donate to
+    </h4>
+</p>
+
+<div class="row" style="margin-top: 25px">
     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" style="margin: 0 auto;width:250px;">
         <input type="hidden" name="cmd" value="_s-xclick">
         <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----

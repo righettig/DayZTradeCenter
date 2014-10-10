@@ -9,37 +9,45 @@
     body {
         padding-top: 80px;
     }
+
+    img {
+        display: block;
+        margin-right: auto;
+    }
 </style>
 <!-- #endregion -->
 
 <div class="jumbotron" style="padding-top: 26px; padding-bottom: 25px">
     <h1 style="margin-top: 5px">DayZ Trade Center</h1>
-    <p class="lead">The DayZ Trade Center is TODO.</p>
-    
+    <p class="lead">... where you can find everything!</p>
+
     @Html.Partial("_TradeGallery", Model)
 
     <p><a href="@Url.Action("Index", "Features")" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
 
-<div class="row" style="padding-top: 10px">
+<div class="row" style="padding-top: 25px">
     <div class="col-md-4">
-        <h2>Feature 1</h2>
+        <img src="../../Content/img/feature_reputation.png" alt="" style="margin-left: 105px"/>
+        <h2>Trade</h2>
         <p>
-            Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+            Trade your items in a secure with a reliable reputation system.
         </p>
         <p><a class="btn btn-default" href="@Url.Action("Index", "Features")">Learn more &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Feature 2</h2>
+        <img src="../../Content/img/feature_messages.png" alt="" style="margin-left: 75px" />
+        <h2>Exchange</h2>
         <p>
-            Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+            Meet other people with our exchange system.
         </p>
         <p><a class="btn btn-default" href="@Url.Action("Index", "Features")">Learn more &raquo;</a></p>
     </div>
     <div class="col-md-4">
-        <h2>Feature 3</h2>
+        <img src="../../Content/img/feature_analytics.png" alt="" style="margin-left: 85px" />
+        <h2>Analytics</h2>
         <p>
-            Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+            Receive insights on the central loot economy and <br />help developers gathering useful data.
         </p>
         <p><a class="btn btn-default" href="@Url.Action("Index", "Features")">Learn more &raquo;</a></p>
     </div>
