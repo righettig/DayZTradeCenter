@@ -7,8 +7,8 @@
         h4 {
             margin-top: 30px;
         }
-        li {
-            margin-top: 8px;
+        .api_li {
+            margin-top: 14px;
         }
     </style>
 }
@@ -18,16 +18,33 @@
 <h4>Trends</h4>
 <p>
     <ul>
-        <li>api/trends?itemId=1 <a href="/api/trends?itemId=1">TRY!</a></li>
+        <li class="api_li">
+            <strong>api/trends?itemId=1</strong> <a href="/api/trends?itemId=1">TRY!</a> <br />
+            The daily trends for the item with the specified id. A <em>trend</em> is defined as the "value" of the item at the a given time.
+        </li>
     </ul>
 </p>
 
 <h4>Items</h4>
 <p>
     <ul>
-        <li>api/items/most_wanted <a href="/api/items/most_wanted">TRY!</a></li>
-        <li>api/items/most_wanted/{start:datetime}/{end:datetime} <a href="/api/items/most_wanted/2012-01-01/2015-01-01">TRY!</a></li>
-        <li>api/items/most_offered <a href="/api/items/most_offered">TRY!</a></li>
-        <li>api/items/most_offered/{start:datetime}/{end:datetime} <a href="/api/items/most_offered/2012-01-01/2015-01-01">TRY!</a></li>
+        <li class="api_li">
+            <strong>api/items/most_wanted</strong> <a href="/api/items/most_wanted">TRY!</a> <br />
+            The W rank of items. The <em>rank</em> is defined as how many times the specified item is included in active trades  in the "wanted" section.
+        </li>
+        <li class="api_li">
+            <strong>api/items/most_wanted/{start:datetime}/{end:datetime}</strong> <a href="/api/items/most_wanted/2012-01-01/2015-01-01">TRY!</a> <br />
+            The W rank of items given a particular range of time. The <em>rank</em> is defined as how many times the specified item is included in active trades in the "wanted" section in the given time frame.
+        </li>
+        <li class="api_li">
+            <strong>api/items/most_offered</strong> <a href="/api/items/most_offered">TRY!</a> <br />
+            The H rank of items given a particular range of time. The <em>rank</em> is defined as how many times the specified item is included in active trades in the "have" section.
+        </li>
+        <li class="api_li">
+            <strong>api/items/most_offered/{start:datetime}/{end:datetime}</strong> <a href="/api/items/most_offered/2012-01-01/2015-01-01">TRY!</a> <br/>
+            The H rank of items given a particular range of time. The <em>rank</em> is defined as how many times the specified item is included in active trades in the "have" section in the given time frame.
+        </li>
     </ul>
 </p>
+
+<h4>More stuff coming soon...</h4>
