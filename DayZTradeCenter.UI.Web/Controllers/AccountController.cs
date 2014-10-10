@@ -88,9 +88,19 @@ namespace DayZTradeCenter.UI.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult AdminLogin(string username, string password)
+        public async Task<ActionResult> AdminLogin(string username, string password, string returnUrl)
         {
-            return View();
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var result =
+                await _signInManager.PasswordSignInAsync(username, password, false, shouldLockout: false);
+
+            if (result == SignInStatus.Success)
+            {
+                return RedirectToLocal(returnUrl);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         //
