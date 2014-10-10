@@ -24,5 +24,21 @@ namespace DayZTradeCenter.UI.Web.Models
         public IEnumerable<Trade> MyOffers { get; set; }
         
         public IEnumerable<EventInfo> History { get; set; }
+
+        /// <summary>
+        /// Gets or sets the target reputation.
+        /// </summary>
+        /// <value>
+        /// The target reputation, i.e., the reputation of the next user in the reputation-based ranking.
+        /// </value>
+        public float? TargetReputation { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ranking.
+        /// </summary>
+        /// <value>
+        /// The reputation ranking.
+        /// </value>
+        public int Ranking { get; set; }
     }
 }

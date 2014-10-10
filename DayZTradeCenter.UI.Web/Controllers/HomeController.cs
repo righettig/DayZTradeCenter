@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using DayZTradeCenter.DomainModel.Entities;
 using DayZTradeCenter.DomainModel.Interfaces;
 using DayZTradeCenter.DomainModel.Services;
 using DayZTradeCenter.UI.Web.Models;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 
 namespace DayZTradeCenter.UI.Web.Controllers
@@ -65,15 +67,32 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 return View("AdminIndex");
             }
 
+            // get the next reputation "target".
             var reputation = user.GetReputation();
+
+            var allReputations = _userManager.Users.ToArray()
+                .Select(x => new {UserId = x.Id, Reputation = x.GetReputation()})
+                .OrderByDescending(x => x.Reputation)
+                .Select((x, i) => new {Index = i, x.UserId, x.Reputation}).ToArray();
+
+            float? targetReputation = null;
+            
+            allReputations
+                .TakeWhile(x => x.UserId != user.Id && Math.Abs(x.Reputation - reputation) > 0.001f)
+                .LastOrDefault()
+                .IfNotNull(x => targetReputation = x.Reputation);
+
             var vm = new DashboardViewModel(latestTrades, hottestTrades)
             {
                 Reputation = reputation > 0 ? reputation : (float?) null,
-                
+
                 MyTrades = _tradeManager.GetTradesByUser(user.Id),
                 MyOffers = _tradeManager.GetOffersByUser(user.Id),
 
-                History = _profileManager.GetHistoryByUserId(user.Id)
+                History = _profileManager.GetHistoryByUserId(user.Id),
+
+                TargetReputation = targetReputation,
+                Ranking = allReputations.First(x => x.UserId == user.Id).Index + 1
             };
 
             return View(vm);

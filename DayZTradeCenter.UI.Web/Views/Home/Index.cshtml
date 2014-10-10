@@ -17,7 +17,6 @@
     }
 </style>
 <!-- #endregion -->
-
 @Html.Partial("_TradeGallery", Model)
 
 <!-- #region .page-header -->
@@ -40,6 +39,34 @@
     else
     {
         <img src="~/Content/img/new_user.png" />
+    }
+    @{
+        var color = "black";
+        if (Model.Ranking == 1)
+        {
+            color = "red";
+        }
+        else if (Model.Ranking == 2 || Model.Ranking == 3)
+        {
+            color = "green";
+        }
+    }
+    <span id="rank"
+          style="margin-left: 5px; color: @color"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Your current ranking">
+        # <strong>@Model.Ranking</strong>
+    </span>
+    @if (Model.Ranking != 1)
+    {
+        <span id="target"
+              style="margin-left: 5px"
+              data-toggle="tooltip"
+              data-placement="right"
+              title="Based on the current reputation ranking, this is the reputation of the player who is preceding you!">
+            Let's see if you can reach reputation: <strong>@Model.TargetReputation</strong>
+        </span>
     }
 </div>
 <!-- #endregion -->
@@ -75,16 +102,16 @@
                         },
 
                         <strong>H</strong> {
-                            @foreach (var itemDetails in @trade.Have)
-                            {
-                                @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
+                        @foreach (var itemDetails in @trade.Have)
+                        {
+                            @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
                             }
                         }
 
                         <strong>W</strong> {
-                            @foreach (var itemDetails in @trade.Want)
-                            {
-                                @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
+                        @foreach (var itemDetails in @trade.Want)
+                        {
+                            @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
                             }
                         }
 
@@ -120,16 +147,16 @@
                         <a href="@Url.Action("Details", "Trades", new { id = trade.Id })">@trade.Id</a>,
 
                         <strong>H</strong> {
-                            @foreach (var itemDetails in @trade.Have)
-                            {
-                                @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
+                        @foreach (var itemDetails in @trade.Have)
+                        {
+                            @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
                             }
                         }
 
                         <strong>W</strong> {
-                            @foreach (var itemDetails in @trade.Want)
-                            {
-                                @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
+                        @foreach (var itemDetails in @trade.Want)
+                        {
+                            @itemDetails.Item.Name@:, Q: @itemDetails.Quantity;
                             }
                         }
                     </li>
@@ -164,4 +191,9 @@
 
 @section scripts {
     <script src="~/Scripts/app/latesttrades.js"></script>
+
+    <script>
+        $('#rank').tooltip();
+        $('#target').tooltip();
+    </script>
 }
