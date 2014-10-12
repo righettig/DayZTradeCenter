@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ItemCategories_Ammunition" xml:space="preserve">
+    <value>Ammunition</value>
+  </data>
+  <data name="ItemCategories_Attachments" xml:space="preserve">
+    <value>Attachments</value>
+  </data>
+  <data name="ItemCategories_Clothing" xml:space="preserve">
+    <value>Clothing</value>
+  </data>
+  <data name="ItemCategories_Equipment" xml:space="preserve">
+    <value>Equipment</value>
+  </data>
+  <data name="ItemCategories_FoodAndDrink" xml:space="preserve">
+    <value>Food and Drink</value>
+  </data>
+  <data name="ItemCategories_Magazines" xml:space="preserve">
+    <value>Magazines</value>
+  </data>
+  <data name="ItemCategories_Medical" xml:space="preserve">
+    <value>Medical</value>
+  </data>
+  <data name="ItemCategories_Weapons" xml:space="preserve">
+    <value>Weapons</value>
+  </data>
+  <data name="ItemSubcategories_Backpacks" xml:space="preserve">
+    <value>Backpacks</value>
+  </data>
+  <data name="ItemSubcategories_Bandages" xml:space="preserve">
+    <value>Bandages</value>
+  </data>
+  <data name="ItemSubcategories_Bayonets" xml:space="preserve">
+    <value>Bayonets</value>
+  </data>
+  <data name="ItemSubcategories_Berries" xml:space="preserve">
+    <value>Berries</value>
+  </data>
+  <data name="ItemSubcategories_Bipods" xml:space="preserve">
+    <value>Bipods</value>
+  </data>
+  <data name="ItemSubcategories_BladedMelee" xml:space="preserve">
+    <value>Bladed Melee</value>
+  </data>
+  <data name="ItemSubcategories_BloodTesting" xml:space="preserve">
+    <value>Blood Testing</value>
+  </data>
+  <data name="ItemSubcategories_BloodTransfusion" xml:space="preserve">
+    <value>Blood Transfusion</value>
+  </data>
+  <data name="ItemSubcategories_BluntMelee" xml:space="preserve">
+    <value>Blunt Melee</value>
+  </data>
+  <data name="ItemSubcategories_Boots" xml:space="preserve">
+    <value>Boots</value>
+  </data>
+  <data name="ItemSubcategories_Bows" xml:space="preserve">
+    <value>Bows</value>
+  </data>
+  <data name="ItemSubcategories_Buttstocks" xml:space="preserve">
+    <value>Buttstocks</value>
+  </data>
+  <data name="ItemSubcategories_CannedGoods" xml:space="preserve">
+    <value>Canned Goods</value>
+  </data>
+  <data name="ItemSubcategories_Containers" xml:space="preserve">
+    <value>Containers</value>
+  </data>
+  <data name="ItemSubcategories_Cooking" xml:space="preserve">
+    <value>Cooking</value>
+  </data>
+  <data name="ItemSubcategories_Decorational" xml:space="preserve">
+    <value>Decorational</value>
+  </data>
+  <data name="ItemSubcategories_Devices" xml:space="preserve">
+    <value>Devices</value>
+  </data>
+  <data name="ItemSubcategories_Disinfection" xml:space="preserve">
+    <value>Disinfection</value>
+  </data>
+  <data name="ItemSubcategories_Drinks" xml:space="preserve">
+    <value>Drinks</value>
+  </data>
+  <data name="ItemSubcategories_DryFood" xml:space="preserve">
+    <value>Dry Food</value>
+  </data>
+  <data name="ItemSubcategories_ElectricWeapons" xml:space="preserve">
+    <value>Electric Weapons</value>
+  </data>
+  <data name="ItemSubcategories_Eyewear" xml:space="preserve">
+    <value>Eyewear</value>
+  </data>
+  <data name="ItemSubcategories_Fruits" xml:space="preserve">
+    <value>Fruits</value>
+  </data>
+  <data name="ItemSubcategories_Grenades" xml:space="preserve">
+    <value>Grenades</value>
+  </data>
+  <data name="ItemSubcategories_Handguards" xml:space="preserve">
+    <value>Handguards</value>
+  </data>
+  <data name="ItemSubcategories_HandgunAmmunition" xml:space="preserve">
+    <value>Handgun Ammunition</value>
+  </data>
+  <data name="ItemSubcategories_HandgunMagazines" xml:space="preserve">
+    <value>Handgun Magazines</value>
+  </data>
+  <data name="ItemSubcategories_Handguns" xml:space="preserve">
+    <value>Handguns</value>
+  </data>
+  <data name="ItemSubcategories_HandsAndArms" xml:space="preserve">
+    <value>Hands and Arms</value>
+  </data>
+  <data name="ItemSubcategories_Hats" xml:space="preserve">
+    <value>Hats</value>
+  </data>
+  <data name="ItemSubcategories_Helmets" xml:space="preserve">
+    <value>Helmets</value>
+  </data>
+  <data name="ItemSubcategories_Holsters" xml:space="preserve">
+    <value>Holsters</value>
+  </data>
+  <data name="ItemSubcategories_Illumination" xml:space="preserve">
+    <value>Illumination</value>
+  </data>
+  <data name="ItemSubcategories_LightSources" xml:space="preserve">
+    <value>Light Sources</value>
+  </data>
+  <data name="ItemSubcategories_Masks" xml:space="preserve">
+    <value>Masks</value>
+  </data>
+  <data name="ItemSubcategories_Medicines" xml:space="preserve">
+    <value>Medicines</value>
+  </data>
+  <data name="ItemSubcategories_MiscellaneousAmmunition" xml:space="preserve">
+    <value>Miscellaneous Ammunition</value>
+  </data>
+  <data name="ItemSubcategories_MiscellaneousMagazines" xml:space="preserve">
+    <value>Miscellaneous Magazines</value>
+  </data>
+  <data name="ItemSubcategories_MuzzleAttachments" xml:space="preserve">
+    <value>Muzzle Attachments</value>
+  </data>
+  <data name="ItemSubcategories_Other" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="ItemSubcategories_Pants" xml:space="preserve">
+    <value>Pants</value>
+  </data>
+  <data name="ItemSubcategories_Reanimation" xml:space="preserve">
+    <value>Reanimation</value>
+  </data>
+  <data name="ItemSubcategories_RepairKits" xml:space="preserve">
+    <value>Repair Kits</value>
+  </data>
+  <data name="ItemSubcategories_Resources" xml:space="preserve">
+    <value>Resources</value>
+  </data>
+  <data name="ItemSubcategories_RifleAmmunition" xml:space="preserve">
+    <value>Rifle Ammunition</value>
+  </data>
+  <data name="ItemSubcategories_RifleMagazines" xml:space="preserve">
+    <value>Rifle Magazines</value>
+  </data>
+  <data name="ItemSubcategories_Rifles" xml:space="preserve">
+    <value>Rifles</value>
+  </data>
+  <data name="ItemSubcategories_ShirtsAndJackets" xml:space="preserve">
+    <value>Shirts and Jackets</value>
+  </data>
+  <data name="ItemSubcategories_ShotgunAmmunition" xml:space="preserve">
+    <value>Shotgun Ammunition</value>
+  </data>
+  <data name="ItemSubcategories_Shotguns" xml:space="preserve">
+    <value>Shotguns</value>
+  </data>
+  <data name="ItemSubcategories_SightsAndOptics" xml:space="preserve">
+    <value>Sights and Optics</value>
+  </data>
+  <data name="ItemSubcategories_Speedloaders" xml:space="preserve">
+    <value>Speedloaders</value>
+  </data>
+  <data name="ItemSubcategories_Splints" xml:space="preserve">
+    <value>Splints</value>
+  </data>
+  <data name="ItemSubcategories_SubMachineGunMagazines" xml:space="preserve">
+    <value>Submachinegun Magazines</value>
+  </data>
+  <data name="ItemSubcategories_SubmachineGuns" xml:space="preserve">
+    <value>Submachine Guns</value>
+  </data>
+  <data name="ItemSubcategories_Temperature" xml:space="preserve">
+    <value>Temperature</value>
+  </data>
+  <data name="ItemSubcategories_Tents" xml:space="preserve">
+    <value>Tents</value>
+  </data>
+  <data name="ItemSubcategories_Tools" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="ItemSubcategories_Vegetables" xml:space="preserve">
+    <value>Vegetables</value>
+  </data>
+  <data name="ItemSubcategories_Vests" xml:space="preserve">
+    <value>Vests</value>
+  </data>
+  <data name="ItemSubcategories_Wraps" xml:space="preserve">
+    <value>Wraps</value>
+  </data>
+  <data name="Rarities_Common" xml:space="preserve">
+    <value>Common</value>
+  </data>
+  <data name="Rarities_NA" xml:space="preserve">
+    <value>NA</value>
+  </data>
+  <data name="Rarities_Rare" xml:space="preserve">
+    <value>Rare</value>
+  </data>
+  <data name="Rarities_Uncommon" xml:space="preserve">
+    <value>Uncommon</value>
+  </data>
+  <data name="Rarities_Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="Rarities_VeryRare" xml:space="preserve">
+    <value>Very Rare</value>
+  </data>
+</root>

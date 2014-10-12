@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayZTradeCenter.Tests.Unit"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayZTradeCenter.Modules", "DayZTradeCenter.Modules\DayZTradeCenter.Modules.csproj", "{A2A91437-8648-4909-9ED6-6FD45EB5390B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DayZTradeCenter.Resources", "DayZTradeCenter.Resources\DayZTradeCenter.Resources.csproj", "{0143ED5B-FC30-4ACC-BBE6-1605D766FE36}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,12 @@ Global
 		{A2A91437-8648-4909-9ED6-6FD45EB5390B}.DebugFakeLogin|Any CPU.Build.0 = Debug|Any CPU
 		{A2A91437-8648-4909-9ED6-6FD45EB5390B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2A91437-8648-4909-9ED6-6FD45EB5390B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0143ED5B-FC30-4ACC-BBE6-1605D766FE36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0143ED5B-FC30-4ACC-BBE6-1605D766FE36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0143ED5B-FC30-4ACC-BBE6-1605D766FE36}.DebugFakeLogin|Any CPU.ActiveCfg = Debug|Any CPU
+		{0143ED5B-FC30-4ACC-BBE6-1605D766FE36}.DebugFakeLogin|Any CPU.Build.0 = Debug|Any CPU
+		{0143ED5B-FC30-4ACC-BBE6-1605D766FE36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0143ED5B-FC30-4ACC-BBE6-1605D766FE36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

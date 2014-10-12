@@ -217,6 +217,7 @@
     <Compile Include="Controllers\AnalyticsController.cs" />
     <Compile Include="Controllers\Api\TrendsController.cs" />
     <Compile Include="Filters\LoadUserInboxActionFilter.cs" />
+    <Compile Include="Helpers\EnumExtensions.cs" />
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Helpers\SteamHelper.cs" />
     <Compile Include="Models\AdminDashboardViewModel.cs" />
@@ -408,6 +409,10 @@
     <ProjectReference Include="..\DayZTradeCenter.Modules\DayZTradeCenter.Modules.csproj">
       <Project>{a2a91437-8648-4909-9ed6-6fd45eb5390b}</Project>
       <Name>DayZTradeCenter.Modules</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DayZTradeCenter.Resources\DayZTradeCenter.Resources.csproj">
+      <Project>{0143ed5b-fc30-4acc-bbe6-1605d766fe36}</Project>
+      <Name>DayZTradeCenter.Resources</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

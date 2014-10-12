@@ -173,6 +173,12 @@
       <DependentUpon>201410081535232_Added Rarity to Item.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DayZTradeCenter.Resources\DayZTradeCenter.Resources.csproj">
+      <Project>{0143ed5b-fc30-4acc-bbe6-1605d766fe36}</Project>
+      <Name>DayZTradeCenter.Resources</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
