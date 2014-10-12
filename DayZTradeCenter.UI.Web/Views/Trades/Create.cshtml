@@ -24,6 +24,7 @@
 
         <fieldset class="col-xs-6">
             <legend>Have</legend>
+            <span data-bind="visible: isWithoutHSection">Trades without the H section are not yet supported, <strong>Coming soon!</strong></span>
             <div class="col-xs-12">
                 <div data-bind="foreach: have.items">
                     <div class="form-group">
@@ -52,6 +53,7 @@
 
         <fieldset class="col-xs-6">
             <legend>Want</legend>
+            <span data-bind="visible: isWithoutWSection">Trades without the W section are not yet supported, <strong>Coming soon!</strong></span>
             <div class="col-xs-12">
                 <div data-bind="foreach: want.items">
                     <div class="form-group">

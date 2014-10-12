@@ -41,7 +41,11 @@ function ItemsCollection() {
         self.items.remove(item);
     };
 
-    self.isValid = ko.computed(function() {
+    self.isValid = ko.computed(function () {
+        if (self.items().length == 0) {
+            return false;
+        }
+
         for (var i = 0; i < self.items().length; i++) {
             if (!self.items()[i].isValid()) {
                 return false;
@@ -157,6 +161,14 @@ function CreateTradeViewModel(data) {
         } else {
             return false;
         }
+    });
+
+    self.isWithoutHSection = ko.computed(function () {
+        return self.have.items().length == 0;
+    });
+
+    self.isWithoutWSection = ko.computed(function () {
+        return self.want.items().length == 0;
     });
 
     return self;
