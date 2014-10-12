@@ -31,6 +31,8 @@ namespace DayZTradeCenter.DomainModel.Entities
         public DateTime CreationDate { get; set; }
         public TradeStates State { get; set; }
 
+        public bool IsHardcore { get; set; }
+
         public virtual ICollection<TradeDetails> Have { get; private set; }
         public virtual ICollection<TradeDetails> Want { get; private set; }
 

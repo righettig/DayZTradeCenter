@@ -9,6 +9,8 @@ namespace DayZTradeCenter.UI.Web.Models
         public IEnumerable<DomainModel.Entities.ItemViewModel> Have { get; set; }
         public IEnumerable<DomainModel.Entities.ItemViewModel> Want { get; set; }
 
+        public bool IsHardcore { get; set; }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (Have.Count() != Want.Count()) 

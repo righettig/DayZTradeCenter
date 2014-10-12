@@ -78,40 +78,15 @@ function CreateTradeViewModel(data) {
 
     self.want = new ItemsCollection();
 
+    self.isHardcore = ko.observable(false);
+
     self.save = function () {
         var submitData = {
             have: self.have.getItemDetails(),
             want: self.want.getItemDetails(),
 
-            // STUB
-            //have: [
-            //    { id: 2, quantity: 1 },
-            //    { id: 4, quantity: 3 }
-            //],
-            //want: [
-            //    { id: 1, quantity: 2 },
-            //    { id: 5, quantity: 1 }
-            //],
-            
-            // invalid trade case #1
-            //have: [
-            //    { id: 2, quantity: 1 }
-            //],
-            //want: [
-            //    { id: 2, quantity: 2 }
-            //],
-            
-            // invalid trade case #2
-            //have: [
-            //    { id: 2, quantity: 1 },
-            //    { id: 1, quantity: 7 }
-            //],
-            //want: [
-            //    { id: 1, quantity: 4 },
-            //    { id: 2, quantity: 2 }
-            //],
+            isHardcore: self.isHardcore(),
 
-            // <-- end STUB
             __RequestVerificationToken: $("input[name='__RequestVerificationToken']").val()
         };
         $.ajax({

@@ -137,6 +137,10 @@
     <Compile Include="Migrations\201410121614305_Added IsApproved to ApplicationUser.Designer.cs">
       <DependentUpon>201410121614305_Added IsApproved to ApplicationUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410121828544_Added IsHarcore to Trade.cs" />
+    <Compile Include="Migrations\201410121828544_Added IsHarcore to Trade.Designer.cs">
+      <DependentUpon>201410121828544_Added IsHarcore to Trade.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DefaultUsers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -178,6 +182,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410121614305_Added IsApproved to ApplicationUser.resx">
       <DependentUpon>201410121614305_Added IsApproved to ApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410121828544_Added IsHarcore to Trade.resx">
+      <DependentUpon>201410121828544_Added IsHarcore to Trade.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

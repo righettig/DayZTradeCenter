@@ -79,11 +79,12 @@ namespace DayZTradeCenter.DomainModel.Interfaces
         /// </summary>
         /// <param name="have">The items for the "Have" section.</param>
         /// <param name="want">The items for the "Want" section.</param>
+        /// <param name="isHardcore">if set to <c>true</c> the trade is for the hardcore public hive.</param>
         /// <param name="user">The user.</param>
         /// <returns>
         ///   <c>True</c> if the trade was successfully created, <c>false</c> otherwise.
         /// </returns>
-        bool CreateNewTrade(IEnumerable<ItemViewModel> have, IEnumerable<ItemViewModel> want, ApplicationUser user);
+        bool CreateNewTrade(IEnumerable<ItemViewModel> have, IEnumerable<ItemViewModel> want, bool isHardcore, ApplicationUser user);
 
         /// <summary>
         /// Deletes a trade.
