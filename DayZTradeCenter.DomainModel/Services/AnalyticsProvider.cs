@@ -62,33 +62,32 @@ namespace DayZTradeCenter.DomainModel.Services
 
         public IEnumerable<TrendsResult> GetDailyTrendsFor(int itemId, TrendsType type)
         {
-            IEnumerable<TrendsResult> result;
+            Func<IGrouping<DateTime?, Trade>, IEnumerable<TradeDetails>> selector;
 
             switch (type)
             {
                 case TrendsType.H:
-                    result =
-                        GroupByDateAndFilterByItem(itemId, g => g.SelectMany(j => j.Have));
+                    selector =
+                        g => g.SelectMany(j => j.Have);
                     break;
 
                 case TrendsType.W:
-                    result =
-                        GroupByDateAndFilterByItem(itemId, g => g.SelectMany(j => j.Want));
+                    selector =
+                        g => g.SelectMany(j => j.Want);
                     break;
 
                 case TrendsType.Both:
-                    result =
-                        GroupByDateAndFilterByItem(itemId,
-                            g =>
-                                g.SelectMany(k => k.Have)
-                                    .Union(g.SelectMany(j => j.Want)));
+                    selector =
+                        g =>
+                            g.SelectMany(k => k.Have)
+                                .Union(g.SelectMany(j => j.Want));
                     break;
 
                 default:
                     throw new ArgumentOutOfRangeException("type");
             }
 
-            return result;
+            return GroupByDateAndFilterByItem(itemId, selector);
         }
 
         public IEnumerable<Item> GetAllItems()
