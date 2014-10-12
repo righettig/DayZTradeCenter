@@ -1,4 +1,6 @@
-﻿@{
+﻿@model DayZTradeCenter.UI.Web.Models.AdminDashboardViewModel
+
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -13,5 +15,30 @@
 <ul>
     <li>Reports</li>
     <li>Messages</li>
-    <li>People</li>
 </ul>
+
+<br />
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th style="width: 35px">UserId</th>
+                <th style="width: 45px">UserName</th>
+                <th style="width: 10px">Reputation</th>
+                <th style="width: 10px"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.UserName</td>
+                    <td>@user.GetReputation()</td>
+                    <td><a href="@Url.Action("Ban", "Admin", new { userId = user.Id })" class="btn btn-default">Ban</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

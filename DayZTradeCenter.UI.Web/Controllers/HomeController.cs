@@ -64,7 +64,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
 
             if (_userManager.IsInRole(user.Id, "Administrator"))
             {
-                return View("AdminIndex");
+                return View("AdminIndex", new AdminDashboardViewModel {Users = _userManager.Users.ToArray()});
             }
 
             var vm = new DashboardViewModel(latestTrades, hottestTrades)
