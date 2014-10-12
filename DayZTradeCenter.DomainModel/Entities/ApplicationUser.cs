@@ -36,5 +36,7 @@ namespace DayZTradeCenter.DomainModel.Entities
         // NB: "virtual" to enable EF lazy loading.
         public virtual ICollection<Feedback> Feedbacks { get; private set; }
         public virtual ICollection<Message> Messages { get; private set; }
+
+        public bool IsApproved { get; set; }
     }
 }

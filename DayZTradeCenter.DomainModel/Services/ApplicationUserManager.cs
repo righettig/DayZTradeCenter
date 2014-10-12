@@ -1,4 +1,5 @@
-﻿using DayZTradeCenter.DomainModel.Entities;
+﻿using System.Threading.Tasks;
+using DayZTradeCenter.DomainModel.Entities;
 using Microsoft.AspNet.Identity;
 
 namespace DayZTradeCenter.DomainModel.Services
@@ -22,6 +23,13 @@ namespace DayZTradeCenter.DomainModel.Services
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
             };
+        }
+
+        public override Task<IdentityResult> CreateAsync(ApplicationUser user)
+        {
+            user.IsApproved = true;
+
+            return base.CreateAsync(user);
         }
     }
 }

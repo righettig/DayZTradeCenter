@@ -391,10 +391,10 @@
     <Content Include="Views\Shared\Unauthorized.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\WebApi.cshtml" />
+    <Content Include="Views\Account\Lockout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

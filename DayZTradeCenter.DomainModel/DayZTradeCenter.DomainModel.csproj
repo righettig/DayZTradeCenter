@@ -133,6 +133,10 @@
     <Compile Include="Migrations\201410081535232_Added Rarity to Item.Designer.cs">
       <DependentUpon>201410081535232_Added Rarity to Item.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410121614305_Added IsApproved to ApplicationUser.cs" />
+    <Compile Include="Migrations\201410121614305_Added IsApproved to ApplicationUser.Designer.cs">
+      <DependentUpon>201410121614305_Added IsApproved to ApplicationUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DefaultUsers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -171,6 +175,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410081535232_Added Rarity to Item.resx">
       <DependentUpon>201410081535232_Added Rarity to Item.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410121614305_Added IsApproved to ApplicationUser.resx">
+      <DependentUpon>201410121614305_Added IsApproved to ApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

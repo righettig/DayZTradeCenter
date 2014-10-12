@@ -36,7 +36,16 @@
                     <td>@user.Id</td>
                     <td>@user.UserName</td>
                     <td>@user.GetReputation()</td>
-                    <td><a href="@Url.Action("Ban", "Admin", new { userId = user.Id })" class="btn btn-default">Ban</a></td>
+                    <td>
+                        @{
+                            var action = "Unban";
+                            if (user.IsApproved)
+                            {
+                                action = "Ban";
+                            }
+                        }
+                        <a href="@Url.Action(action, "Admin", new { userId = user.Id })" class="btn btn-default">@action</a>
+                    </td>
                 </tr>
             }
         </tbody>
