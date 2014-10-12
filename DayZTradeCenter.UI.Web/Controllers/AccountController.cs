@@ -171,12 +171,13 @@ namespace DayZTradeCenter.UI.Web.Controllers
             // Sign in the user with this external login provider if the user already has a login
             var result = await _signInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
 
+#if !FAKE_LOGIN 
             // check if the user was banned.
             var userId =
                 (from u in _userManager.Users
-                    from l in u.Logins
-                    where l.ProviderKey.Contains(accountInfo.Item1)
-                    select l.UserId).FirstOrDefault();
+                 from l in u.Logins
+                 where l.ProviderKey.Contains(accountInfo.Item1)
+                 select l.UserId).FirstOrDefault();
 
             if (userId != null)
             {
@@ -186,7 +187,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
                     result = SignInStatus.LockedOut;
                 }
             }
-
+#endif
             switch (result)
             {
                 case SignInStatus.Success:
