@@ -66,7 +66,7 @@
     <div class="row" style="margin-top: 5px">
         <div class="col-md-5 col-md-offset-1">
             Most wanted <strong>category</strong>:
-            @if (Model.MostWantedCategory.HasValue)
+            @if (Model.MostWantedCategory != null)
             {
                 @Model.MostWantedCategory
             }
@@ -77,7 +77,7 @@
         </div>
         <div class="col-md-5">
             Most offered <strong>category</strong>:
-            @if (Model.MostOfferedCategory.HasValue)
+            @if (Model.MostOfferedCategory != null)
             {
                 @Model.MostOfferedCategory
             }
@@ -90,7 +90,7 @@
     <div class="row" style="margin-top: 5px">
         <div class="col-md-5 col-md-offset-1">
             Most wanted <strong>subcategory</strong>:
-            @if (Model.MostWantedSubcategory.HasValue)
+            @if (Model.MostWantedSubcategory != null)
             {
                 @Model.MostWantedSubcategory
             }
@@ -101,7 +101,7 @@
         </div>
         <div class="col-md-5">
             Most offered <strong>subcategory</strong>:
-            @if (Model.MostOfferedSubcategory.HasValue)
+            @if (Model.MostOfferedSubcategory != null)
             {
                 @Model.MostOfferedSubcategory
             }
