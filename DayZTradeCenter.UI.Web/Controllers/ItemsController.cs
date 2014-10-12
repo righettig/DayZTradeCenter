@@ -48,7 +48,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id, Name")] Item item)
+        public ActionResult Create([Bind(Include = "Id, Name, Rarity, Details")] Item item)
         {
             if (!ModelState.IsValid)
             {
