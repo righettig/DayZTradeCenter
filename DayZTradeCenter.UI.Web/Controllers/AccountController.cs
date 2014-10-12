@@ -125,6 +125,10 @@ namespace DayZTradeCenter.UI.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ExternalLogin(string returnUrl)
         {
+            // TODO: workaround to fix the problem with Steam auth.
+            // http://stackoverflow.com/questions/20737578/asp-net-sessionid-owin-cookies-do-not-send-to-browser/21234614#21234614
+            Session["Workaround"] = 0;
+
             // Request a redirect to the external login provider
             return new ChallengeResult("Steam",
                 Url.Action("ExternalLoginCallback", "Account", new {ReturnUrl = returnUrl}));
