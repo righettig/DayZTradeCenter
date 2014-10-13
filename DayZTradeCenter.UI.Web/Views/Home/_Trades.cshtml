@@ -74,7 +74,11 @@
                                                 {
                                                     <img src="~/Content/img/new_user.png" />
                                                 }
-                                                | # Offers: @trade.Offers.Count
+                                                # Offers: @trade.Offers.Count <br/>
+                                                @if (trade.IsHardcore)
+                                                {
+                                                    <span style="color: red">1st person only</span>
+                                                }
                                             </a>
                                             <a href="@Url.Action("Offer", "Trades", new { tradeId = trade.Id })" 
                                                class="btn btn-primary @if (trade.Owner.Id == User.Identity.GetUserId())
