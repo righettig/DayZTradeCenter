@@ -64,7 +64,14 @@ namespace DayZTradeCenter.UI.Web.Controllers
 
             if (_userManager.IsInRole(user.Id, "Administrator"))
             {
-                return View("AdminIndex", new AdminDashboardViewModel {Users = _userManager.Users.ToArray()});
+                return View("AdminIndex", new AdminDashboardViewModel
+                {
+                    Users = _userManager.Users
+                        .ToArray() // NB: IsInRole, GetReputation cannot be translated in a Linq-To-Entities query.
+                        .Where(
+                            u => !_userManager.IsInRole(u.Id, "Administrator"))
+                        .OrderByDescending(u => u.GetReputation())
+                });
             }
 
             var vm = new DashboardViewModel(latestTrades, hottestTrades)
