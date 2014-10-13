@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using DayZTradeCenter.DomainModel.Entities;
 
 namespace DayZTradeCenter.UI.Web.Models
@@ -21,19 +20,7 @@ namespace DayZTradeCenter.UI.Web.Models
             _canCreateANewTrade = canCreateANewTrade;
             _search = search;
 
-            _trades = new List<TradeViewModel>();
-
-            foreach (var trade in trades.ToArray())
-            {
-                _trades.Add(new TradeViewModel
-                {
-                    TradeData = trade,
-                    CanOffer =
-                        canCreate &&
-                        userId != trade.Owner.Id &&
-                        trade.Offers.All(o => o.Id != userId)
-                });
-            }
+            _tradesTableViewModel = new TradeTableViewModel(trades, userId, canCreate);
         }
 
         #region Public properties
@@ -68,7 +55,7 @@ namespace DayZTradeCenter.UI.Web.Models
         /// </value>
         public IEnumerable<TradeViewModel> Trades
         {
-            get { return _trades; }
+            get { return _tradesTableViewModel.Trades; }
         }
 
         public IEnumerable<ItemViewModel> Items { get; set; }
@@ -86,8 +73,8 @@ namespace DayZTradeCenter.UI.Web.Models
         private readonly bool _canCreateANewTrade;
         private readonly bool _search;
 
-        private readonly List<TradeViewModel> _trades;
-        
+        private readonly TradeTableViewModel _tradesTableViewModel;
+
         #endregion
     }
 

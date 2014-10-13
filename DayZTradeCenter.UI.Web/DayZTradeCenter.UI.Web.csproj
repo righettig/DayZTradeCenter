@@ -216,6 +216,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AnalyticsController.cs" />
     <Compile Include="Controllers\Api\TrendsController.cs" />
+    <Compile Include="Models\TradeTableViewModel.cs" />
     <Compile Include="Filters\LoadUserInboxActionFilter.cs" />
     <Compile Include="Helpers\EnumExtensions.cs" />
     <Compile Include="Helpers\HtmlHelperExtensions.cs" />

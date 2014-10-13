@@ -59,7 +59,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
             var userId = User.Identity.GetUserId();
 
             var vm = new ListTradesViewModel(
-                !User.IsInRole("Administrator"),
+                CanCreate(),
                 userId,
                 model,
                 _tradeManager.CanCreateTrade(userId),
@@ -75,23 +75,15 @@ namespace DayZTradeCenter.UI.Web.Controllers
 
         public PartialViewResult GetHardcoreOnly(bool hardcoreOnly)
         {
-            var model = hardcoreOnly
-                ? _tradeManager.GetActiveTradesForHardcoreHive()
-                : _tradeManager.GetActiveTrades();
+            var model =
+                hardcoreOnly
+                    ? _tradeManager.GetActiveTradesForHardcoreHive()
+                    : _tradeManager.GetActiveTrades();
 
-            var userId = User.Identity.GetUserId();
-            var canCreate = !User.IsInRole("Administrator");
+            var vm =
+                new TradeTableViewModel(model, User.Identity.GetUserId(), CanCreate());
 
-            var vm = model.ToArray().Select(trade => new TradeViewModel
-            {
-                TradeData = trade,
-                CanOffer =
-                    canCreate && 
-                    userId != trade.Owner.Id && 
-                    trade.Offers.All(o => o.Id != userId)
-            });
-
-            return PartialView("_TradesTable", vm);
+            return PartialView("_TradesTable", vm.Trades);
         }
 
         // GET: Trades/Create
@@ -352,6 +344,11 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 providerKey.Substring(providerKey.LastIndexOf('/') + 1);
 
             return steamId;
+        }
+
+        private bool CanCreate()
+        {
+            return !User.IsInRole("Administrator");
         }
 
         #region Private fields
