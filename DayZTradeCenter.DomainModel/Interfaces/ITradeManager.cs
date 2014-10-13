@@ -54,6 +54,14 @@ namespace DayZTradeCenter.DomainModel.Interfaces
         IEnumerable<Trade> GetOffersByUser(string userId);
 
         /// <summary>
+        /// Gets the active trades for the hardcore hive.
+        /// </summary>
+        /// <returns>
+        /// The active trades for the hardcore hive.
+        /// </returns>
+        IEnumerable<Trade> GetActiveTradesForHardcoreHive();
+            
+        /// <summary>
         /// Gets the trade by identifier.
         /// </summary>
         /// <param name="tradeId">The trade identifier.</param>

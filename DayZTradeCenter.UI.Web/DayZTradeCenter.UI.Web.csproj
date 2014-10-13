@@ -345,6 +345,9 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Home\Landing.cshtml" />
+    <Content Include="Views\Trades\Index.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -363,7 +366,6 @@
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
-    <Content Include="Views\Trades\Index.cshtml" />
     <Content Include="Views\Items\Index.cshtml" />
     <Content Include="Views\Items\NotFound.cshtml" />
     <Content Include="Views\Items\Details.cshtml" />
@@ -392,6 +394,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\WebApi.cshtml" />
     <Content Include="Views\Account\Lockout.cshtml" />
+    <Content Include="Views\Trades\_TradesTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -73,6 +73,27 @@ namespace DayZTradeCenter.UI.Web.Controllers
             return View(vm);
         }
 
+        public PartialViewResult GetHardcoreOnly(bool hardcoreOnly)
+        {
+            var model = hardcoreOnly
+                ? _tradeManager.GetActiveTradesForHardcoreHive()
+                : _tradeManager.GetActiveTrades();
+
+            var userId = User.Identity.GetUserId();
+            var canCreate = !User.IsInRole("Administrator");
+
+            var vm = model.ToArray().Select(trade => new TradeViewModel
+            {
+                TradeData = trade,
+                CanOffer =
+                    canCreate && 
+                    userId != trade.Owner.Id && 
+                    trade.Offers.All(o => o.Id != userId)
+            });
+
+            return PartialView("_TradesTable", vm);
+        }
+
         // GET: Trades/Create
         public ActionResult Create()
         {
