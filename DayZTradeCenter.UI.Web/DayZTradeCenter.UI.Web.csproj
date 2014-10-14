@@ -271,6 +271,10 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\app\CreateTradeViewModel.js" />
+    <Content Include="Scripts\app\ga.js" />
+    <Content Include="Scripts\app\ga.min.js">
+      <DependentUpon>ga.js</DependentUpon>
+    </Content>
     <Content Include="Scripts\app\latesttrades.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
@@ -290,6 +294,9 @@
     <Content Include="Content\Selectize\less\plugins\optgroup_columns.less" />
     <Content Include="Content\Selectize\less\plugins\dropdown_header.less" />
     <Content Include="Content\Selectize\less\plugins\drag_drop.less" />
+    <Content Include="Scripts\app\ga.min.js.map">
+      <DependentUpon>ga.min.js</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\Highcharts-4.0.1\js\adapters\standalone-framework.js" />
     <Content Include="Scripts\Highcharts-4.0.1\js\adapters\standalone-framework.src.js" />
