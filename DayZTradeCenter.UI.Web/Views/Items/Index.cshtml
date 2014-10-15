@@ -1,7 +1,13 @@
-﻿@model IEnumerable<DayZTradeCenter.DomainModel.Entities.Item>
+﻿@using PagedList.Mvc
+
+@model PagedList.IPagedList<DayZTradeCenter.DomainModel.Entities.Item>
 
 @{
     ViewBag.Title = "Index";
+}
+
+@section styles {
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 }
 
 <h2>Items <small>@Model.Count() items found</small></h2>
@@ -37,3 +43,8 @@
         }
     </tbody>
 </table>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

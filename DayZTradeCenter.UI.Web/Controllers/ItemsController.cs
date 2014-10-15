@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using DayZTradeCenter.DomainModel.Entities;
 using rg.GenericRepository.Core;
+using PagedList;
 
 namespace DayZTradeCenter.UI.Web.Controllers
 {
@@ -24,11 +26,20 @@ namespace DayZTradeCenter.UI.Web.Controllers
         }
 
         // GET: Items
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var model = _itemsRepository.GetAll();
+            var model =
+                _itemsRepository
+                    .GetAll()
+                    // added to avoid "The method ‘Skip’ is only supported for sorted input in LINQ to Entities. 
+                    //  The method ‘OrderBy’ must be called before the method ‘Skip’".
+                    // http://stackoverflow.com/questions/21705926/the-method-skip-is-only-supported-for-sorted-input-in-linq-to-entities-the-me
+                    .OrderBy(i => i.Id);
 
-            return View(model);
+            const int pageSize = 10;
+            var pageNumber = (page ?? 1);
+
+            return View(model.ToPagedList(pageNumber, pageSize));
         }
         
         // GET: Items/Details/5
