@@ -411,6 +411,7 @@
     <Content Include="Views\Home\WebApi.cshtml" />
     <Content Include="Views\Account\Lockout.cshtml" />
     <Content Include="Views\Trades\_TradesTable.cshtml" />
+    <Content Include="Views\Account\OnlyAlphaTestersAllowed.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

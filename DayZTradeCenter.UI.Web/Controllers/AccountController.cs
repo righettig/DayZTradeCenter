@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using DayZTradeCenter.DomainModel;
 using DayZTradeCenter.DomainModel.Entities;
 using DayZTradeCenter.DomainModel.Interfaces;
 using DayZTradeCenter.DomainModel.Migrations;
@@ -221,6 +222,12 @@ namespace DayZTradeCenter.UI.Web.Controllers
 
             if (ModelState.IsValid)
             {
+                // authz check: is the user an alpha tester?
+                if (!IsInWhiteList(model.Username))
+                {
+                    return View("OnlyAlphaTestersAllowed");
+                }
+
                 // Get the information about the user from the external login provider
                 var info = await _authenticationManager.GetExternalLoginInfoAsync();
                 if (info == null)
@@ -318,6 +325,25 @@ namespace DayZTradeCenter.UI.Web.Controllers
             var userName = claims.First(c => c.Type.EndsWith("name")).Value;
 
             return new Tuple<string, string>(id, userName);
+        }
+
+        /// <summary>
+        /// Determines whether the specified username is allowed to create an account.
+        /// </summary>
+        /// <param name="username">The username.</param>
+        /// <returns><c>True</c> if the user is allowed, <c>false</c> otherwise.</returns>
+        private static bool IsInWhiteList(string username)
+        {
+            bool result;
+            using (var db = new ApplicationDbContext())
+            {
+                var authzUserNames = 
+                    db.Database.SqlQuery<string>("select * from AuthorizedUsers");
+
+                result = authzUserNames.Contains(username);
+            }
+
+            return result;
         }
 
         #endregion
