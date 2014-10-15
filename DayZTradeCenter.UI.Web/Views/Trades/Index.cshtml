@@ -50,20 +50,21 @@
 
 @if (Model.CanCreate)
 {
-    <div class="container" style="margin-bottom: 25px">
+    <div class="container" style="margin-bottom: 12px">
         <div class="row">
-            <div class="col-md-1">
+            <div class="col-md-5">
                 <a class="btn btn-default @if (!Model.CanCreateANewTrade)
                                           {
                                               <text>disabled</text>
                                           }"
                    href="@Url.Action("Create")">Add</a>
-
                 @if (!Model.CanCreateANewTrade)
                 {
-                    @: You have reached your max quota of active trades
+                    <span style="margin-left: 10px">You have reached your max quota of active trades</span>
                 }
             </div>
+        </div>
+        <div class="row" style="margin-top: 18px">
             <div class="col-md-6">
                 @using (Html.BeginForm("GetHardcoreOnly", "Trades", FormMethod.Post, new {id = "filterTrades"}))
                 {
@@ -86,7 +87,7 @@
         $(function() {
             $('#showHardcoreOnly').click(function() {
                 var hardcoreOnly = $("#showHardcoreOnly").prop("checked");
-            
+
                 $("#tradesTable").load(
                     '@(Url.Action("GetHardcoreOnly", "Trades"))?hardcoreOnly=' + hardcoreOnly);
             });
