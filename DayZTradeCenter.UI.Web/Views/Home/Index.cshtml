@@ -7,15 +7,17 @@
 }
 
 <!-- #region style -->
-<style>
-    body {
-        padding-top: 80px;
-    }
+@section styles {
+    <style>
+        body {
+            padding-top: 80px;
+        }
 
-    .well {
-        margin-bottom: -5px;
-    }
-</style>
+        .well {
+            margin-bottom: -5px;
+        }
+    </style>
+}
 <!-- #endregion -->
 
 @Html.Partial("_TradeGallery", Model)
@@ -191,10 +193,5 @@
 </div>
 
 @section scripts {
-    <script src="~/Scripts/app/latesttrades.js"></script>
-
-    <script>
-        $('#rank').tooltip();
-        $('#target').tooltip();
-    </script>
+    @Scripts.Render("~/bundles/index")
 }

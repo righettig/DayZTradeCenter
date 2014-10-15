@@ -1,0 +1,2 @@
+﻿$('#rank').tooltip();
+$('#target').tooltip();

@@ -120,8 +120,8 @@ When the transaction is completed press
 }
 
 @section scripts {
-    <script src="~/Scripts/moment.min.js"></script>
-    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    @Scripts.Render("~/bundles/exchange")
+    @Scripts.Render("~/bundles/jqueryval")
 
     <script type="text/javascript">
         $(function () {

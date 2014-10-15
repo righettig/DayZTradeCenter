@@ -259,6 +259,9 @@
     <Content Include="Content\img\top_user.png" />
     <Content Include="Content\Selectize\css\selectize.bootstrap2.css" />
     <Content Include="Content\Selectize\css\selectize.bootstrap3.css" />
+    <Content Include="Content\Selectize\css\selectize.bootstrap3.min.css">
+      <DependentUpon>selectize.bootstrap3.css</DependentUpon>
+    </Content>
     <Content Include="Content\Selectize\css\selectize.css" />
     <Content Include="Content\Selectize\css\selectize.default.css" />
     <Content Include="Content\Selectize\css\selectize.legacy.css" />
@@ -275,7 +278,12 @@
     <Content Include="Scripts\app\ga.min.js">
       <DependentUpon>ga.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\app\index.js" />
+    <Content Include="Scripts\app\landing.js" />
     <Content Include="Scripts\app\latesttrades.js" />
+    <Content Include="Scripts\app\tradecompleted.js" />
+    <Content Include="Scripts\app\trades_index.js" />
+    <Content Include="Scripts\app\_layout.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
