@@ -28,6 +28,15 @@ namespace DayZTradeCenter.UI.Web.Controllers
         // GET: Items
         public ActionResult Index(int? page)
         {
+            var items = GetItemsByPage(page);
+
+            return Request.IsAjaxRequest()
+                ? (ActionResult) PartialView("_ItemsTable", items)
+                : View(items);
+        }
+
+        private IPagedList<Item> GetItemsByPage(int? page)
+        {
             var model =
                 _itemsRepository
                     .GetAll()
@@ -39,9 +48,9 @@ namespace DayZTradeCenter.UI.Web.Controllers
             const int pageSize = 10;
             var pageNumber = (page ?? 1);
 
-            return View(model.ToPagedList(pageNumber, pageSize));
+            return model.ToPagedList(pageNumber, pageSize);
         }
-        
+
         // GET: Items/Details/5
         public ActionResult Details(int id)
         {

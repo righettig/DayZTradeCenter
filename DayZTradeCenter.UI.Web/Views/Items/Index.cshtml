@@ -1,6 +1,4 @@
-﻿@using PagedList.Mvc
-
-@model PagedList.IPagedList<DayZTradeCenter.DomainModel.Entities.Item>
+﻿@model PagedList.IPagedList<DayZTradeCenter.DomainModel.Entities.Item>
 
 @{
     ViewBag.Title = "Index";
@@ -10,41 +8,16 @@
     <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 }
 
-<h2>Items <small>@Model.Count() items found</small></h2>
+<h2>Items <small>@Model.TotalItemCount items found</small></h2>
 
 <div class="container" style="margin-bottom: 25px">
     <a class="btn btn-default" href="@Url.Action("Create")">Add</a>
 </div>
 
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Name</td>
-                <td>
-                    <a class="btn btn-default" href="@Url.Action("Details", new { id = item.Id})">Details</a>
-                </td>
-                <td>
-                    <a class="btn btn-default" href="@Url.Action("Edit", new { id = item.Id})">Edit</a>
-                </td>
-                <td>
-                    <a class="btn btn-default" href="@Url.Action("Delete", new { id = item.Id})">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div id="items">
+    @Html.Partial("_ItemsTable", Model)
+</div>
 
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-@Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+@section scripts {
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+}

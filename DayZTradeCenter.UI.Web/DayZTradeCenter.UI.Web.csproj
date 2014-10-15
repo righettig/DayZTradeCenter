@@ -267,14 +267,10 @@
     <Content Include="Content\img\steam.png" />
     <Content Include="Content\img\top_user.png" />
     <Content Include="Content\PagedList.css" />
-    <Content Include="Content\Selectize\css\selectize.bootstrap2.css" />
     <Content Include="Content\Selectize\css\selectize.bootstrap3.css" />
     <Content Include="Content\Selectize\css\selectize.bootstrap3.min.css">
       <DependentUpon>selectize.bootstrap3.css</DependentUpon>
     </Content>
-    <Content Include="Content\Selectize\css\selectize.css" />
-    <Content Include="Content\Selectize\css\selectize.default.css" />
-    <Content Include="Content\Selectize\css\selectize.legacy.css" />
     <Content Include="Content\Selectize\js\selectize.js" />
     <Content Include="Content\Selectize\js\selectize.min.js" />
     <Content Include="Content\Selectize\js\standalone\selectize.js" />
@@ -353,6 +349,8 @@
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -422,6 +420,7 @@
     <Content Include="Views\Account\Lockout.cshtml" />
     <Content Include="Views\Trades\_TradesTable.cshtml" />
     <Content Include="Views\Account\OnlyAlphaTestersAllowed.cshtml" />
+    <Content Include="Views\Items\_ItemsTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
