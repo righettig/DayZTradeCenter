@@ -80,7 +80,10 @@ function CreateTradeViewModel(data) {
 
     self.isHardcore = ko.observable(false);
 
+    self.isSaving = ko.observable(false);
     self.save = function () {
+        self.isSaving(true);
+        
         var submitData = {
             have: self.have.getItemDetails(),
             want: self.want.getItemDetails(),
@@ -89,6 +92,7 @@ function CreateTradeViewModel(data) {
 
             __RequestVerificationToken: $("input[name='__RequestVerificationToken']").val()
         };
+
         $.ajax({
             type: "POST",
             contentType: "application/x-www-form-urlencoded",
@@ -98,15 +102,17 @@ function CreateTradeViewModel(data) {
             if (result.success) {
                 document.location.href = '/Trades';
             } else {
+                self.isSaving(false);
                 alert(result.error);
             }
-        }).error(function(ex) {
+        }).error(function (ex) {
+            self.isSaving(false);
             alert("Unknown error! " + ex);
         });
     };
 
     self.canSave = ko.computed(function() {
-        return self.have.isValid() && self.want.isValid() && !self.sameItems();
+        return self.have.isValid() && self.want.isValid() && !self.sameItems() && !self.isSaving();
     });
 
     self.sameItems = ko.computed(function () {
