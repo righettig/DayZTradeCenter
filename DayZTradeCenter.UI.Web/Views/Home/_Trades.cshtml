@@ -15,7 +15,7 @@
                 <!-- #region #Carousel -->
                 <div id="Carousel" class="carousel slide">
                     <ol class="carousel-indicators">
-                        @for (var i = 0; i <= Model.Count() / pageSize; i++)
+                        @for (var i = 0; i < Math.Ceiling((double)Model.Count() / pageSize); i++)
                         {
                             <li data-target="#Carousel"
                                 data-slide-to="@i"
@@ -27,7 +27,7 @@
 
                     <!-- #region .carousel-inner -->
                     <div class="carousel-inner">
-                        @for (var i = 0; i <= Model.Count() / pageSize; i++)
+                        @for (var i = 0; i < Math.Ceiling((double)Model.Count() / pageSize); i++)
                         {
                             <div class="item @if(i==0){<text>active</text>}">
                                 <div class="row">
