@@ -341,6 +341,12 @@ namespace DayZTradeCenter.UI.Web.Controllers
                     db.Database.SqlQuery<string>("select * from AuthorizedUsers");
 
                 result = authzUserNames.Contains(username);
+
+                if (result) // remove the used "username" so is it not possible to reuse after the first login.
+                {
+                    db.Database.ExecuteSqlCommand(
+                        string.Format("delete from AuthorizedUsers where UserName = '{0}'", username));
+                }
             }
 
             return result;
