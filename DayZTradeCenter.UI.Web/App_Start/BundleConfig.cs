@@ -47,6 +47,11 @@ namespace DayZTradeCenter.UI.Web
                         "~/Scripts/jquery.unobtrusive-ajax.js",
                         "~/Scripts/app/trades_index.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/items_index").Include(
+                        "~/Scripts/jquery.unobtrusive-ajax.js",
+                        "~/Scripts/alertify.min.js",
+                        "~/Scripts/app/items_index.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/exchange").Include(
                         "~/Scripts/moment.js",
                         "~/Scripts/bootstrap-datetimepicker.js"));

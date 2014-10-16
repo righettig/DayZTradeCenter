@@ -28,7 +28,7 @@
                         <a class="btn btn-default table-btn" href="@Url.Action("Edit", new {id = item.Id})">Edit</a>
                     </td>
                     <td>
-                        <a class="btn btn-default table-btn" href="@Url.Action("Delete", new {id = item.Id})">Delete</a>
+                        <button class="btn btn-default table-btn" onclick='deleteItem("@item.Name", @item.Id)'>Delete</button>
                     </td>
                 </tr>
             }

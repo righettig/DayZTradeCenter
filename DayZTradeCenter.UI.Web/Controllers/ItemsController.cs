@@ -108,35 +108,19 @@ namespace DayZTradeCenter.UI.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: Items/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var model = _itemsRepository.GetSingle(id.Value);
-
-            if (model == null)
-            {
-                return HttpNotFound();
-            }
-            return View(model);
-        }
-
         // POST: Items/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public JsonResult Delete(int id)
         {
             var model = _itemsRepository.GetSingle(id);
 
             _itemsRepository.Delete(model);
             _itemsRepository.SaveChanges();
 
-            return RedirectToAction("Index");
+            return Json(new { success = true });
         }
+
 
         private readonly IRepository<Item> _itemsRepository;
     }
