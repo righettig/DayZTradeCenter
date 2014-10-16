@@ -4,6 +4,14 @@
     ViewBag.Title = "Home Page";
 }
 
+@section styles {
+    <style>
+        .table-btn {
+            width: 85px
+        }
+    </style>
+}
+
 <div class="page-header" style="margin-top: 30px">
     <h1>
         Dashboard <small>Admin</small>
@@ -19,14 +27,14 @@
 
 <br />
 
-<div class="table-responsive">
+<div class="table-responsive" style="margin-left: auto; margin-right: auto; width: 1024px">
     <table class="table table-bordered table-hover">
         <thead>
             <tr>
-                <th style="width: 35px">UserId</th>
-                <th style="width: 45px">UserName</th>
-                <th style="width: 10px">Reputation</th>
-                <th style="width: 10px"></th>
+                <th style="width: 40%">UserId</th>
+                <th style="width: 50%">UserName</th>
+                <th style="width: 5%">Reputation</th>
+                <th style="width: 5%"></th>
             </tr>
         </thead>
         <tbody>
@@ -44,7 +52,7 @@
                                 action = "Ban";
                             }
                         }
-                        <a href="@Url.Action(action, "Admin", new { userId = user.Id })" class="btn btn-default">@action</a>
+                        <a href="@Url.Action(action, "Admin", new { userId = user.Id })" class="btn btn-default table-btn">@action</a>
                     </td>
                 </tr>
             }
