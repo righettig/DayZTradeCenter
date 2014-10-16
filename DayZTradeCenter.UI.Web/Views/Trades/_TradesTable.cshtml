@@ -101,8 +101,8 @@
                         else if (!User.IsInRole("Administrator"))
                         {
                             <td>
-                                <a class="btn btn-default table-btn"
-                                   href="@Url.Action("Delete", new {tradeId = trade.TradeData.Id})">Delete</a>
+                                <button class="btn btn-default table-btn" 
+                                        onclick='deleteTrade(@trade.TradeData.Id, this)'>Delete</button>
                             </td>
                         }
                     </tr>

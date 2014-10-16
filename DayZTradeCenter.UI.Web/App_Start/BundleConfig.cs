@@ -45,6 +45,7 @@ namespace DayZTradeCenter.UI.Web
             bundles.Add(new ScriptBundle("~/bundles/trades_index").Include(
                         "~/Content/Selectize/js/standalone/selectize.js",
                         "~/Scripts/jquery.unobtrusive-ajax.js",
+                        "~/Scripts/alertify.min.js",
                         "~/Scripts/app/trades_index.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/items_index").Include(

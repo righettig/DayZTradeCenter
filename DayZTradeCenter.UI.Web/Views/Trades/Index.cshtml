@@ -13,6 +13,9 @@
             width: 85px
         }
     </style>
+    
+    <link href="~/Content/alertifyjs/alertify.min.css" rel="stylesheet" />
+    <link href="~/Content/alertifyjs/themes/default.min.css" rel="stylesheet" />
 }
 
 @using (Html.BeginForm())
@@ -53,7 +56,7 @@
     </div>
 }
 
-<h2>Trades <small>@Model.Trades.TotalItemCount trades found</small></h2>
+<h2>Trades <small id="totalTradeCount">@Model.Trades.TotalItemCount</small><small> trades found</small></h2>
 
 @if (Model.CanCreate)
 {

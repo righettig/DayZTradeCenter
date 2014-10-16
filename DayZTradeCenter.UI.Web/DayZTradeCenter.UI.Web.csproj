@@ -425,7 +425,6 @@
     <Content Include="Views\Home\_TradeGallery.cshtml" />
     <Content Include="Views\Trades\AlreadyOffered.cshtml" />
     <Content Include="Views\Account\LoginWithFakeAccount.cshtml" />
-    <Content Include="Views\Trades\Delete.cshtml" />
     <Content Include="Views\Profile\Inbox.cshtml" />
     <Content Include="Views\Home\AdminIndex.cshtml" />
     <Content Include="Views\Shared\_AdminLoginPartial.cshtml" />
