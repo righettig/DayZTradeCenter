@@ -104,16 +104,18 @@ namespace DayZTradeCenter.DomainModel.Services
         /// </exception>
         public IEnumerable<Trade> GetActiveTrades(SearchParams @params)
         {
-            IEnumerable<Trade> result;
+            var result =
+                @params.HardcoreOnly
+                    ? GetActiveTrades().Where(t => t.IsHardcore)
+                    : GetActiveTrades();
 
             if (@params.ItemId.HasValue)
             {
+                // this solves: "There is already an open DataReader associated with this Command which must be closed first."
+                // NB: another viable solution is to turn on MultipleActiveResultSets or to disable lazy-loading and use "Include"
+                // http://stackoverflow.com/questions/4867602/entity-framework-there-is-already-an-open-datareader-associated-with-this-comma
                 var trades = 
-                    GetActiveTrades()
-                    // this solves: "There is already an open DataReader associated with this Command which must be closed first."
-                    // NB: another viable solution is to turn on MultipleActiveResultSets or to disable lazy-loading and use "Include"
-                    // http://stackoverflow.com/questions/4867602/entity-framework-there-is-already-an-open-datareader-associated-with-this-comma
-                    .ToArray(); // <-- the problem here is that *ALL* the trades are loaded into memory!
+                    result.ToArray(); // <-- the problem here is that *ALL* the trades are loaded into memory!
 
                 switch (@params.Type)
                 {
@@ -138,10 +140,6 @@ namespace DayZTradeCenter.DomainModel.Services
                         throw new NotSupportedException("The specified search type is not supported yet.");
                 }
             }
-            else
-            {
-                result = GetActiveTrades();
-            }
 
             return result;
         }
@@ -164,17 +162,6 @@ namespace DayZTradeCenter.DomainModel.Services
         public IEnumerable<Trade> GetOffersByUser(string userId)
         {
             return All.Where(t => t.Offers.Any(o => o.Id == userId));
-        }
-
-        /// <summary>
-        /// Gets the active trades for the hardcore hive.
-        /// </summary>
-        /// <returns>
-        /// The active trades for the hardcore hive.
-        /// </returns>
-        public IEnumerable<Trade> GetActiveTradesForHardcoreHive()
-        {
-            return GetActiveTrades().Where(t => t.IsHardcore);
         }
 
         /// <summary>

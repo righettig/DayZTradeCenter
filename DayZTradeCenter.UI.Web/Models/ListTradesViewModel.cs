@@ -1,28 +1,33 @@
 ﻿using System.Collections.Generic;
 using DayZTradeCenter.DomainModel.Entities;
+using PagedList;
 
 namespace DayZTradeCenter.UI.Web.Models
 {
     public class ListTradesViewModel
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ListTradesViewModel"/> class.
+        /// Initializes a new instance of the <see cref="ListTradesViewModel" /> class.
         /// </summary>
         /// <param name="canCreate">if set to <c>true</c> the user is able to create a Trade.</param>
         /// <param name="userId">The user identifier.</param>
         /// <param name="trades">The trades.</param>
+        /// <param name="pageNumber">The page number.</param>
+        /// <param name="pageSize">The size of the page.</param>
         /// <param name="canCreateANewTrade">if set to <c>true</c> the user is able to create a new Trade.</param>
         /// <param name="search">if set to <c>true</c> the user has done a search.</param>
         public ListTradesViewModel(
-            bool canCreate, string userId, IEnumerable<Trade> trades, bool canCreateANewTrade, bool search)
+            bool canCreate, string userId, 
+            IEnumerable<Trade> trades, int pageNumber, int pageSize, 
+            bool canCreateANewTrade, bool search)
         {
             _canCreate = canCreate;
             _canCreateANewTrade = canCreateANewTrade;
             _search = search;
 
-            _tradesTableViewModel = new TradeTableViewModel(trades, userId, canCreate);
+            _tradesTableViewModel = new TradeTableViewModel(trades, pageNumber, pageSize, userId, canCreate);
         }
-
+        
         #region Public properties
 
         /// <summary>
@@ -53,7 +58,7 @@ namespace DayZTradeCenter.UI.Web.Models
         /// <value>
         /// The trades view models.
         /// </value>
-        public IEnumerable<TradeViewModel> Trades
+        public IPagedList<TradeViewModel> Trades
         {
             get { return _tradesTableViewModel.Trades; }
         }

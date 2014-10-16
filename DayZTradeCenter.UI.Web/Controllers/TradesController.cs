@@ -50,42 +50,48 @@ namespace DayZTradeCenter.UI.Web.Controllers
             _userManager = userManager;
         }
 
-        // GET: Trades
-        public ActionResult Index(int? itemId, SearchTypes? searchType)
+        public ActionResult Index(int? itemId, SearchTypes? searchType, int? page, bool? hardcoreOnly)
         {
             var model = _tradeManager.GetActiveTrades(
-                new SearchParams {ItemId = itemId, Type = searchType});
+                new SearchParams
+                {
+                    ItemId = itemId,
+                    Type = searchType,
+                    HardcoreOnly = hardcoreOnly.HasValue && (bool) hardcoreOnly
+                });
+
+            ViewBag.ItemId = itemId;
+            ViewBag.SearchType = searchType;
+            ViewBag.IsHardCoreOnly = hardcoreOnly;
+
+            const int pageSize = 10;
+            var pageNumber = (page ?? 1);
+
+            if (Request.IsAjaxRequest())
+            {
+                var tradeTableViewModel =
+                    new TradeTableViewModel(model, pageNumber, pageSize, User.Identity.GetUserId(), CanCreate());
+
+                return PartialView("_TradesTable", tradeTableViewModel.Trades);
+            }
 
             var userId = User.Identity.GetUserId();
 
             var vm = new ListTradesViewModel(
                 CanCreate(),
                 userId,
-                model,
+                model, pageNumber, pageSize,
                 _tradeManager.CanCreateTrade(userId),
                 searchType.HasValue);
 
             var items = _tradeManager.GetAllItems();
 
             vm.Items =
-                items.Select(item => new ItemViewModel {Id = item.Id, Name = item.Name});
+                items.Select(item => new ItemViewModel { Id = item.Id, Name = item.Name });
 
             return View(vm);
         }
-
-        public PartialViewResult GetHardcoreOnly(bool hardcoreOnly)
-        {
-            var model =
-                hardcoreOnly
-                    ? _tradeManager.GetActiveTradesForHardcoreHive()
-                    : _tradeManager.GetActiveTrades();
-
-            var vm =
-                new TradeTableViewModel(model, User.Identity.GetUserId(), CanCreate());
-
-            return PartialView("_TradesTable", vm.Trades);
-        }
-
+    
         // GET: Trades/Create
         public ActionResult Create()
         {

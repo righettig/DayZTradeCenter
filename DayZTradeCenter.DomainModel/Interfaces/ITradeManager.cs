@@ -52,15 +52,7 @@ namespace DayZTradeCenter.DomainModel.Interfaces
         /// </summary>
         /// <param name="userId">The user identifier.</param>
         IEnumerable<Trade> GetOffersByUser(string userId);
-
-        /// <summary>
-        /// Gets the active trades for the hardcore hive.
-        /// </summary>
-        /// <returns>
-        /// The active trades for the hardcore hive.
-        /// </returns>
-        IEnumerable<Trade> GetActiveTradesForHardcoreHive();
-            
+        
         /// <summary>
         /// Gets the trade by identifier.
         /// </summary>
@@ -167,6 +159,7 @@ namespace DayZTradeCenter.DomainModel.Interfaces
     {
         public int? ItemId { get; set; }
         public SearchTypes? Type { get; set; }
+        public bool HardcoreOnly { get; set; }
     }
 
     public enum SearchTypes

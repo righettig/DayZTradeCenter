@@ -6,6 +6,7 @@
 
 @section styles {
     <link href="~/Content/Selectize/css/selectize.bootstrap3.min.css" rel="stylesheet" />
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 }
 
 @using (Html.BeginForm())
@@ -46,7 +47,7 @@
     </div>
 }
 
-<h2>Trades <small>@Model.Trades.Count() trades found</small></h2>
+<h2>Trades <small>@Model.Trades.TotalItemCount trades found</small></h2>
 
 @if (Model.CanCreate)
 {
@@ -82,14 +83,19 @@
 
 @section scripts {
     @Scripts.Render("~/bundles/trades_index")
-
+    
     <script>
         $(function() {
             $('#showHardcoreOnly').click(function() {
-                var hardcoreOnly = $("#showHardcoreOnly").prop("checked");
+                var itemId = $("#_itemId").val();
+                var searchType = $("#_searchType").val();
+                var isHardCoreOnly = $("#showHardcoreOnly").prop("checked");
+
+                var params =
+                    "?itemId=" + itemId + "&searchType=" + searchType + "&hardcoreOnly=" + isHardCoreOnly;
 
                 $("#tradesTable").load(
-                    '@(Url.Action("GetHardcoreOnly", "Trades"))?hardcoreOnly=' + hardcoreOnly);
+                    '@(Url.Action("Index", "Trades"))' + params);
             });
         });
     </script>

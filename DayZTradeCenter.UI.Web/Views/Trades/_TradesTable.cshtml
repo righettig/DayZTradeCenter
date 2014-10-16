@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNet.Identity
+@using PagedList.Mvc
 
-@model IEnumerable<DayZTradeCenter.UI.Web.Models.TradeViewModel>
+@model PagedList.IPagedList<DayZTradeCenter.UI.Web.Models.TradeViewModel>
 
 @if (Model.Any())
 {
@@ -114,3 +115,14 @@ else
         </div>
     </div>
 }
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+<input id="_itemId" type="hidden" value="@ViewBag.ItemId">
+<input id="_searchType" type="hidden" value="@ViewBag.SearchType">
+<input id="_page" type="hidden" value="@Model.PageNumber">
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, itemId = ViewBag.ItemId, searchType = ViewBag.SearchType, hardcoreOnly = ViewBag.IsHardCoreOnly }),
+    PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
+        new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "tradesTable" }))
