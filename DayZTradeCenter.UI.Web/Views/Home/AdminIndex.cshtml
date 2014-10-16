@@ -27,35 +27,46 @@
 
 <br />
 
-<div class="table-responsive" style="margin-left: auto; margin-right: auto; width: 1024px">
-    <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th style="width: 40%">UserId</th>
-                <th style="width: 50%">UserName</th>
-                <th style="width: 5%">Reputation</th>
-                <th style="width: 5%"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var user in Model.Users)
-            {
+@if (Model.Users.Any())
+{
+    <div class="table-responsive" style="margin-left: auto; margin-right: auto; width: 1024px">
+        <table class="table table-bordered table-hover">
+            <thead>
                 <tr>
-                    <td>@user.Id</td>
-                    <td>@user.UserName</td>
-                    <td>@user.GetReputation()</td>
-                    <td>
-                        @{
-                            var action = "Unban";
-                            if (user.IsApproved)
-                            {
-                                action = "Ban";
-                            }
-                        }
-                        <a href="@Url.Action(action, "Admin", new { userId = user.Id })" class="btn btn-default table-btn">@action</a>
-                    </td>
+                    <th style="width: 40%">UserId</th>
+                    <th style="width: 50%">UserName</th>
+                    <th style="width: 5%">Reputation</th>
+                    <th style="width: 5%"></th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @foreach (var user in Model.Users)
+                {
+                    <tr>
+                        <td>@user.Id</td>
+                        <td>@user.UserName</td>
+                        <td>@user.GetReputation()</td>
+                        <td>
+                            @{
+                                var action = "Unban";
+                                if (user.IsApproved)
+                                {
+                                    action = "Ban";
+                                }
+                            }
+                            <a href="@Url.Action(action, "Admin", new {userId = user.Id})" class="btn btn-default table-btn">@action</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="panel panel-default" style="margin-left: auto; margin-right: auto; width: 1024px">
+        <div class="panel-body">
+            There are no users available!
+        </div>
+    </div>
+}
