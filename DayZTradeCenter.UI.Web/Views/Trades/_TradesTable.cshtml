@@ -5,26 +5,34 @@
 
 @if (Model.Any())
 {
-    <div class="table-responsive">
+    <div class="table-responsive"
+        @if (!User.IsInRole("Administrator"))
+        {
+            <text>
+                style="margin-left: auto; margin-right: auto; width: 1024px" 
+            </text>
+        }>
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
                     @if (User.IsInRole("Administrator"))
                     {
-                        <th style="width: 40px">Id</th>
-                    }
-                    @if (User.IsInRole("Administrator"))
-                    {
+                        <th style="width: 3%">Id</th>
                         <th style="width: 24%">Owner Id</th>
+                        <th style="width: 21%">Have</th>
+                        <th style="width: 21%">Want</th>
+                        <th style="width: 8%">Is Hardcore</th>
+                        <th style="width: 11%">Owner reputation</th>
+                        <th style="width: 6%"># Offers</th>
                     }
-                    <th style="width: 25%">Have</th>
-                    <th style="width: 25%">Want</th>
-                    <th style="width: 10%">Is Hardcore</th>
-                    <th style="width: 185px">Owner reputation</th>
-                    <th style="width: 185px"># Offers</th>
-                    @if (!User.IsInRole("Administrator"))
+                    else
                     {
-                        <th style="width: 100px"></th>
+                        <th style="width: 31%">Have</th>
+                        <th style="width: 31%">Want</th>
+                        <th style="width: 10%">Is Hardcore</th>
+                        <th style="width: 14%">Owner reputation</th>
+                        <th style="width: 8%"># Offers</th>
+                        <th style="width: 6%"></th>
                     }
                 </tr>
             </thead>
@@ -41,20 +49,16 @@
                             <td>@trade.TradeData.Owner.Id</td>
                         }
                         <td>
-                            <ul style="list-style-type: none">
-                                @foreach (var have in trade.TradeData.Have)
-                                {
-                                    <li>@have.Item.Name, @have.Quantity</li>
-                                }
-                            </ul>
+                            @foreach (var have in trade.TradeData.Have)
+                            {
+                                <span>@have.Item.Name</span>@:,<span><strong>@have.Quantity</strong></span><br />
+                            }
                         </td>
                         <td>
-                            <ul style="list-style-type: none">
-                                @foreach (var want in trade.TradeData.Want)
-                                {
-                                    <li>@want.Item.Name, @want.Quantity</li>
-                                }
-                            </ul>
+                            @foreach (var have in trade.TradeData.Want)
+                            {
+                                <span>@have.Item.Name</span>@:,<span><strong>@have.Quantity</strong></span><br />
+                            }
                         </td>
                         <td>
                             @trade.TradeData.IsHardcore
@@ -83,21 +87,21 @@
                         @if (trade.CanOffer)
                         {
                             <td>
-                                <a class="btn btn-default"
+                                <a class="btn btn-default table-btn"
                                    href="@Url.Action("Offer", new {tradeId = trade.TradeData.Id})">Offer</a>
                             </td>
                         }
                         else if (trade.TradeData.Owner.Id != User.Identity.GetUserId() && !User.IsInRole("Administrator"))
                         {
                             <td>
-                                <a class="btn btn-default"
+                                <a class="btn btn-default table-btn"
                                    href="@Url.Action("Withdraw", new {tradeId = trade.TradeData.Id})">Withdraw</a>
                             </td>
                         }
                         else if (!User.IsInRole("Administrator"))
                         {
                             <td>
-                                <a class="btn btn-default"
+                                <a class="btn btn-default table-btn"
                                    href="@Url.Action("Delete", new {tradeId = trade.TradeData.Id})">Delete</a>
                             </td>
                         }

@@ -7,6 +7,12 @@
 @section styles {
     <link href="~/Content/Selectize/css/selectize.bootstrap3.min.css" rel="stylesheet" />
     <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+    
+    <style>
+        .table-btn { 
+            width: 85px
+        }
+    </style>
 }
 
 @using (Html.BeginForm())
@@ -61,16 +67,16 @@
                    href="@Url.Action("Create")">Add</a>
                 @if (!Model.CanCreateANewTrade)
                 {
-                    <span style="margin-left: 10px">You have reached your max quota of active trades</span>
+                    <span class="text-danger" style="margin-left: 10px">You have reached your max quota of active trades</span>
                 }
             </div>
         </div>
         <div class="row" style="margin-top: 18px">
             <div class="col-md-6">
-                @using (Html.BeginForm("GetHardcoreOnly", "Trades", FormMethod.Post, new {id = "filterTrades"}))
+                @using (Html.BeginForm("GetHardcoreOnly", "Trades", FormMethod.Post, new { id = "filterTrades" }))
                 {
-                    <span>Show hardcore only</span>
-                    <input id="showHardcoreOnly" type="checkbox" />
+                    <span style="margin-left: 51px">Show hardcore only</span>
+                    <input id="showHardcoreOnly" type="checkbox" style="position: relative; top: 2px"/>
                 }
             </div>
         </div>
