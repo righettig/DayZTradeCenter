@@ -393,7 +393,6 @@
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Items\Index.cshtml" />
     <Content Include="Views\Items\NotFound.cshtml" />
-    <Content Include="Views\Items\Details.cshtml" />
     <Content Include="Views\Items\Create.cshtml" />
     <Content Include="Views\Items\Delete.cshtml" />
     <Content Include="Views\Items\Edit.cshtml" />

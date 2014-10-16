@@ -51,12 +51,6 @@ namespace DayZTradeCenter.UI.Web.Controllers
             return model.ToPagedList(pageNumber, pageSize);
         }
 
-        // GET: Items/Details/5
-        public ActionResult Details(int id)
-        {
-            return FindItem(id);
-        }
-
         // GET: Items/Create
         public ActionResult Create()
         {
@@ -84,7 +78,11 @@ namespace DayZTradeCenter.UI.Web.Controllers
         // GET: Items/Edit/5
         public ActionResult Edit(int id)
         {
-            return FindItem(id);
+            var model = _itemsRepository.GetSingle(id);
+
+            return model == null
+                ? View("NotFound")
+                : View(model);
         }
 
         // POST: Items/Edit/5
@@ -138,15 +136,6 @@ namespace DayZTradeCenter.UI.Web.Controllers
             _itemsRepository.SaveChanges();
 
             return RedirectToAction("Index");
-        }
-
-        private ActionResult FindItem(int id)
-        {
-            var model = _itemsRepository.GetSingle(id);
-
-            return model == null
-                ? View("NotFound")
-                : View(model);
         }
 
         private readonly IRepository<Item> _itemsRepository;
