@@ -3,39 +3,50 @@
 
 @model PagedList.IPagedList<DayZTradeCenter.DomainModel.Entities.Item>
 
-<table class="table table-bordered table-hover" style="margin-left: auto; margin-right: auto; width: 1024px">
-    <thead>
-        <tr>
-            <th style="width: 28%">Name</th>
-            <th style="width: 16%">Category</th>
-            <th style="width: 20%">Subcategory</th>
-            <th style="width: 16%">Rarity</th>
-            <th style="width: 10%"></th>
-            <th style="width: 10%"></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+@if (Model.Any())
+{
+    <table class="table table-bordered table-hover" style="margin-left: auto; margin-right: auto; width: 1024px">
+        <thead>
             <tr>
-                <td>@item.Name</td>
-                <td>@item.Details.Category.GetDescription()</td>
-                <td>@item.Details.Subcategory.GetDescription()</td>
-                <td>@item.Rarity.GetDescription()</td>
-                <td>
-                    <a class="btn btn-default table-btn" href="@Url.Action("Edit", new { id = item.Id})">Edit</a>
-                </td>
-                <td>
-                    <a class="btn btn-default table-btn" href="@Url.Action("Delete", new { id = item.Id})">Delete</a>
-                </td>
+                <th style="width: 28%">Name</th>
+                <th style="width: 16%">Category</th>
+                <th style="width: 20%">Subcategory</th>
+                <th style="width: 16%">Rarity</th>
+                <th style="width: 10%"></th>
+                <th style="width: 10%"></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Details.Category.GetDescription()</td>
+                    <td>@item.Details.Subcategory.GetDescription()</td>
+                    <td>@item.Rarity.GetDescription()</td>
+                    <td>
+                        <a class="btn btn-default table-btn" href="@Url.Action("Edit", new {id = item.Id})">Edit</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-default table-btn" href="@Url.Action("Delete", new {id = item.Id})">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @:Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page }),
-    PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
-        new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "items" }))
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new {page}),
+        PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
+            new AjaxOptions {HttpMethod = "GET", UpdateTargetId = "items"}))
+}
+else
+{
+    <div class="panel panel-default" style="margin-left: auto; margin-right: auto; width: 1024px">
+        <div class="panel-body">
+            There are no items available!
+        </div>
+    </div>
+}
