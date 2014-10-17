@@ -115,6 +115,27 @@ namespace DayZTradeCenter.UI.Web.Controllers
             return View(model.Messages.OrderByDescending(m => m.Timestamp));
         }
 
+        [HttpPost]
+        public async Task<JsonResult> DeleteInboxMessages(params int[] ids)
+        {
+            var user =
+                await _userManager.FindByIdAsync(
+                    User.Identity.GetUserId());
+
+            var messages =
+                user.Messages;
+
+            foreach (var message in ids.Select(
+                id => messages.FirstOrDefault(m => m.Id == id)).Where(message => message != null))
+            {
+                messages.Remove(message);
+            }
+
+            await _userManager.UpdateAsync(user);
+
+            return Json(new {success = true});
+        }
+
         public async Task<ViewResult> CompleteHistory(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);

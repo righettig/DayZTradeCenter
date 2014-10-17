@@ -45,13 +45,19 @@ namespace DayZTradeCenter.UI.Web
             bundles.Add(new ScriptBundle("~/bundles/trades_index").Include(
                         "~/Content/Selectize/js/standalone/selectize.js",
                         "~/Scripts/jquery.unobtrusive-ajax.js",
-                        "~/Scripts/alertify.min.js",
+                        "~/Scripts/alertify.js",
                         "~/Scripts/app/trades_index.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/items_index").Include(
                         "~/Scripts/jquery.unobtrusive-ajax.js",
-                        "~/Scripts/alertify.min.js",
+                        "~/Scripts/alertify.js",
                         "~/Scripts/app/items_index.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/inbox").Include(
+                        "~/Scripts/knockout-{version}.js",
+                        "~/Scripts/moment.js",
+                        "~/Scripts/alertify.js",
+                        "~/Scripts/app/InboxViewModel.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/exchange").Include(
                         "~/Scripts/moment.js",

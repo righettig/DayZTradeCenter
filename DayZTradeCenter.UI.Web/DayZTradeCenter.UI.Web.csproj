@@ -303,6 +303,7 @@
     <Content Include="Scripts\app\ga.min.js">
       <DependentUpon>ga.js</DependentUpon>
     </Content>
+    <Content Include="Scripts\app\InboxViewModel.js" />
     <Content Include="Scripts\app\index.js" />
     <Content Include="Scripts\app\items_index.js" />
     <Content Include="Scripts\app\landing.js" />
