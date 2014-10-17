@@ -56,7 +56,11 @@ function InboxViewModel(data) {
         });
     };
 
-    self.deleteMessages = function() {
+    self.isDeleting = ko.observable();
+    
+    self.deleteMessages = function () {
+        self.isDeleting(true);
+        
         var messages = {
             ids: getAllSelectedMessages()
         };
@@ -72,11 +76,14 @@ function InboxViewModel(data) {
                     self.removeMessageById(id);
                 });
 
+                self.isDeleting(false);
                 alertify.success('Ok');
             } else {
+                self.isDeleting(false);
                 alertify.error(result.error);
             }
         }).error(function (ex) {
+            self.isDeleting(false);
             alertify.error("Unknown error! " + ex);
         });
     };

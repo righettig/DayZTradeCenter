@@ -13,31 +13,35 @@
 
 <h2>Inbox</h2>
 
-<div data-bind="if: messages().length > 0">
-    <table class="table table-condensed table-hover">
-        <thead>
-            <tr>
-                <th style="width: 4%"><input type="checkbox" data-bind="checked: allSelected, click: toggleSelectAll"></th>
-                <th style="width: 76%"></th>
-                <th style="width: 20%"></th>
-            </tr>
-        </thead>
-        <tbody data-bind="foreach: messages">
-            <tr>
-                <td><input type="checkbox" data-bind="checked: selected"></td>
-                <td><strong data-bind="html: text"></strong></td>
-                <td style="text-align: center"><strong data-bind="text: timestamp"></strong></td>
-            </tr>
-        </tbody>
-    </table>
+<div style="display: none" data-bind="visible: true">
+    <div data-bind="if: messages().length > 0">
+        <table class="table table-condensed table-hover">
+            <thead>
+                <tr>
+                    <th style="width: 4%"><input type="checkbox" data-bind="checked: allSelected, click: toggleSelectAll"></th>
+                    <th style="width: 76%"></th>
+                    <th style="width: 20%"></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: messages">
+                <tr>
+                    <td><input type="checkbox" data-bind="checked: selected"></td>
+                    <td><strong data-bind="html: text"></strong></td>
+                    <td style="text-align: center"><strong data-bind="text: timestamp"></strong></td>
+                </tr>
+            </tbody>
+        </table>
 
-    <button class="btn btn-default" data-bind="visible: deleteVisible, click: deleteMessages">Delete</button>
-</div>
+        <button class="btn btn-default" data-bind="visible: deleteVisible, enable: !isDeleting(), click: deleteMessages">
+            Delete
+        </button>
+    </div>
 
-<div data-bind="if: messages().length === 0">
-    <div class="panel panel-default">
-        <div class="panel-body">
-            There are no messages in your inbox!
+    <div data-bind="if: messages().length === 0">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                There are no messages in your inbox!
+            </div>
         </div>
     </div>
 </div>
