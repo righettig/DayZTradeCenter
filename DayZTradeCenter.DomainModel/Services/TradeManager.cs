@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using DayZTradeCenter.DomainModel.Entities;
 using DayZTradeCenter.DomainModel.Entities.Messages;
@@ -49,6 +50,8 @@ namespace DayZTradeCenter.DomainModel.Services
             _itemsRepository = itemsRepository;
             _userStore = userStore;
         }
+
+        #region Query API
 
         private IQueryable<Trade> All
         {
@@ -202,6 +205,8 @@ namespace DayZTradeCenter.DomainModel.Services
             return activeTrades.Count() < 3;
         }
 
+        #endregion
+
         /// <summary>
         /// Creates a new trade.
         /// </summary>
@@ -258,12 +263,11 @@ namespace DayZTradeCenter.DomainModel.Services
             if (trade.Owner.Id == userId)
             {
                 foreach (var user in trade.Offers
-                    .Select(u => u.Id)
-                    .Select(id => _userStore.FindByIdAsync(id).Result))
+                    .Select(u => FindUserById(u.Id)))
                 {
                     user.Messages.Add(new TradeDeletedMessage());
 
-                    _userStore.UpdateAsync(user).Wait();
+                    UpdateUser(user);
                 }
 
                 // TODO: fix delete with proper "on delete cascade". This is just a patch!
@@ -304,10 +308,10 @@ namespace DayZTradeCenter.DomainModel.Services
             {
                 trade.Offers.Add(user);
 
-                var owner = _userStore.FindByIdAsync(trade.Owner.Id).Result;
+                var owner = FindUserById(trade.Owner.Id);
                 owner.Messages.Add(new OfferReceivedMessage());
 
-                _userStore.UpdateAsync(owner).Wait();
+                UpdateUser(owner);
 
                 _tradesRepository.Update(trade);
                 _tradesRepository.SaveChanges();
@@ -364,24 +368,24 @@ namespace DayZTradeCenter.DomainModel.Services
             }
 
             // sends a message to the winner.
-            var winner = _userStore.FindByIdAsync(userId).Result;
+            var winner = FindUserById(userId);
             winner.Messages.Add(new TradeWonMessage());
 
             trade.Winner = winner;
             trade.State = TradeStates.Closed;
             
-            _userStore.UpdateAsync(winner).Wait();
+            UpdateUser(winner);
 
             // sends a message to those who have not win.
             foreach (
                 var loser in
                     from id in trade.Offers.Select(o => o.Id)
                     where id != winner.Id
-                    select _userStore.FindByIdAsync(id).Result)
+                    select FindUserById(id))
             {
                 loser.Messages.Add(new TradeLostMessage());
 
-                _userStore.UpdateAsync(loser).Wait();
+                UpdateUser(loser);
             }
 
             _tradesRepository.Update(trade);
@@ -457,16 +461,18 @@ namespace DayZTradeCenter.DomainModel.Services
             return LeaveFeedbackResult.Ok;
         }
 
-        private void AddFeedback(ApplicationUser receiver, int score)
+        #region Private methods
+
+        private void AddFeedback(IUser<string> receiver, int score)
         {
-            var user = _userStore.FindByIdAsync(receiver.Id).Result;
+            var user = FindUserById(receiver.Id);
 
             var feedback = new Feedback(score);
             
             user.Feedbacks.Add(feedback);
             user.Messages.Add(new FeedbackReceivedMessage(feedback));
             
-            _userStore.UpdateAsync(user).Wait();
+            UpdateUser(user);
         }
 
         private static LeaveFeedbackResult CanLeaveFeedback(Trade trade, string userId)
@@ -485,6 +491,22 @@ namespace DayZTradeCenter.DomainModel.Services
             return LeaveFeedbackResult.Ok;
         }
 
+        private void UpdateUser(ApplicationUser user)
+        {
+            Debug.Assert(user != null);
+
+            _userStore.UpdateAsync(user).Wait();
+        }
+
+        private ApplicationUser FindUserById(string userId)
+        {
+            Debug.Assert(!string.IsNullOrWhiteSpace(userId));
+
+            return _userStore.FindByIdAsync(userId).Result;
+        }
+
+        #endregion
+        
         #region Private fields
 
         private readonly IRepository<Trade> _tradesRepository;
