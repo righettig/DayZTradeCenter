@@ -67,6 +67,8 @@ namespace DayZTradeCenter.UI.Web.Controllers
             const int pageSize = 10;
             var pageNumber = (page ?? 1);
 
+            var userId = GetUserId();
+
             if (Request.IsAjaxRequest())
             {
                 var tradeTableViewModel =
@@ -74,8 +76,6 @@ namespace DayZTradeCenter.UI.Web.Controllers
 
                 return PartialView("_TradesTable", tradeTableViewModel.Trades);
             }
-
-            var userId = User.Identity.GetUserId();
 
             var vm = new ListTradesViewModel(
                 CanCreate(),
@@ -119,7 +119,8 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 });
             }
 
-            var user = await _userManager.FindByIdAsync(User.Identity.GetUserId());
+            var userId = GetUserId();
+            var user = await _userManager.FindByIdAsync(userId);
 
             if (_tradeManager.CreateNewTrade(vm.Have, vm.Want, vm.IsHardcore, user))
             {
@@ -134,7 +135,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
         [ValidateAntiForgeryToken]
         public JsonResult Delete(int tradeId)
         {
-            var userId = User.Identity.GetUserId();
+            var userId = GetUserId();
 
             if (_tradeManager.DeleteTrade(tradeId, userId))
             {
@@ -147,7 +148,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
         // GET: Trades/Offer
         public async Task<ActionResult> Offer(int tradeId)
         {
-            var userId = User.Identity.GetUserId();
+            var userId = GetUserId();
             var user = await _userManager.FindByIdAsync(userId);
 
             switch (_tradeManager.Offer(tradeId, user))
@@ -170,7 +171,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
         // GET: Trades/Withdraw
         public ActionResult Withdraw(int tradeId)
         {
-            var userId = User.Identity.GetUserId();
+            var userId = GetUserId();
             
             if (_tradeManager.Withdraw(tradeId, userId))
             {
@@ -191,11 +192,11 @@ namespace DayZTradeCenter.UI.Web.Controllers
         // GET: Trades/ChooseWinner/tradeId=1&userId=2
         public ActionResult ChooseWinner(int tradeId, string userId)
         {
-            var currentUserId = User.Identity.GetUserId();
+            var currentUserId = GetUserId();
 
             if (_tradeManager.ChooseWinner(tradeId, userId, currentUserId))
             {
-                _profileManager.AddHistoryEvent(User.Identity.GetUserId(), Events.WinnerChoosen);
+                _profileManager.AddHistoryEvent(currentUserId, Events.WinnerChoosen);
             }
 
             return RedirectToAction("Index", "Home");
@@ -204,7 +205,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
         // GET: Trades/ExchangeManagement/5
         public async Task<ActionResult> ExchangeManagement(int id)
         {
-            var currentUserId = User.Identity.GetUserId();
+            var currentUserId = GetUserId();
             var trade = _tradeManager.GetTradeById(id);
 
             if (currentUserId != trade.Owner.Id)
@@ -235,7 +236,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
             }
 
             var trade = _tradeManager.GetTradeById(vm.TradeId);
-            var currentUserId = User.Identity.GetUserId();
+            var currentUserId = GetUserId();
             if (currentUserId != trade.Owner.Id)
             {
                 return View("Unauthorized");
@@ -263,7 +264,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
         {
             var trade = _tradeManager.GetTradeById(id);
 
-            var currentUserId = User.Identity.GetUserId();
+            var currentUserId = GetUserId();
             if (currentUserId != trade.Owner.Id)
             {
                 return View("Unauthorized");
@@ -284,7 +285,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
         {
             var model = _tradeManager.GetTradeById(id);
 
-            var userId = User.Identity.GetUserId();
+            var userId = GetUserId();
             
             if (userId != model.Winner.Id && userId != model.Owner.Id)
             {
@@ -304,7 +305,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> LeaveFeedback(int id, int score)
         {
-            var user = await _userManager.FindByIdAsync(User.Identity.GetUserId());
+            var user = await _userManager.FindByIdAsync(GetUserId());
 
             var result = _tradeManager.LeaveFeedback(id, score, user);
             switch (result)
@@ -324,10 +325,12 @@ namespace DayZTradeCenter.UI.Web.Controllers
             return View();
         }
 
+        #region Private methods
+
         private async Task<string> GetSteamId()
         {
             var user =
-                await _userManager.FindByIdAsync(User.Identity.GetUserId());
+                await _userManager.FindByIdAsync(GetUserId());
 
             var providerKey =
                 user.Logins.First().ProviderKey;
@@ -343,6 +346,13 @@ namespace DayZTradeCenter.UI.Web.Controllers
             return !User.IsInRole("Administrator");
         }
 
+        private string GetUserId()
+        {
+            return User.Identity.GetUserId();
+        }
+
+        #endregion
+        
         #region Private fields
 
         private readonly ITradeManager _tradeManager;
