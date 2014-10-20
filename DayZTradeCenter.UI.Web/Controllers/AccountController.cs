@@ -164,7 +164,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 getSteamIdAndUserName(loginInfo.ExternalIdentity.Claims.ToArray());
 
             var steamId = long.Parse(accountInfo.Item1);
-            if (steamId != 76561198064455333 && !SteamHelper.DoIHaveDayZ(steamId))
+            if (steamId != 76561198064455333)// && !SteamHelper.DoIHaveDayZ(steamId))
             {
                 return View("Unauthorized");
             }
