@@ -164,10 +164,10 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 getSteamIdAndUserName(loginInfo.ExternalIdentity.Claims.ToArray());
 
             var steamId = long.Parse(accountInfo.Item1);
-            if (steamId != 76561198064455333)// && !SteamHelper.DoIHaveDayZ(steamId))
-            {
-                return View("Unauthorized");
-            }
+            //if (steamId != 76561198064455333 && !SteamHelper.DoIHaveDayZ(steamId))
+            //{
+            //    return View("Unauthorized");
+            //}
 #endif
             // Sign in the user with this external login provider if the user already has a login
             var result = await _signInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
