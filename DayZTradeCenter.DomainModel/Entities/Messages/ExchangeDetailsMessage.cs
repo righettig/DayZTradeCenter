@@ -19,6 +19,9 @@ namespace DayZTradeCenter.DomainModel.Entities.Messages
                 throw new ArgumentNullException("details");
             }
 
+            // to GMT
+            details.Time = details.Time.ToUniversalTime();
+
             Details = details;
         }
 
@@ -47,7 +50,7 @@ namespace DayZTradeCenter.DomainModel.Entities.Messages
             get
             {
                 const string text = "My SteamId is {0}. Meet me at <a href=\"http://www.izurvive.com/#c=" +
-                                    "{1}\" target='_blank'>{1}</a>, server {2}, time {3} GTM";
+                                    "{1}\" target='_blank'>{1}</a>, server {2}, time {3} GMT";
 
                 return string.Format(text,
                     Details.SteamId,
