@@ -262,13 +262,7 @@ namespace DayZTradeCenter.DomainModel.Services
 
             if (trade.Owner.Id == userId)
             {
-                foreach (var user in trade.Offers
-                    .Select(u => FindUserById(u.Id)))
-                {
-                    user.Messages.Add(new TradeDeletedMessage());
-
-                    UpdateUser(user);
-                }
+                SendMessage(trade.Offers, () => new TradeDeletedMessage());
 
                 // TODO: fix delete with proper "on delete cascade". This is just a patch!
                 trade.Want.ToList().ForEach(d => trade.Want.Remove(d));
@@ -308,10 +302,7 @@ namespace DayZTradeCenter.DomainModel.Services
             {
                 trade.Offers.Add(user);
 
-                var owner = FindUserById(trade.Owner.Id);
-                owner.Messages.Add(new OfferReceivedMessage());
-
-                UpdateUser(owner);
+                SendMessage(trade.Owner, new OfferReceivedMessage());
 
                 _tradesRepository.Update(trade);
                 _tradesRepository.SaveChanges();
@@ -369,24 +360,15 @@ namespace DayZTradeCenter.DomainModel.Services
 
             // sends a message to the winner.
             var winner = FindUserById(userId);
-            winner.Messages.Add(new TradeWonMessage());
+            SendMessage(winner, new TradeWonMessage());
+
+            // sends a message to those who have not win.
+            SendMessage(
+                    trade.Offers.Where(u => u.Id != winner.Id),
+                    () => new TradeLostMessage());
 
             trade.Winner = winner;
             trade.State = TradeStates.Closed;
-            
-            UpdateUser(winner);
-
-            // sends a message to those who have not win.
-            foreach (
-                var loser in
-                    from id in trade.Offers.Select(o => o.Id)
-                    where id != winner.Id
-                    select FindUserById(id))
-            {
-                loser.Messages.Add(new TradeLostMessage());
-
-                UpdateUser(loser);
-            }
 
             _tradesRepository.Update(trade);
             _tradesRepository.SaveChanges();
@@ -412,8 +394,7 @@ namespace DayZTradeCenter.DomainModel.Services
             model.State = TradeStates.Completed;
             model.Feedback = new TradeFeedback();
 
-            var message = new FeedbackRequestMessage(model.Id);
-            user.Messages.Add(message);
+            SendMessage(user, new FeedbackRequestMessage(model.Id));
 
             _tradesRepository.Update(model);
             _tradesRepository.SaveChanges();
@@ -463,20 +444,22 @@ namespace DayZTradeCenter.DomainModel.Services
 
         #region Private methods
 
-        private void AddFeedback(IUser<string> receiver, int score)
+        private void AddFeedback(ApplicationUser receiver, int score)
         {
-            var user = FindUserById(receiver.Id);
-
+            Debug.Assert(receiver != null);
+            Debug.Assert(score >= 1 && score <= 5);
+            
             var feedback = new Feedback(score);
             
-            user.Feedbacks.Add(feedback);
-            user.Messages.Add(new FeedbackReceivedMessage(feedback));
-            
-            UpdateUser(user);
+            receiver.Feedbacks.Add(feedback);
+            SendMessage(receiver, new FeedbackReceivedMessage(feedback));
         }
 
         private static LeaveFeedbackResult CanLeaveFeedback(Trade trade, string userId)
         {
+            Debug.Assert(trade != null);
+            Debug.Assert(!string.IsNullOrWhiteSpace(userId));
+            
             if (userId != trade.Owner.Id && userId != trade.Winner.Id)
             {
                 return LeaveFeedbackResult.Unauthorized;
@@ -503,6 +486,44 @@ namespace DayZTradeCenter.DomainModel.Services
             Debug.Assert(!string.IsNullOrWhiteSpace(userId));
 
             return _userStore.FindByIdAsync(userId).Result;
+        }
+
+        private void SendMessage(IEnumerable<ApplicationUser> users, Func<Message> createMsgFunc) // "Func" otherwise only 1 message is saved on the db
+        {
+            Debug.Assert(users != null);
+            Debug.Assert(createMsgFunc != null);
+
+            foreach (var user in users)
+            {
+                AddNotifications(user, createMsgFunc());
+            }
+        }
+
+        private void SendMessage(ApplicationUser user, Message msg)
+        {
+            Debug.Assert(user != null);
+            Debug.Assert(msg != null);
+
+            AddNotifications(user, msg);
+        }
+
+        private void AddNotifications(ApplicationUser user, Message m)
+        {
+            Debug.Assert(user != null);
+            Debug.Assert(m != null);
+
+            AddUINotification(user, m);
+            //AddEmailNotification(user, m);
+        }
+
+        private void AddUINotification(ApplicationUser user, Message m)
+        {
+            Debug.Assert(user != null);
+            Debug.Assert(m != null);
+
+            user.Messages.Add(m);
+
+            UpdateUser(user);
         }
 
         #endregion
