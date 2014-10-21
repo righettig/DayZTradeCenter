@@ -310,6 +310,15 @@ namespace DayZTradeCenter.DomainModel.Entities
         VeryRare
     }
 
+    public enum ItemCondition
+    {
+        Pristine,
+        Worn,
+        Damaged,
+        BadlyDamaged,
+        Ruined
+    }
+
     /// <summary>
     /// To use localization for enum values.
     /// <see cref="http://stackoverflow.com/questions/17380900/enum-localization"/>

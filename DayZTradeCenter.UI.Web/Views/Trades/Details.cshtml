@@ -22,6 +22,44 @@
         </dd>
     </dl>
     
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Have)
+        </dt>
+
+        <dd>
+            <ul>
+                @foreach (var itemDetail in Model.Have)
+                {
+                    <li>
+                        @itemDetail.Item.Name
+                        @itemDetail.Quantity
+                        @itemDetail.Condition
+                    </li>
+                } 
+            </ul>
+        </dd>
+    </dl>
+    
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Want)
+        </dt>
+
+        <dd>
+            <ul>
+                @foreach (var itemDetail in Model.Want)
+                {
+                    <li>
+                        @itemDetail.Item.Name
+                        @itemDetail.Quantity
+                        @itemDetail.Condition
+                    </li>
+                }
+            </ul>
+        </dd>
+    </dl>
+
     @if (Model.Owner.Id == User.Identity.GetUserId())
     {
         <ul style="list-style-type: none">

@@ -34,9 +34,9 @@ namespace DayZTradeCenter.Modules.Test
         {
             var result = new Trade {Id = 1};
 
-            result.Have.Add(new TradeDetails(ItemsHelper.Mosin, 3));
-            result.Have.Add(new TradeDetails(ItemsHelper.SKS, 1));
-            result.Want.Add(new TradeDetails(ItemsHelper.Tent, 1));
+            result.Have.Add(new TradeDetails(ItemsHelper.Mosin, 3, ItemCondition.Pristine));
+            result.Have.Add(new TradeDetails(ItemsHelper.SKS, 1, ItemCondition.Worn));
+            result.Want.Add(new TradeDetails(ItemsHelper.Tent, 1, ItemCondition.Damaged));
 
             SetOwner(result, 7);
 
@@ -47,8 +47,8 @@ namespace DayZTradeCenter.Modules.Test
         {
             var result = new Trade {Id = 2};
 
-            result.Have.Add(new TradeDetails(ItemsHelper.Crowbar, 1));
-            result.Want.Add(new TradeDetails(ItemsHelper.Pitchfork, 1));
+            result.Have.Add(new TradeDetails(ItemsHelper.Crowbar, 1, ItemCondition.Damaged));
+            result.Want.Add(new TradeDetails(ItemsHelper.Pitchfork, 1, ItemCondition.Pristine));
 
             SetOwner(result, 1);
 

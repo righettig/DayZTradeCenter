@@ -57,8 +57,8 @@ namespace DayZTradeCenter.Modules.InMemory
                 CreationDate = DateTime.Now,
                 Owner = new ApplicationUser {Id = DefaultUsers.TestUser1.UserId}
             };
-            trade.Have.Add(new TradeDetails(ItemsHelper.Pitchfork, 3));
-            trade.Want.Add(new TradeDetails(ItemsHelper.SKS, 1));
+            trade.Have.Add(new TradeDetails(ItemsHelper.Pitchfork, 3, ItemCondition.Pristine));
+            trade.Want.Add(new TradeDetails(ItemsHelper.SKS, 1, ItemCondition.Pristine));
 
             var rnd = new Random();
             trade.Offers.Add(CreateFakeUser(rnd, DefaultUsers.TestUser2.UserId));

@@ -69,8 +69,9 @@ namespace DayZTradeCenter.DomainModel.Entities
         /// </summary>
         /// <param name="item">The item.</param>
         /// <param name="quantity">The quantity.</param>
+        /// <param name="condition">The item condition.</param>
         /// <exception cref="System.ArgumentNullException">item</exception>
-        public TradeDetails(Item item, int quantity)
+        public TradeDetails(Item item, int quantity, ItemCondition condition)
         {
             if (item == null)
             {
@@ -79,6 +80,7 @@ namespace DayZTradeCenter.DomainModel.Entities
 
             Item = item;
             Quantity = quantity;
+            Condition = condition;
         }
 
         /// <summary>
@@ -97,12 +99,14 @@ namespace DayZTradeCenter.DomainModel.Entities
         public int Id { get; set; }
         public virtual Item Item { get; private set; }
         public int Quantity { get; private set; }
+        public ItemCondition Condition { get; private set; }
     }
 
     public class ItemViewModel
     {
         public int Id { get; set; }
         public int Quantity { get; set; }
+        public ItemCondition Condition { get; set; }
     }
 
     public enum TradeStates

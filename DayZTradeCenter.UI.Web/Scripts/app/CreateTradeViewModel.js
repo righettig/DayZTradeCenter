@@ -9,11 +9,12 @@
     return true;
 };
 
-function TradeItem(id, quantity) {
+function TradeItem(id, quantity, condition) {
     var self = this;
 
     self.id = ko.observable(id);
     self.quantity = ko.observable(quantity);
+    self.condition = ko.observable(condition);
 
     self.isValid = ko.computed(function() {
         return self.id() !== "" && self.quantity() > 0;
@@ -26,11 +27,11 @@ function ItemsCollection() {
     var self = this;
 
     self.items = ko.observableArray([
-        new TradeItem("", 1)
+        new TradeItem("", 1, 'Pristine')
     ]);
 
     self.add = function() {
-        self.items.push(new TradeItem("", 0));
+        self.items.push(new TradeItem("", 0, 'Pristine'));
     };
 
     self.canAdd = ko.computed(function() {
@@ -59,7 +60,11 @@ function ItemsCollection() {
         var result = [];
         for (var i = 0; i < self.items().length; i++) {
             var item = self.items()[i];
-            result.push({ id: item.id(), quantity: item.quantity() });
+            result.push({
+                id: item.id(),
+                quantity: item.quantity(),
+                condition: item.condition()
+            });
         }
         return result;
     };
@@ -73,6 +78,8 @@ function CreateTradeViewModel(data) {
     self.gameItems = data;
         
     self.quantities = [1, 2, 3, 4, 5];
+    
+    self.conditions = ['Pristine', 'Worn', 'Damaged', 'Badly Damaged', 'Ruined'];
 
     self.have = new ItemsCollection();
 

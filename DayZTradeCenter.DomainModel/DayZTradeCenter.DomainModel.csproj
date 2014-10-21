@@ -155,6 +155,10 @@
     <Compile Include="Migrations\201410211434421_Added EmailNotificationsEnabled to ApplicationUser.Designer.cs">
       <DependentUpon>201410211434421_Added EmailNotificationsEnabled to ApplicationUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410211748256_Added Condition to TradeDetails.cs" />
+    <Compile Include="Migrations\201410211748256_Added Condition to TradeDetails.Designer.cs">
+      <DependentUpon>201410211748256_Added Condition to TradeDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DefaultUsers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -208,6 +212,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410211434421_Added EmailNotificationsEnabled to ApplicationUser.resx">
       <DependentUpon>201410211434421_Added EmailNotificationsEnabled to ApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410211748256_Added Condition to TradeDetails.resx">
+      <DependentUpon>201410211748256_Added Condition to TradeDetails.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

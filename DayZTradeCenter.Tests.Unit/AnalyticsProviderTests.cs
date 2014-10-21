@@ -76,19 +76,19 @@ namespace DayZTradeCenter.Tests.Unit
             var i3 = new Item {Id = 3, Name = "i3"};
 
             var t1 = new Trade {Id = 1};
-            t1.Want.Add(new TradeDetails(i1, 1));
-            t1.Want.Add(new TradeDetails(i3, 1));
-            t1.Have.Add(new TradeDetails(i2, 1));
+            t1.Want.Add(new TradeDetails(i1, 1, ItemCondition.Pristine));
+            t1.Want.Add(new TradeDetails(i3, 1, ItemCondition.Pristine));
+            t1.Have.Add(new TradeDetails(i2, 1, ItemCondition.Pristine));
 
             var t2 = new Trade {Id = 2};
-            t2.Want.Add(new TradeDetails(i3, 1));
-            t2.Have.Add(new TradeDetails(i1, 1));
-            t2.Have.Add(new TradeDetails(i2, 1));
+            t2.Want.Add(new TradeDetails(i3, 1, ItemCondition.Pristine));
+            t2.Have.Add(new TradeDetails(i1, 1, ItemCondition.Pristine));
+            t2.Have.Add(new TradeDetails(i2, 1, ItemCondition.Pristine));
 
             var t3 = new Trade {Id = 3};
-            t3.Want.Add(new TradeDetails(i1, 1));
-            t3.Want.Add(new TradeDetails(i3, 1));
-            t3.Have.Add(new TradeDetails(i2, 1));
+            t3.Want.Add(new TradeDetails(i1, 1, ItemCondition.Pristine));
+            t3.Want.Add(new TradeDetails(i3, 1, ItemCondition.Pristine));
+            t3.Have.Add(new TradeDetails(i2, 1, ItemCondition.Pristine));
 
             var trades = new Mock<IRepository<Trade>>();
             trades.Setup(m => m.GetAll()).Returns(new[] {t1, t2, t3}.AsQueryable());

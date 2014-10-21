@@ -248,12 +248,18 @@ namespace DayZTradeCenter.DomainModel.Services
             foreach (var itemDetails in have)
             {
                 trade.Have.Add(
-                    new TradeDetails(_itemsRepository.GetSingle(itemDetails.Id), itemDetails.Quantity));
+                    new TradeDetails(
+                        _itemsRepository.GetSingle(itemDetails.Id), 
+                        itemDetails.Quantity, 
+                        itemDetails.Condition));
             }
             foreach (var itemDetails in want)
             {
                 trade.Want.Add(
-                    new TradeDetails(_itemsRepository.GetSingle(itemDetails.Id), itemDetails.Quantity));
+                    new TradeDetails(
+                        _itemsRepository.GetSingle(itemDetails.Id), 
+                        itemDetails.Quantity,
+                        itemDetails.Condition));
             }
 
             trade.Owner = user;
