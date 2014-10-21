@@ -17,19 +17,21 @@
                 <tr>
                     @if (User.IsInRole("Administrator"))
                     {
-                        <th style="width: 3%">Id</th>
+                        <th style="width: 2%">Id</th>
                         <th style="width: 24%">Owner Id</th>
                         <th style="width: 21%">Have</th>
                         <th style="width: 21%">Want</th>
                         <th style="width: 8%">Is Hardcore</th>
-                        <th style="width: 11%">Owner reputation</th>
+                        <th style="width: 8%">Is Exp</th>
+                        <th style="width: 10%">Owner reputation</th>
                         <th style="width: 6%"># Offers</th>
                     }
                     else
                     {
-                        <th style="width: 31%">Have</th>
-                        <th style="width: 31%">Want</th>
+                        <th style="width: 27%">Have</th>
+                        <th style="width: 27%">Want</th>
                         <th style="width: 10%">Is Hardcore</th>
+                        <th style="width: 8%">Is Exp.</th>
                         <th style="width: 14%">Owner reputation</th>
                         <th style="width: 8%"># Offers</th>
                         <th style="width: 6%"></th>
@@ -62,6 +64,9 @@
                         </td>
                         <td>
                             @trade.TradeData.IsHardcore
+                        </td>
+                        <td>
+                            @trade.TradeData.IsExperimental
                         </td>
                         <td>
                             @{

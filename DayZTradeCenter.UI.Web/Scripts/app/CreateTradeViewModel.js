@@ -80,6 +80,8 @@ function CreateTradeViewModel(data) {
 
     self.isHardcore = ko.observable(false);
 
+    self.isExperimental = ko.observable(false);
+
     self.isSaving = ko.observable(false);
     self.save = function () {
         self.isSaving(true);
@@ -89,6 +91,8 @@ function CreateTradeViewModel(data) {
             want: self.want.getItemDetails(),
 
             isHardcore: self.isHardcore(),
+            
+            isExperimental: self.isExperimental(),
 
             __RequestVerificationToken: $("input[name='__RequestVerificationToken']").val()
         };

@@ -9,24 +9,36 @@
 
     <style>
         .col-xs-5 {
-            margin-right: -20px
+            margin-right: -20px;
         }
+
         .col-xs-2 {
-            margin-right: -20px
+            margin-right: -20px;
         }
+
         .text-danger {
-            margin-left: 10px
+            margin-left: 10px;
         }
     </style>
 }
 
-<h2>Create</h2> 
-
-<span>Is Hardcore?</span>
-<input type="checkbox" data-bind="checked: isHardcore" />
+<h2>Create</h2>
 
 <div class="container" data-bind="visible: true" style="display: none">
-    <form class="form-horizontal">
+    <div class="row">
+        <div class="col-md-12">
+            <span>Is Hardcore?</span>
+            <input type="checkbox" data-bind="checked: isHardcore" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <span>Is Experimental?</span>
+            <input type="checkbox" data-bind="checked: isExperimental" />
+        </div>
+    </div>
+
+    <form class="form-horizontal" style="margin-top: 15px">
         @Html.AntiForgeryToken()
 
         <fieldset class="col-xs-6">
@@ -84,7 +96,7 @@
                 <span class="text-danger" data-bind="visible: !want.canAdd()">Too many items (max. 5)</span>
             </div>
         </fieldset>
-        
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10" style="margin-top: 10px">
                 <input type="submit" value="Create" class="btn btn-primary" data-bind="click: save, enable: canSave" />

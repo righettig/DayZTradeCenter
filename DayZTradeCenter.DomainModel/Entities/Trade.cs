@@ -32,6 +32,7 @@ namespace DayZTradeCenter.DomainModel.Entities
         public TradeStates State { get; set; }
 
         public bool IsHardcore { get; set; }
+        public bool IsExperimental { get; set; }
 
         public virtual ICollection<TradeDetails> Have { get; private set; }
         public virtual ICollection<TradeDetails> Want { get; private set; }
@@ -52,7 +53,7 @@ namespace DayZTradeCenter.DomainModel.Entities
         {
             get { return Feedback != null && Feedback.Winner; }
         }
-        
+
         #endregion
     }
 

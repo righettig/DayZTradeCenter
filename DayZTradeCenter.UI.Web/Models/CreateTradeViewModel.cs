@@ -10,6 +10,7 @@ namespace DayZTradeCenter.UI.Web.Models
         public IEnumerable<DomainModel.Entities.ItemViewModel> Want { get; set; }
 
         public bool IsHardcore { get; set; }
+        public bool IsExperimental { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

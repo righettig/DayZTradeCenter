@@ -79,6 +79,10 @@
                                                 {
                                                     <span style="color: red">1st person only</span>
                                                 }
+                                                @if (trade.IsExperimental)
+                                                {
+                                                    <span style="color: green">EXPERIMENTAL</span>
+                                                }
                                             </a>
                                             <a href="@Url.Action("Offer", "Trades", new { tradeId = trade.Id })" 
                                                class="btn btn-primary @if (trade.Owner.Id == User.Identity.GetUserId())

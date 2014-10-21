@@ -213,19 +213,21 @@ namespace DayZTradeCenter.DomainModel.Services
         /// <param name="have">The items for the "Have" section.</param>
         /// <param name="want">The items for the "Want" section.</param>
         /// <param name="isHardcore">if set to <c>true</c> the trade is for the hardcore public hive.</param>
+        /// <param name="isExperimental">if set to <c>true</c> the trade is for the experimental public hive.</param>
         /// <param name="user">The user.</param>
         /// <returns>
         ///   <c>True</c> if the trade was successfully created, <c>false</c> otherwise.
         /// </returns>
         public bool CreateNewTrade(
-            IEnumerable<ItemViewModel> have, IEnumerable<ItemViewModel> want, bool isHardcore, ApplicationUser user)
+            IEnumerable<ItemViewModel> have, IEnumerable<ItemViewModel> want, 
+            bool isHardcore, bool isExperimental, ApplicationUser user)
         {
             if (!CanCreateTrade(user.Id))
             {
                 return false;
             }
 
-            var trade = new Trade {IsHardcore = isHardcore};
+            var trade = new Trade {IsHardcore = isHardcore, IsExperimental = isExperimental};
 
             foreach (var itemDetails in have)
             {

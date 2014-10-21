@@ -122,7 +122,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
             var userId = GetUserId();
             var user = await _userManager.FindByIdAsync(userId);
 
-            if (_tradeManager.CreateNewTrade(vm.Have, vm.Want, vm.IsHardcore, user))
+            if (_tradeManager.CreateNewTrade(vm.Have, vm.Want, vm.IsHardcore, vm.IsExperimental, user))
             {
                 _profileManager.AddHistoryEvent(user.Id, Events.TradeCreated);   
             }

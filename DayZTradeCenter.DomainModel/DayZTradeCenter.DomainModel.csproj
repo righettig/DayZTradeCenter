@@ -137,9 +137,13 @@
     <Compile Include="Migrations\201410121614305_Added IsApproved to ApplicationUser.Designer.cs">
       <DependentUpon>201410121614305_Added IsApproved to ApplicationUser.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201410121828544_Added IsHarcore to Trade.cs" />
-    <Compile Include="Migrations\201410121828544_Added IsHarcore to Trade.Designer.cs">
-      <DependentUpon>201410121828544_Added IsHarcore to Trade.cs</DependentUpon>
+    <Compile Include="Migrations\201410210733218_Added IsExperimental to Trade.cs" />
+    <Compile Include="Migrations\201410210733218_Added IsExperimental to Trade.Designer.cs">
+      <DependentUpon>201410210733218_Added IsExperimental to Trade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\AddedIsHardcoretoTrade.cs" />
+    <Compile Include="Migrations\AddedIsHardcoretoTrade.Designer.cs">
+      <DependentUpon>AddedIsHardcoretoTrade.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DefaultUsers.cs" />
@@ -183,8 +187,11 @@
     <EmbeddedResource Include="Migrations\201410121614305_Added IsApproved to ApplicationUser.resx">
       <DependentUpon>201410121614305_Added IsApproved to ApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201410121828544_Added IsHarcore to Trade.resx">
-      <DependentUpon>201410121828544_Added IsHarcore to Trade.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201410210733218_Added IsExperimental to Trade.resx">
+      <DependentUpon>201410210733218_Added IsExperimental to Trade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\AddedIsHardcoretoTrade.resx">
+      <DependentUpon>AddedIsHardcoretoTrade.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
