@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using DayZTradeCenter.DomainModel.Entities;
+using DayZTradeCenter.DomainModel.Entities.Messages;
 using DayZTradeCenter.DomainModel.Services;
 
 namespace DayZTradeCenter.DomainModel.Interfaces
@@ -154,6 +155,14 @@ namespace DayZTradeCenter.DomainModel.Interfaces
         ///   <see cref="LeaveFeedbackResult.Unauthorized">If the user is not authorized to leave a feedback for the trade.</see>
         /// </returns>
         LeaveFeedbackResult LeaveFeedback(int tradeId, int score, ApplicationUser user);
+
+        /// <summary>
+        /// The owner of the trade proposes the details for the exchange.
+        /// </summary>
+        /// <param name="winner">The winner.</param>
+        /// <param name="details">The exchange details.</param>
+        /// <returns>The resulting message.</returns>
+        Message ExchangeManagementConfirmed(ApplicationUser winner, ExchangeDetails details);
     }
 
     /// <summary>

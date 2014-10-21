@@ -141,9 +141,9 @@
     <Compile Include="Migrations\201410210733218_Added IsExperimental to Trade.Designer.cs">
       <DependentUpon>201410210733218_Added IsExperimental to Trade.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\AddedIsHardcoretoTrade.cs" />
-    <Compile Include="Migrations\AddedIsHardcoretoTrade.Designer.cs">
-      <DependentUpon>AddedIsHardcoretoTrade.cs</DependentUpon>
+    <Compile Include="Migrations\201410121828544_Added IsHardcore to Trade.cs" />
+    <Compile Include="Migrations\201410121828544_Added IsHardcore to Trade.Designer.cs">
+      <DependentUpon>201410121828544_Added IsHardcore to Trade.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DefaultUsers.cs" />
@@ -190,8 +190,8 @@
     <EmbeddedResource Include="Migrations\201410210733218_Added IsExperimental to Trade.resx">
       <DependentUpon>201410210733218_Added IsExperimental to Trade.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\AddedIsHardcoretoTrade.resx">
-      <DependentUpon>AddedIsHardcoretoTrade.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201410121828544_Added IsHardcore to Trade.resx">
+      <DependentUpon>201410121828544_Added IsHardcore to Trade.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

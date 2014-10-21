@@ -450,6 +450,22 @@ namespace DayZTradeCenter.DomainModel.Services
             return LeaveFeedbackResult.Ok;
         }
 
+        /// <summary>
+        /// The owner of the trade proposes the details for the exchange.
+        /// </summary>
+        /// <param name="winner">The winner.</param>
+        /// <param name="details">The exchange details.</param>
+        /// <returns>
+        /// The resulting message.
+        /// </returns>
+        public Message ExchangeManagementConfirmed(ApplicationUser winner, ExchangeDetails details)
+        {
+            var message = new ExchangeDetailsMessage(details);
+            SendMessage(winner, message);
+
+            return message;
+        }
+
         #region Private methods
 
         private void AddFeedback(ApplicationUser receiver, int score)

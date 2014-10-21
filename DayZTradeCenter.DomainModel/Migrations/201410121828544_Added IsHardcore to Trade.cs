@@ -2,7 +2,7 @@ namespace DayZTradeCenter.DomainModel.Migrations
 {
     using System.Data.Entity.Migrations;
     
-    public class AddedIsHardcoretoTrade : DbMigration
+    public partial class AddedIsHardcoretoTrade : DbMigration
     {
         public override void Up()
         {

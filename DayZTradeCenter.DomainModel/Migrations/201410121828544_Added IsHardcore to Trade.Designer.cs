@@ -7,13 +7,13 @@ namespace DayZTradeCenter.DomainModel.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class AddedIsHarcoretoTrade : IMigrationMetadata
+    public sealed partial class AddedIsHardcoretoTrade : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedIsHarcoretoTrade));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedIsHardcoretoTrade));
         
         string IMigrationMetadata.Id
         {
-            get { return "201410121828544_Added IsHarcore to Trade"; }
+            get { return "201410121828544_Added IsHardcore to Trade"; }
         }
         
         string IMigrationMetadata.Source

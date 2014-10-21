@@ -230,7 +230,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
         // POST: Trades/ExchangeManagement/5
         [HttpPost, ActionName("ExchangeManagement")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExchangeManagementConfirmed(ExchangeManagementViewModel vm)
+        public ActionResult ExchangeManagementConfirmed(ExchangeManagementViewModel vm)
         {
             if (!ModelState.IsValid)
             {
@@ -244,15 +244,10 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 return View("Unauthorized");
             }
 
-            var message = new ExchangeDetailsMessage(vm.Details);
+            var message = _tradeManager.ExchangeManagementConfirmed(trade.Winner, vm.Details);
 
             var model = new ExchangeManagementViewModel { TradeId = trade.Id, Details = vm.Details };
             model.Messages.Add(message);
-
-            var winner = await _userManager.FindByIdAsync(trade.Winner.Id);
-            winner.Messages.Add(message);
-
-            await _userManager.UpdateAsync(winner);
 
             return View("ExchangeManagement", model);
         }
