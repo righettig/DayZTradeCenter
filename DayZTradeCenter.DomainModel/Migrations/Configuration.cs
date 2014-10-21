@@ -896,7 +896,7 @@ namespace DayZTradeCenter.DomainModel.Migrations
 
         private static void CreateUsers(ApplicationDbContext context)
         {
-            var mgr = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
+            var mgr = new ApplicationUserManagerNoEmailService(new UserStore<ApplicationUser>(context));
 
             foreach (var user in DefaultUsers.All)
             {
@@ -909,7 +909,7 @@ namespace DayZTradeCenter.DomainModel.Migrations
             context.Roles.AddOrUpdate(r => r.Name, new IdentityRole(role));
         }
 
-        private static void DefineUser(ApplicationUserManager mgr, User user)
+        private static void DefineUser(UserManager<ApplicationUser> mgr, User user)
         {
             var email = user.UserName.ToLower() + "@mail.com";
 

@@ -38,5 +38,6 @@ namespace DayZTradeCenter.DomainModel.Entities
         public virtual ICollection<Message> Messages { get; private set; }
 
         public bool IsApproved { get; set; }
+        public bool EmailNotificationsEnabled { get; set; }
     }
 }

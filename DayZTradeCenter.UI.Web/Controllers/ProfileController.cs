@@ -63,6 +63,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 Id = user.Id,
                 Username = user.UserName,
                 Email = user.Email,
+                EmailNotificationsEnabled = user.EmailNotificationsEnabled,
                 IsAdmin = _userManager.IsInRole(user.Id, "Administrator")
             };
 
@@ -79,6 +80,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
 
                 user.UserName = vm.Username;
                 user.Email = vm.Email;
+                user.EmailNotificationsEnabled = vm.EmailNotificationsEnabled;
 
                 var result = await _userManager.UpdateAsync(user);
 

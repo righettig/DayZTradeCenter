@@ -19,17 +19,21 @@ namespace DayZTradeCenter.DomainModel.Services
         /// <param name="tradesRepository">The trades repository.</param>
         /// <param name="itemsRepository">The items repository.</param>
         /// <param name="userStore">The user store.</param>
-        /// <exception cref="ArgumentNullException">
+        /// <param name="userManager">The user manager.</param>
+        /// <exception cref="System.ArgumentNullException">
         /// tradesRepository
         /// or
         /// itemsRepository
         /// or
         /// userStore
+        /// or
+        /// userManager
         /// </exception>
         public TradeManager(
             IRepository<Trade> tradesRepository, 
             IRepository<Item> itemsRepository, 
-            IUserStore<ApplicationUser> userStore)
+            IUserStore<ApplicationUser> userStore,
+            IUserManager userManager)
         {
             if (tradesRepository == null)
             {
@@ -46,9 +50,15 @@ namespace DayZTradeCenter.DomainModel.Services
                 throw new ArgumentNullException("userStore");
             }
 
+            if (userManager == null)
+            {
+                throw new ArgumentNullException("userManager");
+            }
+
             _tradesRepository = tradesRepository;
             _itemsRepository = itemsRepository;
             _userStore = userStore;
+            _userManager = userManager;
         }
 
         #region Query API
@@ -537,7 +547,7 @@ namespace DayZTradeCenter.DomainModel.Services
             Debug.Assert(m != null);
 
             AddUINotification(user, m);
-            //AddEmailNotification(user, m);
+            AddEmailNotification(user, m);
         }
 
         private void AddUINotification(ApplicationUser user, Message m)
@@ -550,6 +560,17 @@ namespace DayZTradeCenter.DomainModel.Services
             UpdateUser(user);
         }
 
+        private void AddEmailNotification(ApplicationUser user, Message m)
+        {
+            Debug.Assert(user != null);
+            Debug.Assert(m != null);
+
+            if (user.EmailNotificationsEnabled)
+            {
+                _userManager.SendEmailAsync(user.Id, m.Subject, m.Text).Wait();
+            }
+        }
+
         #endregion
         
         #region Private fields
@@ -559,6 +580,8 @@ namespace DayZTradeCenter.DomainModel.Services
         private readonly IRepository<Item> _itemsRepository;
 
         private readonly IUserStore<ApplicationUser> _userStore;
+
+        private readonly IUserManager _userManager;
 
         #endregion
     }

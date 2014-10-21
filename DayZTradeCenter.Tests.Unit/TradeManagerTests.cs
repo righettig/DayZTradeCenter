@@ -22,8 +22,7 @@ namespace DayZTradeCenter.Tests.Unit
                 .Setup(m => m.GetAll())
                 .Returns(Enumerable.Empty<Trade>().AsQueryable());
 
-            var mgr = new TradeManager(
-                tradesRepository.Object, CreateItemRepository(), CreateUserStore());
+            var mgr = CreateTradeManager(tradesRepository);
 
 
             // Act
@@ -50,8 +49,7 @@ namespace DayZTradeCenter.Tests.Unit
                 trade, trade, trade
             }.AsQueryable());
 
-            var mgr = new TradeManager(
-                tradesRepository.Object, CreateItemRepository(), CreateUserStore());
+            var mgr = CreateTradeManager(tradesRepository);
 
 
             // Act
@@ -64,6 +62,17 @@ namespace DayZTradeCenter.Tests.Unit
 
         #region Helper methods
 
+        private static TradeManager CreateTradeManager(IMock<IRepository<Trade>> tradesRepository)
+        {
+            var mgr = new TradeManager(
+                tradesRepository.Object,
+                CreateItemRepository(),
+                CreateUserStore(),
+                CreateUserManager());
+
+            return mgr;
+        }
+
         private static IRepository<Item> CreateItemRepository()
         {
             return new Mock<IRepository<Item>>().Object;
@@ -72,6 +81,11 @@ namespace DayZTradeCenter.Tests.Unit
         private static IUserStore<ApplicationUser> CreateUserStore()
         {
             return new Mock<IUserStore<ApplicationUser>>().Object;
+        }
+        
+        private static IUserManager CreateUserManager()
+        {
+            return new Mock<IUserManager>().Object;
         }
 
         #endregion
