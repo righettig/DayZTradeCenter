@@ -164,6 +164,7 @@ namespace DayZTradeCenter.DomainModel.Interfaces
         public int? ItemId { get; set; }
         public SearchTypes? Type { get; set; }
         public bool HardcoreOnly { get; set; }
+        public bool ExpOnly { get; set; }
     }
 
     public enum SearchTypes

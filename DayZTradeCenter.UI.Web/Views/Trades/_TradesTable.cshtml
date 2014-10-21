@@ -140,6 +140,12 @@ else
 <input id="_page" type="hidden" value="@Model.PageNumber">
 
 @Html.PagedListPager(Model, page => Url.Action("Index",
-    new { page, itemId = ViewBag.ItemId, searchType = ViewBag.SearchType, hardcoreOnly = ViewBag.IsHardCoreOnly }),
+    new { 
+        page, 
+        itemId = ViewBag.ItemId, 
+        searchType = ViewBag.SearchType, 
+        hardcoreOnly = ViewBag.IsHardCoreOnly,
+        expOnly = ViewBag.IsExpOnly
+    }),
     PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
         new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "tradesTable" }))

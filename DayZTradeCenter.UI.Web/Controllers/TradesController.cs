@@ -50,19 +50,21 @@ namespace DayZTradeCenter.UI.Web.Controllers
             _userManager = userManager;
         }
 
-        public ActionResult Index(int? itemId, SearchTypes? searchType, int? page, bool? hardcoreOnly)
+        public ActionResult Index(int? itemId, SearchTypes? searchType, int? page, bool? hardcoreOnly, bool? expOnly)
         {
             var model = _tradeManager.GetActiveTrades(
                 new SearchParams
                 {
                     ItemId = itemId,
                     Type = searchType,
-                    HardcoreOnly = hardcoreOnly.HasValue && (bool) hardcoreOnly
+                    HardcoreOnly = hardcoreOnly.HasValue && (bool) hardcoreOnly,
+                    ExpOnly = expOnly.HasValue && (bool) expOnly
                 });
 
             ViewBag.ItemId = itemId;
             ViewBag.SearchType = searchType;
             ViewBag.IsHardCoreOnly = hardcoreOnly;
+            ViewBag.IsExpOnly = hardcoreOnly;
 
             const int pageSize = 10;
             var pageNumber = (page ?? 1);

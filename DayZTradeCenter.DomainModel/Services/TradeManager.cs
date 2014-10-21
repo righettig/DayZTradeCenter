@@ -107,11 +107,17 @@ namespace DayZTradeCenter.DomainModel.Services
         /// </exception>
         public IEnumerable<Trade> GetActiveTrades(SearchParams @params)
         {
-            var result =
-                @params.HardcoreOnly
-                    ? GetActiveTrades().Where(t => t.IsHardcore)
-                    : GetActiveTrades();
+            var result = GetActiveTrades();
 
+            if (@params.HardcoreOnly)
+            {
+                result = result.Where(t => t.IsHardcore);
+            }
+            else if (@params.ExpOnly)
+            {
+                result = result.Where(t => t.IsExperimental);
+            }
+            
             if (@params.ItemId.HasValue)
             {
                 // this solves: "There is already an open DataReader associated with this Command which must be closed first."

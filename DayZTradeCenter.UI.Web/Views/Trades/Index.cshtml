@@ -75,12 +75,13 @@
             </div>
         </div>
         <div class="row" style="margin-top: 18px">
-            <div class="col-md-6">
-                @using (Html.BeginForm("GetHardcoreOnly", "Trades", FormMethod.Post, new { id = "filterTrades" }))
-                {
-                    <span style="margin-left: 51px">Show hardcore only</span>
-                    <input id="showHardcoreOnly" type="checkbox" style="position: relative; top: 2px"/>
-                }
+            <div class="col-md-3">
+                <span style="margin-left: 51px">Hardcore only</span>
+                <input id="showHardcoreOnly" type="checkbox" style="position: relative; top: 2px"/>
+            </div>
+            <div class="col-md-3">
+                <span>Experimental only</span>
+                <input id="showExpOnly" type="checkbox" style="position: relative; top: 2px" />
             </div>
         </div>
     </div>
@@ -94,18 +95,25 @@
     @Scripts.Render("~/bundles/trades_index")
     
     <script>
-        $(function() {
-            $('#showHardcoreOnly').click(function() {
+        function defineSearchHandler(el, param) {
+            var $el = $(el);
+
+            $el.click(function() {
                 var itemId = $("#_itemId").val();
                 var searchType = $("#_searchType").val();
-                var isHardCoreOnly = $("#showHardcoreOnly").prop("checked");
+                var checked = $el.prop("checked");
 
                 var params =
-                    "?itemId=" + itemId + "&searchType=" + searchType + "&hardcoreOnly=" + isHardCoreOnly;
+                    "?itemId=" + itemId + "&searchType=" + searchType + param + checked;
 
                 $("#tradesTable").load(
                     '@(Url.Action("Index", "Trades"))' + params);
             });
+        }
+
+        $(function() {
+            defineSearchHandler('#showHardcoreOnly', "&hardcoreOnly=");
+            defineSearchHandler('#showExpOnly', "&expOnly=");
         });
     </script>
 }
