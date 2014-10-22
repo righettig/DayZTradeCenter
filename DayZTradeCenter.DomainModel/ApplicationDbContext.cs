@@ -50,10 +50,9 @@ namespace DayZTradeCenter.DomainModel
                     m.ToTable("Offers");
                 });
 
-            modelBuilder.Entity<ApplicationUser>()
-                .HasRequired(u => u.Scores)
-                .WithRequiredDependent()
-                .WillCascadeOnDelete();
+            modelBuilder.Entity<Scores>()
+                .HasKey(x => x.UserId)
+                .HasRequired(x => x.User);
         }
     }
 }

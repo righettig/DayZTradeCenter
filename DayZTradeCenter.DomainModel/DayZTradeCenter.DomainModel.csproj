@@ -163,6 +163,10 @@
     <Compile Include="Migrations\201410211913287_Added Scores to ApplicationUser.Designer.cs">
       <DependentUpon>201410211913287_Added Scores to ApplicationUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410221146187_Changed mapping of Scores.cs" />
+    <Compile Include="Migrations\201410221146187_Changed mapping of Scores.Designer.cs">
+      <DependentUpon>201410221146187_Changed mapping of Scores.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DefaultUsers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -222,6 +226,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410211913287_Added Scores to ApplicationUser.resx">
       <DependentUpon>201410211913287_Added Scores to ApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410221146187_Changed mapping of Scores.resx">
+      <DependentUpon>201410221146187_Changed mapping of Scores.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

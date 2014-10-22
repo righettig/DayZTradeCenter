@@ -44,7 +44,8 @@ namespace DayZTradeCenter.DomainModel.Entities
 
     public class Scores
     {
-        public int Id { get; set; }
+        public string UserId { get; set; }
+        public ApplicationUser User { get; set; }
         public int Bravery { get; set; }
     }
 }
