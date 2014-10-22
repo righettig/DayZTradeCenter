@@ -75,7 +75,7 @@ namespace DayZTradeCenter.UI.Web.App_Start
                 c =>
                     HttpContext.Current.GetOwinContext().Authentication).InRequestScope();
 
-            kernel.BindFilter<LoadUserInboxActionFilter>(FilterScope.Global, 0).InRequestScope();
+            //kernel.BindFilter<LoadUserInboxActionFilter>(FilterScope.Global, 0).InRequestScope();
         }        
     }
 }
