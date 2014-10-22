@@ -224,10 +224,10 @@ namespace DayZTradeCenter.UI.Web.Controllers
             {
 #if !FAKE_LOGIN
                 // authz check: is the user an alpha tester?
-                if (!IsInWhiteList(model.Username))
-                {
-                    return View("OnlyAlphaTestersAllowed");
-                }
+                //if (!IsInWhiteList(model.Username))
+                //{
+                //    return View("OnlyAlphaTestersAllowed");
+                //}
 #endif
                 // Get the information about the user from the external login provider
                 var info = await _authenticationManager.GetExternalLoginInfoAsync();
