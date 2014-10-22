@@ -1,43 +1,11 @@
-﻿@using DayZTradeCenter.DomainModel.Entities.Messages
-@using Microsoft.AspNet.Identity
-
-@if (Request.IsAuthenticated)
+﻿@if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new {id = "logoutForm", @class = "navbar-right"}))
     {
         @Html.AntiForgeryToken()
 
-        <ul class="nav navbar-nav navbar-right">
-            @if (Session["user_inbox_count"] != null && ((int) Session["user_inbox_count"]) > 0)
-            {
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Inbox <span class="badge">
-                                                                                         @((int) Session["user_inbox_count"])
-                                                                                     </span></a>
-                    <ul class="dropdown-menu">
-                        @foreach (var message in (IEnumerable<Message>) Session["user_inbox"])
-                        {
-                            <li>
-                                <div class="message">
-                                    <img src="~/Content/img/mail.png" alt="" />
-                                    <a href="@Url.Action("Inbox", "Profile")">@message.Subject</a>
-                                    <div>
-                                        <small>@message.GetReceived()</small>
-                                    </div>
-                                </div>
-                            </li>
-                        }
-                        <li class="divider"></li>
-                        <li style="text-align: center">
-                            <a href="@Url.Action("Inbox", "Profile")" style="color: blue">See All</a>
-                        </li>
-                    </ul>
-                </li>
-            }
-            <li>
-                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Edit", "Profile", routeValues: null, htmlAttributes: new {title = "Profile"})
-            </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        <ul class="nav navbar-nav navbar-right" id="navbar-right">
+            @Html.Action("InboxPartial", "Profile")
         </ul>
     }
 }

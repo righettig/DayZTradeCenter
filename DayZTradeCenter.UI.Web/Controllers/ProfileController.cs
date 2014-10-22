@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using DayZTradeCenter.DomainModel.Entities;
+using DayZTradeCenter.DomainModel.Entities.Messages;
 using DayZTradeCenter.DomainModel.Interfaces;
 using DayZTradeCenter.DomainModel.Services;
 using DayZTradeCenter.UI.Web.Models;
@@ -110,11 +111,21 @@ namespace DayZTradeCenter.UI.Web.Controllers
 
         public async Task<ViewResult> Inbox()
         {
-            var model =
-                await _userManager.FindByIdAsync(
-                    User.Identity.GetUserId());
+            var model = await GetMessagesAsync();
 
-            return View(model.Messages.OrderByDescending(m => m.Timestamp));
+            return View(model);
+        }
+
+        public PartialViewResult InboxPartial()
+        {
+            var model = GetMessagesAsync().Result.Select(
+                m => new InboxViewModel
+                {
+                    Subject = m.Subject,
+                    Received = m.GetReceived()
+                });
+
+            return PartialView("_Inbox", model);
         }
 
         [HttpPost]
@@ -160,6 +171,15 @@ namespace DayZTradeCenter.UI.Web.Controllers
             vm.Chart = chart;
 
             return View(vm);
+        }
+
+        private Task<IOrderedEnumerable<Message>> GetMessagesAsync()
+        {
+            return _userManager
+                .FindByIdAsync(
+                    User.Identity.GetUserId())
+                .ContinueWith(
+                    data => data.Result.Messages.OrderByDescending(m => m.Timestamp));
         }
 
         #region Private fields

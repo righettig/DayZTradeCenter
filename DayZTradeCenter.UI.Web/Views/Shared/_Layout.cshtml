@@ -1,69 +1,87 @@
 ﻿@using DayZTradeCenter.UI.Web.Helpers
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
+    <head>
+        <meta charset="utf-8" />
 
-    <meta name="author" content="Giacomo Righetti" />
-    <meta name="keywords" content="dayz, standalone, trade, items, exchange, loot, reputation, economy, trends" />
-    <meta name="description" content="The DayZ Trade Center lets you trade DayZ items with a reliable reputation-based system. Trends and statistics give you insights on the central loot economy.">
+        <meta name="author" content="Giacomo Righetti" />
+        <meta name="keywords" content="dayz, standalone, trade, items, exchange, loot, reputation, economy, trends" />
+        <meta name="description" content="The DayZ Trade Center lets you trade DayZ items with a reliable reputation-based system. Trends and statistics give you insights on the central loot economy.">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - DayZTradeCenter</title>
-    @Styles.Render("~/Content/css")
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - DayZTradeCenter</title>
+        @Styles.Render("~/Content/css")
 
-    @RenderSection("styles", false)
+        @RenderSection("styles", false)
     
-    <!-- NB: moved jquery here otherwise highcharts does not work -->
-    @Scripts.Render("~/bundles/jquery")
+        <!-- NB: moved jquery here otherwise highcharts does not work -->
+        @Scripts.Render("~/bundles/jquery")
 
-    @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/modernizr")
 
-    <script src="~/Scripts/app/ga.min.js"></script>
-</head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("DayZ Trade Center", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Trades", "Index", "Trades")</li>
-                    <li>@Html.ActionLink("People", "Index", "People")</li>
-                    <li>@Html.ActionLink("Analytics", "Index", "Analytics")</li>
-                    @if (User.IsInRole("Administrator"))
-                    {
-                        <li>@Html.ActionLink("Items", "Index", "Items")</li>
-                    }
-                </ul>
-                @Html.Partial("_LoginPartial")
-                @Html.Partial("_AdminLoginPartial")
+        <script src="~/Scripts/app/ga.min.js"></script>
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("DayZ Trade Center", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Trades", "Index", "Trades")</li>
+                        <li>@Html.ActionLink("People", "Index", "People")</li>
+                        <li>@Html.ActionLink("Analytics", "Index", "Analytics")</li>
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <li>@Html.ActionLink("Items", "Index", "Items")</li>
+                        }
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                    @Html.Partial("_AdminLoginPartial")
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p style="padding-left: 10px">
-                &copy; @DateTime.Now.Year - DayZ Trade Center - @Html.AssemblyVersion()
-                <a href="@Url.Action("Index", "Features")" style="padding-left: 20px">About DayZ Trade Center</a>
-                <a href="@Url.Action("Contact", "Home")" style="padding-left: 10px">Contact</a>
-            </p>
-        </footer>
-    </div>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p style="padding-left: 10px">
+                    &copy; @DateTime.Now.Year - DayZ Trade Center - @Html.AssemblyVersion()
+                    <a href="@Url.Action("Index", "Features")" style="padding-left: 20px">About DayZ Trade Center</a>
+                    <a href="@Url.Action("Contact", "Home")" style="padding-left: 10px">Contact</a>
+                </p>
+            </footer>
+        </div>
 
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
 
-    <!-- NB: to prevent the "Admin" login menu from being closed when trying to enter the credentials -->
-    @Scripts.Render("~/bundles/layout")
-</body>
+        <!-- NB: to prevent the "Admin" login menu from being closed when trying to enter the credentials -->
+        @Scripts.Render("~/bundles/layout")
+    
+        <script>
+            (function worker() {
+                $.ajax({
+                    url: '@Url.Action("InboxPartial", "Profile")',
+                    success: function(data) {
+                        if (!data)
+                            return;
+
+                        $("#navbar-right").html(data);
+                    },
+                    complete: function() {
+                        // Schedule the next request when the current one's complete
+                        setTimeout(worker, 5000);
+                    }
+                });
+            })();
+        </script>
+    </body>
 </html>

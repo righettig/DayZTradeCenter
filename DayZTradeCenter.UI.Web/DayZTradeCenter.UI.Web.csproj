@@ -228,6 +228,7 @@
     <Compile Include="Controllers\Api\TrendsController.cs" />
     <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="Helpers\ExchangeDetailsModelBinder.cs" />
+    <Compile Include="Models\InboxViewModel.cs" />
     <Compile Include="Models\TradeTableViewModel.cs" />
     <Compile Include="Filters\LoadUserInboxActionFilter.cs" />
     <Compile Include="Helpers\EnumExtensions.cs" />
@@ -393,6 +394,9 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Home\Landing.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="Views\Trades\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
@@ -412,7 +416,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Items\Index.cshtml" />
     <Content Include="Views\Items\NotFound.cshtml" />
@@ -443,6 +446,7 @@
     <Content Include="Views\Account\OnlyAlphaTestersAllowed.cshtml" />
     <Content Include="Views\Items\_ItemsTable.cshtml" />
     <Content Include="Views\People\Index.cshtml" />
+    <Content Include="Views\Profile\_Inbox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
