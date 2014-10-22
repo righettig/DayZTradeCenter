@@ -6,7 +6,7 @@
 
 @section styles {
     <link href="~/Content/Selectize/css/selectize.bootstrap3.min.css" rel="stylesheet" />
-    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Content/pagedlist")
     
     <style>
         .table-btn { 
@@ -14,8 +14,7 @@
         }
     </style>
     
-    <link href="~/Content/alertifyjs/alertify.min.css" rel="stylesheet" />
-    <link href="~/Content/alertifyjs/themes/default.min.css" rel="stylesheet" />
+    @Styles.Render("~/Content/alertifyjs")
 }
 
 @using (Html.BeginForm())

@@ -5,16 +5,15 @@
 }
 
 @section styles {
-    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Content/pagedlist")
     
     <style>
         .table-btn {
             width: 85px;
         }
     </style>
-
-    <link href="~/Content/alertifyjs/alertify.min.css" rel="stylesheet" />
-    <link href="~/Content/alertifyjs/themes/default.min.css" rel="stylesheet" />
+    
+    @Styles.Render("~/Content/alertifyjs")
 }
 
 <h2>Items <small id="totalItemCount">@Model.TotalItemCount</small><small> items found</small></h2>
