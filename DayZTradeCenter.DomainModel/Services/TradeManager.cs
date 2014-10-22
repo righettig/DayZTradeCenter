@@ -394,6 +394,8 @@ namespace DayZTradeCenter.DomainModel.Services
             trade.Winner = winner;
             trade.State = TradeStates.Closed;
 
+            UpdateScores(winner, trade.Owner);
+
             _tradesRepository.Update(trade);
             _tradesRepository.SaveChanges();
 
@@ -483,6 +485,18 @@ namespace DayZTradeCenter.DomainModel.Services
         }
 
         #region Private methods
+
+        private void UpdateScores(ApplicationUser winner, ApplicationUser owner)
+        {
+            var winnerReputation = winner.GetReputation();
+
+            if (Math.Abs(winnerReputation) < 0.001f || winnerReputation < owner.GetReputation())
+            {
+                owner.Scores.Bravery += 1;
+                
+                UpdateUser(owner);
+            }
+        }
 
         private void AddFeedback(ApplicationUser receiver, int score)
         {

@@ -36,6 +36,7 @@ namespace DayZTradeCenter.DomainModel.Services
         public override Task<IdentityResult> CreateAsync(ApplicationUser user)
         {
             user.IsApproved = true;
+            user.Scores = new Scores();
 
             return base.CreateAsync(user);
         }

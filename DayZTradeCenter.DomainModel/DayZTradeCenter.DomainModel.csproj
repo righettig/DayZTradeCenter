@@ -159,6 +159,10 @@
     <Compile Include="Migrations\201410211748256_Added Condition to TradeDetails.Designer.cs">
       <DependentUpon>201410211748256_Added Condition to TradeDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410211913287_Added Scores to ApplicationUser.cs" />
+    <Compile Include="Migrations\201410211913287_Added Scores to ApplicationUser.Designer.cs">
+      <DependentUpon>201410211913287_Added Scores to ApplicationUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DefaultUsers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -215,6 +219,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410211748256_Added Condition to TradeDetails.resx">
       <DependentUpon>201410211748256_Added Condition to TradeDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410211913287_Added Scores to ApplicationUser.resx">
+      <DependentUpon>201410211913287_Added Scores to ApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

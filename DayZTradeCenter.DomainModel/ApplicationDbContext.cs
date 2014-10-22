@@ -49,6 +49,11 @@ namespace DayZTradeCenter.DomainModel
                     m.MapRightKey("UserId");
                     m.ToTable("Offers");
                 });
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasRequired(u => u.Scores)
+                .WithRequiredDependent()
+                .WillCascadeOnDelete();
         }
     }
 }
