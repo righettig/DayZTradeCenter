@@ -76,7 +76,9 @@ namespace DayZTradeCenter.UI.Web
                 "~/Content/bootstrap.css",
                 "~/Content/site.css"));
 
-            bundles.Add(new StyleBundle("~/Content/alertifyjs").Include(
+            // Bugfix: odd behaviour when the bundle path is the same as an actual path.
+            // http://stackoverflow.com/a/17725655/3265316
+            bundles.Add(new StyleBundle("~/Content/alertify").Include(
                 "~/Content/alertifyjs/alertify.css",
                 "~/Content/alertifyjs/themes/default.css"));
 

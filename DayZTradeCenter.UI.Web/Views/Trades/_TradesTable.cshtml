@@ -50,24 +50,10 @@
                         {
                             <td>@trade.TradeData.Owner.Id</td>
                         }
-                        <td>
-                            @foreach (var have in trade.TradeData.Have)
-                            {
-                                <span>@have.Item.Name</span>@:,<span><strong>@have.Quantity</strong></span><br />
-                            }
-                        </td>
-                        <td>
-                            @foreach (var have in trade.TradeData.Want)
-                            {
-                                <span>@have.Item.Name</span>@:,<span><strong>@have.Quantity</strong></span><br />
-                            }
-                        </td>
-                        <td>
-                            @trade.TradeData.IsHardcore
-                        </td>
-                        <td>
-                            @trade.TradeData.IsExperimental
-                        </td>
+                        <td>@Html.Partial("_ItemsDetails", trade.TradeData.Have)</td>
+                        <td>@Html.Partial("_ItemsDetails", trade.TradeData.Want)</td>
+                        <td>@trade.TradeData.IsHardcore</td>
+                        <td>@trade.TradeData.IsExperimental</td>
                         <td>
                             @{
                                 var reputation = trade.TradeData.Owner.GetReputation();

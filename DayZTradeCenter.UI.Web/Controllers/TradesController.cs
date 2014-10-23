@@ -322,6 +322,13 @@ namespace DayZTradeCenter.UI.Web.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult TrackItem(int itemId)
+        {
+            return Json(new {success = true});
+        }
+
         #region Private methods
 
         private async Task<string> GetSteamId()

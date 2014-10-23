@@ -9,12 +9,18 @@
     @Styles.Render("~/Content/pagedlist")
     
     <style>
-        .table-btn { 
+        .table-btn {
             width: 85px
+        }
+        .btn-track-item {
+            opacity: 0.3
+        }
+        .btn-track-item:hover {
+            opacity: 1
         }
     </style>
     
-    @Styles.Render("~/Content/alertifyjs")
+    @Styles.Render("~/Content/alertify")
 }
 
 @using (Html.BeginForm())
@@ -113,6 +119,30 @@
         $(function() {
             defineSearchHandler('#showHardcoreOnly', "&hardcoreOnly=");
             defineSearchHandler('#showExpOnly', "&expOnly=");
+            
+            $('.btn-track-item').click(function () {
+                var itemId = $(this).attr("data-info");
+
+                var submitData = {
+                    itemId: itemId,
+                    __RequestVerificationToken: $("input[name='__RequestVerificationToken']").val()
+                };
+
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/x-www-form-urlencoded",
+                    url: '@Url.Action("TrackItem")',
+                    data: submitData
+                }).done(function (result) {
+                    if (result.success) {
+                        alertify.success('Ok');
+                    } else {
+                        alertify.error(result.error);
+                    }
+                }).error(function (ex) {
+                    alertify.error("Unknown error! " + ex);
+                });
+            });
         });
     </script>
 }
