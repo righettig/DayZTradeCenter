@@ -30,6 +30,12 @@ It is possible to test the web application using preconfigured accounts without 
 
 ## Release notes
 
+- v0.5:
+  - Items tracking
+
+- v0.4.5408.29497:
+  - TODO
+
 - v0.3.5389.32644:
   - Trade management:
     1. Users can create trades (H+W) with multiple items and quantity
