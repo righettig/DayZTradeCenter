@@ -35,7 +35,7 @@
         {
             get
             {
-                return "We've found a <a href='/Trades/TradeCompleted?id=" + TradeId +
+                return "We've found a <a href='/Trades/Details?id=" + TradeId +
                        "'>trade</a> you might be interested into. Check it out!";
             }
         }
