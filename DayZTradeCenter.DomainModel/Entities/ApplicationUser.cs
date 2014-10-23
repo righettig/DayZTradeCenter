@@ -38,6 +38,14 @@ namespace DayZTradeCenter.DomainModel.Entities
         public virtual ICollection<Message> Messages { get; private set; }
         public virtual Scores Scores { get; set; }
 
+        /// <summary>
+        /// Gets the items the user is interested into.
+        /// </summary>
+        /// <value>
+        /// The interests.
+        /// </value>
+        public virtual ICollection<Item> Interests { get; private set; }
+
         public bool IsApproved { get; set; }
         public bool EmailNotificationsEnabled { get; set; }
     }

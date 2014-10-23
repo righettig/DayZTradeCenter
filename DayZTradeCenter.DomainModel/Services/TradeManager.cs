@@ -269,7 +269,26 @@ namespace DayZTradeCenter.DomainModel.Services
             _tradesRepository.Insert(trade);
             _tradesRepository.SaveChanges();
 
+            // check for users that might be interested
+            // TODO: this should be a background activity
+            CheckForInterestedUsers(trade.Have.Select(i => i.Item.Id), trade.Id);
+
             return true;
+        }
+
+        private void CheckForInterestedUsers(IEnumerable<int> items, int tradeId)
+        {
+            var interestedUsers =
+                from u in _userManager.Users
+                let foo = u.Interests.Select(i => i.Id).Intersect(items)
+                where foo.Any()
+                select u;
+
+            // notifies the interested users
+            if (interestedUsers.Any())
+            {
+                SendMessage(interestedUsers.ToArray(), () => new InterestingTradeFound(tradeId));
+            }
         }
 
         /// <summary>
@@ -420,7 +439,7 @@ namespace DayZTradeCenter.DomainModel.Services
             model.State = TradeStates.Completed;
             model.Feedback = new TradeFeedback();
 
-            SendMessage(user, new FeedbackRequestMessage(model.Id));
+            SendMessage(user, new FeedbackRequestMessageForATrade(model.Id));
 
             _tradesRepository.Update(model);
             _tradesRepository.SaveChanges();

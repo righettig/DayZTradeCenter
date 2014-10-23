@@ -105,6 +105,8 @@
     </Compile>
     <Compile Include="Entities\Feedback.cs" />
     <Compile Include="Entities\Item.cs" />
+    <Compile Include="Entities\Messages\MessageForATrade.cs" />
+    <Compile Include="Entities\Messages\InterestingTradeFound.cs" />
     <Compile Include="Migrations\201410070922169_InitialCreate.cs" />
     <Compile Include="Migrations\201410070922169_InitialCreate.Designer.cs">
       <DependentUpon>201410070922169_InitialCreate.cs</DependentUpon>
@@ -112,7 +114,7 @@
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\Messages\ExchangeDetailsMessage.cs" />
     <Compile Include="Entities\Messages\FeedbackReceivedMessage.cs" />
-    <Compile Include="Entities\Messages\FeedbackRequestMessage.cs" />
+    <Compile Include="Entities\Messages\FeedbackRequestMessageForATrade.cs" />
     <Compile Include="Entities\Messages\Message.cs" />
     <Compile Include="Entities\Messages\OfferReceivedMessage.cs" />
     <Compile Include="Entities\Messages\TradeDeletedMessage.cs" />
@@ -166,6 +168,10 @@
     <Compile Include="Migrations\201410221146187_Changed mapping of Scores.cs" />
     <Compile Include="Migrations\201410221146187_Changed mapping of Scores.Designer.cs">
       <DependentUpon>201410221146187_Changed mapping of Scores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410231817581_Added interests.cs" />
+    <Compile Include="Migrations\201410231817581_Added interests.Designer.cs">
+      <DependentUpon>201410231817581_Added interests.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Migrations\DefaultUsers.cs" />
@@ -229,6 +235,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201410221146187_Changed mapping of Scores.resx">
       <DependentUpon>201410221146187_Changed mapping of Scores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410231817581_Added interests.resx">
+      <DependentUpon>201410231817581_Added interests.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

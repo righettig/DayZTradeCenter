@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using DayZTradeCenter.DomainModel.Entities;
 using DayZTradeCenter.DomainModel.Entities.Messages;
 using DayZTradeCenter.DomainModel.Interfaces;
 using DayZTradeCenter.DomainModel.Services;
@@ -126,7 +127,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
 
             if (_tradeManager.CreateNewTrade(vm.Have, vm.Want, vm.IsHardcore, vm.IsExperimental, user))
             {
-                _profileManager.AddHistoryEvent(user.Id, Events.TradeCreated);   
+                _profileManager.AddHistoryEvent(user.Id, Events.TradeCreated);
             }
 
             return Json(new {success = true});
@@ -302,7 +303,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> LeaveFeedback(int id, int score)
         {
-            var user = await _userManager.FindByIdAsync(GetUserId());
+            var user = await GetUser();
 
             var result = _tradeManager.LeaveFeedback(id, score, user);
             switch (result)
@@ -324,8 +325,22 @@ namespace DayZTradeCenter.UI.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public JsonResult TrackItem(int itemId)
+        public async Task<JsonResult> TrackItem(int itemId)
         {
+            var user = await GetUser();
+
+            var item = 
+                _tradeManager.GetAllItems().FirstOrDefault(i => i.Id == itemId);
+
+            if (item == null)
+            {
+                return Json(new {success = false});
+            }
+
+            user.Interests.Add(item);
+
+            await _userManager.UpdateAsync(user);
+
             return Json(new {success = true});
         }
 
@@ -333,8 +348,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
 
         private async Task<string> GetSteamId()
         {
-            var user =
-                await _userManager.FindByIdAsync(GetUserId());
+            var user = await GetUser();
 
             var providerKey =
                 user.Logins.First().ProviderKey;
@@ -343,6 +357,14 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 providerKey.Substring(providerKey.LastIndexOf('/') + 1);
 
             return steamId;
+        }
+
+        private async Task<ApplicationUser> GetUser()
+        {
+            var user =
+                await _userManager.FindByIdAsync(GetUserId());
+            
+            return user;
         }
 
         private bool CanCreate()

@@ -50,6 +50,16 @@ namespace DayZTradeCenter.DomainModel
                     m.ToTable("Offers");
                 });
 
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(u => u.Interests)
+                .WithMany() // <- no parameter here because there is no navigation property
+                .Map(m =>
+                {
+                    m.MapLeftKey("UserId");
+                    m.MapRightKey("ItemId");
+                    m.ToTable("Interests");
+                });
+
             modelBuilder.Entity<Scores>()
                 .HasKey(x => x.UserId)
                 .HasRequired(x => x.User);

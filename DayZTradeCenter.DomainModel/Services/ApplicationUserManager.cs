@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using DayZTradeCenter.DomainModel.Entities;
 using Microsoft.AspNet.Identity;
 
@@ -7,6 +8,7 @@ namespace DayZTradeCenter.DomainModel.Services
     public interface IUserManager
     {
         Task SendEmailAsync(string userId, string subject, string body);
+        IQueryable<ApplicationUser> Users { get; }
     }
 
     /// <summary>
