@@ -110,6 +110,11 @@
             }
         </ul>
     }
+    else if (Model.State == TradeStates.Active)
+    {
+        <a href="@Url.Action("Offer", "Trades", new { tradeId = Model.Id })"
+           class="btn btn-primary" role="button">Offer</a>
+    }
     else if (Model.Winner != null && Model.Winner.Id == User.Identity.GetUserId())
     {
         @: You have won this trade. Congratulations!
