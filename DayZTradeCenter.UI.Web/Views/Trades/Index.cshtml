@@ -163,6 +163,30 @@
             defineSearchHandler('#showExpOnly', "&expOnly=");
 
             attachEvtHandler();
+
+            function worker() {
+                var searchType = $("#_searchType").val();
+                var checkedHardcore = $('#showHardcoreOnly').prop("checked");
+                var checkedExpOnly = $('#showExpOnly').prop("checked");
+
+                var params =
+                    "?itemId=" + $("#_itemId").val() + "&searchType=" + searchType
+                        + "&hardcoreOnly=" + checkedHardcore + "&expOnly=" + checkedExpOnly;
+
+                $.ajax({
+                    url: '@Url.Action("Index")' + params,
+                    success: function (data) {
+                        $("#tradesTable").html(data);
+                        attachEvtHandler();
+                    },
+                    complete: function () {
+                        // Schedule the next request when the current one's complete
+                        setTimeout(worker, 5000);
+                    }
+                });
+            }
+
+            setTimeout(worker, 5000);
         });
     </script>
 }
