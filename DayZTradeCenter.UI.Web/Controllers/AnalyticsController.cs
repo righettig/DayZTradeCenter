@@ -28,7 +28,7 @@ namespace DayZTradeCenter.UI.Web.Controllers
         }
 
         // GET: Analytics
-        public ActionResult Index()
+        public ActionResult Index(int? itemId)
         {
             var items = _provider.GetAllItems().ToArray();
 
@@ -58,7 +58,13 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 vm.ItemId = items.First().Id;
             }
 
-            vm.Chart = CreateChart(vm.ItemId);
+            vm.Chart = CreateChart(
+                itemId ?? vm.ItemId); // if specified, shows the trends of the specified item.
+
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_Analytics", vm);
+            }
 
             return View(vm);
         }
