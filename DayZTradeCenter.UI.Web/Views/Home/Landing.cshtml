@@ -60,20 +60,5 @@
 @section scripts {
     @Scripts.Render("~/bundles/landing")
 
-    <script>
-        function worker() {
-            $.ajax({
-                url: '@Url.Action("GetGallery")',
-                success: function(data) {
-                    $("#gallery").html(data);
-                },
-                complete: function() {
-                    // Schedule the next request when the current one's complete
-                    setTimeout(worker, 5000);
-                }
-            });
-        }
-
-        setTimeout(worker, 5000);
-    </script>
+    @Html.Partial("_RefreshTradeGallery")
 }

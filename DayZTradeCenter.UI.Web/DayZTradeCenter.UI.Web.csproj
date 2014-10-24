@@ -452,6 +452,7 @@
     <Content Include="Views\Trades\_ItemsDetails.cshtml" />
     <Content Include="Views\People\_PeopleTable.cshtml" />
     <Content Include="Views\Analytics\_Analytics.cshtml" />
+    <Content Include="Views\Home\_RefreshTradeGallery.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
