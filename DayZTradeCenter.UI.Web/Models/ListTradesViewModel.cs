@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using DayZTradeCenter.DomainModel.Entities;
-using PagedList;
 
 namespace DayZTradeCenter.UI.Web.Models
 {
@@ -10,22 +11,22 @@ namespace DayZTradeCenter.UI.Web.Models
         /// Initializes a new instance of the <see cref="ListTradesViewModel" /> class.
         /// </summary>
         /// <param name="canCreate">if set to <c>true</c> the user is able to create a Trade.</param>
-        /// <param name="userId">The user identifier.</param>
-        /// <param name="trades">The trades.</param>
-        /// <param name="pageNumber">The page number.</param>
-        /// <param name="pageSize">The size of the page.</param>
+        /// <param name="tradeTableViewModel">The trade table view model.</param>
         /// <param name="canCreateANewTrade">if set to <c>true</c> the user is able to create a new Trade.</param>
         /// <param name="search">if set to <c>true</c> the user has done a search.</param>
+        /// <exception cref="System.ArgumentNullException">tradeTableViewModel</exception>
         public ListTradesViewModel(
-            bool canCreate, string userId, 
-            IEnumerable<Trade> trades, int pageNumber, int pageSize, 
-            bool canCreateANewTrade, bool search)
+            bool canCreate, TradeTableViewModel tradeTableViewModel, bool canCreateANewTrade, bool search)
         {
+            if (tradeTableViewModel == null)
+            {
+                throw new ArgumentNullException("tradeTableViewModel");
+            }
+
             _canCreate = canCreate;
             _canCreateANewTrade = canCreateANewTrade;
             _search = search;
-
-            _tradesTableViewModel = new TradeTableViewModel(trades, pageNumber, pageSize, userId, canCreate);
+            _tradesTableViewModel = tradeTableViewModel;
         }
         
         #region Public properties
@@ -52,15 +53,9 @@ namespace DayZTradeCenter.UI.Web.Models
             get { return _canCreateANewTrade; }
         }
 
-        /// <summary>
-        /// Gets the view models for the trades.
-        /// </summary>
-        /// <value>
-        /// The trades view models.
-        /// </value>
-        public IPagedList<TradeViewModel> Trades
+        public TradeTableViewModel Trades
         {
-            get { return _tradesTableViewModel.Trades; }
+            get { return _tradesTableViewModel; }
         }
 
         public IEnumerable<ItemViewModel> Items { get; set; }
@@ -89,12 +84,59 @@ namespace DayZTradeCenter.UI.Web.Models
         public string Name { get; set; }
     }
 
+    public class TradeDetailsViewModel
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TradeDetailsViewModel" /> class.
+        /// </summary>
+        /// <param name="details">The details.</param>
+        /// <param name="trackedItemIds">The tracked item ids.</param>
+        /// <exception cref="System.ArgumentNullException">
+        /// details
+        /// or
+        /// trackedItemIds
+        /// </exception>
+        public TradeDetailsViewModel(TradeDetails details, IEnumerable<int> trackedItemIds)
+        {
+            if (details == null)
+            {
+                throw new ArgumentNullException("details");
+            }
+
+            if (trackedItemIds == null)
+            {
+                throw new ArgumentNullException("trackedItemIds");
+            }
+
+            ItemId = details.Item.Id;
+            ItemName = details.Item.Name;
+            Quantity = details.Quantity;
+            IsTracked = trackedItemIds.Contains(details.Item.Id);
+        }
+
+        public int ItemId { get; set; }
+        public string ItemName { get; set; }
+        public int Quantity { get; set; }
+        public bool IsTracked { get; set; }	
+    }
+
     /// <summary>
     /// A Trade view model.
     /// </summary>
     public class TradeViewModel
     {
+        public int Id { get; set; }
+        
+        public string OwnerId { get; set; }
+        public float OwnerReputation { get; set; }
+
         public bool CanOffer { get; set; }
-        public Trade TradeData { get; set; }
+        public int OffersCount { get; set; }
+
+        public bool IsExperimental { get; set; }
+        public bool IsHardcore { get; set; }
+
+        public IEnumerable<TradeDetailsViewModel> Have { get; set; }
+        public IEnumerable<TradeDetailsViewModel> Want { get; set; }
     }
 }

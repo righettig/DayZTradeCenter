@@ -1,10 +1,16 @@
-﻿@model IEnumerable<DayZTradeCenter.DomainModel.Entities.TradeDetails>
-           
+﻿@model IEnumerable<DayZTradeCenter.UI.Web.Models.TradeDetailsViewModel>
+
 @foreach (var details in Model)
 {
-    <span>@details.Item.Name</span>@:,<span><strong>@details.Quantity</strong></span>
-    <button type="button" class="btn btn-default btn-xs btn-track-item" data-info="@details.Item.Id">
-        <span class="glyphicon glyphicon-plus"></span>
+    <span>@details.ItemName</span>@:,<span><strong>@details.Quantity</strong></span>
+    <button type="button" class="btn btn-default btn-xs btn-track-item" data-info="@details.ItemId">
+        @{
+            var icon =
+                details.IsTracked
+                    ? "glyphicon-minus"
+                    : "glyphicon-plus";
+        }
+        <span class="glyphicon @icon"></span>
     </button>
     <br />
 }

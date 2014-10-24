@@ -1,12 +1,12 @@
 ﻿@using Microsoft.AspNet.Identity
 @using PagedList.Mvc
 
-@model PagedList.IPagedList<DayZTradeCenter.UI.Web.Models.TradeViewModel>
+@model DayZTradeCenter.UI.Web.Models.TradeTableViewModel
 
-@if (Model.Any())
+@if (Model.Trades.Any())
 {
     <div class="table-responsive"
-        @if (!User.IsInRole("Administrator"))
+        @if (!Model.IsAdmin)
         {
             <text>
                 style="margin-left: auto; margin-right: auto; width: 1024px" 
@@ -15,7 +15,7 @@
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
-                    @if (User.IsInRole("Administrator"))
+                    @if (Model.IsAdmin)
                     {
                         <th style="width: 2%">Id</th>
                         <th style="width: 24%">Owner Id</th>
@@ -39,24 +39,24 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var trade in Model)
+                @foreach (var trade in Model.Trades)
                 {
                     <tr>
-                        @if (User.IsInRole("Administrator"))
+                        @if (Model.IsAdmin)
                         {
-                            <td>@trade.TradeData.Id</td>
+                            <td>@trade.Id</td>
                         }
-                        @if (User.IsInRole("Administrator"))
+                        @if (Model.IsAdmin)
                         {
-                            <td>@trade.TradeData.Owner.Id</td>
+                            <td>@trade.OwnerId</td>
                         }
-                        <td>@Html.Partial("_ItemsDetails", trade.TradeData.Have)</td>
-                        <td>@Html.Partial("_ItemsDetails", trade.TradeData.Want)</td>
-                        <td>@trade.TradeData.IsHardcore</td>
-                        <td>@trade.TradeData.IsExperimental</td>
+                        <td>@Html.Partial("_ItemsDetails", trade.Have)</td>
+                        <td>@Html.Partial("_ItemsDetails", trade.Want)</td>
+                        <td>@trade.IsHardcore</td>
+                        <td>@trade.IsExperimental</td>
                         <td>
                             @{
-                                var reputation = trade.TradeData.Owner.GetReputation();
+                                var reputation = trade.OwnerReputation;
                             }
                             @if (reputation > 0)
                             {
@@ -74,26 +74,26 @@
                                 <img src="~/Content/img/new_user.png" />
                             }
                         </td>
-                        <td>@trade.TradeData.Offers.Count</td>
+                        <td>@trade.OffersCount</td>
                         @if (trade.CanOffer)
                         {
                             <td>
                                 <a class="btn btn-default table-btn"
-                                   href="@Url.Action("Offer", new {tradeId = trade.TradeData.Id})">Offer</a>
+                                   href="@Url.Action("Offer", new {tradeId = trade.Id})">Offer</a>
                             </td>
                         }
-                        else if (trade.TradeData.Owner.Id != User.Identity.GetUserId() && !User.IsInRole("Administrator"))
+                        else if (trade.OwnerId != User.Identity.GetUserId() && !Model.IsAdmin)
                         {
                             <td>
                                 <a class="btn btn-default table-btn"
-                                   href="@Url.Action("Withdraw", new {tradeId = trade.TradeData.Id})">Withdraw</a>
+                                   href="@Url.Action("Withdraw", new {tradeId = trade.Id})">Withdraw</a>
                             </td>
                         }
-                        else if (!User.IsInRole("Administrator"))
+                        else if (!Model.IsAdmin)
                         {
                             <td>
                                 <button class="btn btn-default table-btn" 
-                                        onclick='deleteTrade(@trade.TradeData.Id, this)'>Delete</button>
+                                        onclick='deleteTrade(@trade.Id, this)'>Delete</button>
                             </td>
                         }
                     </tr>
@@ -105,7 +105,7 @@
 else
 {
     <div class="panel panel-default" 
-        @if (!User.IsInRole("Administrator")) { 
+        @if (!Model.IsAdmin) { 
             <text>
                 style="margin-left: auto; margin-right: auto; width: 1024px"
             </text>  
@@ -116,16 +116,16 @@ else
     </div>
 }
 
-@if (Model.Any())
+@if (Model.Trades.Any())
 {
-    @:Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @:Page @(Model.Trades.PageCount < Model.Trades.PageNumber ? 0 : Model.Trades.PageNumber) of @Model.Trades.PageCount
 }
 
 <input id="_itemId" type="hidden" value="@ViewBag.ItemId">
 <input id="_searchType" type="hidden" value="@ViewBag.SearchType">
-<input id="_page" type="hidden" value="@Model.PageNumber">
+<input id="_page" type="hidden" value="@Model.Trades.PageNumber">
 
-@Html.PagedListPager(Model, page => Url.Action("Index",
+@Html.PagedListPager(Model.Trades, page => Url.Action("Index",
     new { 
         page, 
         itemId = ViewBag.ItemId, 

@@ -51,7 +51,8 @@ namespace DayZTradeCenter.UI.Web.Controllers
             _userManager = userManager;
         }
 
-        public ActionResult Index(int? itemId, SearchTypes? searchType, int? page, bool? hardcoreOnly, bool? expOnly)
+        public async Task<ActionResult> Index(
+            int? itemId, SearchTypes? searchType, int? page, bool? hardcoreOnly, bool? expOnly)
         {
             var model = _tradeManager.GetActiveTrades(
                 new SearchParams
@@ -70,27 +71,28 @@ namespace DayZTradeCenter.UI.Web.Controllers
             const int pageSize = 10;
             var pageNumber = (page ?? 1);
 
-            var userId = GetUserId();
+            var user = await GetUser();
+            var userId = user.Id;
+            var trackedItemIds = user.Interests.Select(i => i.Id);
+
+            var tradeTableViewModel =
+                new TradeTableViewModel(
+                    model, pageNumber, pageSize, userId, CanCreate(), trackedItemIds);
 
             if (Request.IsAjaxRequest())
             {
-                var tradeTableViewModel =
-                    new TradeTableViewModel(model, pageNumber, pageSize, User.Identity.GetUserId(), CanCreate());
-
-                return PartialView("_TradesTable", tradeTableViewModel.Trades);
+                return PartialView("_TradesTable", tradeTableViewModel);
             }
 
             var vm = new ListTradesViewModel(
                 CanCreate(),
-                userId,
-                model, pageNumber, pageSize,
+                tradeTableViewModel,
                 _tradeManager.CanCreateTrade(userId),
-                searchType.HasValue);
-
-            var items = _tradeManager.GetAllItems();
-
-            vm.Items =
-                items.Select(item => new ItemViewModel { Id = item.Id, Name = item.Name });
+                searchType.HasValue)
+            {
+                Items = _tradeManager.GetAllItems().Select(
+                    item => new ItemViewModel {Id = item.Id, Name = item.Name})
+            };
 
             return View(vm);
         }
