@@ -403,7 +403,7 @@ namespace DayZTradeCenter.DomainModel.Services
 
             // sends a message to the winner.
             var winner = FindUserById(userId);
-            SendMessage(winner, new TradeWonMessage());
+            SendMessage(winner, new TradeWonMessage(tradeId));
 
             // sends a message to those who have not win.
             SendMessage(
