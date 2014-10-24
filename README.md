@@ -37,9 +37,12 @@ It is possible to test the web application using preconfigured accounts without 
   - Security: added authorization checks for user actions, Admin login is now active.Admin can now ban/unban users.
   - Real-time notifications with email support
   - Trade management
+    - It is now possible to specify the condition for each item in a Trade.
+    - support for Trades now have also the "experimental" flag, + search on experimental/hardcore
     - It is now possible to create a Trade for the hardcore hive.
     - Users received a message when a feedback is left.
   - Exchange management
+  - time is saved in GMT instead of local time.
     - SteamId is automatically filled in in the form; …
 …Server & Location are now required fields. Server is a 32 chars max length field, Location is a 64 chars max length field. The date & time field is now required and uses a widget to assist the user picking up the value.
 added tooltip for the Location field; added link…
@@ -58,6 +61,11 @@ added tooltip for the Location field; added link…
     - improved the landing and features pages, features and contact pages
     - validation messages
     - Profile, implemented the "Complete history" feature.
+    - pagination: items, trades,  Items/Trade/Notifications.Delete is now done using ajax & jquery.
+    - Gamification: added "Bravery" score for each user. A +1 bravery score…
+… is assigned when trading with fresh users or with users with lower reputation.
+
+Added People page to see the rank based on the bravery score.
 
 - v0.3.5389.32644:
   - Trade management:
