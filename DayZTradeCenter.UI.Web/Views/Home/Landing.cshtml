@@ -22,8 +22,10 @@
 <div class="jumbotron" style="padding-top: 26px; padding-bottom: 25px">
     <h1 style="margin-top: 5px">DayZ Trade Center</h1>
     <p class="lead">... where you can find everything!</p>
-
-    @Html.Partial("_TradeGallery", Model)
+    
+    <div id="gallery">
+        @Html.Partial("_TradeGallery", Model)
+    </div>
 
     <p><a href="@Url.Action("Index", "Features")" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>
@@ -57,4 +59,21 @@
 
 @section scripts {
     @Scripts.Render("~/bundles/landing")
+
+    <script>
+        function worker() {
+            $.ajax({
+                url: '@Url.Action("GetGallery")',
+                success: function(data) {
+                    $("#gallery").html(data);
+                },
+                complete: function() {
+                    // Schedule the next request when the current one's complete
+                    setTimeout(worker, 5000);
+                }
+            });
+        }
+
+        setTimeout(worker, 5000);
+    </script>
 }

@@ -88,6 +88,15 @@ namespace DayZTradeCenter.UI.Web.Controllers
         }
 
         [AllowAnonymous]
+        public PartialViewResult GetGallery()
+        {
+            var latestTrades = _tradeManager.GetLatestTrades();
+            var hottestTrades = _tradeManager.GetHottestTrades();
+
+            return PartialView("_TradeGallery", new LandingPageViewModel(latestTrades, hottestTrades));
+        }
+
+        [AllowAnonymous]
         public ViewResult Contact()
         {
             return View();
