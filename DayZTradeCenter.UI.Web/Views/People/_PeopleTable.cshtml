@@ -1,0 +1,32 @@
+﻿@model IEnumerable<DayZTradeCenter.DomainModel.Entities.ApplicationUser>
+
+@if (Model.Any())
+{
+    <div class="table-responsive" style="margin-left: auto; margin-right: auto; width: 1024px; margin-top: 30px">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th style="width: 50%">UserName</th>
+                    <th style="width: 50%">Bravery</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.UserName</td>
+                        <td>@user.Scores.Bravery</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="panel panel-default" style="margin-left: auto; margin-right: auto; width: 1024px">
+        <div class="panel-body">
+            There are no users available!
+        </div>
+    </div>
+}

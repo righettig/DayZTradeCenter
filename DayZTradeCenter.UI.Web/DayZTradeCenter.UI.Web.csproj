@@ -448,6 +448,7 @@
     <Content Include="Views\People\Index.cshtml" />
     <Content Include="Views\Profile\_Inbox.cshtml" />
     <Content Include="Views\Trades\_ItemsDetails.cshtml" />
+    <Content Include="Views\People\_PeopleTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

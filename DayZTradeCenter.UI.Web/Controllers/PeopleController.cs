@@ -33,6 +33,11 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 .Where(u => u.Scores.Bravery > 0)
                 .OrderByDescending(u => u.Scores.Bravery);
 
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_PeopleTable", users);
+            }
+
             return View(users);
         }
 

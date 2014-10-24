@@ -12,33 +12,25 @@
         You'll receive a <strong>+1</strong> Bravery score.
     </h5>
 
-@if (Model.Any())
-{
-    <div class="table-responsive" style="margin-left: auto; margin-right: auto; width: 1024px; margin-top: 30px">
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr>
-                    <th style="width: 50%">UserName</th>
-                    <th style="width: 50%">Bravery</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var user in Model)
-                {
-                    <tr>
-                        <td>@user.UserName</td>
-                        <td>@user.Scores.Bravery</td>
-                    </tr>
+<div id="table">
+    @Html.Partial("_PeopleTable", Model)
+</div>
+
+@section scripts {
+    <script>
+        function worker() {
+            $.ajax({
+                url: '@Url.Action("Index")',
+                success: function(data) {
+                    $("#table").html(data);
+                },
+                complete: function() {
+                    // Schedule the next request when the current one's complete
+                    setTimeout(worker, 20 * 1000); // each 20 sec.
                 }
-            </tbody>
-        </table>
-    </div>
-}
-else
-{
-    <div class="panel panel-default" style="margin-left: auto; margin-right: auto; width: 1024px">
-        <div class="panel-body">
-            There are no users available!
-        </div>
-    </div>
+            });
+        }
+
+        setTimeout(worker, 5000);
+    </script>  
 }
