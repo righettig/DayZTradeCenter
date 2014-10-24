@@ -339,7 +339,14 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 return Json(new {success = false});
             }
 
-            user.Interests.Add(item);
+            if (user.Interests.Contains(item))
+            {
+                user.Interests.Remove(item);
+            }
+            else
+            {
+                user.Interests.Add(item);   
+            }
 
             await _userManager.UpdateAsync(user);
 
