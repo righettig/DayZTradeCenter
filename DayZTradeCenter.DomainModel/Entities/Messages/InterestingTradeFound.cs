@@ -14,7 +14,7 @@
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ExchangeDetailsMessage"/> class.
+        /// Initializes a new instance of the <see cref="InterestingTradeFound"/> class.
         /// </summary>
         /// <remarks>
         /// Required by EF.

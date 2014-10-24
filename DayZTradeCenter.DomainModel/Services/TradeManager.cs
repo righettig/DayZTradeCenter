@@ -345,7 +345,7 @@ namespace DayZTradeCenter.DomainModel.Services
             {
                 trade.Offers.Add(user);
 
-                SendMessage(trade.Owner, new OfferReceivedMessage());
+                SendMessage(trade.Owner, new OfferReceivedMessage(tradeId));
 
                 _tradesRepository.Update(trade);
                 _tradesRepository.SaveChanges();
