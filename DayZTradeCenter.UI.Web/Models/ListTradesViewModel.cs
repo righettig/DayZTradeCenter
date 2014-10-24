@@ -112,12 +112,14 @@ namespace DayZTradeCenter.UI.Web.Models
             ItemName = details.Item.Name;
             Quantity = details.Quantity;
             IsTracked = trackedItemIds.Contains(details.Item.Id);
+            ItemCategory = details.Item.Details.Category;
         }
 
         public int ItemId { get; set; }
         public string ItemName { get; set; }
         public int Quantity { get; set; }
-        public bool IsTracked { get; set; }	
+        public bool IsTracked { get; set; }
+        public ItemCategories ItemCategory { get; private set; }
     }
 
     /// <summary>

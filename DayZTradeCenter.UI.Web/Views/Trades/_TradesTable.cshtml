@@ -50,8 +50,8 @@
                         {
                             <td>@trade.OwnerId</td>
                         }
-                        <td>@Html.Partial("_ItemsDetails", trade.Have)</td>
-                        <td>@Html.Partial("_ItemsDetails", trade.Want)</td>
+                        <td>@Html.Partial("_ItemsDetails", trade.Have.ToArray())</td>
+                        <td>@Html.Partial("_ItemsDetails", trade.Want.ToArray())</td>
                         <td>@trade.IsHardcore</td>
                         <td>@trade.IsExperimental</td>
                         <td>

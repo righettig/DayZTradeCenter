@@ -1,16 +1,40 @@
-﻿@model IEnumerable<DayZTradeCenter.UI.Web.Models.TradeDetailsViewModel>
+﻿@using DayZTradeCenter.DomainModel.Entities
 
-@foreach (var details in Model)
+@model DayZTradeCenter.UI.Web.Models.TradeDetailsViewModel[]
+
+@for (var i = 0; i < Model.Length; i++)
 {
-    <span>@details.ItemName</span>@:,<span><strong>@details.Quantity</strong></span>
-    <button type="button" class="btn btn-default btn-xs btn-track-item" data-info="@details.ItemId">
-        @{
-            var icon =
-                details.IsTracked
-                    ? "glyphicon-minus"
-                    : "glyphicon-plus";
-        }
-        <span class="glyphicon @icon"></span>
-    </button>
-    <br />
+    var details = Model[i];
+
+    var color = "red"; // Ammunition || Attachments || Magazines || Weapons
+    switch (details.ItemCategory)
+    {
+        case ItemCategories.Clothing:
+            color = "#FF9900";
+            break;
+        case ItemCategories.Equipment:
+            color = "slategrey";
+            break;
+        case ItemCategories.FoodAndDrink:
+            color = "#33CC33";
+            break;
+        case ItemCategories.Medical:
+            color = "lightskyblue";
+            break;
+    }
+    <div style="border-left: 5px @color solid; padding-left: 3px; @if (i != Model.Length - 1)
+                                                                  {
+                                                                      <text> margin-bottom: 3px</text>
+                                                                  }">
+        <span>@details.ItemName</span>,<span><strong>@details.Quantity</strong></span>
+        <button type="button" class="btn btn-default btn-xs btn-track-item" data-info="@details.ItemId">
+            @{
+                var icon =
+                    details.IsTracked
+                        ? "glyphicon-minus"
+                        : "glyphicon-plus";
+            }
+            <span class="glyphicon @icon"></span>
+        </button>
+    </div>
 }
