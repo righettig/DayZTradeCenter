@@ -74,10 +74,10 @@ namespace DayZTradeCenter.UI.Web.Controllers
                 });
             }
 
-            var vm = new DashboardViewModel(latestTrades, hottestTrades)
+            var vm = new DashboardViewModel(
+                latestTrades, hottestTrades, user.Id, _tradeManager.GetOffersByUser(user.Id))
             {
                 MyTrades = _tradeManager.GetTradesByUser(user.Id),
-                MyOffers = _tradeManager.GetOffersByUser(user.Id),
 
                 History = _profileManager.GetHistoryByUserId(user.Id),
 

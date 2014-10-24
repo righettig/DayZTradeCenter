@@ -1,6 +1,4 @@
-﻿@using Microsoft.AspNet.Identity
-
-@model IEnumerable<DayZTradeCenter.DomainModel.Entities.Trade>
+﻿@model IEnumerable<DayZTradeCenter.UI.Web.Models.TradeGalleryViewModel>
 
 @{
     const int pageSize = 4;
@@ -31,13 +29,13 @@
                         {
                             <div class="item @if(i==0){<text>active</text>}">
                                 <div class="row">
-                                    @foreach (var trade in Model.Skip(i * pageSize).Take(pageSize))
+                                    @foreach (var vm in Model.Skip(i * pageSize).Take(pageSize))
                                     {
                                         <div class="col-md-3">
-                                            <a href="@Url.Action("Details", "Trades", new { id = trade.Id })" class="thumbnail">
+                                            <a href="@Url.Action("Details", "Trades", new { id = vm.Trade.Id })" class="thumbnail">
                                                 H
                                                 <ul>
-                                                    @foreach (var itemDetails in trade.Have)
+                                                    @foreach (var itemDetails in vm.Trade.Have)
                                                     {
                                                         <li>
                                                             @itemDetails.Item.Name, Q: @itemDetails.Quantity
@@ -47,7 +45,7 @@
 
                                                 W
                                                 <ul>
-                                                    @foreach (var itemDetails in trade.Want)
+                                                    @foreach (var itemDetails in vm.Trade.Want)
                                                     {
                                                         <li>
                                                             @itemDetails.Item.Name, Q: @itemDetails.Quantity
@@ -57,7 +55,7 @@
 
                                                 T. Rep:
                                                 @{
-                                                    var reputation = trade.Owner.GetReputation();
+                                                    var reputation = vm.Trade.Owner.GetReputation();
                                                 }
                                                 @if (reputation > 0)
                                                 {
@@ -74,18 +72,18 @@
                                                 {
                                                     <img src="~/Content/img/new_user.png" />
                                                 }
-                                                # Offers: @trade.Offers.Count <br/>
-                                                @if (trade.IsHardcore)
+                                                # Offers: @vm.Trade.Offers.Count <br/>
+                                                @if (vm.Trade.IsHardcore)
                                                 {
                                                     <span style="color: red">1st person only</span>
                                                 }
-                                                @if (trade.IsExperimental)
+                                                @if (vm.Trade.IsExperimental)
                                                 {
                                                     <span style="color: green">EXPERIMENTAL</span>
                                                 }
                                             </a>
-                                            <a href="@Url.Action("Offer", "Trades", new { tradeId = trade.Id })" 
-                                               class="btn btn-primary @if (trade.Owner.Id == User.Identity.GetUserId())
+                                            <a href="@Url.Action("Offer", "Trades", new { tradeId = vm.Trade.Id })" 
+                                               class="btn btn-primary @if (!vm.CanOffer)
                                                                       {
                                                                           <text>disabled</text>
                                                                       }"
