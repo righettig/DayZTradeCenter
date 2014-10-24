@@ -54,24 +54,8 @@
                                                 </ul>
 
                                                 T. Rep:
-                                                @{
-                                                    var reputation = vm.Trade.Owner.GetReputation();
-                                                }
-                                                @if (reputation > 0)
-                                                {
-                                                    if (reputation > 4.5)
-                                                    {
-                                                        <img src="~/Content/img/top_user.png" />
-                                                    }
-                                                    else
-                                                    {
-                                                        @reputation
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    <img src="~/Content/img/new_user.png" />
-                                                }
+                                                @Html.Partial("_ReputationWidget", vm.Trade.Owner.GetReputation())
+
                                                 # Offers: @vm.Trade.Offers.Count <br/>
                                                 @if (vm.Trade.IsHardcore)
                                                 {

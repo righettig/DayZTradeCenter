@@ -54,26 +54,7 @@
                         <td>@Html.Partial("_ItemsDetails", trade.Want.ToArray())</td>
                         <td>@trade.IsHardcore</td>
                         <td>@trade.IsExperimental</td>
-                        <td>
-                            @{
-                                var reputation = trade.OwnerReputation;
-                            }
-                            @if (reputation > 0)
-                            {
-                                if (reputation > 4.5)
-                                {
-                                    <img src="~/Content/img/top_user.png" />
-                                }
-                                else
-                                {
-                                    @reputation
-                                }
-                            }
-                            else
-                            {
-                                <img src="~/Content/img/new_user.png" />
-                            }
-                        </td>
+                        <td>@Html.Partial("_ReputationWidget", trade.OwnerReputation)</td>
                         <td>@trade.OffersCount</td>
                         @if (trade.CanOffer)
                         {

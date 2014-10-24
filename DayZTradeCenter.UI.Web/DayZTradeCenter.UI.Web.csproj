@@ -453,6 +453,7 @@
     <Content Include="Views\People\_PeopleTable.cshtml" />
     <Content Include="Views\Analytics\_Analytics.cshtml" />
     <Content Include="Views\Home\_RefreshTradeGallery.cshtml" />
+    <Content Include="Views\Shared\_ReputationWidget.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

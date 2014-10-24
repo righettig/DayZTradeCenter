@@ -69,24 +69,7 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <strong>Reputation:</strong>
-                            @{
-                                var reputation = offer.GetReputation();
-                            }
-                            @if (reputation > 0)
-                            {
-                                if (reputation > 4.5)
-                                {
-                                    <img src="~/Content/img/top_user.png" />
-                                }
-                                else
-                                {
-                                    @reputation
-                                }
-                            }
-                            else
-                            {
-                                <img src="~/Content/img/new_user.png" />
-                            }
+                            @Html.Partial("_ReputationWidget", offer.GetReputation())
 
                             @if (offer.Feedbacks != null && offer.Feedbacks.Any())
                             {
