@@ -34,7 +34,30 @@ It is possible to test the web application using preconfigured accounts without 
   - Items tracking
 
 - v0.4.5408.29497:
-  - TODO
+  - Security: added authorization checks for user actions, Admin login is now active.Admin can now ban/unban users.
+  - Real-time notifications with email support
+  - Trade management
+    - It is now possible to create a Trade for the hardcore hive.
+    - Users received a message when a feedback is left.
+  - Exchange management
+    - SteamId is automatically filled in in the form; …
+…Server & Location are now required fields. Server is a 32 chars max length field, Location is a 64 chars max length field. The date & time field is now required and uses a widget to assist the user picking up the value.
+added tooltip for the Location field; added link…
+… to iZurvive; added regex validation for the location field.
+  - Items from DayZ Wiki
+  - Web api
+    - Added web api support: api/trends, api/items/most_wanted, api/items/most_offered
+  - Analytics
+    - daily trends by item
+    - Improved GetMostOffered/WantedItem: now it takes into account all the items contained in a trade (previously only the first item was counted)
+    - trends are no longer fake data, refreshed through ajax calls
+    - added most wanted/offered category/subcategory
+  - UI/UX improvements
+    - UI, Dashboard, added ranking and next reputation target.
+    - Other minor improvements.it is possible to quickly hide non-hardcore trades.
+    - improved the landing and features pages, features and contact pages
+    - validation messages
+    - Profile, implemented the "Complete history" feature.
 
 - v0.3.5389.32644:
   - Trade management:
