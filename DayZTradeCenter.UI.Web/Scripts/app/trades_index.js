@@ -23,6 +23,10 @@
                     // deletes the corresponding row of the table.
                     tableRow.remove();
 
+                    // enables the Add btn & hides the alert message
+                    $('#addTradeBtn').removeClass("disabled");
+                    $('.text-danger').hide();
+
                     alertify.success('Ok');
                 } else {
                     alertify.error(result.error);
