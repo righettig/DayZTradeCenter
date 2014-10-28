@@ -8,10 +8,24 @@
             display: block;
             margin-right: auto;
         }
+
+        @@media (min-width: 323px) and (max-width: 360px) {
+            #title {
+                font-size: 27px !important;
+            }
+        }
+
+        @@media (max-width: 322px) {
+            #title {
+                font-size: 26px !important;
+            }
+        }
     </style>
 }
 
-<h2 style="margin-left: 370px; margin-bottom: 50px">The DayZ Trade Center</h2>
+<h2 id="title" style="margin-left: auto; margin-right: auto; margin-bottom: 30px; display: table">
+    The DayZ Trade Center
+</h2>
 
 <div class="container-fluid">
     <div class="row" style="padding-top: 10px">
@@ -50,40 +64,54 @@
             </p>
         </div>
     </div>
-</div>
-
-<p style="margin-top: 35px">
-    Bohemia Interactive and DAYZ and all associated logos and designs are trademarks or registered trademarks of <strong>Bohemia Interactive</strong> a.s. DAYZ is created by <strong>Dean Hall</strong>.
-</p>
-
-<p style="margin-top: 30px">
-    <h4>
-        The project is auto-funded and <a href="https://github.com/righettig/DayZTradeCenter">open-source</a>.
-        If you like it and you want to support it you can donate to
-    </h4>
-</p>
-
-<div class="row" style="margin-top: 25px">
-    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" style="margin: 0 auto;width:250px;">
-        <input type="hidden" name="cmd" value="_s-xclick">
-        <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHNwYJKoZIhvcNAQcEoIIHKDCCByQCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYA8RHbJ2HPAmfVBoNZANxuimG+b3gLSPNQlLiPPKdX3ekYz2Dq1x1PBKg9bQBxq5Jso+9bJGNRndADISt/KOva1J9y9ePocZ2czhNT9lAEl4p2mFOh1nkSacJiqXQxDIP5dxiIQ6yb9MSpjswlz96sbWvZpI6+VnFtpe5tEJs3YTDELMAkGBSsOAwIaBQAwgbQGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQIwKC/q1CmPV6AgZCsfJX2oi7KazR1YpNgeiqi0DyR54xOLC27axELYkR/IlnqqUNYfQjzR+MKeZG6z3l3793IfY76aJANJjpSAhsZUxiamBPeDp/qx+f9VRTf5I/XczhV8JElA9dGov7To+QIfOAAc1tvHp+ALCvjuYf3jvAK1MvVheirO96sQq+KmdhISxeBkb6kBM2Enf8m0JGgggOHMIIDgzCCAuygAwIBAgIBADANBgkqhkiG9w0BAQUFADCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wHhcNMDQwMjEzMTAxMzE1WhcNMzUwMjEzMTAxMzE1WjCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMFHTt38RMxLXJyO2SmS+Ndl72T7oKJ4u4uw+6awntALWh03PewmIJuzbALScsTS4sZoS1fKciBGoh11gIfHzylvkdNe/hJl66/RGqrj5rFb08sAABNTzDTiqqNpJeBsYs/c2aiGozptX2RlnBktH+SUNpAajW724Nv2Wvhif6sFAgMBAAGjge4wgeswHQYDVR0OBBYEFJaffLvGbxe9WT9S1wob7BDWZJRrMIG7BgNVHSMEgbMwgbCAFJaffLvGbxe9WT9S1wob7BDWZJRroYGUpIGRMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbYIBADAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBBQUAA4GBAIFfOlaagFrl71+jq6OKidbWFSE+Q4FqROvdgIONth+8kSK//Y/4ihuE4Ymvzn5ceE3S/iBSQQMjyvb+s2TWbQYDwcp129OPIbD9epdr4tJOUNiSojw7BHwYRiPh58S1xGlFgHFXwrEBb3dgNbMUa+u4qectsMAXpVHnD9wIyfmHMYIBmjCCAZYCAQEwgZQwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tAgEAMAkGBSsOAwIaBQCgXTAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0xNDEwMDExMzAwMTZaMCMGCSqGSIb3DQEJBDEWBBQA/scPQYzxj8gTriFciXmKuXGvqjANBgkqhkiG9w0BAQEFAASBgFAIPegPeYpejwLhlqERjnbdgYHwwKDzupy3x/Y/iEAlB1YZRSOISX+OTk4ZphRZvIJkfbAc/uOM4E2ThP2P8CVlLf7NA/KFFvlC2cO02cgDaW48sf1tDIuduG9HUp+yH8XcAn8gifrXz2L7cEz46T+ZayyLfwtapxbLvL2eLVLg-----END PKCS7-----
+    
+    <div class="row">
+        <div class="col-md-12">
+            <p style="margin-top: 35px">
+                Bohemia Interactive and DAYZ and all associated logos and designs are trademarks or registered trademarks of <strong>Bohemia Interactive</strong> a.s. DAYZ is created by <strong>Dean Hall</strong>.
+            </p>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <p style="margin-top: 30px">
+                <h4>
+                    The project is auto-funded and <a href="https://github.com/righettig/DayZTradeCenter">open-source</a>.
+                    If you like it and you want to support it you can donate to
+                </h4>
+            </p>
+        </div>
+    </div>
+    
+    <div class="row" style="margin-top: 10px">
+        <div class="col-md-12">
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" style="text-align: center">
+                <input type="hidden" name="cmd" value="_s-xclick">
+                <input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
 ">
-        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-        <img alt="" border="0" src="https://www.paypalobjects.com/it_IT/i/scr/pixel.gif" width="1" height="1">
-    </form>
+                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                <img alt="" border="0" src="https://www.paypalobjects.com/it_IT/i/scr/pixel.gif" width="1" height="1">
+            </form>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <p style="margin-top: 30px">
+                All images sources:
+                <ul>
+                    <li>
+                        <strong>Nick Frost</strong>, <a href="https://www.iconfinder.com/iconsets/ballicons-free">here</a> licensed under the <a href="http://creativecommons.org/licenses/by/3.0/">Creative commons 3.0</a>
+                    </li>
+                    <li>
+                        <strong>Webdesigner Depot</strong>, <a href="http://www.webdesignerdepot.com/">here</a>
+                    </li>
+                    <li>
+                        <strong>OmmoZoubayr</strong>, <a href="http://www.ommozoubayr.esy.es">here</a>
+                    </li>
+                </ul>
+            </p>
+        </div>
+    </div>
 </div>
-
-<p style="margin-top: 25px">
-    All images sources:
-    <ul>
-        <li>
-            <strong>Nick Frost</strong>, <a href="https://www.iconfinder.com/iconsets/ballicons-free">here</a> licensed under the <a href="http://creativecommons.org/licenses/by/3.0/">Creative commons 3.0</a>
-        </li>
-        <li>
-            <strong>Webdesigner Depot</strong>, <a href="http://www.webdesignerdepot.com/">here</a>
-        </li>
-        <li>
-            <strong>OmmoZoubayr</strong>, <a href="http://www.ommozoubayr.esy.es">here</a>
-        </li>
-    </ul>
-</p>
