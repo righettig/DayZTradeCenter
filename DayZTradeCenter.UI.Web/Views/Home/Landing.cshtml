@@ -43,12 +43,6 @@
                 font-size: 15px !important;
             }
         }
-
-        @@media (min-width: 768px) {
-            .col-sm-4 hr {
-                display: none
-            }
-        }
     </style>
     
     @Styles.Render("~/Content/trades")
@@ -75,7 +69,7 @@
                 Trade your items with a <strong>secure</strong> and <strong>reliable</strong> reputation system.
             </p>
             <p><a class="btn btn-default" href="@Url.Action("Index", "Features")">Learn more &raquo;</a></p>
-            <hr />
+            <hr class="visible-xs-block"/>
         </div>
         <div class="col-sm-4">
             <img class="center-block" src="../../Content/img/feature_messages.png" alt="" />
@@ -84,7 +78,7 @@
                 Meet other people with our exchange system.
             </p>
             <p><a class="btn btn-default" href="@Url.Action("Index", "Features")">Learn more &raquo;</a></p>
-            <hr />
+            <hr class="visible-xs-block" />
         </div>
         <div class="col-sm-4">
             <img class="center-block" src="../../Content/img/feature_analytics.png" alt="" />
