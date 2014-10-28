@@ -85,6 +85,9 @@ namespace DayZTradeCenter.UI.Web
             bundles.Add(new StyleBundle("~/Content/pagedlist").Include(
                 "~/Content/PagedList.css"));
 
+            bundles.Add(new StyleBundle("~/Content/trades").Include(
+                "~/Content/TradeGallery.css"));
+
             #endregion
 
             // Set EnableOptimizations to false for debugging. For more information,
