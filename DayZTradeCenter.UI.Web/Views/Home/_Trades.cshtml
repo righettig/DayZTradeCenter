@@ -17,65 +17,97 @@
                         {
                             <li data-target="#Carousel"
                                 data-slide-to="@i"
-                                @if (i == 0) {  @: class="active"
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }>
+                                @if (i == 0) {    
+                                    @: class="active"
+                                }>
                             </li>
                         }
                     </ol>
 
                     <!-- #region .carousel-inner -->
-                    <div class="carousel-inner">
+                    <div class="carousel-inner" style="padding-bottom: 10px">
+                        <!-- 'padding-bottom' added to avoid cutting the shadow -->
                         @for (var i = 0; i < Math.Ceiling((double)Model.Count() / pageSize); i++)
                         {
                             <div class="item @if(i==0){<text>active</text>}">
-                                <div class="row">
-                                    @foreach (var vm in Model.Skip(i * pageSize).Take(pageSize))
-                                    {
-                                        <div class="col-md-3">
-                                            <a href="@Url.Action("Details", "Trades", new { id = vm.Trade.Id })" class="thumbnail">
-                                                H
-                                                <ul>
-                                                    @foreach (var itemDetails in vm.Trade.Have)
-                                                    {
-                                                        <li>
-                                                            @itemDetails.Item.Name, Q: @itemDetails.Quantity
-                                                        </li>
-                                                    }
-                                                </ul>
+                                <!-- #region Trades -->
+                                <div class="container">
+                                    <div class="row">
+                                        @foreach (var vm in Model.Skip(i*pageSize).Take(pageSize))
+                                        {
+                                            <div class="col-md-3" data-target="@Url.Action("Details", "Trades", new {id = vm.Trade.Id})">
+                                                <div class="trade">
+                                                    <div class="border">
+                                                        <div class="box">
+                                                            <div>
+                                                                <p>H</p>
+                                                                <ul>
+                                                                    @foreach (var itemDetails in vm.Trade.Have)
+                                                                    {
+                                                                        <li>
+                                                                            @itemDetails.Quantity @itemDetails.Item.Name
+                                                                        </li>
+                                                                    }
+                                                                </ul>
+                                                            </div>
+                                                            <div>
+                                                                <p>W</p>
+                                                                <ul>
+                                                                    @foreach (var itemDetails in vm.Trade.Want)
+                                                                    {
+                                                                        <li>
+                                                                            @itemDetails.Quantity @itemDetails.Item.Name
+                                                                        </li>
+                                                                    }
+                                                                </ul>
+                                                            </div>
 
-                                                W
-                                                <ul>
-                                                    @foreach (var itemDetails in vm.Trade.Want)
-                                                    {
-                                                        <li>
-                                                            @itemDetails.Item.Name, Q: @itemDetails.Quantity
-                                                        </li>
-                                                    }
-                                                </ul>
+                                                            <hr />
+                                                            <div class="trade-info">
+                                                                @Html.Partial("_ReputationWidget", vm.Trade.Owner.GetReputation())
+                                                            </div>
 
-                                                T. Rep:
-                                                @Html.Partial("_ReputationWidget", vm.Trade.Owner.GetReputation())
+                                                            <hr />
+                                                            <div class="trade-info">
+                                                                <span class="badge">@vm.Trade.Offers.Count</span>
+                                                            </div>
 
-                                                # Offers: @vm.Trade.Offers.Count <br/>
-                                                @if (vm.Trade.IsHardcore)
-                                                {
-                                                    <span style="color: red">1st person only</span>
-                                                }
-                                                @if (vm.Trade.IsExperimental)
-                                                {
-                                                    <span style="color: green">EXPERIMENTAL</span>
-                                                }
-                                            </a>
-                                            <a href="@Url.Action("Offer", "Trades", new { tradeId = vm.Trade.Id })" 
-                                               class="btn btn-primary @if (!vm.CanOffer)
-                                                                      {
-                                                                          <text>disabled</text>
-                                                                      }"
-                                               role="button">Offer</a>
-                                        </div>
-                                    }
-                                </div><!--.row-->
-                            </div><!--.item-->
+                                                            @if (vm.Trade.IsHardcore || vm.Trade.IsExperimental)
+                                                            {
+                                                                <hr />
+                                                                <div class="trade-info">
+                                                                    @if (vm.Trade.IsHardcore && vm.Trade.IsExperimental)
+                                                                    {
+                                                                        @:1st person | Exp.
+                                                                    }
+                                                                    else if (vm.Trade.IsHardcore)
+                                                                    {
+                                                                        @:1st person
+                                                                    }
+                                                                    else if (vm.Trade.IsExperimental)
+                                                                    {
+                                                                        @:Exp.
+                                                                    }
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                    </div>
+
+                                                    <a href="@Url.Action("Offer", "Trades", new {tradeId = vm.Trade.Id})"
+                                                       class="btn btn-primary @if (!vm.CanOffer)
+                                                                              {
+                                                                                  <text>disabled</text>
+                                                                              }"
+                                                       style="display: table; margin: 0 auto; margin-top: 4px; margin-bottom: 1px"
+                                                       role="button">Offer</a>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                <!-- #endregion -->
+                            </div>
+                            <!--.item-->
                         }
                     </div>
                     <!-- #endregion -->
