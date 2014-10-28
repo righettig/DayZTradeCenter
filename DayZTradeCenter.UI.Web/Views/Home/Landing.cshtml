@@ -15,6 +15,32 @@
             display: block;
             margin-right: auto;
         }
+
+        @@media (min-width: 361px) and (max-width: 398px) {
+            h1 {
+                font-size: 31px !important;
+            }
+
+            .lead { 
+                font-size: 17px !important;
+            }
+        }
+        @@media (min-width: 323px) and (max-width: 360px) {
+            h1 {
+                font-size: 27px !important;
+            }
+        }
+        @@media (max-width: 322px) {
+            h1 {
+                font-size: 26px !important;
+            }
+        }
+
+        @@media (max-width: 360px) {
+            .lead { 
+                font-size: 15px !important;
+            }
+        }
     </style>
     
     @Styles.Render("~/Content/trades")
