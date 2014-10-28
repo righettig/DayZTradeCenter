@@ -9,6 +9,17 @@
             margin-right: auto;
         }
 
+        #title {
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 30px;
+            display: table
+        }
+
+        .col-sm-4 hr {
+            margin-bottom: 0;
+        }
+
         @@media (min-width: 323px) and (max-width: 360px) {
             #title {
                 font-size: 27px !important;
@@ -20,10 +31,30 @@
                 font-size: 26px !important;
             }
         }
+
+        @@media (max-width: 767px) {
+            .col-sm-4 {
+                padding-top: 35px !important;
+            }
+
+            #title {
+                margin-bottom: -5px;
+            }
+
+            #bohemia-trademarks { 
+                margin-top: 20px !important
+            }
+        }
+    
+        @@media (min-width: 768px) {
+            .col-sm-4 hr {
+                display: none
+            }
+        }
     </style>
 }
 
-<h2 id="title" style="margin-left: auto; margin-right: auto; margin-bottom: 30px; display: table">
+<h2 id="title">
     The DayZ Trade Center
 </h2>
 
@@ -39,6 +70,7 @@
                 The reputation is linked to users' Steam account so it is not possible to create fake accounts and boost the reputation. <br />
                 Useful charts show the trends of users reputation.
             </p>
+            <hr />
         </div>
         <div class="col-sm-4">
             <img src="../../Content/img/feature_messages.png" alt="" class="center-block" />
@@ -49,6 +81,7 @@
             <p>
                 Plan your exchange by using a handy messaging system.
             </p>
+            <hr />
         </div>
         <div class="col-sm-4">
             <img src="../../Content/img/feature_analytics.png" alt="" class="center-block" />
@@ -62,12 +95,13 @@
             <p>
                 The data is available for everyone through @Html.ActionLink("web api", "WebApi", "Home").
             </p>
+            <hr />
         </div>
     </div>
     
     <div class="row">
         <div class="col-md-12">
-            <p style="margin-top: 35px">
+            <p id="bohemia-trademarks" style="margin-top: 35px">
                 Bohemia Interactive and DAYZ and all associated logos and designs are trademarks or registered trademarks of <strong>Bohemia Interactive</strong> a.s. DAYZ is created by <strong>Dean Hall</strong>.
             </p>
         </div>
