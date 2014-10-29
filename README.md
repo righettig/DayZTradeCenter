@@ -30,6 +30,42 @@ It is possible to test the web application using preconfigured accounts without 
 
 ## Release notes
 
+- v0.5:
+  - Items tracking
+
+- v0.4.5408.29497:
+  - Security
+    - Authorization checks for user actions
+    - Admin login is now active.
+    - Admin can now ban/unban users.
+  - Real-time notifications, also by email.
+  - Trade management
+    - It is now possible to specify the condition for each item in a Trade.
+    - Support for Trades in the experimental/hardcore hives. Updated search.
+    - Users received a message when a feedback is left.
+  - Exchange management
+    - The exchange time is saved in GMT instead of local time.
+    - SteamId is automatically filled in in the form. Server & Location are now required fields. Server is a 32 chars max length field, Location is a 64 chars max length field. Location is using iZurvive coordinates.
+    - The date & time field is now required and uses a widget to assist the user picking up the value.
+  - Item management
+    - Items are modeled after the corresponding DayZ Wiki entries.
+  - Web api
+    - Added api/trends, api/items/most_wanted, api/items/most_offered
+  - Analytics
+    - Daily trends by item
+    - Improved GetMostOffered/WantedItem: now it takes into account all the items contained in a trade (previously only the first item was counted)
+    - Added most wanted/offered category/subcategory
+  - UI/UX improvements
+    - Dashboard, added ranking and next reputation target.
+    - Other minor improvements. It is possible to quickly hide non-hardcore trades.
+    - Improved the Landing and Features pages, added the Contact page.
+    - Profile, implemented the "Complete history" feature.
+    - Items & Trades now have pagination.
+    - Items/Trade/Notifications.Delete is now done using ajax & jquery.
+  - Gamification
+    - added "Bravery" score for each user. A +1 "Bravery" score is assigned when trading with fresh users or with users with lower reputation.
+    - Added the People page to see the rank based on the bravery score.
+
 - v0.3.5389.32644:
   - Trade management:
     1. Users can create trades (H+W) with multiple items and quantity
